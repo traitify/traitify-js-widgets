@@ -2,7 +2,7 @@
 Traitify.js
 ===============
 
-This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make ajax requests.
+This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari).
 
 Html:
 
