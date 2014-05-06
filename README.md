@@ -1,3 +1,4 @@
+
 Traitify Slider
 ===============
 
@@ -12,11 +13,13 @@ How to initialize:
         <div class="traitify">
         </div>
     </div>
+
     <script>
         Traitify.setPublicKey("Your public key");
-        Traitify.setAssessmentId("Your assessment Id");
+        var setAssessmentId = "Your assessment Id";
 
-        Traitify.slideDeck(".traitify", function(){
-            this.resultsWidget(".traitify");
+        Traitify.ui.slideDeck(assessmentId, ".traitify", function(){
+            Traitify.ui.resultsProp(assessmentId, ".traitify");
         });
     </script>
+
