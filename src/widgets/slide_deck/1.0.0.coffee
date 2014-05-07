@@ -269,7 +269,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
         slideDeck.setProgressBar()
-        if slideDeck.fetch("slide").length is 2 
+        if slideDeck.fetch("slide").length is 1 
           slideDeckCallBack()
 
         addSlideTimer = new Date()
@@ -303,9 +303,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       me.onclick = (event)->
         unless slideLock
           slideLock = true
+          addSlide "true"
           unless slideDeck.fetch("slide").length is 1
             advanceSlide()
-            addSlide "true"
           else
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
 
@@ -442,12 +442,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
           imageUrl: imageSrc
           id: data[key].id
         )
-
-    slides.push partial("slide",
-      caption: "&nbsp;"
-      imageUrl: "https://s3.amazonaws.com/traitify-cdn/images/black_transparent/10.png"
-      id: ""
-    )
         
 
     slides = slides.join("")

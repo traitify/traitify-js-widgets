@@ -257,7 +257,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
   CONTROLLER
    */
   slideDeck.setProgressBar = function() {
-    return slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength + 1) * 100) + "%";
+    return slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength) * 100) + "%";
   };
 
   /*
@@ -315,9 +315,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       me.onclick = function(event) {
         if (!slideLock) {
           slideLock = true;
+          addSlide("true");
           if (slideDeck.fetch("slide").length !== 1) {
             advanceSlide();
-            addSlide("true");
           } else {
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%";
           }
@@ -465,11 +465,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
         }));
       }
     }
-    slides.push(partial("slide", {
-      caption: "&nbsp;",
-      imageUrl: "https://s3.amazonaws.com/traitify-cdn/images/black_transparent/10.png",
-      id: ""
-    }));
     slides = slides.join("");
     return div({
       "class": "slides"
