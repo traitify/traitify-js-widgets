@@ -1,4 +1,4 @@
-window.Traitify.ui.slideDeck = (assessmentId, selector, finished)->
+window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
   slideLock = false
 
   orientation = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -269,11 +269,10 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, finished)->
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
         slideDeck.setProgressBar()
-        if slideDeck.fetch("slide").length is 1
-          slideDeck.finishedCallback()
 
         addSlideTimer = new Date()
       )
+
 
     advanceSlide = ->
       return false  if slideDeck.fetch("slide").length is 1
@@ -302,8 +301,13 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, finished)->
       me.onclick = (event)->
         unless slideLock
           slideLock = true
-          advanceSlide()
-          addSlide "true"
+          unless slideDeck.fetch("slide").length is 1
+            advanceSlide()
+            addSlide "true"
+          else
+            slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
+            if slideDeck.fetch("slide").length is 1 
+              slideDeckCallBack()
 
         if event.preventDefault  then event.preventDefault() else event.returnValue = false
 
@@ -379,7 +383,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, finished)->
     slideDeck.element = document.getElementById(selector.replace("#", ""))
   else
     slideDeck.element = document.getElementsByClassName(selector.replace(".", ""))[0]
-  slideDeck.finishedCallback = (if finished then finished else slideDeck.finishedCallback)
+
   slideDeck.retina = window.devicePixelRatio > 1
   data = (attr) ->
     @element.getAttribute "data-" + attr
@@ -438,6 +442,13 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, finished)->
           imageUrl: imageSrc
           id: data[key].id
         )
+
+        slides.push partial("slide",
+          caption: "&nbsp;"
+          imageUrl: "https://s3.amazonaws.com/traitify-cdn/images/black_transparent/10.png"
+          id: ""
+        )
+        
 
     slides = slides.join("")
     div
