@@ -272,10 +272,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       slideId = slideDeck.currentSlide.getAttribute("data-id");
       return Traitify.addSlide(assessmentId, slideId, value, slideTime, function() {
         slideDeck.setProgressBar();
-        if (slideDeckCallBack && slideDeck.fetch("slide").length === 1) {
+        if (slideLength == 1) {
           slideDeckCallBack();
-          slideDeckCallBack = null;
-          console.log("triggered callback");
         }
         return addSlideTimer = new Date();
       });
