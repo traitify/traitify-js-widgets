@@ -269,6 +269,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
         slideDeck.setProgressBar()
+        if slideDeck.fetch("slide").length is 1 
+          slideDeckCallBack()
+          slideDeckCallBack = function(){}
 
         addSlideTimer = new Date()
       )
@@ -306,8 +309,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
             addSlide "true"
           else
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
-            if slideDeck.fetch("slide").length is 1 
-              slideDeckCallBack()
 
         if event.preventDefault  then event.preventDefault() else event.returnValue = false
 

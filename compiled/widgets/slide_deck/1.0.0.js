@@ -257,7 +257,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
   CONTROLLER
    */
   slideDeck.setProgressBar = function() {
-    return slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength) * 100) + "%";
+    return slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength + 1) * 100) + "%";
   };
 
   /*
@@ -272,6 +272,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       slideId = slideDeck.currentSlide.getAttribute("data-id");
       return Traitify.addSlide(assessmentId, slideId, value, slideTime, function() {
         slideDeck.setProgressBar();
+        if (slideDeck.fetch("slide").length === 1) {
+          slideDeckCallBack();
+        }
         return addSlideTimer = new Date();
       });
     };
@@ -317,9 +320,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
             addSlide("true");
           } else {
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%";
-            if (slideDeck.fetch("slide").length === 1) {
-              slideDeckCallBack();
-            }
           }
         }
         if (event.preventDefault) {
