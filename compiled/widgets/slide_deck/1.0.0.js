@@ -463,13 +463,13 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
           imageUrl: imageSrc,
           id: data[key].id
         }));
-        slides.push(partial("slide", {
-          caption: "&nbsp;",
-          imageUrl: "https://s3.amazonaws.com/traitify-cdn/images/black_transparent/10.png",
-          id: ""
-        }));
       }
     }
+    slides.push(partial("slide", {
+      caption: "&nbsp;",
+      imageUrl: "https://s3.amazonaws.com/traitify-cdn/images/black_transparent/10.png",
+      id: ""
+    }));
     slides = slides.join("");
     return div({
       "class": "slides"
