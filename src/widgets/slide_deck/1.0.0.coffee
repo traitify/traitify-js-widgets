@@ -256,7 +256,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
   ###
 
   slideDeck.setProgressBar = ->
-    slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength) * 100) + "%"
+    slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength + 1) * 100) + "%"
 
   ###
   Events
@@ -269,6 +269,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
         slideDeck.setProgressBar()
+        if slideDeck.fetch("slide").length is 1 
+          slideDeckCallBack()
 
         addSlideTimer = new Date()
       )
@@ -306,8 +308,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
             addSlide "true"
           else
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
-            if slideDeck.fetch("slide").length is 1 
-              slideDeckCallBack()
 
         if event.preventDefault  then event.preventDefault() else event.returnValue = false
 
