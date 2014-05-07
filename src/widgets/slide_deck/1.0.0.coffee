@@ -269,8 +269,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
         slideDeck.setProgressBar()
-        if slideDeck.fetch("slide").length is 1 
+        if slideDeckCallBack && slideDeck.fetch("slide").length is 1 
           slideDeckCallBack()
+          slideDeckCallBack = null
 
         addSlideTimer = new Date()
       )
