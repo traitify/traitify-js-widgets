@@ -1,4 +1,4 @@
-window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
+window.Traitify.ui.resultsDetailedPersonalityType = (assessmentId, selector, options)->
   Builder = Object()
 
   if selector.indexOf("#") != -1
@@ -55,18 +55,10 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
     score.innerHTML = localScore
     informationContainer.appendChild(score)
 
-    barContainer = @div({class:"row bar-container"})
-    @style.barContainer(barContainer, data)
-    informationContainer.appendChild(barContainer)
-
-    bar = @div({class:"bar"})
-    @style.bar(bar, data)
-    barContainer.appendChild(bar)
-
-    barInner = @div({class:"bar-inner"})
-    @style.barInner(barInner, data)
-    bar.appendChild(barInner)
-
+    description = @div({class:"description"})
+    description.innerHTML = data.description
+    @style.description(description, data)
+    container.appendChild(description)
     
     container
 
@@ -79,7 +71,6 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
     node.style.display = "inline-block"
     node.style.marginLeft = "0px"
     node.style.width = "25.3em"
-    node.style.height = "5em"
     node.style.verticalAlign = "top" 
     node.style.fontFamily = 'Helvetica Neue'
     node.style.fontWeight = 100
@@ -96,22 +87,6 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
     node.style.width = "3.5em" 
     node.style.height = "3.5em" 
     node.style.marginTop = ".8em"
-
-  Builder.partials.style.barContainer = (node, personalityType)->
-    node.style.width = "18.5em" 
-    node.style.height = "1em"
-    node.style.margin = "1em 1em 0em .5em"
-
-  Builder.partials.style.bar = (node, personalityType)->
-    node.style.height = "1em"
-
-
-  Builder.partials.style.barInner = (node, personalityType)->
-    node.style.height = "1em"
-    node.style.width = "#{Math.abs(personalityType.score)}%"
-    node.style.backgroundColor = "##{personalityType.colorThree}"
-    if personalityType.score <= 0
-      node.style.float = "right"
 
   Builder.partials.style.name = (node, personalityType)->
     node.style.display = "inline-block" 
@@ -134,6 +109,15 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
   Builder.partials.style.informationContainer = (node, personalityType)->
     node.style.display = "inline-block" 
     node.style.width = "20em"
+    node.style.lineHeight = "4.2em"
+
+  Builder.partials.style.description = (node, personalityType)->
+    node.style.display = "inline-block"
+    node.style.width = "20em"
+    node.style.backgroundColor = "##{personalityType.colorThree}"
+    node.style.color = "#fff"
+    node.style.width = "25.3em"
+    node.style.padding = "1em"
 
   #####################################################
   # Initialize
@@ -150,6 +134,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
       localData.colorOne = personalityType.personality_type.badge.color_1
       localData.colorTwo = personalityType.personality_type.badge.color_2
       localData.colorThree = personalityType.personality_type.badge.color_3
+      localData.description = personalityType.personality_type.description
 
       personalityTypesContainer.appendChild(Builder.partials.personalityType(localData))
 
