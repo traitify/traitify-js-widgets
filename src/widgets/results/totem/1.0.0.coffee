@@ -437,9 +437,13 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     return personality_types.join("")
 
   render = (data)->
+    styles = styles()
+    unless options["styles"]
+      styles = ""
+
     totem.html(
       div({class: "totem-results"}, [
-        partial("chart", data), styles()
+        partial("chart", data), 
         ].join("")
       )
     )

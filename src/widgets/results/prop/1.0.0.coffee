@@ -306,9 +306,13 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
     return personality_types.join("")
 
   render = (data)->
+    styles = styles()
+    unless options["styles"]
+      styles = ""
+
     prop.html(
       div({class: "prop-results"}, [
-        partial("chart", data), styles()
+        partial("chart", data), styles
         ].join("")
       )
     )
