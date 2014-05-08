@@ -160,10 +160,20 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
 
 
   phone = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-  stretchSize = if phone then 15 else 27
   widgetParent = Builder.main.parentNode
-  if widgetParent.offsetWidth < 568
-    Builder.main.style.fontSize =  widgetParent.offsetWidth / stretchSize + "px"
+  
+  containerWidth = widgetParent.offsetWidth
+  if containerWidth > 10
+    widgetParentCopy = widgetParent.cloneNode(true)
+    widgetParentCopy.style.visibility = "hidden"
+    widgetParentCopy.style.display = "block"
+    document.getElementsByTagName("body")[0].appendChild(widgetParentCopy)
+
+    containerWidth = widgetParent.offsetWidth
+
+  stretchSize = if phone then 15 else 27
+  if containerWidth < 568
+    Builder.main.style.fontSize =  containerWidth / stretchSize + "px"
   else
     Builder.main.style.fontSize = "16px"
 
