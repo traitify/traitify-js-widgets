@@ -1,4 +1,4 @@
-window.Traitify.ui.resultsFittsTotem = (assessmentId, selector, options)->
+window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
   Builder = Object()
 
   if selector.indexOf("#") != -1
