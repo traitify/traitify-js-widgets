@@ -1,0 +1,223 @@
+.totem-default .badge{
+  width: 5em;
+  display: inline-block;
+  vertical-align: middle;
+  background-color:transparent;
+  padding: 0px;
+  width:3em;
+  height:3em;
+  display: inline-block;
+  position:relative;
+  z-index:1;
+  vertical-align: middle;
+  margin:.5em 0em;
+  background-position:center;
+  font-size:1em
+}
+.totem-default .panels-container{
+  height: 6em;
+  width: 11.6em;
+  display: inline-block;
+  vertical-align: middle;
+  background-color:transparent;
+}
+.totem-default .panels-container:hover{
+  font-weight:200;
+  font-size:1.1em;
+  position:relative;
+  z-index:2
+}
+.totem-default .panels-container.active{
+  font-weight:200;
+  font-size:1.1em;
+  position:relative;
+  z-index:3
+}
+.totem-default .left-panel{
+  height: 6em;
+  width: 5.8em;
+  display: inline-block;
+  vertical-align: middle;
+  background-color:transparent
+}
+.totem-default .right-panel{
+  height: 6em;
+  width: 5.8em;
+  display: inline-block;
+  vertical-align: middle;
+  background-color:transparent;
+  text-align:right
+}
+.totem-default .positive-bar{
+  height: 1em;
+  width: 12em;
+  display: inline-block;
+  overflow: hidden;
+  margin-top:2.5em
+}
+.totem-default .negative-bar{
+  height: 1em;
+  width: 12em;
+  display: inline-block;
+  overflow: hidden
+}
+.totem-default .personality{
+  display: inline-block;
+  font-weight:100;
+  height:6em
+}
+.totem-default .totem-results{
+  line-height:1em;
+  width: 41em;
+  padding: 1em 0em;
+  padding-bottom: 1.8em;
+  display: inline-block;
+  background-color:#fff;
+  border-radius:.5em;
+  font-family:'Helvetica Neue; Helvetica;Arial; sans-serif';
+  background-color:transparent;
+  box-sizing:initial;
+  text-align:center;
+}
+.totem-default .negative-bar .bar-tip{
+  height: 1em;
+  display:inline-block;
+  float:left
+}
+.totem-default .positive-bar .bar-tip{
+  height: 1em;
+  display:inline-block;
+  float:right;
+}
+.totem-default .negative-bar .inner{
+  height: 1em;
+  float:right;
+}
+.totem-default .positive-bar .inner{
+  height: 1em;
+  float:left;
+}
+.totem-default .labels{
+  clear:both;
+}
+.totem-default .not-me-label{
+  float:left;
+  margin-left: .9em;
+}
+.totem-default .me-label{
+  float:right;
+  margin-right: .9em;
+}
+.totem-default .score{
+  color:#fff;
+  display:inline-block;
+  font-size:2.4em;
+  margin:0em .2em;
+  float:right;
+  line-height:1em;
+}
+.totem-default .name{
+  float:left;
+  z-index:1;
+  position:relative;
+  margin-top:-1.5em;
+  margin-left:1em;
+  color:#fff;
+  font-size:1.2em;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.totem-default .personality-traits-container{
+  position:absolute;
+}
+.totem-default .personality-traits .name{
+  font-size:1.2em;
+  line-height:1em;
+  text-transform:none;
+  float:none;
+  margin:0em;
+  padding:.2em 0em;
+  display:inline-block;
+  width:10.3em;
+  text-align:left;
+}
+.totem-default .personality-traits .score{
+  margin-right:3em;
+  margin-top:.5em;
+  margin-bottom:0em;
+  line-height:1em;
+  display:inline-block;
+  font-size:1.2em;
+  float:none;
+  width:2.7em;
+  margin:0em;
+  text-align:right;
+}
+.totem-default .personality-traits .row{
+  margin:0px;
+  margin-right:-.1em;
+  position:relative;
+  font-size:.68em;
+  text-align:left;
+}
+.totem-default .negative-bar .line{
+  border-top: solid 1px #d3d3d3;
+  width: 12em;
+  height: 50%;
+  position: absolute;
+  margin-top:.5em;
+  z-index:-1;
+}
+.totem-default .positive-bar .line{
+  border-top: solid 1px #d3d3d3;
+  width: 12em;  
+  height: 50%;
+  position: absolute;
+  margin-top:.5em;
+  z-index:-1;
+}
+.totem-default .clear{
+  clear:both;
+}
+.totem-default .personality-traits{
+  width:11.6em;
+  overflow:hidden;
+  background-color:#ccc;
+  position:absolute;
+  bottom:0px;
+  display:inline-block;
+  z-index:2;
+  float:left;
+  font-weight:100;
+}
+.totem-default .personality.up .personality-traits{
+  bottom:0px;
+}
+.totem-default .personality.down .personality-traits{
+  top:0px;
+}
+.totem-default .personality-traits .inner-container{
+  margin:.5em;
+  position:relative;
+}
+.totem-default .totem-results.phone .negative-bar{
+  display:none;
+}
+.totem-default .totem-results.phone{
+  width:13em
+}
+.totem-default .totem-results.phone .positive-bar{
+  display:none
+}
+.totem-default .totem-results.phone .panels-container:hover{
+  font-weight:100;
+  font-size:1em;
+  position:relative;
+}
+  
+.totem-default .totem-results.phone .panels-container.active{
+  font-weight:200;
+  font-size:1.1em;
+  position:relative;
+}
+  

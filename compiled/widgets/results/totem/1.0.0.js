@@ -391,9 +391,13 @@ window.Traitify.ui.resultsTotem = function(assessmentId, selector, options) {
     return personality_types.join("");
   };
   render = function(data) {
+    styles = styles();
+    if (!options["styles"]) {
+      styles = "";
+    }
     return totem.html(div({
       "class": "totem-results"
-    }, [partial("chart", data), styles()].join("")));
+    }, [partial("chart", data)].join("")));
   };
   totem.fetchPersonalityTraitResults = function(id) {
     return this.PersonalityResultsTraits(id);

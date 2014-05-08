@@ -264,7 +264,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
   Events
    */
   Actions = function() {
-    var addSlide, addSlideTimer, advanceSlide, me, mes, notMe, notMes, oldOnResize, _i, _j, _len, _len1;
+    var addSlide, addSlideTimer, advanceSlide, me, mes, notMe, notMes, oldOnResize, slideLength, _i, _j, _len, _len1;
+    slideLength = slideDeck.fetch("slide").length;
     addSlideTimer = new Date();
     addSlide = function(value) {
       var slideId, slideTime;
@@ -272,7 +273,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       slideId = slideDeck.currentSlide.getAttribute("data-id");
       return Traitify.addSlide(assessmentId, slideId, value, slideTime, function() {
         slideDeck.setProgressBar();
-        if (slideLength == 1) {
+        slideLength -= 1;
+        if (slideLength === 0) {
           slideDeckCallBack();
         }
         return addSlideTimer = new Date();

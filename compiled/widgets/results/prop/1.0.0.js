@@ -322,9 +322,13 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     return personality_types.join("");
   };
   render = function(data) {
+    styles = styles();
+    if (!options["styles"]) {
+      styles = "";
+    }
     return prop.html(div({
       "class": "prop-results"
-    }, [partial("chart", data), styles()].join("")));
+    }, [partial("chart", data), styles].join("")));
   };
   prop.fetchPersonalityTraitResults = function(id) {
     return this.PersonalityResultsTraits(id);
