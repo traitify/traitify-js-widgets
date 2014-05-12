@@ -101,12 +101,14 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options)
     node.style.height = "5em";
     node.style.display = "inline-block";
     node.style.verticalAlign = "top";
-    return node.style.textAlign = "center";
+    node.style.textAlign = "center";
+    return node.style.paddingLeft = ".1em";
   };
   Builder.partials.style.badgeImage = function(node, personalityType) {
     node.style.width = "3.5em";
     node.style.height = "3.5em";
-    return node.style.marginTop = ".8em";
+    node.style.marginTop = ".8em";
+    return node.style.marginLeft = ".8em";
   };
   Builder.partials.style.barContainer = function(node, personalityType) {
     node.style.width = "18.5em";
@@ -144,7 +146,8 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options)
   };
   Builder.partials.style.informationContainer = function(node, personalityType) {
     node.style.display = "inline-block";
-    return node.style.width = "20em";
+    node.style.width = "20em";
+    return node.style.textAlign = "left";
   };
   Traitify.getPersonalityTypes(assessmentId, function(data) {
     var localData, personalityType, personalityTypesContainer, _i, _len, _ref;

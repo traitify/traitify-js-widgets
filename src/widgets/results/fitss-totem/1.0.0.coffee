@@ -91,11 +91,13 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
     node.style.display = "inline-block"
     node.style.verticalAlign = "top" 
     node.style.textAlign = "center"
+    node.style.paddingLeft = ".1em"
 
   Builder.partials.style.badgeImage = (node, personalityType)->
     node.style.width = "3.5em" 
     node.style.height = "3.5em" 
     node.style.marginTop = ".8em"
+    node.style.marginLeft = ".66em"
 
   Builder.partials.style.barContainer = (node, personalityType)->
     node.style.width = "18.5em" 
@@ -134,6 +136,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
   Builder.partials.style.informationContainer = (node, personalityType)->
     node.style.display = "inline-block" 
     node.style.width = "20em"
+    node.style.textAlign = "left"
 
   #####################################################
   # Initialize
