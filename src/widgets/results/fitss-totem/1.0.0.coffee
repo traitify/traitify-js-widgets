@@ -97,7 +97,6 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
     node.style.width = "3.5em" 
     node.style.height = "3.5em" 
     node.style.marginTop = ".8em"
-    node.style.marginLeft = ".66em"
 
   Builder.partials.style.barContainer = (node, personalityType)->
     node.style.width = "18.5em" 

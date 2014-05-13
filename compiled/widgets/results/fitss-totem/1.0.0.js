@@ -107,8 +107,7 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options)
   Builder.partials.style.badgeImage = function(node, personalityType) {
     node.style.width = "3.5em";
     node.style.height = "3.5em";
-    node.style.marginTop = ".8em";
-    return node.style.marginLeft = ".8em";
+    return node.style.marginTop = ".8em";
   };
   Builder.partials.style.barContainer = function(node, personalityType) {
     node.style.width = "18.5em";
