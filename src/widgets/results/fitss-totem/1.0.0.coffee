@@ -73,6 +73,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
   Builder.partials.style = Object()
   Builder.partials.style.personalityTypesContainer = (node, personalityType)->
     node.style.width = "25.3em"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.personalityType = (node, personalityType)->
     node.style.backgroundColor = "##{personalityType.colorOne}"
@@ -83,6 +84,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     node.style.verticalAlign = "top" 
     node.style.fontFamily = 'Helvetica Neue'
     node.style.fontWeight = 100
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.badgeContainer = (node, personalityType)->
     node.style.backgroundColor = "##{personalityType.colorTwo}"
@@ -92,20 +94,23 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     node.style.verticalAlign = "top" 
     node.style.textAlign = "center"
     node.style.paddingLeft = ".1em"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.badgeImage = (node, personalityType)->
     node.style.width = "3.5em" 
     node.style.height = "3.5em" 
     node.style.marginTop = ".8em"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.barContainer = (node, personalityType)->
     node.style.width = "18.5em" 
     node.style.height = "1em"
     node.style.margin = "1em 1em 0em .5em"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.bar = (node, personalityType)->
     node.style.height = "1em"
-
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.barInner = (node, personalityType)->
     node.style.height = "1em"
@@ -113,6 +118,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     node.style.backgroundColor = "##{personalityType.colorThree}"
     if personalityType.score <= 0
       node.style.float = "right"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.name = (node, personalityType)->
     node.style.display = "inline-block" 
@@ -121,7 +127,8 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     node.style.color = "#fff" 
     node.style.letterSpacing = "2px"
     node.style.fontSize = "1.4em" 
-    node.style.textTransform = "uppercase" 
+    node.style.textTransform = "uppercase"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.score = (node, personalityType)->
     node.style.display = "inline-block"
@@ -131,11 +138,13 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     node.style.fontSize = "1.4em" 
     node.style.float = "right" 
     node.style.letterSpacing = "1.5px"
+    node.style.boxSizing = "initial"
 
   Builder.partials.style.informationContainer = (node, personalityType)->
     node.style.display = "inline-block" 
     node.style.width = "20em"
     node.style.textAlign = "left"
+    node.style.boxSizing = "initial"
 
   #####################################################
   # Initialize

@@ -83,7 +83,8 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
   };
   Builder.partials.style = Object();
   Builder.partials.style.personalityTypesContainer = function(node, personalityType) {
-    return node.style.width = "25.3em";
+    node.style.width = "25.3em";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.personalityType = function(node, personalityType) {
     node.style.backgroundColor = "#" + personalityType.colorOne;
@@ -93,7 +94,8 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
     node.style.height = "5em";
     node.style.verticalAlign = "top";
     node.style.fontFamily = 'Helvetica Neue';
-    return node.style.fontWeight = 100;
+    node.style.fontWeight = 100;
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.badgeContainer = function(node, personalityType) {
     node.style.backgroundColor = "#" + personalityType.colorTwo;
@@ -102,28 +104,33 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
     node.style.display = "inline-block";
     node.style.verticalAlign = "top";
     node.style.textAlign = "center";
-    return node.style.paddingLeft = ".1em";
+    node.style.paddingLeft = ".1em";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.badgeImage = function(node, personalityType) {
     node.style.width = "3.5em";
     node.style.height = "3.5em";
-    return node.style.marginTop = ".8em";
+    node.style.marginTop = ".8em";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.barContainer = function(node, personalityType) {
     node.style.width = "18.5em";
     node.style.height = "1em";
-    return node.style.margin = "1em 1em 0em .5em";
+    node.style.margin = "1em 1em 0em .5em";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.bar = function(node, personalityType) {
-    return node.style.height = "1em";
+    node.style.height = "1em";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.barInner = function(node, personalityType) {
     node.style.height = "1em";
     node.style.width = "" + (Math.abs(personalityType.score)) + "%";
     node.style.backgroundColor = "#" + personalityType.colorThree;
     if (personalityType.score <= 0) {
-      return node.style.float = "right";
+      node.style.float = "right";
     }
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.name = function(node, personalityType) {
     node.style.display = "inline-block";
@@ -132,7 +139,8 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
     node.style.color = "#fff";
     node.style.letterSpacing = "2px";
     node.style.fontSize = "1.4em";
-    return node.style.textTransform = "uppercase";
+    node.style.textTransform = "uppercase";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.score = function(node, personalityType) {
     node.style.display = "inline-block";
@@ -141,12 +149,14 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
     node.style.color = "#fff";
     node.style.fontSize = "1.4em";
     node.style.float = "right";
-    return node.style.letterSpacing = "1.5px";
+    node.style.letterSpacing = "1.5px";
+    return node.style.boxSizing = "border-box";
   };
   Builder.partials.style.informationContainer = function(node, personalityType) {
     node.style.display = "inline-block";
     node.style.width = "20em";
-    return node.style.textAlign = "left";
+    node.style.textAlign = "left";
+    return node.style.boxSizing = "border-box";
   };
   Traitify.getPersonalityTypes(assessmentId, function(data) {
     var localData, personalityType, personalityTypesContainer, _i, _len, _ref;
