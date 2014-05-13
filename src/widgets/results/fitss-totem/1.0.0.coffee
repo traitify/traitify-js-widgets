@@ -1,4 +1,4 @@
-window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
+window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBack)->
   Builder = Object()
 
   if selector.indexOf("#") != -1
@@ -197,6 +197,8 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options)->
   ), false
 
 
-
+  # Trigger CallBack
+  if callBack?
+    callBack(Builder);
 
   Builder
