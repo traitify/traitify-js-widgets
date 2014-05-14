@@ -307,7 +307,7 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
 
   render = (data)->
     styles = styles()
-    unless options["styles"]
+    if options && options["styles"] == false
       styles = ""
 
     prop.html(

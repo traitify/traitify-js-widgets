@@ -323,7 +323,7 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
   };
   render = function(data) {
     styles = styles();
-    if (!options["styles"]) {
+    if (options && options["styles"] === false) {
       styles = "";
     }
     return prop.html(div({

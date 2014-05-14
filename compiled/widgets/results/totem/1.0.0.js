@@ -392,12 +392,12 @@ window.Traitify.ui.resultsTotem = function(assessmentId, selector, options) {
   };
   render = function(data) {
     styles = styles();
-    if (!options["styles"]) {
+    if (options && options["styles"] === false) {
       styles = "";
     }
     return totem.html(div({
       "class": "totem-results"
-    }, [partial("chart", data)].join("")));
+    }, [partial("chart", data), styles].join("")));
   };
   totem.fetchPersonalityTraitResults = function(id) {
     return this.PersonalityResultsTraits(id);

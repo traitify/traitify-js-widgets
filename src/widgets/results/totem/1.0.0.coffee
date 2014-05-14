@@ -438,12 +438,12 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
 
   render = (data)->
     styles = styles()
-    unless options["styles"]
+    if options && options["styles"] == false
       styles = ""
 
     totem.html(
       div({class: "totem-results"}, [
-        partial("chart", data), 
+        partial("chart", data), styles
         ].join("")
       )
     )
