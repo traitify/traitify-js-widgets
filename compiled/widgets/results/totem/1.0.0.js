@@ -551,7 +551,7 @@ window.Traitify.ui.resultsTotem = function(assessmentId, selector, options) {
     Actions();
     oldOnResize = window.onresize;
     window.onresize = function(event) {
-      if (totem.element.parentNode.offsetWidth >= 568 && !phone()) {
+      if (totem.element.parentNode.offsetWidth >= 568 && !phone) {
         return fetch("totem-results")[0].style.fontSize = "16px";
       } else {
         return fetch("totem-results")[0].style.fontSize = totem.element.parentNode.offsetWidth / stretchSize + "px";
@@ -561,7 +561,7 @@ window.Traitify.ui.resultsTotem = function(assessmentId, selector, options) {
     orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
     return window.addEventListener(orientationEvent, (function() {
       var newWidth;
-      if (phone()) {
+      if (phone) {
         if (oldOnResize) {
           oldOnResize.call(window, event);
         }

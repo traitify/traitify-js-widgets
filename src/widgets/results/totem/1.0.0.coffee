@@ -617,7 +617,7 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
 
     oldOnResize = window.onresize
     window.onresize = (event)->
-      if totem.element.parentNode.offsetWidth >= 568 && !phone()
+      if totem.element.parentNode.offsetWidth >= 568 && !phone
         fetch("totem-results")[0].style.fontSize =  "16px"
       else
         fetch("totem-results")[0].style.fontSize =  totem.element.parentNode.offsetWidth / stretchSize + "px"
@@ -625,7 +625,7 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     supportsOrientationChange = "onorientationchange" of window
     orientationEvent = (if supportsOrientationChange then "orientationchange" else "resize")
     window.addEventListener orientationEvent, (->
-      if phone()
+      if phone
         oldOnResize.call window, event  if oldOnResize
         newWidth = totem.element.offsetWidth / 15
         fetch("totem-results")[0].style.fontSize = newWidth + "px"
