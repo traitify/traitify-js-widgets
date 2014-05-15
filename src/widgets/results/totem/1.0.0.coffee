@@ -18,8 +18,10 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     totem.element.getAttribute "data-" + attr
 
   totem.html = (setter) ->
+    console.log(totem.element)
     totem.element.innerHTML = setter  if setter
     totem.element.innerHTML
+
 
   totem.classes = ->
     classes = totem.element.className.split(" ")
