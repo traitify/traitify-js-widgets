@@ -18,7 +18,6 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     totem.element.getAttribute "data-" + attr
 
   totem.html = (setter) ->
-    console.log(totem.element)
     totem.element.innerHTML = setter  if setter
     totem.element.innerHTML
 
@@ -608,7 +607,7 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     stretchSize = if phone then 15 else 47.80
 
     render(data)
-    if totem.element.parentNode.offsetWidth < 568
+    if totem.element.parentNode.offsetWidth < 568 && totem.element.parentNode.offsetWidth != 0
       fetch("totem-results")[0].style.fontSize =  totem.element.parentNode.offsetWidth / stretchSize + "px"
     else
       fetch("totem-results")[0].style.fontSize =  "16px"
