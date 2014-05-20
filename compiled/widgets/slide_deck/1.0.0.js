@@ -284,7 +284,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     };
     advanceSlide = function() {
       var ease, left, slideLeftAnimation, width;
-      if (slideDeck.slideLength === 1) {
+      if (slideDeck.fetch("slide").length === 1) {
         return false;
       }
       left = -10;

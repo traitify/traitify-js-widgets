@@ -242,7 +242,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     styles.push styling("&.ipad.rotated .slide-deck",
       "font-size": "1.6em"
     )
-
     style styles.join("")
 
   ###
@@ -258,6 +257,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
   slideDeck.setProgressBar = ->
     slidesPlayed = slideDeck.fetch("slide").length / slideDeck.totalSlides
     slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%"
+
+  slideDeck.lastAnimation = function(){
+    slideDeck.fetch("slide-deck").innerHTML = partial("waiting-container")
+    false #return false so as to not move to next slide
+  }
 
   ###
   Events
@@ -280,7 +284,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
 
 
     advanceSlide = ->
-      return false  if slideDeck.slideLength is 1
+      return slideDeck.lastAnimation() if slideDeck.fetch("slide").length is 1
       left = -10
       ease = 20
       width = slideDeck.currentSlide.offsetWidth
@@ -463,6 +467,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     progressBar = div({class:"progress-bar"}, div(class:"inner-progress-bar", ""))
     slideContainer = div class: "slide-container", progressBar + partial("slides", data) + partial("me-not-me")
     link("#", {class: "me side"}, div({class:"text"}, "Me")) + slideContainer +  link("#", {class: "not-me side"}, div({class:"text"}, "Not<br />Me") ) + div({style:"clear:both"}, "")  
+
+  partials["waiting-container"] = ()->
+    slideDeckObject = slideDeck.fetch("slide-deck")
+    slideDeckObject.style.height = slideDeckObject.scrollHeight
+    "<img src='https://s3.amazonaws.com/traitify-cdn/images/spinners/blue_dot.gif' />"
 
   Traitify.getSlides(assessmentId, (data)->
     slideDeck.totalSlides = data.length
