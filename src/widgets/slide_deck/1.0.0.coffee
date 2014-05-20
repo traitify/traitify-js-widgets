@@ -256,21 +256,22 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
   ###
 
   slideDeck.setProgressBar = ->
-    slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength) * 100) + "%"
+    slidesPlayed = slideDeck.fetch("slide").length / slideDeck.totalSlides
+    slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%"
 
   ###
   Events
   ###
   Actions = ->
-    slideLength = slideDeck.fetch("slide").length
+    slideDeck.slideLength = slideDeck.fetch("slide").length
     addSlideTimer = new Date()
     addSlide = (value) ->
       slideTime = new Date() - addSlideTimer
       slideId = slideDeck.currentSlide.getAttribute("data-id")
       slideDeck.setProgressBar()
       Traitify.addSlide(assessmentId, slideId, value, slideTime, ->
-        slideLength -= 1
-        if slideLength == 0 
+        slideDeck.slideLength -= 1
+        if slideDeck.slideLength == 0 
           slideDeckCallBack()
 
 
@@ -279,7 +280,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
 
 
     advanceSlide = ->
-      return false  if slideDeck.fetch("slide").length is 1
+      return false  if slideDeck.slideLength is 1
       left = -10
       ease = 20
       width = slideDeck.currentSlide.offsetWidth
@@ -306,7 +307,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
         unless slideLock
           slideLock = true
           addSlide "true"
-          unless slideDeck.fetch("slide").length is 1
+          unless slideDeck.slideLength is 1
             advanceSlide()
           else
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
@@ -464,7 +465,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     link("#", {class: "me side"}, div({class:"text"}, "Me")) + slideContainer +  link("#", {class: "not-me side"}, div({class:"text"}, "Not<br />Me") ) + div({style:"clear:both"}, "")  
 
   Traitify.getSlides(assessmentId, (data)->
-    slideDeck.slideLength = data.length
+    slideDeck.totalSlides = data.length
     slides = partial("slide-container", data)
     slideDeck.html div({class: "slide-deck"}, slides)
 

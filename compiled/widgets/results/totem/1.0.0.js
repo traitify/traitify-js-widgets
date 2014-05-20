@@ -542,6 +542,8 @@ window.Traitify.ui.resultsTotem = function(assessmentId, selector, options) {
     render(data);
     if (totem.element.parentNode.offsetWidth < 568 && totem.element.parentNode.offsetWidth !== 0) {
       fetch("totem-results")[0].style.fontSize = totem.element.parentNode.offsetWidth / stretchSize + "px";
+    } else if (totem.element.style.width) {
+      fetch("totem-results")[0].style.fontSize = parseInt(totem.element.style.width.replace("px", "")) / stretchSize + "px";
     } else {
       fetch("totem-results")[0].style.fontSize = "16px";
     }

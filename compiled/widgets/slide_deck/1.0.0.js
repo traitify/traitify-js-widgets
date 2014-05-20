@@ -257,24 +257,26 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
   CONTROLLER
    */
   slideDeck.setProgressBar = function() {
-    return slideDeck.fetch("inner-progress-bar")[0].style.width = (((slideDeck.slideLength - slideDeck.fetch("slide").length) / slideDeck.slideLength) * 100) + "%";
+    var slidesPlayed;
+    slidesPlayed = slideDeck.fetch("slide").length / slideDeck.totalSlides;
+    return slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%";
   };
 
   /*
   Events
    */
   Actions = function() {
-    var addSlide, addSlideTimer, advanceSlide, me, mes, notMe, notMes, oldOnResize, slideLength, _i, _j, _len, _len1;
-    slideLength = slideDeck.fetch("slide").length;
+    var addSlide, addSlideTimer, advanceSlide, me, mes, notMe, notMes, oldOnResize, _i, _j, _len, _len1;
+    slideDeck.slideLength = slideDeck.fetch("slide").length;
     addSlideTimer = new Date();
     addSlide = function(value) {
       var slideId, slideTime;
       slideTime = new Date() - addSlideTimer;
       slideId = slideDeck.currentSlide.getAttribute("data-id");
+      slideDeck.setProgressBar();
       return Traitify.addSlide(assessmentId, slideId, value, slideTime, function() {
-        slideDeck.setProgressBar();
-        slideLength -= 1;
-        if (slideLength === 0) {
+        slideDeck.slideLength -= 1;
+        if (slideDeck.slideLength === 0) {
           slideDeckCallBack();
         }
         return addSlideTimer = new Date();
@@ -282,7 +284,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     };
     advanceSlide = function() {
       var ease, left, slideLeftAnimation, width;
-      if (slideDeck.fetch("slide").length === 1) {
+      if (slideDeck.slideLength === 1) {
         return false;
       }
       left = -10;
@@ -318,7 +320,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
         if (!slideLock) {
           slideLock = true;
           addSlide("true");
-          if (slideDeck.fetch("slide").length !== 1) {
+          if (slideDeck.slideLength !== 1) {
             advanceSlide();
           } else {
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%";
@@ -503,7 +505,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
   };
   Traitify.getSlides(assessmentId, function(data) {
     var slides;
-    slideDeck.slideLength = data.length;
+    slideDeck.totalSlides = data.length;
     slides = partial("slide-container", data);
     slideDeck.html(div({
       "class": "slide-deck"
