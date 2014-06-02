@@ -68,12 +68,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     )
     styles.push styling(".slide-deck",
       "text-align":"center"
-      "padding":"1em",
       "margin": "0px auto",
       "display": "inline-block",
-      "border": "1px solid #dcdcdc",
       "background-color":"#fff",
-      "border-radius":".5em",
     )
     styles.push styling(".slide .image",
       width: "40em"
@@ -127,7 +124,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       "font-size":"inherit",
       "display": "inline-block",
       "background-color":"#f0f0f0",
-      "box-shadow":".1em .1em .2em .01em #ccc inset",
       "overflow": "hidden",
       "text-align":"left",
       "transition":"none",
@@ -242,6 +238,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     styles.push styling("&.ipad.rotated .slide-deck",
       "font-size": "1.6em"
     )
+    styles.push styling("& .spinner",
+      "margin-left": "auto",
+      "margin-right": "auto",
+      "width":"6em"
+    )
     style styles.join("")
 
   ###
@@ -259,7 +260,10 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%"
 
   slideDeck.lastAnimation = ->
-    slideDeck.fetch("slide-deck").innerHTML = partial("waiting-container")
+    slideDeck.element.style.height = slideDeck.element.scrollHeight + "px"
+    slideDeck.element.style.paddingTop = slideDeck.element.scrollHeight / 3 + "px"
+    slideDeck.fetch("slide-deck")[0].innerHTML = partial("waiting-container")
+    
     false #return false so as to not move to next slide
 
   ###
@@ -283,7 +287,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
 
 
     advanceSlide = ->
-      return slideDeck.lastAnimation() if slideDeck.fetch("slide").length is 1
       left = -10
       ease = 20
       width = slideDeck.currentSlide.offsetWidth
@@ -314,6 +317,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
             advanceSlide()
           else
             slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
+            slideDeck.lastAnimation()
 
         if event.preventDefault  then event.preventDefault() else event.returnValue = false
 
@@ -349,8 +353,14 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
       notMe.onclick = (event)->
         unless slideLock
           slideLock = true
-          advanceSlide()
           addSlide "false"
+          unless slideDeck.slideLength is 1
+            advanceSlide()
+          else
+            slideDeck.fetch("inner-progress-bar")[0].style.width = "100%"
+            slideDeck.lastAnimation()
+
+
         if event.preventDefault  then event.preventDefault() else event.returnValue = false
 
     return
@@ -468,9 +478,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     link("#", {class: "me side"}, div({class:"text"}, "Me")) + slideContainer +  link("#", {class: "not-me side"}, div({class:"text"}, "Not<br />Me") ) + div({style:"clear:both"}, "")  
 
   partials["waiting-container"] = ()->
-    slideDeckObject = slideDeck.fetch("slide-deck")
-    slideDeckObject.style.height = slideDeckObject.scrollHeight
-    "<img src='https://s3.amazonaws.com/traitify-cdn/images/spinners/blue_dot.gif' />"
+    "<img src='https://s3.amazonaws.com/traitify-cdn/images/spinners/blue_dot.gif' class='spinner' />"
 
   Traitify.getSlides(assessmentId, (data)->
     slideDeck.totalSlides = data.length
