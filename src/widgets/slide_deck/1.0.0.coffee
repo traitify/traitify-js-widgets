@@ -258,10 +258,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, slideDeckCallBack)->
     slidesPlayed = slideDeck.fetch("slide").length / slideDeck.totalSlides
     slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%"
 
-  slideDeck.lastAnimation = function(){
+  slideDeck.lastAnimation = ->
     slideDeck.fetch("slide-deck").innerHTML = partial("waiting-container")
     false #return false so as to not move to next slide
-  }
 
   ###
   Events

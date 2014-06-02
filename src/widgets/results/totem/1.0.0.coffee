@@ -607,8 +607,19 @@ window.Traitify.ui.resultsTotem = (assessmentId, selector, options)->
     stretchSize = if phone then 15 else 47.80
 
     render(data)
-    if totem.element.parentNode.offsetWidth < 568 && totem.element.parentNode.offsetWidth != 0
-      fetch("totem-results")[0].style.fontSize =  totem.element.parentNode.offsetWidth / stretchSize + "px"
+
+    widgetParentNode = totem.element.parentNode
+    if containerWidth > 10
+      widgetParentClone = widgetParent.cloneNode(true)
+      widgetParentClone.style.visibility = "hidden"
+      widgetParentClone.style.display = "block"
+      document.getElementsByTagName("body")[0].appendChild(widgetParentClone)
+
+      containerWidth = widgetParentNodeClone.offsetWidth
+      fetch("totem-results")[0].style.fontSize =  containerWidth / stretchSize + "px"
+      
+    else if widgetParentNode.offsetWidth < 568 && widgetParentNode.offsetWidth != 0
+      fetch("totem-results")[0].style.fontSize =  widgetParentNode.offsetWidth / stretchSize + "px"
     else if totem.element.style.width
       fetch("totem-results")[0].style.fontSize =  parseInt(totem.element.style.width.replace("px", "")) / stretchSize + "px"
     else

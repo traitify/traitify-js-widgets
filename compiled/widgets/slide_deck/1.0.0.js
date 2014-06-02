@@ -261,6 +261,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     slidesPlayed = slideDeck.fetch("slide").length / slideDeck.totalSlides;
     return slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%";
   };
+  slideDeck.lastAnimation = function() {
+    slideDeck.fetch("slide-deck").innerHTML = partial("waiting-container");
+    return false;
+  };
 
   /*
   Events
@@ -285,7 +289,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     advanceSlide = function() {
       var ease, left, slideLeftAnimation, width;
       if (slideDeck.fetch("slide").length === 1) {
-        return false;
+        return slideDeck.lastAnimation();
       }
       left = -10;
       ease = 20;
@@ -502,6 +506,12 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     }, "Not<br />Me")) + div({
       style: "clear:both"
     }, "");
+  };
+  partials["waiting-container"] = function() {
+    var slideDeckObject;
+    slideDeckObject = slideDeck.fetch("slide-deck");
+    slideDeckObject.style.height = slideDeckObject.scrollHeight;
+    return "<img src='https://s3.amazonaws.com/traitify-cdn/images/spinners/blue_dot.gif' />";
   };
   Traitify.getSlides(assessmentId, function(data) {
     var slides;

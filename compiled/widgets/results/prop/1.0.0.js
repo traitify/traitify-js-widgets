@@ -435,11 +435,19 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     });
   };
   this.PersonalityResults(function(data) {
-    var oldOnResize, orientationEvent, phone, stretchSize, supportsOrientationChange;
+    var containerWidth, oldOnResize, orientationEvent, phone, stretchSize, supportsOrientationChange, widgetParentClone, widgetParentNode;
     render(data);
     phone = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     stretchSize = phone ? 29.5 : 31.2;
-    if (prop.element.parentNode.offsetWidth < 568) {
+    widgetParentNode = prop.element.parentNode;
+    if (containerWidth > 10) {
+      widgetParentClone = widgetParent.cloneNode(true);
+      widgetParentClone.style.visibility = "hidden";
+      widgetParentClone.style.display = "block";
+      document.getElementsByTagName("body")[0].appendChild(widgetParentClone);
+      containerWidth = widgetParentNodeClone.offsetWidth;
+      fetch("prop-results")[0].style.fontSize = containerWidth / stretchSize + "px";
+    } else if (prop.element.parentNode.offsetWidth < 568) {
       fetch("prop-results")[0].style.fontSize = prop.element.parentNode.offsetWidth / stretchSize + "px";
     } else {
       fetch("prop-results")[0].style.fontSize = "19px";
