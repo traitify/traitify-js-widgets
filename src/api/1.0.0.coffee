@@ -61,6 +61,13 @@
     @ajax url, "GET", callback, ""
     this
 
+  @getDecks = (callBack)->
+    @get("/decks", (data)->
+      callBack(data)
+    )
+
+    this
+
   @getSlides = (id, callBack)->
     @get("/assessments/#{id}/slides", (data)->
       callBack(data)
