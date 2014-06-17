@@ -84,7 +84,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       "text-align": "center",
       "margin": "0px auto",
       "display": "inline-block",
-      "background-color": "#fff"
+      "background-color": "#fff",
+      "min-width": "40em"
     }));
     styles.push(styling(".slide .image", {
       width: "40em",
@@ -242,7 +243,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     styles.push(styling("& .spinner", {
       "margin-left": "auto",
       "margin-right": "auto",
-      "width": "6em"
+      "width": "6em",
+      "margin-top": "10em"
     }));
     return style(styles.join(""));
   };
@@ -263,8 +265,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
     return slideDeck.fetch("inner-progress-bar")[0].style.width = (100 - (slidesPlayed * 100)) + "%";
   };
   slideDeck.lastAnimation = function() {
-    slideDeck.element.style.height = slideDeck.element.scrollHeight + "px";
-    slideDeck.element.style.paddingTop = slideDeck.element.scrollHeight / 3 + "px";
+    slideDeck.fetch("slide-deck")[0].style.height = slideDeck.element.scrollHeight + "px";
     slideDeck.fetch("slide-deck")[0].innerHTML = partial("waiting-container");
     return false;
   };
