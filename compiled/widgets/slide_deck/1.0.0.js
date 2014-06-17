@@ -84,7 +84,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       "text-align": "center",
       "margin": "0px auto",
       "display": "inline-block",
-      "background-color": "#fff",
+      "background-color": "transparent",
       "min-width": "40em"
     }));
     styles.push(styling(".slide .image", {
