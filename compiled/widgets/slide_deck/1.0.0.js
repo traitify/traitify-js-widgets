@@ -109,7 +109,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       "vertical-align": "middle",
       "float": "left"
     }));
-    styles.push(styling(".me, .not-me", {
+    styles.push(styling(".me", {
       width: "50%",
       display: "inline-block",
       padding: "1em 0em",
@@ -117,7 +117,19 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, slideDeckCallBac
       color: "#fff",
       "text-decoration": "none"
     }));
-    styles.push(styling(".me:hover, .not-me:hover", {
+    styles.push(styling(".not-me", {
+      width: "50%",
+      display: "inline-block",
+      padding: "1em 0em",
+      "text-align": "center",
+      color: "#fff",
+      "text-decoration": "none"
+    }));
+    styles.push(styling(".me:hover", {
+      "text-decoration": "none",
+      color: "#fff"
+    }));
+    styles.push(styling(".not-me:hover", {
       "text-decoration": "none",
       color: "#fff"
     }));
