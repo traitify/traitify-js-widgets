@@ -114,7 +114,20 @@
 	text-align:right;
 }
 .tf-results-prop .personality-traits .personality-trait .score-container{
-	width:45%;
+	display:block;
+	margin:0px 10px;
+	height:10px;
+	position:relative;
+}
+.tf-results-prop .personality-traits .personality-trait .score-container .line{
+	width:100%;
+	top:5px;
+	height:1px;
+	background-color:#ccc;
+	position:absolute;
+}
+.tf-results-prop .personality-traits .personality-trait .score-wrapper{
+	width:50%;
 	height:10px;
 	margin-left:49%;
 	position:relative;
@@ -125,4 +138,5 @@
 	height:10px;
 	border-radius:50%;
 	background-color:#000;
+	z-index:1;
 }

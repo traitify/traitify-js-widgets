@@ -122,16 +122,21 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
 
     personalityTrait.appendChild(traitScorePosition)
     Builder.nodes.personalityTraits.push({personalityTrait: personalityTrait, leftName: leftName, rightName: rightName, score: traitScorePosition})
-    
-
 
     personalityTrait
 
   Builder.partials.traitScorePosition = (score)->
     personalityTraitScoreContainer = @div({class:"score-container"})
+    personalityTraitScoreWrapper = @div({class:"score-wrapper"})
+    personalityTraitScoreContainer.appendChild(personalityTraitScoreWrapper)
+
     personalityTraitScore = @div({class:"score"})
     personalityTraitScore.style.left = score + "%"
-    personalityTraitScoreContainer.appendChild(personalityTraitScore)
+    personalityTraitScoreWrapper.appendChild(personalityTraitScore)
+
+    personalityTraitLine = @div({class:"line"})
+    personalityTraitScoreContainer.appendChild(personalityTraitLine)
+
     personalityTraitScoreContainer
 
   Builder.actions = ->

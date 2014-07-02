@@ -156,15 +156,23 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     return personalityTrait;
   };
   Builder.partials.traitScorePosition = function(score) {
-    var personalityTraitScore, personalityTraitScoreContainer;
+    var personalityTraitLine, personalityTraitScore, personalityTraitScoreContainer, personalityTraitScoreWrapper;
     personalityTraitScoreContainer = this.div({
       "class": "score-container"
     });
+    personalityTraitScoreWrapper = this.div({
+      "class": "score-wrapper"
+    });
+    personalityTraitScoreContainer.appendChild(personalityTraitScoreWrapper);
     personalityTraitScore = this.div({
       "class": "score"
     });
     personalityTraitScore.style.left = score + "%";
-    personalityTraitScoreContainer.appendChild(personalityTraitScore);
+    personalityTraitScoreWrapper.appendChild(personalityTraitScore);
+    personalityTraitLine = this.div({
+      "class": "line"
+    });
+    personalityTraitScoreContainer.appendChild(personalityTraitLine);
     return personalityTraitScoreContainer;
   };
   Builder.actions = function() {

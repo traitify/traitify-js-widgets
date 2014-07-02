@@ -58,11 +58,16 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.partials.i = function(attributes) {
     return this.make("i", attributes);
   };
+  Builder.data.getProgressBarNumbers = function() {
+    return ((Builder.data.totalSlideLength - Builder.data.slides.length + Builder.data.currentSlide) / Builder.data.totalSlideLength) * 100;
+  };
   Builder.partials.slideDeckContainer = function() {
-    var slidesContainer;
+    var slidesContainer, slidesLeft;
     slidesContainer = this.div({
       "class": "tf-slide-deck-container"
     });
+    slidesLeft = Builder.data.getProgressBarNumbers();
+    slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft));
     slidesContainer.appendChild(this.slides(Builder.data.slides));
     slidesContainer.appendChild(this.meNotMe());
     return slidesContainer;
@@ -122,6 +127,20 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     slide.appendChild(slideImg);
     return slide;
   };
+  Builder.partials.progressBar = function(percentFinished) {
+    var progressBar, progressBarInner;
+    progressBar = this.div({
+      "class": "progress-bar"
+    });
+    progressBarInner = this.div({
+      "class": "progress-bar-inner"
+    });
+    progressBarInner.style.width = percentFinished + "%";
+    progressBar.appendChild(progressBarInner);
+    Builder.nodes.progressBar = progressBar;
+    Builder.nodes.progressBarInner = progressBarInner;
+    return progressBar;
+  };
   Builder.partials.loadingAnimation = function() {
     var leftDot, loadingContainer, loadingSymbol, rightDot;
     loadingContainer = this.div({
@@ -167,6 +186,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.events.advanceSlide = function() {
     var nextSlideData;
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
+    Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%";
     if (nextSlideData) {
       Builder.states.animating = true;
       if (Builder.nodes.playedSlide) {

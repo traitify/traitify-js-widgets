@@ -58,10 +58,17 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.partials.i = (attributes)->
     @make("i", attributes)
 
+  Builder.data.getProgressBarNumbers = ->
+    ((Builder.data.totalSlideLength - Builder.data.slides.length + Builder.data.currentSlide) / Builder.data.totalSlideLength) * 100
+
   Builder.partials.slideDeckContainer = ->
     slidesContainer = @div({class:"tf-slide-deck-container"})
+    slidesLeft = Builder.data.getProgressBarNumbers()
+
+    slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft))
+
     slidesContainer.appendChild(@slides(Builder.data.slides))
-    
+
     slidesContainer.appendChild(@meNotMe())
     slidesContainer
 
@@ -108,6 +115,17 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     slide.appendChild(slideImg)
     slide
 
+  Builder.partials.progressBar = (percentFinished)->
+    progressBar = @div({class:"progress-bar"})
+    progressBarInner = @div({class:"progress-bar-inner"})
+    progressBarInner.style.width = percentFinished + "%"
+    progressBar.appendChild(progressBarInner)
+
+    Builder.nodes.progressBar = progressBar
+    Builder.nodes.progressBarInner = progressBarInner
+
+    progressBar
+
   Builder.partials.loadingAnimation = ()->
     loadingContainer = @div({class:"loading"})
     leftDot = @i(Object())
@@ -149,6 +167,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.events = Object()
   Builder.events.advanceSlide = ->
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1]
+
+    Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%"
 
     if nextSlideData
       Builder.states.animating = true
