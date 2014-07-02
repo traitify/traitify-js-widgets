@@ -163,10 +163,11 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
 
 
   Builder.initialize = ->
+    Builder.nodes.main.innerHTML = ""
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
-      style = Builder.partials.make("link", {href:"https://cdn.traitify.com/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
+      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
 
       Builder.nodes.main.appendChild(style)
 

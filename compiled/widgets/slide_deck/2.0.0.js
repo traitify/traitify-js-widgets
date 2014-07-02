@@ -214,7 +214,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialize = function() {
     var head, widget;
     widget = Builder.partials.make("script", {
-      src: "https://cdn.traitify.com/js/widgets/results/prop/2.0.0.js",
+      src: "https://s3.amazonaws.com/traitify-cdn/js/widgets/results/prop/2.0.0.js",
       type: "text/javascript"
     });
     head = document.getElementsByTagName("head")[0];
@@ -229,10 +229,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       });
       Builder.data.slidesToPlayLength = Builder.data.slides.length;
       style = Builder.partials.make("link", {
-        href: "https://cdn.traitify.com/assets/stylesheets/slide_deck.css",
+        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css",
         type: 'text/css',
         rel: "stylesheet"
       });
+      Builder.nodes.main.innerHTML = "";
       Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
         Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer());

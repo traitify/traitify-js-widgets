@@ -204,11 +204,12 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     };
   };
   Builder.initialize = function() {
+    Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
       var personalityType, style, _i, _len, _ref;
       Builder.data.personalityTypes = data.personality_types;
       style = Builder.partials.make("link", {
-        href: "https://cdn.traitify.com/assets/stylesheets/results_prop.css",
+        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css",
         type: 'text/css',
         rel: "stylesheet"
       });
