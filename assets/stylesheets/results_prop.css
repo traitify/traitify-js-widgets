@@ -88,7 +88,7 @@
 .tf-results-prop .toggle-traits-container{
 	text-align:right;
 }
-.tf-results-prop .tools-container .toggle-traits{
+.tf-results-prop .tools .toggle-traits{
 	background-color:#333;
 	display:inline-block;
 	padding:.5em 1em;
