@@ -2,7 +2,7 @@
   font-family: 'Helvetica Neue';
   font-style: normal;
   font-weight: 100;
-  src: local('Helvetica Neue'), local('Helvetica Neue'), url("http://192.168.1.124:9292/assets/fonts/helvetica_neue.woff") format('woff');
+  src: local('Helvetica Neue'), local('Helvetica Neue'), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/helvetica_neue.woff") format('woff');
 }
 .tf-results-prop{
 	font-family: "Helvetica Neue";
@@ -88,7 +88,7 @@
 .tf-results-prop .toggle-traits-container{
 	text-align:right;
 }
-.tf-results-prop .toggle-traits-container .toggle-traits{
+.tf-results-prop .tools-container .toggle-traits{
 	background-color:#333;
 	display:inline-block;
 	padding:.5em 1em;

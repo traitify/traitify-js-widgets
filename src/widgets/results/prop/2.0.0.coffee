@@ -98,13 +98,10 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
     barRight
 
   Builder.partials.toggleTraits = ->
-    toggleTraitsContainer = @div({class:"toggle-traits-container"})
     toggleTraits = @div({class:"toggle-traits"})
     toggleTraits.innerHTML = "Show Traits"
     Builder.nodes.toggleTraits = toggleTraits
-
-    toggleTraitsContainer.appendChild(toggleTraits)
-    toggleTraitsContainer
+    toggleTraits
 
   Builder.nodes.personalityTraits = Array()
   Builder.partials.personalityTrait = (personalityTraitData)->
@@ -139,6 +136,12 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
 
     personalityTraitScoreContainer
 
+  Builder.partials.printButton = ->
+    printButton = @div({class:"print-button"})
+    Builder.nodes.printButton = printButton
+    printButton.innerHTML = "print"
+    printButton
+
   Builder.actions = ->
     Builder.nodes.toggleTraits.onclick = ->
       if Builder.nodes.personalityTraitContainer
@@ -160,7 +163,12 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
           Builder.nodes.personalityTypesContainer.style.display = "none"
           Builder.nodes.personalityTraitContainer.style.display = "block"
         )
+    Builder.nodes.printButton.onclick = ->
+      Builder.myWindow = window.open("", "", "width=200, height=100");
+      content = Builder.nodes.main.cloneNode(true)
+      content.removeChild(content.getElementsByClassName(".print-button")[0])
 
+      Builder.myWindow.document.getElementsByTagName("body")[0].appendChild(content)
 
   Builder.initialize = ->
     Builder.nodes.main.innerHTML = ""
@@ -175,7 +183,13 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
       Builder.nodes.container = Builder.partials.div({class:"tf-results-prop"})
 
       if options && options.traits
-        Builder.nodes.container.appendChild(Builder.partials.toggleTraits())
+        toolsContainer = Builder.partials.div({class:"tools"})
+
+        Builder.nodes.toolsContainer = toolsContainer
+        toolsContainer.appendChild(Builder.partials.printButton())
+        toolsContainer.appendChild(Builder.partials.toggleTraits())
+        
+        Builder.nodes.container.appendChild(toolsContainer)
 
       Builder.nodes.personalityTypesContainer = Builder.partials.div({class:"personality-types"})
       Builder.nodes.container.appendChild(Builder.nodes.personalityTypesContainer)

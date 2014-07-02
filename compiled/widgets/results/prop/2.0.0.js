@@ -117,17 +117,13 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     return barRight;
   };
   Builder.partials.toggleTraits = function() {
-    var toggleTraits, toggleTraitsContainer;
-    toggleTraitsContainer = this.div({
-      "class": "toggle-traits-container"
-    });
+    var toggleTraits;
     toggleTraits = this.div({
       "class": "toggle-traits"
     });
     toggleTraits.innerHTML = "Show Traits";
     Builder.nodes.toggleTraits = toggleTraits;
-    toggleTraitsContainer.appendChild(toggleTraits);
-    return toggleTraitsContainer;
+    return toggleTraits;
   };
   Builder.nodes.personalityTraits = Array();
   Builder.partials.personalityTrait = function(personalityTraitData) {
@@ -175,8 +171,17 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
     personalityTraitScoreContainer.appendChild(personalityTraitLine);
     return personalityTraitScoreContainer;
   };
+  Builder.partials.printButton = function() {
+    var printButton;
+    printButton = this.div({
+      "class": "print-button"
+    });
+    Builder.nodes.printButton = printButton;
+    printButton.innerHTML = "print";
+    return printButton;
+  };
   Builder.actions = function() {
-    return Builder.nodes.toggleTraits.onclick = function() {
+    Builder.nodes.toggleTraits.onclick = function() {
       if (Builder.nodes.personalityTraitContainer) {
         if (Builder.nodes.personalityTypesContainer.style.display === "block") {
           Builder.nodes.personalityTypesContainer.style.display = "none";
@@ -202,11 +207,18 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
         });
       }
     };
+    return Builder.nodes.printButton.onclick = function() {
+      var content;
+      Builder.myWindow = window.open("", "", "width=200, height=100");
+      content = Builder.nodes.main.cloneNode(true);
+      content.removeChild(content.getElementsByClassName(".print-button")[0]);
+      return Builder.myWindow.document.getElementsByTagName("body")[0].appendChild(content);
+    };
   };
   Builder.initialize = function() {
     Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var personalityType, style, _i, _len, _ref;
+      var personalityType, style, toolsContainer, _i, _len, _ref;
       Builder.data.personalityTypes = data.personality_types;
       style = Builder.partials.make("link", {
         href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css",
@@ -218,7 +230,13 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
         "class": "tf-results-prop"
       });
       if (options && options.traits) {
-        Builder.nodes.container.appendChild(Builder.partials.toggleTraits());
+        toolsContainer = Builder.partials.div({
+          "class": "tools"
+        });
+        Builder.nodes.toolsContainer = toolsContainer;
+        toolsContainer.appendChild(Builder.partials.printButton());
+        toolsContainer.appendChild(Builder.partials.toggleTraits());
+        Builder.nodes.container.appendChild(toolsContainer);
       }
       Builder.nodes.personalityTypesContainer = Builder.partials.div({
         "class": "personality-types"
