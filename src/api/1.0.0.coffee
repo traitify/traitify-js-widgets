@@ -5,6 +5,8 @@
   @version = "v1"
 
   @setHost = (host) ->
+    host = host.replace("http://", "").replace("https://", "")
+    host = "https://#{host}"
     @host = host
     this
 
@@ -76,7 +78,14 @@
     this
 
   @addSlide = (assessmentId, slideId, value, timeTaken, callBack)->
-    @put("/assessments/#{assessmentId}/slides/#{slideId}", "{\"response\":#{value}, \"time_taken\": #{timeTaken}}", (data)->
+    @put("/assessments/#{assessmentId}/slides/#{slideId}", JSON.stringify({"response":value, "time_taken": timeTaken}), (data)->
+      callBack(data)
+    )
+
+    this
+
+  @addSlides = (assessmentId, values, callBack)->
+    @put("/assessments/#{assessmentId}/slides", JSON.stringify(values), (data)->
       callBack(data)
     )
 
@@ -84,6 +93,13 @@
     
   @getPersonalityTypes = (id, callBack)->
     @get("/assessments/#{id}/personality_types", (data)->
+      callBack(data)
+    )
+
+    this
+
+  @getPersonalityTraits = (id, callBack)->
+    @get("/assessments/#{id}/personality_traits", (data)->
       callBack(data)
     )
 

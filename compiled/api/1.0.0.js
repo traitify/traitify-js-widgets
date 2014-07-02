@@ -3,6 +3,8 @@ this.Traitify = new (function() {
   this.host = "https://api.traitify.com";
   this.version = "v1";
   this.setHost = function(host) {
+    host = host.replace("http://", "").replace("https://", "");
+    host = "https://" + host;
     this.host = host;
     return this;
   };
@@ -50,6 +52,12 @@ this.Traitify = new (function() {
     this.ajax(url, "GET", callback, "");
     return this;
   };
+  this.getDecks = function(callBack) {
+    this.get("/decks", function(data) {
+      return callBack(data);
+    });
+    return this;
+  };
   this.getSlides = function(id, callBack) {
     this.get("/assessments/" + id + "/slides", function(data) {
       return callBack(data);
@@ -57,13 +65,28 @@ this.Traitify = new (function() {
     return this;
   };
   this.addSlide = function(assessmentId, slideId, value, timeTaken, callBack) {
-    this.put("/assessments/" + assessmentId + "/slides/" + slideId, "{\"response\":" + value + ", \"time_taken\": " + timeTaken + "}", function(data) {
+    this.put("/assessments/" + assessmentId + "/slides/" + slideId, JSON.stringify({
+      "response": value,
+      "time_taken": timeTaken
+    }), function(data) {
+      return callBack(data);
+    });
+    return this;
+  };
+  this.addSlides = function(assessmentId, values, callBack) {
+    this.put("/assessments/" + assessmentId + "/slides", JSON.stringify(values), function(data) {
       return callBack(data);
     });
     return this;
   };
   this.getPersonalityTypes = function(id, callBack) {
     this.get("/assessments/" + id + "/personality_types", function(data) {
+      return callBack(data);
+    });
+    return this;
+  };
+  this.getPersonalityTraits = function(id, callBack) {
+    this.get("/assessments/" + id + "/personality_traits", function(data) {
       return callBack(data);
     });
     return this;
