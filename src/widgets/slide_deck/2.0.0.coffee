@@ -201,7 +201,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     Builder.nodes.slides.insertBefore(Builder.partials.loadingAnimation(), Builder.nodes.slides.firstChild)
 
   Builder.initialize = ->
-    widget = Builder.partials.make("script", {src:"https://s3.amazonaws.com/traitify-cdn/js/widgets/results/prop/2.0.0.js", type: "text/javascript"})
+    widget = Builder.partials.make("script", {src:"http://localhost:9292/compiled/js/widgets/results/prop/2.0.0.js", type: "text/javascript"})
     head = document.getElementsByTagName("head")[0]
     head.appendChild(widget)
     Traitify.getSlides(assessmentId, (data)->
@@ -213,12 +213,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       )
       Builder.data.slidesToPlayLength = Builder.data.slides.length
 
-      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
+      style = Builder.partials.make("link", {href:"http://localhost:9292/compiled/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
 
       Builder.nodes.main.innerHTML = ""
 
       Builder.nodes.main.appendChild(style)
-
 
       if Builder.data.slides.length != 0
         Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer())

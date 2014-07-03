@@ -99,7 +99,7 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
 
   Builder.partials.toggleTraits = ->
     toggleTraits = @div({class:"toggle-traits"})
-    toggleTraits.innerHTML = "Show Traits"
+    toggleTraits.innerHTML = "Show / Hide Traits"
     Builder.nodes.toggleTraits = toggleTraits
     toggleTraits
 
@@ -139,7 +139,7 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
   Builder.partials.printButton = ->
     printButton = @div({class:"print-button"})
     Builder.nodes.printButton = printButton
-    printButton.innerHTML = "print"
+    printButton.innerHTML = "Print"
     printButton
 
   Builder.actions = ->
@@ -164,19 +164,27 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
           Builder.nodes.personalityTraitContainer.style.display = "block"
         )
     Builder.nodes.printButton.onclick = ->
-      Builder.myWindow = window.open("", "", "width=200, height=100");
-      content = Builder.nodes.main.cloneNode(true)
-      content.removeChild(content.getElementsByClassName(".print-button")[0])
+      Builder.printWindow = window.open("", "", "width=200, height=100")
 
-      Builder.myWindow.document.getElementsByTagName("body")[0].appendChild(content)
+      Builder.nodes.printWindow = Object()
+      Builder.nodes.printWindow.main = Builder.printWindow.document.getElementsByTagName("body")[0]
+      Builder.nodes.printContainer = Builder.partials.div({class:"tf-results-prop"})
+      Builder.nodes.printContainer.appendChild(Builder.nodes.stylesheet.cloneNode(true))
+
+      Builder.nodes.printContainer.appendChild(Builder.nodes.personalityTypesContainer.cloneNode(true))
+      if Builder.nodes.personalityTraitContainer
+        Builder.nodes.printContainer.appendChild(Builder.nodes.personalityTraitContainer.cloneNode(true))
+
+      Builder.nodes.printWindow.main.appendChild(Builder.nodes.printContainer)
 
   Builder.initialize = ->
     Builder.nodes.main.innerHTML = ""
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
-      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
-
+      style = Builder.partials.make("link", {href:"http://localhost:9292/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
+      
+      Builder.nodes.stylesheet = style
       Builder.nodes.main.appendChild(style)
 
 

@@ -85,16 +85,21 @@
 	display:inline-block;
 	width:50%;
 }
-.tf-results-prop .toggle-traits-container{
-	text-align:right;
+.tf-results-prop .tools{
+	clear:both;
+}
+.tf-results-prop .tools .print-button{
+	display:inline-block;
+	width:48%;
+	cursor:pointer;
+	padding:10px 1%;
 }
 .tf-results-prop .tools .toggle-traits{
-	background-color:#333;
 	display:inline-block;
-	padding:.5em 1em;
-	color:#fff;
 	cursor:pointer;
-	border-radius: 0px 0px 0px 10px;
+	width:48%;
+	text-align:right;
+	padding:10px 1%;
 }
 .tf-results-prop .personality-traits {
 	overflow-y:auto;
