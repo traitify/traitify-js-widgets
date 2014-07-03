@@ -1,10 +1,7 @@
 <html>
 	<head>
-		<link href="/assets/stylesheets/slide_deck.css" type="text/css" rel="stylesheet" />
-		<link href="/assets/stylesheets/results_prop.css" type="text/css" rel="stylesheet" />
 		<script src="/compiled/api/1.0.0.js"></script>
 		<script src="/compiled/widgets/slide_deck/2.0.0.js"></script>
-		<script src="/compiled/widgets/results/prop/2.0.0.js"></script>
 	</head>
 	<body>
 		<div class="slide-deck" style="width:400px">
@@ -13,7 +10,24 @@
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
 		Traitify.setVersion("v1");
-		Builder = Traitify.ui.slideDeck("40aa5385-27e7-4ee9-8b9a-f9f2ff2c95fa", ".slide-deck", {traits:true});
+		Builder = Traitify.ui.slideDeck("12c840d3-d93b-45d8-9f89-31c41db35cdd", ".slide-deck", {traits:true});
+		Builder.onInitialize(function(){
+			console.log("initialized!")
+		})
+		Builder.onMe(function(){
+			console.log("You me'd a slide!")
+		})
+		Builder.onNotMe(function(){
+			console.log("You  not me'd a slide!")
+		})
+		Builder.onFinish(function(){
+			console.log("You Finished!")
+		})
+		Builder.onAddSlide(function(){
+			console.log(this)
+			console.log("You added a slide!")
+		})
+
 		</script>
 	</body>
 </html>

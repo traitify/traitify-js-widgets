@@ -181,16 +181,16 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
       title.innerHTML = "PERSONALITY TO PRINT"
       Builder.nodes.printWindow.head.appendChild(title)
 
+  Builder.initialized = false
   Builder.initialize = ->
     Builder.nodes.main.innerHTML = ""
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
       style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
-      
       Builder.nodes.stylesheet = style
-      Builder.nodes.main.appendChild(style)
 
+      Builder.nodes.main.appendChild(style)
 
       Builder.nodes.container = Builder.partials.div({class:"tf-results-prop"})
 
@@ -212,8 +212,22 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
       Builder.nodes.main.appendChild(Builder.nodes.container)
 
       Builder.actions()
+
+      if Builder.callbacks.initialize
+        Builder.callbacks.initialize(Builder)
+      else
+        Builder.initialized = true
     )
   
+  Builder.callbacks = Object()
+  Builder.onInitialize = (callBack)->
+    if Builder.initialized == true
+      callBack()
+    else
+      Builder.callbacks.initialize = callBack
+
+    Builder
+
   Builder.initialize()
 
   Builder

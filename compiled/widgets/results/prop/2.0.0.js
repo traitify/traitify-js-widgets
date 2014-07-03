@@ -227,6 +227,7 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
       return Builder.nodes.printWindow.head.appendChild(title);
     };
   };
+  Builder.initialized = false;
   Builder.initialize = function() {
     Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
@@ -261,8 +262,22 @@ window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
         Builder.nodes.personalityTypesContainer.appendChild(Builder.partials.personalityType(personalityType));
       }
       Builder.nodes.main.appendChild(Builder.nodes.container);
-      return Builder.actions();
+      Builder.actions();
+      if (Builder.callbacks.initialize) {
+        return Builder.callbacks.initialize(Builder);
+      } else {
+        return Builder.initialized = true;
+      }
     });
+  };
+  Builder.callbacks = Object();
+  Builder.onInitialize = function(callBack) {
+    if (Builder.initialized === true) {
+      callBack();
+    } else {
+      Builder.callbacks.initialize = callBack;
+    }
+    return Builder;
   };
   Builder.initialize();
   return Builder;

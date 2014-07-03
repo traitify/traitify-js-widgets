@@ -30,13 +30,19 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.data.slidesLeft = function() {
     return Builder.data.slides.length - Builder.data.currentSlide;
   };
-  Builder.addSlide = function(id, value) {
+  Builder.data.addSlide = function(id, value) {
     return Traitify.addSlide(assessmentId, id, value, 1000, function() {
+      if (Builder.callbacks.addSlide) {
+        Builder.callbacks.addSlide(Builder);
+      }
       Builder.data.sentSlides += 1;
       if (Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
         console.log("tried the prop ui");
         Builder.nodes.main.innerHTML = "";
-        return Traitify.ui.resultsProp(assessmentId, selector, options);
+        Traitify.ui.resultsProp(assessmentId, selector, options);
+        if (Builder.callbacks.finished) {
+          return Builder.callbacks.finished(Builder);
+        }
       }
     });
   };
@@ -106,7 +112,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     placeHolderSlide = Builder.partials.slide(slidesData[0]);
     placeHolderSlide.className += " placeholder";
     slides.appendChild(placeHolderSlide);
-    Builder.nodes.slide = Array();
     Builder.nodes.currentSlide = Builder.partials.slide(slidesData[0]);
     Builder.nodes.currentSlide.className += " active";
     slides.appendChild(Builder.nodes.currentSlide);
@@ -173,8 +178,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         }
         Builder.events.advanceSlide();
         currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
-        Builder.addSlide(currentSlide.id, true);
-        return Builder.data.currentSlide += 1;
+        Builder.data.addSlide(currentSlide.id, true);
+        Builder.data.currentSlide += 1;
+        if (Builder.callbacks.me) {
+          return Builder.callbacks.me(Builder);
+        }
       }
     };
     return Builder.nodes.notMe.onclick = function() {
@@ -185,8 +193,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         }
         Builder.events.advanceSlide();
         currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
-        Builder.addSlide(currentSlide.id, false);
-        return Builder.data.currentSlide += 1;
+        Builder.data.addSlide(currentSlide.id, false);
+        Builder.data.currentSlide += 1;
+        if (Builder.callbacks.notMe) {
+          return Builder.callbacks.notMe(Builder);
+        }
       }
     };
   };
@@ -211,7 +222,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
     if (nextSlideData) {
       Builder.nodes.nextSlide = Builder.partials.slide(nextSlideData);
-      return Builder.nodes.slides.appendChild(Builder.nodes.nextSlide);
+      Builder.nodes.slides.appendChild(Builder.nodes.nextSlide);
+    }
+    if (Builder.callbacks.advanceSlide) {
+      return Builder.callbacks.advanceSlide(Builder);
     }
   };
   Builder.events.loadingAnimation = function() {
@@ -219,14 +233,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.nodes.slides.removeChild(Builder.nodes.currentSlide);
     return Builder.nodes.slides.insertBefore(Builder.partials.loadingAnimation(), Builder.nodes.slides.firstChild);
   };
+  Builder.initialized = false;
   Builder.initialize = function() {
-    var head, widget;
-    widget = Builder.partials.make("script", {
-      src: "https://s3.amazonaws.com/traitify-cdn/js/widgets/results/prop/2.0.0.js",
-      type: "text/javascript"
-    });
-    head = document.getElementsByTagName("head")[0];
-    head.appendChild(widget);
     return Traitify.getSlides(assessmentId, function(data) {
       var style;
       Builder.data.currentSlide = 1;
@@ -245,11 +253,329 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
         Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer());
-        return Builder.actions();
+        Builder.actions();
       } else {
-        return Builder.results = Traitify.ui.resultsProp(assessmentId, selector, options);
+        Builder.results = Traitify.ui.resultsProp(assessmentId, selector, options);
+      }
+      if (Builder.callbacks.initialize) {
+        return Builder.callbacks.initialize(Builder);
+      } else {
+        return Builder.initialized = true;
       }
     });
+  };
+  Builder.callbacks = Object();
+  Builder.onInitialize = function(callBack) {
+    if (Builder.initialized === true) {
+      callBack();
+    } else {
+      Builder.callbacks.initialize = callBack;
+    }
+    return Builder;
+  };
+  Builder.onFinish = function(callBack) {
+    Builder.callbacks.finish = callBack;
+    return Builder;
+  };
+  Builder.onAddSlide = function(callBack) {
+    Builder.callbacks.addSlide = callBack;
+    return Builder;
+  };
+  Builder.onMe = function(callBack) {
+    Builder.callbacks.me = callBack;
+    return Builder;
+  };
+  Builder.onNotMe = function(callBack) {
+    Builder.callbacks.notMe = callBack;
+    return Builder;
+  };
+  Builder.onAdvanceSlide = function(callBack) {
+    Builder.callbacks.advanceSlide = callBack;
+    return Builder;
+  };
+  Builder.initialize();
+  return Builder;
+};
+
+window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
+  var Builder, selectedObject;
+  Builder = Object();
+  Builder.nodes = Object();
+  Builder.states = Object();
+  Builder.data = Object();
+  if (selector.indexOf("#") !== -1) {
+    selector = selector.replace("#", "");
+    Builder.nodes.main = document.getElementById(selector);
+  } else {
+    selector = selector.replace(".", "");
+    selectedObject = document.getElementsByClassName(selector);
+    Builder.nodes.main = selectedObject ? selectedObject[0] : null;
+  }
+  if (!Builder.nodes.main) {
+    console.log("YOU MUST HAVE A TAG WITH A SELECTOR FOR THIS TO WORK");
+    return false;
+  }
+  Builder.classes = function() {
+    var classes, key;
+    classes = Builder.main.className.split(" ");
+    for (key in classes) {
+      classes[key] = "." + classes[key];
+    }
+    return classes.join("");
+  };
+  Builder.partials = Object();
+  Builder.partials.make = function(elementType, attributes) {
+    var attributeName, element;
+    element = document.createElement(elementType);
+    for (attributeName in attributes) {
+      element.setAttribute(attributeName, attributes[attributeName]);
+    }
+    return element;
+  };
+  Builder.partials.div = function(attributes) {
+    return this.make("div", attributes);
+  };
+  Builder.partials.img = function(attributes) {
+    return this.make("img", attributes);
+  };
+  Builder.partials.i = function(attributes) {
+    return this.make("i", attributes);
+  };
+  Builder.nodes.personalityTypes = Array();
+  Builder.partials.personalityType = function(typeData) {
+    var badge, barLeft, barRight, name, nameAndScore, personalityType, score;
+    personalityType = this.div({
+      "class": "personality-type"
+    });
+    badge = Builder.partials.badge(typeData.personality_type.badge);
+    if (typeData.score < 0) {
+      barLeft = Builder.partials.barLeft(Math.abs(typeData.score));
+      barRight = Builder.partials.barRight(0);
+    } else {
+      barLeft = Builder.partials.barLeft(0);
+      barRight = Builder.partials.barRight(Math.abs(typeData.score));
+    }
+    name = this.div({
+      "class": "name"
+    });
+    name.innerHTML = typeData.personality_type.name;
+    score = this.div({
+      "class": "score"
+    });
+    score.innerHTML = typeData.score < 0 ? "(" + (Math.round(Math.abs(typeData.score))) + ")" : Math.round(typeData.score);
+    nameAndScore = this.div({
+      "class": "name-and-score"
+    });
+    nameAndScore.appendChild(name);
+    nameAndScore.appendChild(score);
+    personalityType.appendChild(nameAndScore);
+    personalityType.appendChild(barLeft);
+    personalityType.appendChild(badge);
+    personalityType.appendChild(barRight);
+    Builder.nodes.personalityTypes.push({
+      personalityType: personalityType,
+      badge: badge
+    });
+    return personalityType;
+  };
+  Builder.partials.badge = function(badgeData) {
+    var badge;
+    badge = this.div({
+      "class": "badge"
+    });
+    badge.appendChild(this.img({
+      src: badgeData.image_large
+    }));
+    return badge;
+  };
+  Builder.partials.barLeft = function(scoreData) {
+    var barLeft, innerBarLeft, last;
+    last = Builder.nodes.personalityTypes.length - 1;
+    innerBarLeft = this.div({
+      "class": "bar-inner-left"
+    });
+    innerBarLeft.style.width = scoreData + "%";
+    barLeft = this.div({
+      "class": "bar-left"
+    });
+    barLeft.appendChild(innerBarLeft);
+    return barLeft;
+  };
+  Builder.partials.barRight = function(scoreData) {
+    var barRight, innerBarRight, last;
+    last = Builder.nodes.personalityTypes.length - 1;
+    innerBarRight = this.div({
+      "class": "bar-inner-right"
+    });
+    innerBarRight.style.width = scoreData + "%";
+    barRight = this.div({
+      "class": "bar-right"
+    });
+    barRight.appendChild(innerBarRight);
+    return barRight;
+  };
+  Builder.partials.toggleTraits = function() {
+    var toggleTraits;
+    toggleTraits = this.div({
+      "class": "toggle-traits"
+    });
+    toggleTraits.innerHTML = "Show / Hide Traits";
+    Builder.nodes.toggleTraits = toggleTraits;
+    return toggleTraits;
+  };
+  Builder.nodes.personalityTraits = Array();
+  Builder.partials.personalityTrait = function(personalityTraitData) {
+    var leftName, personalityTrait, rightName, traitScorePosition;
+    personalityTrait = this.div({
+      "class": "personality-trait"
+    });
+    leftName = this.div({
+      "class": "left-name"
+    });
+    leftName.innerHTML = personalityTraitData.left_personality_trait.name;
+    rightName = this.div({
+      "class": "right-name"
+    });
+    rightName.innerHTML = personalityTraitData.right_personality_trait.name;
+    personalityTrait.appendChild(leftName);
+    personalityTrait.appendChild(rightName);
+    traitScorePosition = Builder.partials.traitScorePosition(personalityTraitData.score);
+    personalityTrait.appendChild(traitScorePosition);
+    Builder.nodes.personalityTraits.push({
+      personalityTrait: personalityTrait,
+      leftName: leftName,
+      rightName: rightName,
+      score: traitScorePosition
+    });
+    return personalityTrait;
+  };
+  Builder.partials.traitScorePosition = function(score) {
+    var personalityTraitLine, personalityTraitScore, personalityTraitScoreContainer, personalityTraitScoreWrapper;
+    personalityTraitScoreContainer = this.div({
+      "class": "score-container"
+    });
+    personalityTraitScoreWrapper = this.div({
+      "class": "score-wrapper"
+    });
+    personalityTraitScoreContainer.appendChild(personalityTraitScoreWrapper);
+    personalityTraitScore = this.div({
+      "class": "score"
+    });
+    personalityTraitScore.style.left = score + "%";
+    personalityTraitScoreWrapper.appendChild(personalityTraitScore);
+    personalityTraitLine = this.div({
+      "class": "line"
+    });
+    personalityTraitScoreContainer.appendChild(personalityTraitLine);
+    return personalityTraitScoreContainer;
+  };
+  Builder.partials.printButton = function() {
+    var printButton;
+    printButton = this.div({
+      "class": "print-button"
+    });
+    Builder.nodes.printButton = printButton;
+    printButton.innerHTML = "Print";
+    return printButton;
+  };
+  Builder.actions = function() {
+    Builder.nodes.toggleTraits.onclick = function() {
+      if (Builder.nodes.personalityTraitContainer) {
+        if (Builder.nodes.personalityTypesContainer.style.display === "block") {
+          Builder.nodes.personalityTypesContainer.style.display = "none";
+          return Builder.nodes.personalityTraitContainer.style.display = "block";
+        } else {
+          Builder.nodes.personalityTypesContainer.style.display = "block";
+          return Builder.nodes.personalityTraitContainer.style.display = "none";
+        }
+      } else {
+        return Traitify.getPersonalityTraits(assessmentId, function(data) {
+          var personalityTrait, personalityTraitContainer, _i, _len;
+          personalityTraitContainer = Builder.partials.div({
+            "class": "personality-traits"
+          });
+          Builder.nodes.personalityTraitContainer = personalityTraitContainer;
+          for (_i = 0, _len = data.length; _i < _len; _i++) {
+            personalityTrait = data[_i];
+            personalityTraitContainer.appendChild(Builder.partials.personalityTrait(personalityTrait));
+          }
+          Builder.nodes.container.appendChild(personalityTraitContainer);
+          Builder.nodes.personalityTypesContainer.style.display = "none";
+          return Builder.nodes.personalityTraitContainer.style.display = "block";
+        });
+      }
+    };
+    return Builder.nodes.printButton.onclick = function() {
+      var title;
+      Builder.printWindow = window.open();
+      Builder.nodes.printWindow = Object();
+      Builder.nodes.printWindow.head = Builder.printWindow.document.getElementsByTagName("head")[0];
+      Builder.nodes.printWindow.main = Builder.printWindow.document.getElementsByTagName("body")[0];
+      Builder.nodes.printContainer = Builder.partials.div({
+        "class": "tf-results-prop"
+      });
+      Builder.nodes.printContainer.appendChild(Builder.nodes.stylesheet.cloneNode(true));
+      Builder.nodes.printContainer.appendChild(Builder.nodes.personalityTypesContainer.cloneNode(true));
+      if (Builder.nodes.personalityTraitContainer) {
+        Builder.nodes.printContainer.appendChild(Builder.nodes.personalityTraitContainer.cloneNode(true));
+      }
+      Builder.nodes.printWindow.main.appendChild(Builder.nodes.printContainer);
+      title = Builder.partials.make("title");
+      title.innerHTML = "PERSONALITY TO PRINT";
+      return Builder.nodes.printWindow.head.appendChild(title);
+    };
+  };
+  Builder.initialized = false;
+  Builder.initialize = function() {
+    Builder.nodes.main.innerHTML = "";
+    return Traitify.getPersonalityTypes(assessmentId, function(data) {
+      var personalityType, style, toolsContainer, _i, _len, _ref;
+      Builder.data.personalityTypes = data.personality_types;
+      style = Builder.partials.make("link", {
+        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css",
+        type: 'text/css',
+        rel: "stylesheet"
+      });
+      Builder.nodes.stylesheet = style;
+      Builder.nodes.main.appendChild(style);
+      Builder.nodes.container = Builder.partials.div({
+        "class": "tf-results-prop"
+      });
+      if (options && options.traits) {
+        toolsContainer = Builder.partials.div({
+          "class": "tools"
+        });
+        Builder.nodes.toolsContainer = toolsContainer;
+        toolsContainer.appendChild(Builder.partials.printButton());
+        toolsContainer.appendChild(Builder.partials.toggleTraits());
+        Builder.nodes.container.appendChild(toolsContainer);
+      }
+      Builder.nodes.personalityTypesContainer = Builder.partials.div({
+        "class": "personality-types"
+      });
+      Builder.nodes.container.appendChild(Builder.nodes.personalityTypesContainer);
+      _ref = Builder.data.personalityTypes;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        personalityType = _ref[_i];
+        Builder.nodes.personalityTypesContainer.appendChild(Builder.partials.personalityType(personalityType));
+      }
+      Builder.nodes.main.appendChild(Builder.nodes.container);
+      Builder.actions();
+      if (Builder.callbacks.initialize) {
+        return Builder.callbacks.initialize(Builder);
+      } else {
+        return Builder.initialized = true;
+      }
+    });
+  };
+  Builder.callbacks = Object();
+  Builder.onInitialize = function(callBack) {
+    if (Builder.initialized === true) {
+      callBack();
+    } else {
+      Builder.callbacks.initialize = callBack;
+    }
+    return Builder;
   };
   Builder.initialize();
   return Builder;
