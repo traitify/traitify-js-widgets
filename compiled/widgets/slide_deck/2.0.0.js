@@ -58,15 +58,23 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.partials.i = function(attributes) {
     return this.make("i", attributes);
   };
-  Builder.data.getProgressBarNumbers = function() {
-    return ((Builder.data.totalSlideLength - Builder.data.slides.length + Builder.data.currentSlide) / Builder.data.totalSlideLength) * 100;
+  Builder.data.getProgressBarNumbers = function(initialize) {
+    var currentLength, currentPosition, slideLength, value;
+    slideLength = Builder.data.totalSlideLength;
+    currentLength = Builder.data.slides.length;
+    currentPosition = Builder.data.sentSlides;
+    if (initialize !== "initializing") {
+      currentPosition += 1;
+    }
+    value = slideLength - currentLength + currentPosition;
+    return (value / Builder.data.totalSlideLength) * 100;
   };
   Builder.partials.slideDeckContainer = function() {
     var slidesContainer, slidesLeft;
     slidesContainer = this.div({
       "class": "tf-slide-deck-container"
     });
-    slidesLeft = Builder.data.getProgressBarNumbers();
+    slidesLeft = Builder.data.getProgressBarNumbers("initializing");
     slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft));
     slidesContainer.appendChild(this.slides(Builder.data.slides));
     slidesContainer.appendChild(this.meNotMe());

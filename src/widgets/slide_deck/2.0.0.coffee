@@ -58,12 +58,19 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.partials.i = (attributes)->
     @make("i", attributes)
 
-  Builder.data.getProgressBarNumbers = ->
-    ((Builder.data.totalSlideLength - Builder.data.slides.length + Builder.data.currentSlide) / Builder.data.totalSlideLength) * 100
+  Builder.data.getProgressBarNumbers = (initialize)->
+    slideLength = Builder.data.totalSlideLength 
+    currentLength = Builder.data.slides.length 
+    currentPosition = Builder.data.sentSlides
+    unless initialize == "initializing"
+      currentPosition += 1
+
+    value = slideLength - currentLength + currentPosition
+    (value / Builder.data.totalSlideLength) * 100
 
   Builder.partials.slideDeckContainer = ->
     slidesContainer = @div({class:"tf-slide-deck-container"})
-    slidesLeft = Builder.data.getProgressBarNumbers()
+    slidesLeft = Builder.data.getProgressBarNumbers("initializing")
 
     slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft))
 
@@ -166,8 +173,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
   Builder.events = Object()
   Builder.events.advanceSlide = ->
-
-    
 
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%"
 
