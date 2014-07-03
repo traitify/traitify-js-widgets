@@ -166,30 +166,32 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
   Builder.events = Object()
   Builder.events.advanceSlide = ->
-    nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1]
+
+    
 
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%"
 
-    if nextSlideData
-      Builder.states.animating = true
+    Builder.states.animating = true
 
-      if Builder.nodes.playedSlide
-        # REMOVE NODE
-        Builder.nodes.slides.removeChild(Builder.nodes.playedSlide)
+    if Builder.nodes.playedSlide
+      # REMOVE NODE
+      Builder.nodes.slides.removeChild(Builder.nodes.playedSlide)
 
-      Builder.nodes.playedSlide = Builder.nodes.currentSlide
-      Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', (event)-> 
-        if Builder.events.advancedSlide
-          Builder.events.advancedSlide()
-        Builder.states.animating = false
-      , false )
+    Builder.nodes.playedSlide = Builder.nodes.currentSlide
+    Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', (event)-> 
+      if Builder.events.advancedSlide
+        Builder.events.advancedSlide()
+      Builder.states.animating = false
+    , false )
 
-      Builder.nodes.currentSlide = Builder.nodes.nextSlide
+    Builder.nodes.currentSlide = Builder.nodes.nextSlide
 
-      Builder.nodes.playedSlide.className += " played"
-      Builder.nodes.currentSlide.className += " active"
+    Builder.nodes.playedSlide.className += " played"
+    Builder.nodes.currentSlide.className += " active"
     
-
+    # NEW NEXT SLIDE
+    nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1]
+    if nextSlideData
       Builder.nodes.nextSlide = Builder.partials.slide(nextSlideData)
       Builder.nodes.slides.appendChild(Builder.nodes.nextSlide)
 

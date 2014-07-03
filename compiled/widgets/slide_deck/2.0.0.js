@@ -185,23 +185,23 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.events = Object();
   Builder.events.advanceSlide = function() {
     var nextSlideData;
-    nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%";
-    if (nextSlideData) {
-      Builder.states.animating = true;
-      if (Builder.nodes.playedSlide) {
-        Builder.nodes.slides.removeChild(Builder.nodes.playedSlide);
+    Builder.states.animating = true;
+    if (Builder.nodes.playedSlide) {
+      Builder.nodes.slides.removeChild(Builder.nodes.playedSlide);
+    }
+    Builder.nodes.playedSlide = Builder.nodes.currentSlide;
+    Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', function(event) {
+      if (Builder.events.advancedSlide) {
+        Builder.events.advancedSlide();
       }
-      Builder.nodes.playedSlide = Builder.nodes.currentSlide;
-      Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', function(event) {
-        if (Builder.events.advancedSlide) {
-          Builder.events.advancedSlide();
-        }
-        return Builder.states.animating = false;
-      }, false);
-      Builder.nodes.currentSlide = Builder.nodes.nextSlide;
-      Builder.nodes.playedSlide.className += " played";
-      Builder.nodes.currentSlide.className += " active";
+      return Builder.states.animating = false;
+    }, false);
+    Builder.nodes.currentSlide = Builder.nodes.nextSlide;
+    Builder.nodes.playedSlide.className += " played";
+    Builder.nodes.currentSlide.className += " active";
+    nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
+    if (nextSlideData) {
       Builder.nodes.nextSlide = Builder.partials.slide(nextSlideData);
       return Builder.nodes.slides.appendChild(Builder.nodes.nextSlide);
     }
