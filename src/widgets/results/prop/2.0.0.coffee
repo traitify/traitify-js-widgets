@@ -164,9 +164,10 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
           Builder.nodes.personalityTraitContainer.style.display = "block"
         )
     Builder.nodes.printButton.onclick = ->
-      Builder.printWindow = window.open("", "", "width=200, height=100")
+      Builder.printWindow = window.open()
 
       Builder.nodes.printWindow = Object()
+      Builder.nodes.printWindow.head = Builder.printWindow.document.getElementsByTagName("head")[0]
       Builder.nodes.printWindow.main = Builder.printWindow.document.getElementsByTagName("body")[0]
       Builder.nodes.printContainer = Builder.partials.div({class:"tf-results-prop"})
       Builder.nodes.printContainer.appendChild(Builder.nodes.stylesheet.cloneNode(true))
@@ -176,13 +177,16 @@ window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
         Builder.nodes.printContainer.appendChild(Builder.nodes.personalityTraitContainer.cloneNode(true))
 
       Builder.nodes.printWindow.main.appendChild(Builder.nodes.printContainer)
+      title = Builder.partials.make("title")
+      title.innerHTML = "PERSONALITY TO PRINT"
+      Builder.nodes.printWindow.head.appendChild(title)
 
   Builder.initialize = ->
     Builder.nodes.main.innerHTML = ""
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
-      style = Builder.partials.make("link", {href:"http://localhost:9292/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
+      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
       
       Builder.nodes.stylesheet = style
       Builder.nodes.main.appendChild(style)
