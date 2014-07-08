@@ -111,17 +111,7 @@
     )
 
     this
-
-  @getAssessment = (id, callBack)->
-    @get("/assessments/#{id}", (data)->
-      callBack(data)
-    )
-
-    this
-    
   @ui = Object()
-  @ui.setAssessmentId = (assessmentId)->
-    @assessmentId = assessmentId
-
+  
   this
 )()

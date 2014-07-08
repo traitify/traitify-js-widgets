@@ -97,15 +97,6 @@ this.Traitify = new (function() {
     });
     return this;
   };
-  this.getAssessment = function(id, callBack) {
-    this.get("/assessments/" + id, function(data) {
-      return callBack(data);
-    });
-    return this;
-  };
   this.ui = Object();
-  this.ui.setAssessmentId = function(assessmentId) {
-    return this.assessmentId = assessmentId;
-  };
   return this;
 })();

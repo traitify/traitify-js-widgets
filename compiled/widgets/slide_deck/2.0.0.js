@@ -30,21 +30,28 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.data.slidesLeft = function() {
     return Builder.data.slides.length - Builder.data.currentSlide;
   };
+  Builder.data.slideValues = Array();
   Builder.data.addSlide = function(id, value) {
-    return Traitify.addSlide(assessmentId, id, value, 1000, function() {
-      if (Builder.callbacks.addSlide) {
-        Builder.callbacks.addSlide(Builder);
-      }
-      Builder.data.sentSlides += 1;
-      if (Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
-        console.log("tried the prop ui");
-        Builder.nodes.main.innerHTML = "";
-        Traitify.ui.resultsProp(assessmentId, selector, options);
-        if (Builder.callbacks.finished) {
-          return Builder.callbacks.finished(Builder);
-        }
-      }
+    Builder.data.slideValues.push({
+      id: id,
+      response: value,
+      response_time: 1000
     });
+    Builder.data.sentSlides += 1;
+    if (Builder.data.slideValues.length % 10 === 0 || Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
+      return Traitify.addSlides(assessmentId, Builder.data.slideValues, function(response) {
+        if (Builder.callbacks.addSlide) {
+          Builder.callbacks.addSlide(Builder);
+        }
+        if (Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
+          Builder.nodes.main.innerHTML = "";
+          Traitify.ui.resultsDefault(assessmentId, selector, options);
+          if (Builder.callbacks.finished) {
+            return Builder.callbacks.finished(Builder);
+          }
+        }
+      });
+    }
   };
   Builder.partials = Object();
   Builder.partials.make = function(elementType, attributes) {
@@ -255,7 +262,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer());
         Builder.actions();
       } else {
-        Builder.results = Traitify.ui.resultsProp(assessmentId, selector, options);
+        Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
       }
       if (Builder.callbacks.initialize) {
         return Builder.callbacks.initialize(Builder);
@@ -297,7 +304,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   return Builder;
 };
 
-window.Traitify.ui.resultsProp = function(assessmentId, selector, options) {
+window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
   var Builder, selectedObject;
   Builder = Object();
   Builder.nodes = Object();

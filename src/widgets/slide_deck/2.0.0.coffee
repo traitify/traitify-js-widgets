@@ -27,17 +27,18 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.data.slidesLeft = ->
     Builder.data.slides.length - Builder.data.currentSlide
 
+  Builder.data.slideValues = Array()
   # LOCAL DB FOR SLIDES
   Builder.data.addSlide = (id, value)->
-      Traitify.addSlide(assessmentId, id, value, 1000, ->
+    Builder.data.slideValues.push({id: id, response: value, response_time: 1000})
+    Builder.data.sentSlides += 1
+    if Builder.data.slideValues.length % 10 == 0 || Builder.data.sentSlides == Builder.data.slidesToPlayLength
+      Traitify.addSlides(assessmentId, Builder.data.slideValues, (response)->
         if Builder.callbacks.addSlide
           Builder.callbacks.addSlide(Builder)
-
-        Builder.data.sentSlides += 1
         if Builder.data.sentSlides == Builder.data.slidesToPlayLength
-          console.log("tried the prop ui")
           Builder.nodes.main.innerHTML = ""
-          Traitify.ui.resultsProp(assessmentId, selector, options)
+          Traitify.ui.resultsDefault(assessmentId, selector, options)
           if Builder.callbacks.finished
             Builder.callbacks.finished(Builder)
       )
@@ -237,7 +238,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
         Builder.actions()
       else
-        Builder.results = Traitify.ui.resultsProp(assessmentId, selector, options)
+        Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
       
       if Builder.callbacks.initialize 
         Builder.callbacks.initialize(Builder)
@@ -279,7 +280,22 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder
 
 
-window.Traitify.ui.resultsProp = (assessmentId, selector, options)->
+
+
+
+
+
+
+
+
+
+
+#############################################################
+#
+# RESULTS WIDGET
+#
+#############################################################
+window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
   Builder = Object()
   Builder.nodes = Object()
   Builder.states = Object()
