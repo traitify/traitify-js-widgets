@@ -51,7 +51,7 @@ window.Traitify.ui.resultsFitssTotem = (assessmentId, selector, options, callBac
     
     score = @div({class:"score"})
     @style.score(score, data)
-    localScore = if data.score >= 0 then data.score else "(#{Math.abs(data.score)})"
+    localScore = if data.score >= 0 then Math.round(data.score) else "(#{Math.round(Math.abs(data.score))})"
     score.innerHTML = localScore
     informationContainer.appendChild(score)
 
