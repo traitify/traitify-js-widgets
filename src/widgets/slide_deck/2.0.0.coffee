@@ -30,7 +30,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.data.slideValues = Array()
   # LOCAL DB FOR SLIDES
   Builder.data.addSlide = (id, value)->
-    Builder.data.slideValues.push({id: id, response: value, response_time: 1000})
+    Builder.data.slideValues.push({id: id, response: value, time_taken: 1000})
     Builder.data.sentSlides += 1
     if Builder.data.slideValues.length % 10 == 0 || Builder.data.sentSlides == Builder.data.slidesToPlayLength
       Traitify.addSlides(assessmentId, Builder.data.slideValues, (response)->
@@ -116,7 +116,10 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     slides
 
   Builder.partials.slide = (slideData)->
-    slideImg = @img({src:slideData.image_desktop})
+    slideImg = @div({
+      style:"background-image:url('#{slideData.image_desktop}'); background-position:#{slideData.focus_x}% #{slideData.focus_y}%;'", 
+      class:"image"
+    })
     slide = @div({class:"slide"})
     slideCaption = @div({class:"caption"})
     slideCaption.innerHTML = slideData.caption
@@ -222,6 +225,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       Builder.data.currentSlide = 1
       Builder.data.totalSlideLength = data.length
       Builder.data.sentSlides = 0
+
       Builder.data.slides = data.filter((slide)->
         !slide.completed_at
       )
@@ -326,7 +330,6 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
 
     for attributeName of attributes
       element.setAttribute(attributeName, attributes[attributeName])
-
     element
 
   Builder.partials.div = (attributes)->
@@ -440,26 +443,28 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
     printButton
 
   Builder.actions = ->
-    Builder.nodes.toggleTraits.onclick = ->
-      if Builder.nodes.personalityTraitContainer
-        if Builder.nodes.personalityTypesContainer.style.display == "block"
-          Builder.nodes.personalityTypesContainer.style.display = "none"
-          Builder.nodes.personalityTraitContainer.style.display = "block"
+    if Builder.nodes.toggleTraits
+      Builder.nodes.toggleTraits.onclick = ->
+        if Builder.nodes.personalityTraitContainer
+          if Builder.nodes.personalityTypesContainer.style.display == "block"
+            Builder.nodes.personalityTypesContainer.style.display = "none"
+            Builder.nodes.personalityTraitContainer.style.display = "block"
+          else
+            Builder.nodes.personalityTypesContainer.style.display = "block"
+            Builder.nodes.personalityTraitContainer.style.display = "none"
         else
-          Builder.nodes.personalityTypesContainer.style.display = "block"
-          Builder.nodes.personalityTraitContainer.style.display = "none"
-      else
-        Traitify.getPersonalityTraits(assessmentId, (data)->
-          personalityTraitContainer = Builder.partials.div({class: "personality-traits"})
-          Builder.nodes.personalityTraitContainer = personalityTraitContainer 
+          Traitify.getPersonalityTraits(assessmentId, (data)->
+            personalityTraitContainer = Builder.partials.div({class: "personality-traits"})
+            Builder.nodes.personalityTraitContainer = personalityTraitContainer 
 
-          for personalityTrait in data
-            personalityTraitContainer.appendChild(Builder.partials.personalityTrait(personalityTrait))
+            for personalityTrait in data
+              personalityTraitContainer.appendChild(Builder.partials.personalityTrait(personalityTrait))
 
-          Builder.nodes.container.appendChild(personalityTraitContainer)
-          Builder.nodes.personalityTypesContainer.style.display = "none"
-          Builder.nodes.personalityTraitContainer.style.display = "block"
-        )
+            Builder.nodes.container.appendChild(personalityTraitContainer)
+            Builder.nodes.personalityTypesContainer.style.display = "none"
+            Builder.nodes.personalityTraitContainer.style.display = "block"
+          )
+
     Builder.nodes.printButton.onclick = ->
       Builder.printWindow = window.open()
 
@@ -491,14 +496,16 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
 
       Builder.nodes.container = Builder.partials.div({class:"tf-results-prop"})
 
-      if options && options.traits
-        toolsContainer = Builder.partials.div({class:"tools"})
+      toolsContainer = Builder.partials.div({class:"tools"})
 
-        Builder.nodes.toolsContainer = toolsContainer
-        toolsContainer.appendChild(Builder.partials.printButton())
+      Builder.nodes.toolsContainer = toolsContainer
+
+      if options && options.traits
         toolsContainer.appendChild(Builder.partials.toggleTraits())
+
+      toolsContainer.appendChild(Builder.partials.printButton())
         
-        Builder.nodes.container.appendChild(toolsContainer)
+      Builder.nodes.container.appendChild(toolsContainer)
 
       Builder.nodes.personalityTypesContainer = Builder.partials.div({class:"personality-types"})
       Builder.nodes.container.appendChild(Builder.nodes.personalityTypesContainer)
