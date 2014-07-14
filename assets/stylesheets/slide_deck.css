@@ -105,6 +105,8 @@
 .tf-slide-deck-container .caption{
   padding:15px 0px 10px 0px;
   text-align:center;
+  font-size:28px;
+  text-shadow: 0px 0px 3px #000;
 }
 .tf-slide-deck-container .progress-bar{
   height:10px;
@@ -134,6 +136,9 @@
 @media only screen and (min-width:960px){
   .tf-slide-deck-container .slide .image{
     height:580px;
+  }
+  .tf-slide-deck-container .slide .caption{
+    font-size:34px;
   }
 }
 
