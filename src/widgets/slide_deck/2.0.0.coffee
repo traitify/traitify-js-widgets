@@ -262,11 +262,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       )
       Builder.data.slidesToPlayLength = Builder.data.slides.length
 
-      #style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
+      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
 
       Builder.nodes.main.innerHTML = ""
 
-      #Builder.nodes.main.appendChild(style)
+      Builder.nodes.main.appendChild(style)
 
       if Builder.data.slides.length != 0
         Builder.nodes.container = Builder.partials.slideDeckContainer()
@@ -524,10 +524,10 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
-      #style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
-      #Builder.nodes.stylesheet = style
+      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
+      Builder.nodes.stylesheet = style
 
-      #Builder.nodes.main.appendChild(style)
+      Builder.nodes.main.appendChild(style)
 
       Builder.nodes.container = Builder.partials.div({class:"tf-results-prop"})
 
