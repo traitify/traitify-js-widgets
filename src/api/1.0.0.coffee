@@ -4,6 +4,12 @@
   
   @version = "v1"
 
+  @testMode = false
+
+  @setTestMode = (mode)->
+    @testMode = mode
+    this
+
   @setHost = (host) ->
     host = host.replace("http://", "").replace("https://", "")
     host = "https://#{host}"
@@ -22,6 +28,10 @@
     url = "#{@host}/#{@version}#{url}"
 
 
+    if @testMode
+      callback(@testResponses[url])
+      return false
+
     xhr = new XMLHttpRequest()
     if "withCredentials" of xhr
 
@@ -35,7 +45,7 @@
     else
 
       # CORS not supported.
-      alert "Whoops, there was an error making the request."
+      console.log "There was an error making the request."
       xhr = null
     xhr
 
@@ -52,6 +62,7 @@
 
     xhr.send params
     xhr
+
 
     this
 

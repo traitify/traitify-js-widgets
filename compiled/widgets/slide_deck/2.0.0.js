@@ -7,6 +7,21 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.states.animating = false;
   Builder.data = Object();
   Builder.data.slideResponses = Object();
+  if (navigator.userAgent.match(/iPad/i)) {
+    Builder.device = "ipad";
+  }
+  if (navigator.userAgent.match(/iPhone/i)) {
+    Builder.device = "iphone";
+  }
+  if (navigator.userAgent.match(/Android/i)) {
+    Builder.device = "android";
+  }
+  if (navigator.userAgent.match(/BlackBerry/i)) {
+    Builder.device = "blackberry";
+  }
+  if (navigator.userAgent.match(/webOS/i)) {
+    Builder.device = "webos";
+  }
   if (selector.indexOf("#") !== -1) {
     selector = selector.replace("#", "");
     Builder.nodes.main = document.getElementById(selector);
@@ -35,7 +50,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.data.slideValues.push({
       id: id,
       response: value,
-      response_time: 1000
+      time_taken: 1000
     });
     Builder.data.sentSlides += 1;
     if (Builder.data.slideValues.length % 10 === 0 || Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
@@ -133,8 +148,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   };
   Builder.partials.slide = function(slideData) {
     var slide, slideCaption, slideImg;
-    slideImg = this.img({
-      src: slideData.image_desktop
+    slideImg = this.div({
+      style: "background-image:url('" + slideData.image_desktop + "'); background-position:" + slideData.focus_x + "% " + slideData.focus_y + "%;'",
+      "class": "image"
     });
     slide = this.div({
       "class": "slide"
@@ -143,7 +159,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       "class": "caption"
     });
     slideCaption.innerHTML = slideData.caption;
-    slide.appendChild(slideCaption);
+    slideImg.appendChild(slideCaption);
     slide.appendChild(slideImg);
     return slide;
   };
@@ -177,55 +193,69 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     return loadingContainer;
   };
   Builder.actions = function() {
-    Builder.nodes.me.onclick = function() {
-      var currentSlide;
-      if (!Builder.states.animating && !Builder.data.slidesLeft() !== 1) {
-        if (!Builder.data.slides[Builder.data.currentSlide]) {
-          Builder.events.loadingAnimation();
-        }
-        Builder.events.advanceSlide();
-        currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
-        Builder.data.addSlide(currentSlide.id, true);
-        Builder.data.currentSlide += 1;
-        if (Builder.callbacks.me) {
-          return Builder.callbacks.me(Builder);
-        }
-      }
-    };
-    return Builder.nodes.notMe.onclick = function() {
-      var currentSlide;
-      if (!Builder.states.animating && Builder.nodes.nextSlide) {
-        if (!Builder.data.slides[Builder.data.currentSlide]) {
-          Builder.events.loadingAnimation();
-        }
-        Builder.events.advanceSlide();
-        currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
-        Builder.data.addSlide(currentSlide.id, false);
-        Builder.data.currentSlide += 1;
-        if (Builder.callbacks.notMe) {
-          return Builder.callbacks.notMe(Builder);
-        }
-      }
-    };
+    if (Builder.device === "iphone") {
+      Builder.nodes.me.addEventListener('touchstart', function() {
+        return Builder.events.me();
+      });
+      return Builder.nodes.notMe.addEventListener('touchstart', function() {
+        return Builder.events.notMe();
+      });
+    } else {
+      Builder.nodes.notMe.onclick = function() {
+        return Builder.events.notMe();
+      };
+      return Builder.nodes.me.onclick = function() {
+        return Builder.events.me();
+      };
+    }
   };
   Builder.events = Object();
+  Builder.events.me = function() {
+    var currentSlide;
+    if (!Builder.states.animating && !Builder.data.slidesLeft() !== 1) {
+      if (!Builder.data.slides[Builder.data.currentSlide]) {
+        Builder.events.loadingAnimation();
+      }
+      Builder.events.advanceSlide();
+      currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
+      Builder.data.addSlide(currentSlide.id, true);
+      Builder.data.currentSlide += 1;
+      if (Builder.callbacks.me) {
+        return Builder.callbacks.me(Builder);
+      }
+    }
+  };
+  Builder.events.notMe = function() {
+    var currentSlide;
+    if (!Builder.states.animating && Builder.nodes.nextSlide) {
+      if (!Builder.data.slides[Builder.data.currentSlide]) {
+        Builder.events.loadingAnimation();
+      }
+      Builder.events.advanceSlide();
+      currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
+      Builder.data.addSlide(currentSlide.id, false);
+      Builder.data.currentSlide += 1;
+      if (Builder.callbacks.notMe) {
+        return Builder.callbacks.notMe(Builder);
+      }
+    }
+  };
   Builder.events.advanceSlide = function() {
     var nextSlideData;
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%";
-    Builder.states.animating = true;
     if (Builder.nodes.playedSlide) {
       Builder.nodes.slides.removeChild(Builder.nodes.playedSlide);
     }
     Builder.nodes.playedSlide = Builder.nodes.currentSlide;
-    Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', function(event) {
+    Builder.nodes.currentSlide = Builder.nodes.nextSlide;
+    Builder.nodes.playedSlide.className += " played";
+    Builder.nodes.currentSlide.className += " active";
+    Builder.nodes.currentSlide.addEventListener('webkitTransitionEnd', function(event) {
       if (Builder.events.advancedSlide) {
         Builder.events.advancedSlide();
       }
       return Builder.states.animating = false;
     }, false);
-    Builder.nodes.currentSlide = Builder.nodes.nextSlide;
-    Builder.nodes.playedSlide.className += " played";
-    Builder.nodes.currentSlide.className += " active";
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
     if (nextSlideData) {
       Builder.nodes.nextSlide = Builder.partials.slide(nextSlideData);
@@ -243,7 +273,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var style;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -251,15 +280,13 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         return !slide.completed_at;
       });
       Builder.data.slidesToPlayLength = Builder.data.slides.length;
-      style = Builder.partials.make("link", {
-        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css",
-        type: 'text/css',
-        rel: "stylesheet"
-      });
       Builder.nodes.main.innerHTML = "";
-      Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
-        Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer());
+        Builder.nodes.container = Builder.partials.slideDeckContainer();
+        if (Builder.device) {
+          Builder.nodes.container.className += " " + Builder.device;
+        }
+        Builder.nodes.main.appendChild(Builder.nodes.container);
         Builder.actions();
       } else {
         Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
@@ -486,32 +513,34 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
     return printButton;
   };
   Builder.actions = function() {
-    Builder.nodes.toggleTraits.onclick = function() {
-      if (Builder.nodes.personalityTraitContainer) {
-        if (Builder.nodes.personalityTypesContainer.style.display === "block") {
-          Builder.nodes.personalityTypesContainer.style.display = "none";
-          return Builder.nodes.personalityTraitContainer.style.display = "block";
-        } else {
-          Builder.nodes.personalityTypesContainer.style.display = "block";
-          return Builder.nodes.personalityTraitContainer.style.display = "none";
-        }
-      } else {
-        return Traitify.getPersonalityTraits(assessmentId, function(data) {
-          var personalityTrait, personalityTraitContainer, _i, _len;
-          personalityTraitContainer = Builder.partials.div({
-            "class": "personality-traits"
-          });
-          Builder.nodes.personalityTraitContainer = personalityTraitContainer;
-          for (_i = 0, _len = data.length; _i < _len; _i++) {
-            personalityTrait = data[_i];
-            personalityTraitContainer.appendChild(Builder.partials.personalityTrait(personalityTrait));
+    if (Builder.nodes.toggleTraits) {
+      Builder.nodes.toggleTraits.onclick = function() {
+        if (Builder.nodes.personalityTraitContainer) {
+          if (Builder.nodes.personalityTypesContainer.style.display === "block") {
+            Builder.nodes.personalityTypesContainer.style.display = "none";
+            return Builder.nodes.personalityTraitContainer.style.display = "block";
+          } else {
+            Builder.nodes.personalityTypesContainer.style.display = "block";
+            return Builder.nodes.personalityTraitContainer.style.display = "none";
           }
-          Builder.nodes.container.appendChild(personalityTraitContainer);
-          Builder.nodes.personalityTypesContainer.style.display = "none";
-          return Builder.nodes.personalityTraitContainer.style.display = "block";
-        });
-      }
-    };
+        } else {
+          return Traitify.getPersonalityTraits(assessmentId, function(data) {
+            var personalityTrait, personalityTraitContainer, _i, _len;
+            personalityTraitContainer = Builder.partials.div({
+              "class": "personality-traits"
+            });
+            Builder.nodes.personalityTraitContainer = personalityTraitContainer;
+            for (_i = 0, _len = data.length; _i < _len; _i++) {
+              personalityTrait = data[_i];
+              personalityTraitContainer.appendChild(Builder.partials.personalityTrait(personalityTrait));
+            }
+            Builder.nodes.container.appendChild(personalityTraitContainer);
+            Builder.nodes.personalityTypesContainer.style.display = "none";
+            return Builder.nodes.personalityTraitContainer.style.display = "block";
+          });
+        }
+      };
+    }
     return Builder.nodes.printButton.onclick = function() {
       var title;
       Builder.printWindow = window.open();
@@ -536,27 +565,20 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
   Builder.initialize = function() {
     Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var personalityType, style, toolsContainer, _i, _len, _ref;
+      var personalityType, toolsContainer, _i, _len, _ref;
       Builder.data.personalityTypes = data.personality_types;
-      style = Builder.partials.make("link", {
-        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css",
-        type: 'text/css',
-        rel: "stylesheet"
-      });
-      Builder.nodes.stylesheet = style;
-      Builder.nodes.main.appendChild(style);
       Builder.nodes.container = Builder.partials.div({
         "class": "tf-results-prop"
       });
+      toolsContainer = Builder.partials.div({
+        "class": "tools"
+      });
+      Builder.nodes.toolsContainer = toolsContainer;
       if (options && options.traits) {
-        toolsContainer = Builder.partials.div({
-          "class": "tools"
-        });
-        Builder.nodes.toolsContainer = toolsContainer;
-        toolsContainer.appendChild(Builder.partials.printButton());
         toolsContainer.appendChild(Builder.partials.toggleTraits());
-        Builder.nodes.container.appendChild(toolsContainer);
       }
+      toolsContainer.appendChild(Builder.partials.printButton());
+      Builder.nodes.container.appendChild(toolsContainer);
       Builder.nodes.personalityTypesContainer = Builder.partials.div({
         "class": "personality-types"
       });

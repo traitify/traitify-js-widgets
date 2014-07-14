@@ -2,6 +2,11 @@
 this.Traitify = new (function() {
   this.host = "https://api.traitify.com";
   this.version = "v1";
+  this.testMode = false;
+  this.setTestMode = function(mode) {
+    this.testMode = mode;
+    return this;
+  };
   this.setHost = function(host) {
     host = host.replace("http://", "").replace("https://", "");
     host = "https://" + host;
@@ -19,6 +24,10 @@ this.Traitify = new (function() {
   this.ajax = function(url, method, callback, params) {
     var xhr;
     url = "" + this.host + "/" + this.version + url;
+    if (this.testMode) {
+      callback(this.testResponses[url]);
+      return false;
+    }
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       xhr.open(method, url, true);
@@ -26,7 +35,7 @@ this.Traitify = new (function() {
       xhr = new XDomainRequest();
       xhr.open(method, url);
     } else {
-      alert("Whoops, there was an error making the request.");
+      console.log("There was an error making the request.");
       xhr = null;
     }
     xhr;

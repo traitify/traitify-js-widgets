@@ -1,4 +1,5 @@
-unPlayedAssessment = "8e5352e8-33d4-4085-ac05-c6314008164b"
+unPlayedAssessment = "unplayed"
+playedAssessment = "played"
 
 body = document.getElementsByTagName("body")[0]
 body.innerHTML = body.innerHTML + "<div class='widget' style='display:none'></div>"
@@ -7,6 +8,7 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
   Traitify.setVersion("v1")
   Traitify.setHost("api-sandbox.traitify.com")
   Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+  document.getElementsByClassName("widget")[0].innerHTML = ""
 
   Builder = Traitify.ui.slideDeck(unPlayedAssessment, ".widget", Object())
   assert.equal(!Builder.onInitialize, false, "on Initialize Event Succeeds!" )
@@ -16,10 +18,15 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
   assert.equal(!Builder.onFinish, false, "on Finish Event Succeeds!" )
   assert.equal(!Builder.onAdvanceSlide, false, "on Advance Slide Event Succeeds!" )
 )
-QUnit.asyncTest("Slide Deck Widget Initialize", (assert)->
+
+QUnit.module( "Testing API Version 1", { setup: ->
   Traitify.setVersion("v1")
   Traitify.setHost("api-sandbox.traitify.com")
   Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+
+  document.getElementsByClassName("widget")[0].innerHTML = ""
+});
+QUnit.asyncTest("Slide Deck Widget Initialize", (assert)->
 
   Builder = Traitify.ui.slideDeck(unPlayedAssessment, ".widget", Object())
   Builder.onInitialize(->
@@ -48,11 +55,40 @@ QUnit.asyncTest("Slide Deck Widget Initialize", (assert)->
     QUnit.start()
   )
 )
+
 QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
-  Traitify.setVersion("v1")
-  Traitify.setHost("api-sandbox.traitify.com")
-  Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
 
   Builder = Traitify.ui.slideDeck(unPlayedAssessment, ".widget", Object())
   assert.equal(!document.getElementsByClassName("slide active")[0], false, "on Initialize Event Succeeds!" )
+)
+
+QUnit.asyncTest("Results Widget Appears on Screen", (assert)->
+  assert.equal(!document.getElementsByClassName("personality-types")[0], true, "Personality types container exists")
+
+  Builder = Traitify.ui.slideDeck(playedAssessment, ".widget", Object())
+  Builder.results.onInitialize(->
+    assert.equal(!document.getElementsByClassName("personality-types")[0], false, "Personality types container exists")
+    assert.equal(!document.getElementsByClassName("print-button")[0], false, "Print button exists")
+    QUnit.start()
+  )
+)
+
+QUnit.asyncTest("Results Widget Shows Traits When Requested", (assert)->
+  assert.equal(!document.getElementsByClassName("personality-types")[0], true, "Personality types container exists")
+
+  Builder = Traitify.ui.slideDeck(playedAssessment, ".widget", {traits:true})
+  Builder.results.onInitialize(->
+    assert.equal(!document.getElementsByClassName("toggle-traits")[0], false, "Personality types container exists")
+    QUnit.start()
+  )
+)
+
+QUnit.asyncTest("Results Widget Does Not Show Traits View Upon Request", (assert)->
+  assert.equal(!document.getElementsByClassName("personality-types")[0], true, "Personality types container exists")
+
+  Builder = Traitify.ui.slideDeck(playedAssessment, ".widget")
+  Builder.results.onInitialize(->
+    assert.equal(!document.getElementsByClassName("toggle-traits")[0], true, "Personality types container exists")
+    QUnit.start()
+  )
 )

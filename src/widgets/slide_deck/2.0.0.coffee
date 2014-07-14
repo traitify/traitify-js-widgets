@@ -5,6 +5,21 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.states.animating = false
   Builder.data = Object()
   Builder.data.slideResponses = Object()
+  
+  if navigator.userAgent.match(/iPad/i)
+    Builder.device = "ipad"
+
+  if navigator.userAgent.match(/iPhone/i)
+   Builder.device = "iphone"
+
+  if navigator.userAgent.match(/Android/i)
+    Builder.device = "android"
+
+  if navigator.userAgent.match(/BlackBerry/i)
+    Builder.device = "blackberry"
+
+  if navigator.userAgent.match(/webOS/i)
+    Builder.device = "webos"
 
   if selector.indexOf("#") != -1
     selector = selector.replace("#", "")
@@ -123,7 +138,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     slide = @div({class:"slide"})
     slideCaption = @div({class:"caption"})
     slideCaption.innerHTML = slideData.caption
-    slide.appendChild(slideCaption)
+    slideImg.appendChild(slideCaption)
     slide.appendChild(slideImg)
     slide
 
@@ -150,60 +165,76 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     loadingContainer
 
   Builder.actions = ->
-    Builder.nodes.me.onclick = ->
-      if !Builder.states.animating && !Builder.data.slidesLeft() != 1
-        if !Builder.data.slides[Builder.data.currentSlide] 
-          Builder.events.loadingAnimation()
+    
+    if Builder.device == "iphone"
+      Builder.nodes.me.addEventListener('touchstart', ->
+        Builder.events.me()
+      )
+      Builder.nodes.notMe.addEventListener('touchstart', ->
+        Builder.events.notMe()
+      )
+    else
+      Builder.nodes.notMe.onclick = ->
+        Builder.events.notMe()
 
-        Builder.events.advanceSlide()
-
-        currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
-
-        Builder.data.addSlide(currentSlide.id, true)
-
-        Builder.data.currentSlide += 1
-
-        if Builder.callbacks.me
-          Builder.callbacks.me(Builder)
-
-    Builder.nodes.notMe.onclick = ->
-      if !Builder.states.animating && Builder.nodes.nextSlide
-        if !Builder.data.slides[Builder.data.currentSlide] 
-          Builder.events.loadingAnimation()
-
-        Builder.events.advanceSlide()
-
-        currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
-
-        Builder.data.addSlide(currentSlide.id, false)
-
-        Builder.data.currentSlide += 1
-
-        if Builder.callbacks.notMe
-          Builder.callbacks.notMe(Builder)
+      Builder.nodes.me.onclick = ->
+        Builder.events.me()
+    
 
   Builder.events = Object()
+
+  Builder.events.me = ->
+    if !Builder.states.animating && !Builder.data.slidesLeft() != 1
+      if !Builder.data.slides[Builder.data.currentSlide] 
+        Builder.events.loadingAnimation()
+
+      Builder.events.advanceSlide()
+
+      currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
+
+      Builder.data.addSlide(currentSlide.id, true)
+
+      Builder.data.currentSlide += 1
+
+      if Builder.callbacks.me
+        Builder.callbacks.me(Builder)
+
+  Builder.events.notMe = ->
+    if !Builder.states.animating && Builder.nodes.nextSlide
+      if !Builder.data.slides[Builder.data.currentSlide] 
+        Builder.events.loadingAnimation()
+
+      Builder.events.advanceSlide()
+
+      currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
+
+      Builder.data.addSlide(currentSlide.id, false)
+
+      Builder.data.currentSlide += 1
+
+      if Builder.callbacks.notMe
+        Builder.callbacks.notMe(Builder)
+
   Builder.events.advanceSlide = ->
 
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%"
 
-    Builder.states.animating = true
 
     if Builder.nodes.playedSlide
       # REMOVE NODE
       Builder.nodes.slides.removeChild(Builder.nodes.playedSlide)
 
     Builder.nodes.playedSlide = Builder.nodes.currentSlide
-    Builder.nodes.playedSlide.addEventListener('webkitTransitionEnd', (event)-> 
-      if Builder.events.advancedSlide
-        Builder.events.advancedSlide()
-      Builder.states.animating = false
-    , false )
 
     Builder.nodes.currentSlide = Builder.nodes.nextSlide
 
     Builder.nodes.playedSlide.className += " played"
     Builder.nodes.currentSlide.className += " active"
+    Builder.nodes.currentSlide.addEventListener('webkitTransitionEnd', (event)-> 
+      if Builder.events.advancedSlide
+        Builder.events.advancedSlide()
+      Builder.states.animating = false
+    , false )
     
     # NEW NEXT SLIDE
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1]
@@ -231,14 +262,18 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       )
       Builder.data.slidesToPlayLength = Builder.data.slides.length
 
-      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
+      #style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css", type:'text/css', rel:"stylesheet"})
 
       Builder.nodes.main.innerHTML = ""
 
-      Builder.nodes.main.appendChild(style)
+      #Builder.nodes.main.appendChild(style)
 
       if Builder.data.slides.length != 0
-        Builder.nodes.main.appendChild(Builder.partials.slideDeckContainer())
+        Builder.nodes.container = Builder.partials.slideDeckContainer()
+        if Builder.device
+          Builder.nodes.container.className += " #{Builder.device}"
+
+        Builder.nodes.main.appendChild(Builder.nodes.container)
 
         Builder.actions()
       else
@@ -489,10 +524,10 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
     Traitify.getPersonalityTypes(assessmentId, (data)->
       Builder.data.personalityTypes = data.personality_types
 
-      style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
-      Builder.nodes.stylesheet = style
+      #style = Builder.partials.make("link", {href:"https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css", type:'text/css', rel:"stylesheet"})
+      #Builder.nodes.stylesheet = style
 
-      Builder.nodes.main.appendChild(style)
+      #Builder.nodes.main.appendChild(style)
 
       Builder.nodes.container = Builder.partials.div({class:"tf-results-prop"})
 

@@ -1,16 +1,17 @@
 <html>
 	<head>
-		<script src="/compiled/api/1.0.0.js"></script>
-		<script src="/compiled/widgets/slide_deck/2.0.0.js"></script>
+		<script src="./compiled/api/1.0.0.js"></script>
+		<script src="./compiled/widgets/slide_deck/2.0.0.js"></script>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
 	</head>
 	<body>
-		<div class="slide-deck" style="width:400px">
+		<div class="slide-deck">
 		</div>
 		<script>
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
 		Traitify.setVersion("v1");
-		Builder = Traitify.ui.slideDeck("d2daae76-efec-487c-a405-a4335e8938dc", ".slide-deck", {traits:true});
+		Builder = Traitify.ui.slideDeck("5a26720a-974d-4020-9fa3-27730cb449b2", ".slide-deck", {traits:true});
 		Builder.onInitialize(function(){
 			console.log("initialized!")
 		})
@@ -29,5 +30,6 @@
 		})
 
 		</script>
+		<link href="assets/stylesheets/slide_deck.css" rel="stylesheet" />
 	</body>
 </html>

@@ -77,13 +77,20 @@
 	opacity:0;
 	visibility:hidden;
 }
+.tf-slide-deck-container .me-not-me-container{
+  position:absolute;
+  z-index:1;
+  width:100%;
+  bottom:0px;
+}
+
 .tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
 	text-align: center;
 	padding: .5em 0em;
 	cursor: pointer;
 }
 .tf-slide-deck-container .me{
-	background-color: #058fc4;
+	background-color:rgba(5, 143, 196, .75); 
 	position: relative;
 	width: 50%;
 	display: inline-block;
@@ -92,20 +99,19 @@
 	position: relative;
 	width: 50%;
 	display: inline-block;
-	background-color: #cb4e4e;
+	background-color:rgba(203, 78, 78, .75);
 	color: #fff;
 }
 .tf-slide-deck-container .caption{
-  background-color:#333;
-  padding:.5em 0em;
+  padding:15px 0px 10px 0px;
   text-align:center;
 }
 .tf-slide-deck-container .progress-bar{
-  height:5px;
+  height:10px;
   display:block;
-  background-color:#777;
-  border:1px solid #777;
-  float: none;
+  background-color:rgba(255, 255, 255, .5);
+  position:absolute;
+  z-index:1;
   width: 100%;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -114,15 +120,24 @@
 }
 .tf-slide-deck-container .progress-bar .progress-bar-inner{
   width:0%;
-  height:5px;
-  background-color:#eee;
+  height:10px;
+  background-color:#fff;
+  position:absolute;
   -webkit-animation-delay: 2s; /* Safari and Chrome */
   animation-delay: 2s;
   -webkit-transition: width .3s linear;
   -moz-transition: width .3s linear;
   -o-transition: width .3s linear;
   transition: width .3s linear;
+  border-radius: 0px 5px 5px 0px;
 }
+@media only screen and (min-width:960px){
+  .tf-slide-deck-container .slide .image{
+    height:580px;
+  }
+}
+
+
 .loading .symbol{
   width: 30px;
   height: 30px;
@@ -178,18 +193,99 @@
 }
 
 
-
 /***************************
  * MOBILE
  ***************************/
-@media only screen and (max-width: 400px){
-  .tf-slide-deck-container .slide .image{
-    height:300px
-  }
+.iphone.tf-slide-deck-container .progress-bar{
+  background-color:rgba(255,255,255, .5);
+  position:absolute;
+  z-index:2;
+  border:0px;
+  height:10px;
 }
-
-@media only screen and (min-width: 400px) and (max-width: 700px){
-  .tf-slide-deck-container .slide .image{
-    height:500px
+.iphone.tf-slide-deck-container .progress-bar-inner{
+  border-radius: 0px 5px 5px 0px;
+  height:10px;
+}
+.iphone.tf-slide-deck-container .caption{
+  font-size:20px;
+  background-color:transparent;
+  position:relative;
+  width:100%;
+  padding-top:20px;
+}
+.iphone.tf-slide-deck-container .slide{
+  padding: 0px;
+  margin: 0px;
+  -webkit-transition: width .4s linear;
+  -moz-transition: width .4s linear;
+  -o-transition: width .4s linear;
+  transition: width .4s linear;
+  position: absolute;
+  right:0%;
+  top: 0px;
+  width: 0%;
+  left:auto;
+}
+.iphone.tf-slide-deck-container .slides .slide.played{
+  right:auto;
+  left:0%;
+  width: 0%;
+  left:auto;
+}
+.iphone.tf-slide-deck-container .slides .slide.active{
+  right:0%;
+  width: 100%;
+  left:auto;
+}
+.iphone.tf-slide-deck-container .slide .image{
+  height:420px
+}
+.iphone.tf-slide-deck-container .me-not-me-container{
+  font-size:17px;
+  position:absolute;
+  height:100%;
+  top:0px;
+  width:100%;
+  overflow:hidden;
+}
+.iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  height: 420px;
+  line-height:420px;
+  position:relative;
+}
+.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  background-color:rgba(203, 78, 78, .35);
+}
+.iphone.tf-slide-deck-container .me-not-me-container .me{
+  background-color:rgba(5, 143, 196, .35); 
+}
+@media screen and (device-width:320px) and (orientation:landscape) {
+  .iphone.tf-slide-deck-container .caption{
+    font-size:16px;
+  }
+  .iphone.tf-slide-deck-container .slide .image{
+    height:160px;
+  }
+  .iphone.tf-slide-deck-container .slide .me-not-me-container{
+    height:160px;
+  }
+  .iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
+    height: 160px;
+    line-height:160px;
+  }
+  .iphone.tf-slide-deck-container .progress-bar{
+    background-color:rgba(255,255,255, .5);
+    position:absolute;
+    z-index:2;
+    border:0px;
+    height:8px;
+  }
+  .iphone.tf-slide-deck-container .progress-bar-inner{
+    border-radius: 0px 4px 4px 0px;
+    height:8px;
+  }
+  .iphone.tf-slide-deck-container .me-not-me-container{
+    font-size:11px;
   }
 }

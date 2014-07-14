@@ -61,7 +61,7 @@ window.Traitify.ui.resultsFitssTotem = function(assessmentId, selector, options,
       "class": "score"
     });
     this.style.score(score, data);
-    localScore = data.score >= 0 ? data.score : "(" + (Math.abs(data.score)) + ")";
+    localScore = data.score >= 0 ? Math.round(data.score) : "(" + (Math.round(Math.abs(data.score))) + ")";
     score.innerHTML = localScore;
     informationContainer.appendChild(score);
     barContainer = this.div({
