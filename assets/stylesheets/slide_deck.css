@@ -212,6 +212,9 @@
   border-radius: 0px 5px 5px 0px;
   height:10px;
 }
+.iphone.tf-slide-deck-container .slide.placeholder .caption{
+  z-index:-1;
+}
 .iphone.tf-slide-deck-container .caption{
   font-size:20px;
   background-color:transparent;
@@ -242,6 +245,12 @@
   right:0%;
   width: 100%;
   left:auto;
+}
+.iphone.tf-slide-deck-container .slides .slide.active .caption, .ipad.tf-slide-deck-container .slides .slide.active .caption{
+  z-index:2;
+}
+.iphone.tf-slide-deck-container .slides .slide.played .caption, .ipad.tf-slide-deck-container .slides .slide.played .caption{
+  z-index:-1;
 }
 .iphone.tf-slide-deck-container .slide .image{
   height:420px
