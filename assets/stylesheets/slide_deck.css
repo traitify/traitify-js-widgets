@@ -133,7 +133,7 @@
   transition: width .3s linear;
   border-radius: 0px 5px 5px 0px;
 }
-@media only screen and (min-width:960px){
+@media only screen and (min-width:760px){
   .tf-slide-deck-container .slide .image{
     height:580px;
   }
