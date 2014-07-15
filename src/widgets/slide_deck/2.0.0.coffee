@@ -132,7 +132,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
   Builder.partials.slide = (slideData)->
     slideImg = @div({
-      style:"background-image:url('#{slideData.image_desktop}'); background-position:#{slideData.focus_x}% #{slideData.focus_y}%;'", 
+      style:"background-image:url('#{slideData.image_desktop_retina}'); background-position:#{slideData.focus_x}% #{slideData.focus_y}%;'", 
       class:"image"
     })
     slide = @div({class:"slide"})
