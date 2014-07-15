@@ -250,7 +250,7 @@
   z-index:2;
 }
 .iphone.tf-slide-deck-container .slides .slide.played .caption, .ipad.tf-slide-deck-container .slides .slide.played .caption{
-  z-index:-1;
+  z-index:auto;
 }
 .iphone.tf-slide-deck-container .slide .image{
   height:420px
