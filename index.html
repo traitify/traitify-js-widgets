@@ -1,5 +1,7 @@
 <html>
 	<head>
+		<script src="./api/1.0.0.js"></script>
+		<script src="./widgets/slide_deck/2.0.0.js"></script>
 		<script src="./compiled/api/1.0.0.js"></script>
 		<script src="./compiled/widgets/slide_deck/2.0.0.js"></script>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
@@ -8,10 +10,22 @@
 		<div class="slide-deck">
 		</div>
 		<script>
+		if(window.location.hash.substring(1).indexOf("&")){
+			var splitQueries = window.location.hash.substring(1).split("&")	
+		}else{
+			var splitQueries = window.location.hash.substring(1)
+		}
+
+		var splitByKeyValue = Object() 
+		for(index in splitQueries){
+			keyValue = splitQueries[index].split("=")
+			splitByKeyValue[keyValue[0]] = keyValue[1]
+		}
+
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
 		Traitify.setVersion("v1");
-		Builder = Traitify.ui.slideDeck("5117450c-bd20-4242-aa42-e8aef5e2778e", ".slide-deck", {traits:true});
+		Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true});
 		Builder.onInitialize(function(){
 			console.log("initialized!")
 		})

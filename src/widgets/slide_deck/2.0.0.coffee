@@ -164,14 +164,32 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
     loadingContainer
 
+  Builder.helpers = Object()
+  touched = Object()
+  Builder.helpers.touch = (touchNode, callBack)->
+    touchNode.addEventListener('touchstart', (event)->
+      touchobj = event.changedTouches[0]
+      touched.startx = parseInt(touchobj.clientX)
+      touched.starty = parseInt(touchobj.clientY)
+      
+    )
+    touchNode.addEventListener('touchend', (event)->
+      touchobj = event.changedTouches[0]
+      touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
+      touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
+      console.log(touchDifferenceY)
+      console.log(touchDifferenceX)
+      if (touchDifferenceX < 10 && touchDifferenceX < 10)   
+        callBack()
+    )
+
   Builder.actions = ->
-    
-    if Builder.device == "iphone"  || Builder.device == "ipad" 
-      Builder.nodes.me.addEventListener('touchstart', ->
-        Builder.events.me()
-      )
-      Builder.nodes.notMe.addEventListener('touchstart', ->
+    if Builder.device == "iphone"  ||  Builder.device == "ipad" 
+      Builder.helpers.touch(Builder.nodes.notMe, ->
         Builder.events.notMe()
+      )
+      Builder.helpers.touch(Builder.nodes.me, ->
+        Builder.events.me()
       )
     else
       Builder.nodes.notMe.onclick = ->
