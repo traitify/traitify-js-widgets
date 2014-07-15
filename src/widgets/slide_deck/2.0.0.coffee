@@ -166,7 +166,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
   Builder.actions = ->
     
-    if Builder.device == "iphone"
+    if Builder.device == "iphone"  || Builder.device == "ipad" 
       Builder.nodes.me.addEventListener('touchstart', ->
         Builder.events.me()
       )

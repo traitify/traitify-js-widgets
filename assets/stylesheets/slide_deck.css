@@ -199,7 +199,7 @@
 
 
 /***************************
- * MOBILE
+ * MOBILE iPhone
  ***************************/
 .iphone.tf-slide-deck-container .progress-bar{
   background-color:rgba(255,255,255, .5);
@@ -219,7 +219,7 @@
   width:100%;
   padding-top:20px;
 }
-.iphone.tf-slide-deck-container .slide{
+.iphone.tf-slide-deck-container .slide, .ipad.tf-slide-deck-container .slide{
   padding: 0px;
   margin: 0px;
   -webkit-transition: width .4s linear;
@@ -232,13 +232,13 @@
   width: 0%;
   left:auto;
 }
-.iphone.tf-slide-deck-container .slides .slide.played{
+.iphone.tf-slide-deck-container .slides .slide.played, .ipad.tf-slide-deck-container .slides .slide.played{
   right:auto;
   left:0%;
   width: 0%;
   left:auto;
 }
-.iphone.tf-slide-deck-container .slides .slide.active{
+.iphone.tf-slide-deck-container .slides .slide.active, .ipad.tf-slide-deck-container .slides .slide.active{
   right:0%;
   width: 100%;
   left:auto;
@@ -294,3 +294,51 @@
     font-size:11px;
   }
 }
+/**********************
+ * iPad
+ **********************/
+  .ipad.tf-slide-deck-container .image{
+    height:910px;
+  }
+  .ipad.tf-slide-deck-container .me-not-me-container{
+    bottom:450px;
+  }
+  .ipad.tf-slide-deck-container .me-not-me-container .me{
+    border-radius: 0px 50% 50% 0px;
+    width:100px;
+    padding:70px 30px;
+    padding-bottom:0px;
+    margin-left:-80px;
+    text-align:right;
+    height:90px;
+  }
+  .ipad.tf-slide-deck-container .me-not-me-container .not-me{
+    border-radius: 50% 0px 0px 50%;
+    width:100px;
+    padding:50px 30px;
+    float:right;
+    text-align:left;
+    margin-right:-80px;
+    word-spacing:30px; 
+    height:110px;
+    padding-bottom:0px;
+  }
+  @media screen and (orientation:landscape) {
+    .ipad.tf-slide-deck-container .image{
+      height:480px;
+    }
+    .ipad.tf-slide-deck-container .me-not-me-container{
+      bottom:150px;
+    }
+    .ipad.tf-slide-deck-container .me-not-me-container{
+      font-size:18px;
+    }
+    .ipad.tf-slide-deck-container .me-not-me-container .not-me{
+      padding:40px 20px;
+      height:60px;
+    }
+    .ipad.tf-slide-deck-container .me-not-me-container .me{
+      padding:50px 20px;
+      height:40px;
+    }
+  }

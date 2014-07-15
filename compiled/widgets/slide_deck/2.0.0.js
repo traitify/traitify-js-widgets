@@ -193,7 +193,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     return loadingContainer;
   };
   Builder.actions = function() {
-    if (Builder.device === "iphone") {
+    if (Builder.device === "iphone" || Builder.device === "ipad") {
       Builder.nodes.me.addEventListener('touchstart', function() {
         return Builder.events.me();
       });
@@ -273,6 +273,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
+      var style;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -280,7 +281,13 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         return !slide.completed_at;
       });
       Builder.data.slidesToPlayLength = Builder.data.slides.length;
+      style = Builder.partials.make("link", {
+        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/slide_deck.css",
+        type: 'text/css',
+        rel: "stylesheet"
+      });
       Builder.nodes.main.innerHTML = "";
+      Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
         Builder.nodes.container = Builder.partials.slideDeckContainer();
         if (Builder.device) {
@@ -565,8 +572,15 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
   Builder.initialize = function() {
     Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var personalityType, toolsContainer, _i, _len, _ref;
+      var personalityType, style, toolsContainer, _i, _len, _ref;
       Builder.data.personalityTypes = data.personality_types;
+      style = Builder.partials.make("link", {
+        href: "https://s3.amazonaws.com/traitify-cdn/assets/stylesheets/results_prop.css",
+        type: 'text/css',
+        rel: "stylesheet"
+      });
+      Builder.nodes.stylesheet = style;
+      Builder.nodes.main.appendChild(style);
       Builder.nodes.container = Builder.partials.div({
         "class": "tf-results-prop"
       });
