@@ -119,8 +119,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.nodes.notMe = this.div({
       "class": "not-me"
     });
-    Builder.nodes.notMe.innerHTML = "Not Me";
-    Builder.nodes.me.innerHTML = "Me";
+    Builder.nodes.notMe.innerHTML = "<div>Not Me</div>";
+    Builder.nodes.me.innerHTML = "<div>Me</div>";
     meNotMeContainer.appendChild(Builder.nodes.me);
     meNotMeContainer.appendChild(Builder.nodes.notMe);
     Builder.nodes.meNotMeContainer = meNotMeContainer;
@@ -206,9 +206,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       touchobj = event.changedTouches[0];
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX));
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY));
-      console.log(touchDifferenceY);
-      console.log(touchDifferenceX);
-      if (touchDifferenceX < 10 && touchDifferenceX < 10) {
+      if (touchDifferenceX < 2 && touchDifferenceX < 2) {
         return callBack();
       }
     });
@@ -237,6 +235,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       if (!Builder.data.slides[Builder.data.currentSlide]) {
         Builder.events.loadingAnimation();
       }
+      Builder.states.animating = true;
       Builder.events.advanceSlide();
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
       Builder.data.addSlide(currentSlide.id, true);
@@ -252,6 +251,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       if (!Builder.data.slides[Builder.data.currentSlide]) {
         Builder.events.loadingAnimation();
       }
+      Builder.states.animating = false;
       Builder.events.advanceSlide();
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
       Builder.data.addSlide(currentSlide.id, false);
@@ -263,20 +263,21 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   };
   Builder.events.advanceSlide = function() {
     var nextSlideData;
+    Builder.prefetchSlides();
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%";
     if (Builder.nodes.playedSlide) {
       Builder.nodes.slides.removeChild(Builder.nodes.playedSlide);
     }
     Builder.nodes.playedSlide = Builder.nodes.currentSlide;
     Builder.nodes.currentSlide = Builder.nodes.nextSlide;
-    Builder.nodes.playedSlide.className += " played";
-    Builder.nodes.currentSlide.className += " active";
     Builder.nodes.currentSlide.addEventListener('webkitTransitionEnd', function(event) {
       if (Builder.events.advancedSlide) {
         Builder.events.advancedSlide();
       }
       return Builder.states.animating = false;
     }, false);
+    Builder.nodes.playedSlide.className += " played";
+    Builder.nodes.currentSlide.className += " active";
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
     if (nextSlideData) {
       Builder.nodes.nextSlide = Builder.partials.slide(nextSlideData);
@@ -290,6 +291,24 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.nodes.meNotMeContainer.className += " hide";
     Builder.nodes.slides.removeChild(Builder.nodes.currentSlide);
     return Builder.nodes.slides.insertBefore(Builder.partials.loadingAnimation(), Builder.nodes.slides.firstChild);
+  };
+  Builder.imageCache = Object();
+  Builder.prefetchSlides = function(count) {
+    var end, slide, start, _i, _len, _ref, _results;
+    start = Builder.data.currentSlide - 1;
+    end = Builder.data.currentSlide + 9;
+    _ref = Builder.data.slides.slice(start, end);
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      slide = _ref[_i];
+      if (!Builder.imageCache[slide.image_desktop_retina]) {
+        Builder.imageCache[slide.image_desktop_retina] = new Image();
+        _results.push(Builder.imageCache[slide.image_desktop_retina].src = slide.image_desktop_retina);
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
   };
   Builder.initialized = false;
   Builder.initialize = function() {
@@ -316,6 +335,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         }
         Builder.nodes.main.appendChild(Builder.nodes.container);
         Builder.actions();
+        Builder.prefetchSlides();
       } else {
         Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
       }
@@ -609,10 +629,10 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
         "class": "tools"
       });
       Builder.nodes.toolsContainer = toolsContainer;
+      toolsContainer.appendChild(Builder.partials.printButton());
       if (options && options.traits) {
         toolsContainer.appendChild(Builder.partials.toggleTraits());
       }
-      toolsContainer.appendChild(Builder.partials.printButton());
       Builder.nodes.container.appendChild(toolsContainer);
       Builder.nodes.personalityTypesContainer = Builder.partials.div({
         "class": "personality-types"

@@ -84,25 +84,31 @@
   z-index:1;
   width:100%;
   bottom:0px;
+  font-size:16px;
+  letter-spacing:-1px;
 }
 
 .tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
 	text-align: center;
 	padding: .5em 0em;
 	cursor: pointer;
+  margin-bottom:18px;
 }
 .tf-slide-deck-container .me{
 	background-color:rgba(5, 143, 196, .75); 
 	position: relative;
-	width: 50%;
+	width: 30%;
+  margin-left:20%;
 	display: inline-block;
+  border-radius:6px 0px 0px 6px;
 }
 .tf-slide-deck-container .not-me{
 	position: relative;
-	width: 50%;
+	width: 30%;
+  margin-right:20%;
 	display: inline-block;
 	background-color:rgba(203, 78, 78, .75);
-	color: #fff;
+  border-radius:0px 6px 6px 0px;
 }
 .tf-slide-deck-container .caption{
   padding:15px 0px 10px 0px;
@@ -138,6 +144,9 @@
 @media only screen and (min-width:760px){
   .tf-slide-deck-container .slide .image{
     height:670px;
+  }
+  .tf-slide-deck-container .me-not-me-container{
+    font-size:20px;
   }
   .tf-slide-deck-container .slide .caption{
     font-size:34px;
@@ -255,7 +264,7 @@
   z-index:auto;
 }
 .iphone.tf-slide-deck-container .slide .image{
-  height:420px
+  height:440px
 }
 .iphone.tf-slide-deck-container .me-not-me-container{
   font-size:17px;
@@ -264,26 +273,30 @@
   top:0px;
   width:100%;
   overflow:hidden;
+  font-size:40px;
 }
 .iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
-  height: 420px;
-  line-height:420px;
+  height: 440px;
+  line-height:435px;
   position:relative;
 }
 .iphone.tf-slide-deck-container .me-not-me-container .not-me{
   background-color:rgba(203, 78, 78, .35);
+  border-radius:0px;
+  width:50%;
+  margin:0px;
 }
 .iphone.tf-slide-deck-container .me-not-me-container .me{
   background-color:rgba(5, 143, 196, .35); 
+  border-radius:0px;
+  width:50%;
+  margin:0px;
 }
 @media screen and (device-width:320px) and (orientation:landscape) {
   .iphone.tf-slide-deck-container .caption{
     font-size:16px;
   }
   .iphone.tf-slide-deck-container .slide .image{
-    height:160px;
-  }
-  .iphone.tf-slide-deck-container .slide .me-not-me-container{
     height:160px;
   }
   .iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
@@ -302,7 +315,7 @@
     height:8px;
   }
   .iphone.tf-slide-deck-container .me-not-me-container{
-    font-size:11px;
+      font-size:40px;
   }
 }
 /**********************
@@ -312,44 +325,49 @@
     height:910px;
   }
   .ipad.tf-slide-deck-container .me-not-me-container{
-    bottom:450px;
+    top:450px;
+    font-size:30px;
   }
   .ipad.tf-slide-deck-container .me-not-me-container .me{
     border-radius: 0px 50% 50% 0px;
     width:100px;
-    padding:70px 30px;
-    padding-bottom:0px;
-    margin-left:-80px;
+    padding:60px 35px;
+    margin-left:-70px;
     text-align:right;
-    height:90px;
   }
   .ipad.tf-slide-deck-container .me-not-me-container .not-me{
     border-radius: 50% 0px 0px 50%;
     width:100px;
-    padding:50px 30px;
-    float:right;
+    padding:60px 35px;
+    margin-right:-70px;
     text-align:left;
-    margin-right:-80px;
-    word-spacing:30px; 
-    height:110px;
-    padding-bottom:0px;
+    display:block;
+    float:right;
+  }
+  .ipad.tf-slide-deck-container .me-not-me-container .not-me div, .ipad.tf-slide-deck-container .me-not-me-container .me div{
+    line-height:1em;
+    width:30px;
+    display:inline-block;
+    height:2em;
+    margin:0px 5px;
+  }
+  .ipad.tf-slide-deck-container .me-not-me-container .me div{
+    line-height:2em;
   }
   @media screen and (orientation:landscape) {
     .ipad.tf-slide-deck-container .image{
       height:480px;
     }
     .ipad.tf-slide-deck-container .me-not-me-container{
-      bottom:150px;
+      top:190px;
     }
     .ipad.tf-slide-deck-container .me-not-me-container{
       font-size:18px;
     }
     .ipad.tf-slide-deck-container .me-not-me-container .not-me{
-      padding:40px 20px;
-      height:60px;
+      padding:45px 15px;
     }
     .ipad.tf-slide-deck-container .me-not-me-container .me{
-      padding:50px 20px;
-      height:40px;
+      padding:45px 15px;
     }
   }

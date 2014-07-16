@@ -102,8 +102,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     meNotMeContainer = @div({class:"me-not-me-container"})
     Builder.nodes.me = @div({class:"me"})
     Builder.nodes.notMe = @div({class:"not-me"})
-    Builder.nodes.notMe.innerHTML = "Not Me"
-    Builder.nodes.me.innerHTML = "Me"
+    Builder.nodes.notMe.innerHTML = "<div>Not Me</div>"
+    Builder.nodes.me.innerHTML = "<div>Me</div>"
     meNotMeContainer.appendChild(Builder.nodes.me)
     meNotMeContainer.appendChild(Builder.nodes.notMe)
     Builder.nodes.meNotMeContainer = meNotMeContainer
@@ -177,9 +177,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       touchobj = event.changedTouches[0]
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
-      console.log(touchDifferenceY)
-      console.log(touchDifferenceX)
-      if (touchDifferenceX < 10 && touchDifferenceX < 10)   
+      if (touchDifferenceX < 2 && touchDifferenceX < 2)   
         callBack()
     )
 
@@ -206,6 +204,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       if !Builder.data.slides[Builder.data.currentSlide] 
         Builder.events.loadingAnimation()
 
+      Builder.states.animating = true
       Builder.events.advanceSlide()
 
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
@@ -222,6 +221,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       if !Builder.data.slides[Builder.data.currentSlide] 
         Builder.events.loadingAnimation()
 
+      Builder.states.animating = false
       Builder.events.advanceSlide()
 
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
@@ -234,7 +234,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.callbacks.notMe(Builder)
 
   Builder.events.advanceSlide = ->
-
+    Builder.prefetchSlides()
     Builder.nodes.progressBarInner.style.width = Builder.data.getProgressBarNumbers() + "%"
 
 
@@ -246,13 +246,14 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
     Builder.nodes.currentSlide = Builder.nodes.nextSlide
 
-    Builder.nodes.playedSlide.className += " played"
-    Builder.nodes.currentSlide.className += " active"
     Builder.nodes.currentSlide.addEventListener('webkitTransitionEnd', (event)-> 
       if Builder.events.advancedSlide
         Builder.events.advancedSlide()
       Builder.states.animating = false
     , false )
+    Builder.nodes.playedSlide.className += " played"
+    Builder.nodes.currentSlide.className += " active"
+
     
     # NEW NEXT SLIDE
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1]
@@ -267,6 +268,16 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     Builder.nodes.meNotMeContainer.className += " hide"
     Builder.nodes.slides.removeChild(Builder.nodes.currentSlide)
     Builder.nodes.slides.insertBefore(Builder.partials.loadingAnimation(), Builder.nodes.slides.firstChild)
+
+  Builder.imageCache = Object()
+  Builder.prefetchSlides = (count)->
+    start = Builder.data.currentSlide - 1
+    end = Builder.data.currentSlide + 9
+
+    for slide in Builder.data.slides.slice(start, end)
+      unless Builder.imageCache[slide.image_desktop_retina]
+        Builder.imageCache[slide.image_desktop_retina] = new Image()
+        Builder.imageCache[slide.image_desktop_retina].src = slide.image_desktop_retina
 
   Builder.initialized = false
   Builder.initialize = ->
@@ -294,6 +305,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.nodes.main.appendChild(Builder.nodes.container)
 
         Builder.actions()
+
+        Builder.prefetchSlides()
       else
         Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
       
@@ -553,10 +566,10 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
 
       Builder.nodes.toolsContainer = toolsContainer
 
+      toolsContainer.appendChild(Builder.partials.printButton())
+
       if options && options.traits
         toolsContainer.appendChild(Builder.partials.toggleTraits())
-
-      toolsContainer.appendChild(Builder.partials.printButton())
         
       Builder.nodes.container.appendChild(toolsContainer)
 

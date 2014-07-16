@@ -16,6 +16,8 @@
 	user-select: none;
 	letter-spacing: .1em;
 	font-weight:100;
+	max-width:700px;
+	margin: 0px auto;
 }
 .tf-results-prop .personality-type{
 	display:inline-block;
@@ -87,6 +89,7 @@
 }
 .tf-results-prop .tools{
 	clear:both;
+	width:100%;
 }
 .tf-results-prop .tools .print-button{
 	display:inline-block;
