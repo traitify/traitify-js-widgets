@@ -301,6 +301,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.nodes.container = Builder.partials.slideDeckContainer()
         if Builder.device
           Builder.nodes.container.className += " #{Builder.device}"
+          if options && options.nonTouch
+            Builder.nodes.container.className += " non-touch"
 
         Builder.nodes.main.appendChild(Builder.nodes.container)
 

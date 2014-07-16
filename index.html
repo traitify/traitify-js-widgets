@@ -25,7 +25,12 @@
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
 		Traitify.setVersion("v1");
-		Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true});
+		if(splitByKeyValue.nonTouch){
+			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
+		}else{
+			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true});	
+		}
+		
 		Builder.onInitialize(function(){
 			console.log("initialized!")
 		})

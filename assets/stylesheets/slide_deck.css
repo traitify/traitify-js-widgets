@@ -318,6 +318,41 @@
       font-size:40px;
   }
 }
+.non-touch.iphone.tf-slide-deck-container .me-not-me-container{
+  border-radius:10px;
+  overflow:hidden;
+  height:50px;
+  padding:0px;
+  margin: 0px 10%;
+  width:80%;
+  bottom:10px;
+  top:auto;
+}
+
+.non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  width:50%;
+  font-size:22px;
+  height:50px;
+  line-height:50px;
+  padding:0px;
+}
+
+.non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  background-color:rgba(203, 78, 78, .8);
+}
+.non-touch.iphone.tf-slide-deck-container .me-not-me-container .me{
+  background-color:rgba(5, 143, 196, .8); 
+}
+@media screen and (orientation:landscape) {
+  .non-touch.iphone.tf-slide-deck-container .me-not-me-container{
+    height:25px;
+  }
+  .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+    font-size:12px;
+    height:25px;
+    line-height:25px;
+  }
+}
 /**********************
  * iPad
  **********************/
