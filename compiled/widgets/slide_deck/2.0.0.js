@@ -148,10 +148,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   };
   Builder.partials.slide = function(slideData) {
     var slide, slideCaption, slideImg;
-    slideImg = this.div({
-      style: "background-image:url('" + slideData.image_desktop_retina + "'); background-position:" + slideData.focus_x + "% " + slideData.focus_y + "%;'",
-      "class": "image"
-    });
     slide = this.div({
       "class": "slide"
     });
@@ -159,7 +155,18 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       "class": "caption"
     });
     slideCaption.innerHTML = slideData.caption;
-    slideImg.appendChild(slideCaption);
+    if (Builder.device) {
+      slideImg = this.div({
+        style: "background-image:url('" + slideData.image_desktop_retina + "'); background-position:" + slideData.focus_x + "% " + slideData.focus_y + "%;'",
+        "class": "image"
+      });
+      slideImg.appendChild(slideCaption);
+    } else {
+      slideImg = this.img({
+        src: slideData.image_desktop_retina
+      });
+      slide.appendChild(slideCaption);
+    }
     slide.appendChild(slideImg);
     return slide;
   };

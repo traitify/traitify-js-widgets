@@ -131,14 +131,20 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     slides
 
   Builder.partials.slide = (slideData)->
-    slideImg = @div({
-      style:"background-image:url('#{slideData.image_desktop_retina}'); background-position:#{slideData.focus_x}% #{slideData.focus_y}%;'", 
-      class:"image"
-    })
     slide = @div({class:"slide"})
     slideCaption = @div({class:"caption"})
     slideCaption.innerHTML = slideData.caption
-    slideImg.appendChild(slideCaption)
+
+    if Builder.device
+        slideImg = @div({
+          style:"background-image:url('#{slideData.image_desktop_retina}'); background-position:#{slideData.focus_x}% #{slideData.focus_y}%;'", 
+          class:"image"
+        })
+        slideImg.appendChild(slideCaption)
+    else
+        slideImg = @img({src:slideData.image_desktop_retina})
+        slide.appendChild(slideCaption)
+
     slide.appendChild(slideImg)
     slide
 
