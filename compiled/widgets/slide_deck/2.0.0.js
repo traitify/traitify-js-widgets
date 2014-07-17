@@ -148,10 +148,16 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   };
   Builder.partials.slide = function(slideData) {
     var slide, slideCaption, slideImg;
-    slideImg = this.div({
-      style: "background-image:url('" + slideData.image_desktop_retina + "'); background-position:" + slideData.focus_x + "% " + slideData.focus_y + "%;'",
-      "class": "image"
-    });
+    if (Builder.device) {
+      slideImg = this.div({
+        style: "background-image:url('" + slideData.image_desktop_retina + "'); background-position:" + slideData.focus_x + "% " + slideData.focus_y + "%;'",
+        "class": "image"
+      });
+    } else {
+      slideImg = this.img({
+        src: slideData.image_desktop_retina
+      });
+    }
     slide = this.div({
       "class": "slide"
     });
