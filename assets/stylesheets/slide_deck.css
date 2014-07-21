@@ -209,6 +209,18 @@
    	-webkit-transform:translate(50px,0) scale(1);
   }
 }
+.small.tf-slide-deck-container .me-not-me-container{
+  font-size:13px;
+}
+.small.tf-slide-deck-container .slide .caption{
+  font-size:18px;
+}
+.medium.tf-slide-deck-container .slide .caption{
+  font-size:24px;
+}
+.medium.tf-slide-deck-container .me-not-me-container{
+  font-size:15px;
+}
 
 
 /***************************

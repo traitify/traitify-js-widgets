@@ -27,11 +27,6 @@
   @ajax = (url, method, callback, params)->
     url = "#{@host}/#{@version}#{url}"
 
-
-    if @testMode
-      callback(@testResponses[url])
-      return false
-
     xhr = new XMLHttpRequest()
     if "withCredentials" of xhr
 

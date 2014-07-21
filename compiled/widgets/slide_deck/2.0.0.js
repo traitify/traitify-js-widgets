@@ -7,6 +7,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.states.animating = false;
   Builder.data = Object();
   Builder.data.slideResponses = Object();
+  if (typeof options === "undefined") {
+    options = Object();
+  }
   if (navigator.userAgent.match(/iPad/i)) {
     Builder.device = "ipad";
   }
@@ -22,7 +25,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   if (navigator.userAgent.match(/webOS/i)) {
     Builder.device = "webos";
   }
-  if (selector.indexOf("#") !== -1) {
+  if (typeof selector !== "string") {
+    Builder.nodes.main = document.createElement("div");
+    document.getElementsByTagName("body")[0].appendChild(Builder.nodes.main);
+  } else if (selector.indexOf("#") !== -1) {
     selector = selector.replace("#", "");
     Builder.nodes.main = document.getElementById(selector);
   } else {
@@ -343,10 +349,16 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             Builder.nodes.container.className += " non-touch";
           }
         }
+        if (options && options.size) {
+          Builder.nodes.container.className += " " + options.size;
+        }
         Builder.nodes.main.appendChild(Builder.nodes.container);
         Builder.actions();
         Builder.prefetchSlides();
       } else {
+        if (typeof selector !== "string") {
+          options.container = Builder.nodes.main;
+        }
         Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
       }
       if (Builder.callbacks.initialize) {
@@ -395,7 +407,9 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
   Builder.nodes = Object();
   Builder.states = Object();
   Builder.data = Object();
-  if (selector.indexOf("#") !== -1) {
+  if (typeof selector !== "string") {
+    Builder.nodes.main = options.container;
+  } else if (selector.indexOf("#") !== -1) {
     selector = selector.replace("#", "");
     Builder.nodes.main = document.getElementById(selector);
   } else {

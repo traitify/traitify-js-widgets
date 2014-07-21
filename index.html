@@ -4,6 +4,7 @@
 		<script src="./js/widgets/slide_deck/2.0.0.js"></script>
 		<script src="./compiled/api/1.0.0.js"></script>
 		<script src="./compiled/widgets/slide_deck/2.0.0.js"></script>
+		<script src="./compiled/templating/1.0.0.js"></script>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 	</head>
 	<body>
@@ -20,7 +21,7 @@
 		for(index in splitQueries){
 			keyValue = splitQueries[index].split("=")
 			splitByKeyValue[keyValue[0]] = keyValue[1]
-		}
+        }
 
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
@@ -28,7 +29,7 @@
 		if(splitByKeyValue.nonTouch){
 			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
 		}else{
-			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true});	
+			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, {traits:true, size:"small"});	
 		}
 		
 		Builder.onInitialize(function(){
@@ -50,5 +51,20 @@
 		</script>
 		<link href="assets/stylesheets/slide_deck.css" rel="stylesheet" />
 		<link href="assets/stylesheets/results_prop.css" rel="stylesheet" />
+        <div class="widget">
+            <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
+                <name class="awesome"></name>
+                <badge-image></badge-image>
+                <score></score>
+            </template>
+        </div>
+        <style>
+            .awesomea{
+                width:200px;
+            }
+            .awesomeb{
+                background-color:
+            }
+        </style>
 	</body>
 </html>

@@ -24,10 +24,6 @@ this.Traitify = new (function() {
   this.ajax = function(url, method, callback, params) {
     var xhr;
     url = "" + this.host + "/" + this.version + url;
-    if (this.testMode) {
-      callback(this.testResponses[url]);
-      return false;
-    }
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       xhr.open(method, url, true);
