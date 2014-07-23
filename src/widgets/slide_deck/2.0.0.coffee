@@ -378,6 +378,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     Builder
 
   Builder.initialize()
+  
+  Builder
 
 
 

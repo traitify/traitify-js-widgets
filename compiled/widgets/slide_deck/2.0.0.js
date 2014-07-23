@@ -408,7 +408,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.callbacks.advanceSlide = callBack;
     return Builder;
   };
-  return Builder.initialize();
+  Builder.initialize();
+  return Builder;
 };
 
 window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
