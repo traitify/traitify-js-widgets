@@ -369,7 +369,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         if (typeof selector !== "string") {
           options.container = Builder.nodes.main;
         }
-        if (!options.showResults) {
+        if (options && options.showResults !== false) {
           Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
         }
         if (Builder.callbacks.finished) {
