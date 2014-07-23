@@ -5,7 +5,7 @@
   src: local('Helvetica Neue'), local('Helvetica Neue'), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/helvetica_neue.woff") format('woff');
 }
 .tf-results-prop{
-	font-family: "Helvetica Neue, Helvetica Neue, Helvetica, Arial, sans-serif";
+	font-family: "proxima_nova", "Helvetica Neue", Helvetica, Arial, "sans-serif";
 	display:block;
 	-webkit-font-smoothing: antialised;
 	-webkit-touch-callout: none;
