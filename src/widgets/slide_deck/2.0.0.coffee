@@ -264,6 +264,25 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.events.advancedSlide()
       Builder.states.animating = false
     , false )
+
+    Builder.nodes.currentSlide.addEventListener('transitionend', (event)-> 
+      if Builder.events.advancedSlide
+        Builder.events.advancedSlide()
+      Builder.states.animating = false
+    , false )
+  
+    Builder.nodes.currentSlide.addEventListener('oTransitionEnd', (event)-> 
+      if Builder.events.advancedSlide
+        Builder.events.advancedSlide()
+      Builder.states.animating = false
+    , false )
+  
+    Builder.nodes.currentSlide.addEventListener('otransitionend', (event)-> 
+      if Builder.events.advancedSlide
+        Builder.events.advancedSlide()
+      Builder.states.animating = false
+    , false )
+  
     Builder.nodes.playedSlide.className += " played"
     Builder.nodes.currentSlide.className += " active"
 

@@ -290,6 +290,24 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       }
       return Builder.states.animating = false;
     }, false);
+    Builder.nodes.currentSlide.addEventListener('transitionend', function(event) {
+      if (Builder.events.advancedSlide) {
+        Builder.events.advancedSlide();
+      }
+      return Builder.states.animating = false;
+    }, false);
+    Builder.nodes.currentSlide.addEventListener('oTransitionEnd', function(event) {
+      if (Builder.events.advancedSlide) {
+        Builder.events.advancedSlide();
+      }
+      return Builder.states.animating = false;
+    }, false);
+    Builder.nodes.currentSlide.addEventListener('otransitionend', function(event) {
+      if (Builder.events.advancedSlide) {
+        Builder.events.advancedSlide();
+      }
+      return Builder.states.animating = false;
+    }, false);
     Builder.nodes.playedSlide.className += " played";
     Builder.nodes.currentSlide.className += " active";
     nextSlideData = Builder.data.slides[Builder.data.currentSlide + 1];
