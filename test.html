@@ -24,9 +24,10 @@
             <div class="col-sm-12">{{name.uppercase}}</div>
             <div class="col-sm-12">{{name.camelcase}}</div>
             <div class="col-sm-12">{{name.lowercase}}</div>
-            <div class="col-sm-12">{{badgeUrl.small}}</div>
-            <div class="col-sm-12">{{badgeUrl.medium}}</div>
-            <div class="col-sm-12">{{badgeUrl.large}}</div>
+            <div class="col-sm-12">{{badge.small}}</div>
+            <div class="col-sm-12">{{badge.medium}}</div>
+            <div class="col-sm-12">{{badge.large}}</div>
+          <div class="col-sm-12">{{index}}</div>
         </div>
     </template>
     <style>
@@ -37,5 +38,8 @@
             background-color:#000;
         }
     </style>
+  <script>
+    Builder = Traitify.templating.initialize()
+  </script>
 </body>
 </html>

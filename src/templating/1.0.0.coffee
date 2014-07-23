@@ -16,7 +16,7 @@ Templating = ->
         
 
     Builder.templates.setup = ()->
-        Builder.templates.personalityTypes = Builder.query("template[name=tf-personality-types]")
+      Builder.templates.personalityTypes = Builder.query("template[name=tf-personality-types]")
 
     Builder.helpers = Object()
     Builder.helpers.onload = (callBack)->
@@ -30,8 +30,12 @@ Templating = ->
             for oldPersonalityTypes in Builder.templates[personalityType]
                 personalityType.parentNode.removeChild(oldPersonalityTypes)
         Builder.templates[personalityType] = Array()
+        Builder.analytics.startTypesTime = new Date().getTime()
         Traitify.getPersonalityTypes(assessmentId, (data)->
-            for personalityTypeData in data.personality_types
+            Builder.analytics.endTypesTime = new Date().getTime()
+            Builder.analytics.afterGettingResults = new Date().getTime() 
+            for index of data.personality_types
+                personalityTypeData = data.personality_types[index]
                 personalityTypesNode = document.createElement("div")
                 personalityTypesNode.innerHTML = personalityType.innerHTML
 
@@ -53,6 +57,7 @@ Templating = ->
                 innerHTML = innerHTML.replace(/{{color.light}}/g, color_1)
                 innerHTML = innerHTML.replace(/{{color.medium}}/g, color_2)
                 innerHTML = innerHTML.replace(/{{color.dark}}/g, color_3)
+                innerHTML = innerHTML.replace(/{{index}}/g, index)
                 name = personalityTypeData.personality_type.name
                 innerHTML = innerHTML.replace(/{{name.lowercase}}/g,  name.toLowerCase())
                     

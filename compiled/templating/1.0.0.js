@@ -35,11 +35,13 @@ Templating = function() {
       }
     }
     Builder.templates[personalityType] = Array();
+    Builder.analytics.startTypesTime = new Date().getTime();
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var attribute, attributeValue, color_1, color_2, color_3, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _k, _len1, _len2, _ref1, _ref2;
-      _ref1 = data.personality_types;
-      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-        personalityTypeData = _ref1[_j];
+      var attribute, attributeValue, color_1, color_2, color_3, index, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _len1, _ref1;
+      Builder.analytics.endTypesTime = new Date().getTime();
+      Builder.analytics.afterGettingResults = new Date().getTime();
+      for (index in data.personality_types) {
+        personalityTypeData = data.personality_types[index];
         personalityTypesNode = document.createElement("div");
         personalityTypesNode.innerHTML = personalityType.innerHTML;
         color_1 = personalityTypeData.personality_type.badge.color_1;
@@ -59,6 +61,7 @@ Templating = function() {
         innerHTML = innerHTML.replace(/{{color.light}}/g, color_1);
         innerHTML = innerHTML.replace(/{{color.medium}}/g, color_2);
         innerHTML = innerHTML.replace(/{{color.dark}}/g, color_3);
+        innerHTML = innerHTML.replace(/{{index}}/g, index);
         name = personalityTypeData.personality_type.name;
         innerHTML = innerHTML.replace(/{{name.lowercase}}/g, name.toLowerCase());
         innerHTML = innerHTML.replace(/{{name.camelcase}}/g, name);
@@ -66,9 +69,9 @@ Templating = function() {
         personalityTypesNode.innerHTML = innerHTML;
         personalityType.parentNode.insertBefore(personalityTypesNode, personalityType);
         Builder.templates[personalityType].push(personalityTypesNode);
-        _ref2 = personalityType.attributes;
-        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-          attribute = _ref2[_k];
+        _ref1 = personalityType.attributes;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          attribute = _ref1[_j];
           if (attribute.name !== "name") {
             attributeValue = attribute.value;
             attributeValue = attributeValue.replace(/{{color.light}}/g, color_1);
