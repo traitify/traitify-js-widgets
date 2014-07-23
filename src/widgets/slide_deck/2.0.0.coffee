@@ -5,6 +5,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.states.animating = false
   Builder.data = Object()
   Builder.data.slideResponses = Object()
+  Builder.finished = false
 
   if typeof options == "undefined"
     options = Object()
@@ -341,6 +342,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
             options.container = Builder.nodes.main
         unless options.showResults
           Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
+        
+        if Builder.callbacks.finished
+          Builder.finished = true
+          Builder.callbacks.finished()
+          
       
       if Builder.callbacks.initialize 
         Builder.callbacks.initialize(Builder)
@@ -352,11 +358,15 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.onInitialize = (callBack)->
     if Builder.initialized == true
       callBack()
-    else
-      Builder.callbacks.initialize = callBack
-
+    Builder.callbacks.initialize = callBack
     Builder
 
+  Builder.onFinished = (callBack)->
+    if Builder.finished == true
+      callBack()
+    Builder.callbacks.finished = callBack
+    Builder
+    
   Builder.onFinish = (callBack)->
     Builder.callbacks.finish = callBack
     Builder
