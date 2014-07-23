@@ -4,6 +4,8 @@ var Templating;
 Templating = function() {
   var Builder;
   Builder = Object();
+  Builder.analytics = Object();
+  Builder.analytics.startTime = new Date().getTime();
   Builder.nodes = Object();
   Builder.callbacks = Object();
   Builder.query = function(query) {
@@ -34,9 +36,8 @@ Templating = function() {
     }
     Builder.templates[personalityType] = Array();
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var attribute, attributeValue, color_1, color_2, color_3, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _len1, _ref1, _results;
+      var attribute, attributeValue, color_1, color_2, color_3, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _k, _len1, _len2, _ref1, _ref2;
       _ref1 = data.personality_types;
-      _results = [];
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         personalityTypeData = _ref1[_j];
         personalityTypesNode = document.createElement("div");
@@ -65,26 +66,19 @@ Templating = function() {
         personalityTypesNode.innerHTML = innerHTML;
         personalityType.parentNode.insertBefore(personalityTypesNode, personalityType);
         Builder.templates[personalityType].push(personalityTypesNode);
-        _results.push((function() {
-          var _k, _len2, _ref2, _results1;
-          _ref2 = personalityType.attributes;
-          _results1 = [];
-          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-            attribute = _ref2[_k];
-            if (attribute.name !== "name") {
-              attributeValue = attribute.value;
-              attributeValue = attributeValue.replace(/{{color.light}}/g, color_1);
-              attributeValue = attributeValue.replace(/{{color.medium}}/g, color_2);
-              attributeValue = attributeValue.replace(/{{color.dark}}/g, color_3);
-              _results1.push(personalityTypesNode.setAttribute(attribute.name, attributeValue));
-            } else {
-              _results1.push(void 0);
-            }
+        _ref2 = personalityType.attributes;
+        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+          attribute = _ref2[_k];
+          if (attribute.name !== "name") {
+            attributeValue = attribute.value;
+            attributeValue = attributeValue.replace(/{{color.light}}/g, color_1);
+            attributeValue = attributeValue.replace(/{{color.medium}}/g, color_2);
+            attributeValue = attributeValue.replace(/{{color.dark}}/g, color_3);
+            personalityTypesNode.setAttribute(attribute.name, attributeValue);
           }
-          return _results1;
-        })());
+        }
       }
-      return _results;
+      return Builder.analytics.endTime = new Date().getTime();
     });
   };
   Builder.bindings = Object();
@@ -140,7 +134,8 @@ Templating = function() {
   };
   Builder.initialize = function() {
     Builder.templates.setup();
-    return Builder.bindings.personalityTypes();
+    Builder.bindings.personalityTypes();
+    return Builder;
   };
   if (Builder.callbacks.initialized) {
     Builder.callbacks.initialized();

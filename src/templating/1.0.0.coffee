@@ -1,5 +1,7 @@
 Templating = ->
     Builder = Object()
+    Builder.analytics = Object()
+    Builder.analytics.startTime = new Date().getTime()
     Builder.nodes = Object()
     Builder.callbacks = Object()
     Builder.query = (query)->
@@ -70,6 +72,8 @@ Templating = ->
                         attributeValue = attributeValue.replace(/{{color.dark}}/g, color_3)
 
                         personalityTypesNode.setAttribute(attribute.name, attributeValue)
+                        
+            Builder.analytics.endTime = new Date().getTime()  
         )
 
 
@@ -106,6 +110,8 @@ Templating = ->
     Builder.initialize = ->
         Builder.templates.setup()
         Builder.bindings.personalityTypes()
+        Builder
+        
     if Builder.callbacks.initialized
         Builder.callbacks.initialized()
     else
