@@ -339,7 +339,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       else
         if typeof selector != "string"
             options.container = Builder.nodes.main
-        Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
+        unless options.showResults
+          Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
       
       if Builder.callbacks.initialize 
         Builder.callbacks.initialize(Builder)
@@ -377,8 +378,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     Builder
 
   Builder.initialize()
-
-  Builder
 
 
 

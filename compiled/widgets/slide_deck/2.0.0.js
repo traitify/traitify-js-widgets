@@ -368,7 +368,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         if (typeof selector !== "string") {
           options.container = Builder.nodes.main;
         }
-        Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
+        if (!options.showResults) {
+          Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
+        }
       }
       if (Builder.callbacks.initialize) {
         return Builder.callbacks.initialize(Builder);
@@ -406,8 +408,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.callbacks.advanceSlide = callBack;
     return Builder;
   };
-  Builder.initialize();
-  return Builder;
+  return Builder.initialize();
 };
 
 window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {

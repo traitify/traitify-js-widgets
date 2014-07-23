@@ -52,12 +52,12 @@ Templating = function() {
         }
         innerHTML = innerHTML.replace(/{{score}}/g, scoreValue);
         innerHTML = innerHTML.replace(/{{name}}/g, personalityTypeData.personality_type.name);
-        innerHTML = innerHTML.replace(/{{badgeUrl.large}}/g, personalityTypeData.personality_type.badge.image_large);
-        innerHTML = innerHTML.replace(/{{badgeUrl.medium}}/g, personalityTypeData.personality_type.badge.image_medium);
-        innerHTML = innerHTML.replace(/{{badgeUrl.small}}/g, personalityTypeData.personality_type.badge.image_small);
-        innerHTML = innerHTML.replace(/{{colorLight}}/g, color_1);
-        innerHTML = innerHTML.replace(/{{colorMedium}}/g, color_2);
-        innerHTML = innerHTML.replace(/{{colorDark}}/g, color_3);
+        innerHTML = innerHTML.replace(/{{badge.large}}/g, personalityTypeData.personality_type.badge.image_large);
+        innerHTML = innerHTML.replace(/{{badge.medium}}/g, personalityTypeData.personality_type.badge.image_medium);
+        innerHTML = innerHTML.replace(/{{badge.small}}/g, personalityTypeData.personality_type.badge.image_small);
+        innerHTML = innerHTML.replace(/{{color.light}}/g, color_1);
+        innerHTML = innerHTML.replace(/{{color.medium}}/g, color_2);
+        innerHTML = innerHTML.replace(/{{color.dark}}/g, color_3);
         name = personalityTypeData.personality_type.name;
         innerHTML = innerHTML.replace(/{{name.lowercase}}/g, name.toLowerCase());
         innerHTML = innerHTML.replace(/{{name.camelcase}}/g, name);
@@ -73,9 +73,9 @@ Templating = function() {
             attribute = _ref2[_k];
             if (attribute.name !== "name") {
               attributeValue = attribute.value;
-              attributeValue = attributeValue.replace(/{{colorLight}}/g, color_1);
-              attributeValue = attributeValue.replace(/{{colorMedium}}/g, color_2);
-              attributeValue = attributeValue.replace(/{{colorDark}}/g, color_3);
+              attributeValue = attributeValue.replace(/{{color.light}}/g, color_1);
+              attributeValue = attributeValue.replace(/{{color.medium}}/g, color_2);
+              attributeValue = attributeValue.replace(/{{color.dark}}/g, color_3);
               _results1.push(personalityTypesNode.setAttribute(attribute.name, attributeValue));
             } else {
               _results1.push(void 0);
