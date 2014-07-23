@@ -95,7 +95,11 @@ Templating = function() {
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       personalityType = _ref[_i];
       assessmentId = personalityType.getAttribute("assessment-id");
-      _results.push(Builder.templates.render(assessmentId, personalityType));
+      if (assessmentId) {
+        _results.push(Builder.templates.render(assessmentId, personalityType));
+      } else {
+        _results.push(void 0);
+      }
     }
     return _results;
   };
@@ -143,9 +147,11 @@ Templating = function() {
   } else {
     Builder.initialized = true;
   }
-  Builder.helpers.onload(function() {
-    return Builder.initialize();
-  });
+  Builder.autoInitialize = function() {
+    return Builder.helpers.onload(function() {
+      return Builder.initialize();
+    });
+  };
   Builder.callbacks = Object();
   Builder.onInitialize = function(callBack) {
     if (Builder.initialized === true) {

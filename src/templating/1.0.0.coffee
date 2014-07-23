@@ -76,21 +76,21 @@ Templating = ->
     # Bindings
     Builder.bindings = Object()
     Builder.bindings.personalityTypes = ->
-
-            for personalityType in Builder.templates.personalityTypes
-                assessmentId = personalityType.getAttribute("assessment-id")
-                Builder.templates.render(assessmentId, personalityType)
+      for personalityType in Builder.templates.personalityTypes
+        assessmentId = personalityType.getAttribute("assessment-id")
+        if assessmentId
+          Builder.templates.render(assessmentId, personalityType)
 
     Builder.bindings.names = (personalityType, names)->
-        for name in names
-            name.innerHTML = personalityType.personality_type.name
+      for name in names
+          name.innerHTML = personalityType.personality_type.name
 
     Builder.bindings.badges = (personalityType, badges)->
-        for badge in badges
-            image = document.createElement("img")
-            image.src = personalityType.personality_type.badge.image_large
-            image.style.width="100%"
-            badge.appendChild(image)
+      for badge in badges
+          image = document.createElement("img")
+          image.src = personalityType.personality_type.badge.image_large
+          image.style.width="100%"
+          badge.appendChild(image)
 
     Builder.bindings.scores = (personalityType, scores)->
         for score in scores
@@ -111,10 +111,10 @@ Templating = ->
     else
         Builder.initialized = true
 
-
-    Builder.helpers.onload(->
-        Builder.initialize()
-    )
+    Builder.autoInitialize = ->
+      Builder.helpers.onload(->
+          Builder.initialize()
+      )
 
     Builder.callbacks = Object()
     Builder.onInitialize = (callBack)->
