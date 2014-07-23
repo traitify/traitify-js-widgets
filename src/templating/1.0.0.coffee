@@ -58,7 +58,7 @@ Templating = ->
                 innerHTML = innerHTML.replace(/{{color.medium}}/g, color_2)
                 innerHTML = innerHTML.replace(/{{color.dark}}/g, color_3)
                 innerHTML = innerHTML.replace(/{{index}}/g, index)
-                innerHTML = innerHTML.replace(/{{description}}/g, index)
+                innerHTML = innerHTML.replace(/{{description}}/g, personalityTypeData.personality_type.description)
                 name = personalityTypeData.personality_type.name
                 innerHTML = innerHTML.replace(/{{name.lowercase}}/g,  name.toLowerCase())
                     
