@@ -326,7 +326,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var style;
+      var orientationEvent, style, supportsOrientationChange;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -345,6 +345,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.nodes.container = Builder.partials.slideDeckContainer();
         if (Builder.device) {
           Builder.nodes.container.className += " " + Builder.device;
+          Builder.nodes.container.className += " mobile";
           if (options && options.nonTouch) {
             Builder.nodes.container.className += " non-touch";
           }
@@ -355,6 +356,14 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.nodes.main.appendChild(Builder.nodes.container);
         Builder.actions();
         Builder.prefetchSlides();
+        if (Builder.device && Builder.device !== "iphone") {
+          Builder.nodes.main.style.height = screen.availHeight - 100;
+          supportsOrientationChange = "onorientationchange" in window;
+          orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
+          window.addEventListener(orientationEvent, (function() {
+            Builder.nodes.main.style.height = screen.availWidth - 100;
+          }), false);
+        }
       } else {
         if (typeof selector !== "string") {
           options.container = Builder.nodes.main;

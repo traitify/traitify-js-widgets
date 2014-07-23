@@ -221,7 +221,12 @@
 .medium.tf-slide-deck-container .me-not-me-container{
   font-size:15px;
 }
-
+.mobile.tf-slide-deck-container .slide{
+  height:100%;
+}
+.mobile.tf-slide-deck-container .slide .image{
+  height:100%;
+}
 
 /***************************
  * MOBILE iPhone

@@ -6,44 +6,41 @@
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
+    $.ready(function(){
+              $("#personality-types").click(function(){
+                    alert("here");
+                });
+    
+    
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
 		Traitify.setVersion("v1");
+        Traitify.templating.initialize()
 </script>
 </head>
 <body>
-
-	<div class="widget">
-		<template name="tf-personality-types" class="col-sm-4" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176" classes="name, index, score" style="background-color:#{{colorLight}}">
-			<div class="col-sm-1">
-				<badge-image class="col-sm-12"></badge-image>
-			</div>
-			<div class="col-sm-9">
-				<name class="col-sm-12 name tf-type-{{name}}" data-name="{{name}}"></name>
-				<score class="col-sm-12"></score>
-			</div>
-		</template>
-
-
-		<template name="tf-personality-type" class="row" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176" only-type-name="Analyzer" style="background-color:#{{colorLight}}">
-			<div class="col-sm-1">
-				<badge-image class="col-sm-12"></badge-image>
-			</div>
-			<div class="col-sm-9">
-				<name class="col-sm-12 name tf-type-{{name}}" data-name="{{name}}"></name>
-				<score class="col-sm-12"></score>
-			</div>
-		</template>
-
-
-		<style>
-			.widget name, .widget score{
-				color:#fff;
-			}
-			.tf-type-Analyzer{
-				background-color:#000;
-			}
-		</style>
-	</div>
+    <template name="tf-personality-types" class="col-sm-4" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176" style="background-color:#{{colorLight}}">
+        <div class="col-sm-1">
+            <img src="{{badgeUrl.large}}" class="col-sm-12" />
+        </div>
+        <div class="col-sm-9">
+            <div id="test" class="col-sm-12 name" data-name="{{name}}">{{score}}</div>
+            <div id="test-{{index}}" class="col-sm-12">{{name}}</div>
+            <div class="col-sm-12">{{name.uppercase}}</div>
+            <div class="col-sm-12">{{name.camelcase}}</div>
+            <div class="col-sm-12">{{name.lowercase}}</div>
+            <div class="col-sm-12">{{badgeUrl.small}}</div>
+            <div class="col-sm-12">{{badgeUrl.medium}}</div>
+            <div class="col-sm-12">{{badgeUrl.large}}</div>
+        </div>
+    </template>
+    <style>
+        .widget .name, .widget .score{
+            color:#fff;
+        }
+        .tf-type-Analyzer{
+            background-color:#000;
+        }
+    </style>
 </body>
 </html>
