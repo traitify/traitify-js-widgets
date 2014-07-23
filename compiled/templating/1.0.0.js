@@ -48,7 +48,8 @@ Templating = function() {
         color_2 = personalityTypeData.personality_type.badge.color_2;
         color_3 = personalityTypeData.personality_type.badge.color_3;
         innerHTML = personalityTypesNode.innerHTML;
-        if (personalityType.score > 0) {
+        console.log(personalityTypeData.score);
+        if (personalityTypeData.score > 0) {
           scoreValue = Math.round(personalityTypeData.score);
         } else {
           scoreValue = "(" + (Math.abs(Math.round(personalityTypeData.score))) + ")";
