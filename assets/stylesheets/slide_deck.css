@@ -89,7 +89,7 @@
 
 .tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
   text-align: center;
-  padding: 13px 0px;
+  padding: 1% 0px;
   cursor: pointer;
   margin-bottom:18px;
 }
@@ -154,7 +154,19 @@
     font-size:32px;
   }
 }
-
+@media only screen and (max-width:760px){
+ .tf-slide-deck-container .me-not-me-container{
+    padding: 10px 0px;
+    font-size:20px;
+    margin:0px auto;
+  }
+  .tf-slide-deck-container .me-not-me-container .me{
+    margin-left:30%;
+  }
+  .tf-slide-deck-container .me-not-me-container .not-me{
+    margin-right:30%;
+  }
+}
 
 .loading .symbol{
   width: 30px;
