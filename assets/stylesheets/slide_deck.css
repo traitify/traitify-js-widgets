@@ -298,9 +298,12 @@
 .phone.tf-slide-deck-container .slides .slide.played .caption, .ipad.tf-slide-deck-container .slides .slide.played .caption{
   z-index:auto;
 }
+.phone.tf-slide-deck-container, 
+.phone.tf-slide-deck-container .slides, 
 .phone.tf-slide-deck-container .slide .image{
   height:100%;
 }
+
 .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
   font-size:17px;
   position:absolute;
