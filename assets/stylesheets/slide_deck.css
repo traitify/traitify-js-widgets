@@ -299,7 +299,7 @@
   z-index:auto;
 }
 .iphone.tf-slide-deck-container .slide .image{
-  height:440px
+  height:450px
 }
 .iphone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
   font-size:17px;
@@ -387,7 +387,7 @@
 }
 @media screen and (orientation:landscape) {
   .non-touch.iphone.tf-slide-deck-container .me-not-me-container{
-    height:25px;
+    height:30px;
   }
   .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, 
   .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
