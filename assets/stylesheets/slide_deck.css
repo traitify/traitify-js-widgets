@@ -257,7 +257,7 @@
 .iphone.tf-slide-deck-container .slide.placeholder .caption{
   z-index:-1;
 }
-.iphone.tf-slide-deck-container .caption{
+.iphone:not(.non-touch).tf-slide-deck-container .caption{
   font-size:20px;
   background-color:transparent;
   position:relative;
@@ -297,7 +297,7 @@
 .iphone.tf-slide-deck-container .slide .image{
   height:440px
 }
-.iphone.tf-slide-deck-container .me-not-me-container{
+.iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container{
   font-size:17px;
   position:absolute;
   height:100%;
@@ -306,18 +306,18 @@
   overflow:hidden;
   font-size:40px;
 }
-.iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
+.iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
   height: 440px;
   line-height:435px;
   position:relative;
 }
-.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+.iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container .not-me{
   background-color:rgba(203, 78, 78, .35);
   border-radius:0px;
   width:50%;
   margin:0px;
 }
-.iphone.tf-slide-deck-container .me-not-me-container .me{
+.iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container .me{
   background-color:rgba(5, 143, 196, .35); 
   border-radius:0px;
   width:50%;
@@ -330,11 +330,11 @@
   .iphone.tf-slide-deck-container .slide .image{
     height:160px;
   }
-  .iphone.tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  .iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container .me, .iphone.tf-slide-deck-container .me-not-me-container .not-me{
     height: 160px;
     line-height:160px;
   }
-  .iphone.tf-slide-deck-container .progress-bar{
+  .iphone:not(.not-touch).tf-slide-deck-container .progress-bar{
     background-color:rgba(255,255,255, .5);
     position:absolute;
     z-index:2;
@@ -345,12 +345,16 @@
     border-radius: 0px 4px 4px 0px;
     height:8px;
   }
-  .iphone.tf-slide-deck-container .me-not-me-container{
+  .iphone:not(.not-touch).tf-slide-deck-container .me-not-me-container{
     font-size:40px;
   }
 }
+.non-touch.iphone.tf-slide-deck-container .caption{
+  margin-top:10px;
+  padding: 10px 0px;
+}
 .non-touch.iphone.tf-slide-deck-container .me-not-me-container{
-  border-radius:10px;
+  border-radius:40px;
   overflow:hidden;
   height:50px;
   padding:0px;
