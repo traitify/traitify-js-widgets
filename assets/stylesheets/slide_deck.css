@@ -89,25 +89,25 @@
 
 .tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
   text-align: center;
-  padding: .5em 0em;
+  padding: 13px 0px;
   cursor: pointer;
   margin-bottom:18px;
 }
 .tf-slide-deck-container .me{
   background-color:rgb(5, 143, 196); 
   position: relative;
-  width: 30%;
-  margin-left:20%;
+  width: 20%;
+  margin-left:30%;
   display: inline-block;
-  border-radius:6px 0px 0px 6px;
+  border-radius:25px 0px 0px 25px;
 }
 .tf-slide-deck-container .not-me{
   position: relative;
-  width: 30%;
-  margin-right:20%;
+  width: 20%;
+  margin-right:30%;
   display: inline-block;
   background-color:rgb(203, 78, 78);
-  border-radius:0px 6px 6px 0px;
+  border-radius:0px 25px 25px 0px;
 }
 .tf-slide-deck-container .caption{
   background-color:rgba(0,0,0, .5);
