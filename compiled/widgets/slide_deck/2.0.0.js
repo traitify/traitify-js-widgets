@@ -348,11 +348,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.nodes.container.className = Builder.nodes.container.className.replace(" medium", "");
     Builder.nodes.container.className = Builder.nodes.container.className.replace(" large", "");
     Builder.nodes.container.className = Builder.nodes.container.className.replace(" small", "");
-    if (width < 700) {
-      Builder.nodes.container.className += " medium";
-    }
-    if (width < 380) {
+    if (width < 480) {
       return Builder.nodes.container.className += " small";
+    } else if (width < 768) {
+      return Builder.nodes.container.className += " medium";
     }
   };
   Builder.initialized = false;
