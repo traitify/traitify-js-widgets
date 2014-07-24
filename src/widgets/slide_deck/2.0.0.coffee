@@ -311,6 +311,17 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.imageCache[slide.image_desktop_retina] = new Image()
         Builder.imageCache[slide.image_desktop_retina].src = slide.image_desktop_retina
 
+  Builder.events.setContainerSize = ->
+      width = Builder.nodes.main.scrollWidth
+      Builder.nodes.container.className = Builder.nodes.container.className.replace(" medium", "")
+      Builder.nodes.container.className = Builder.nodes.container.className.replace(" large", "")
+      Builder.nodes.container.className = Builder.nodes.container.className.replace(" small", "")
+      if width < 700
+        Builder.nodes.container.className += " medium"
+      if width < 380
+        Builder.nodes.container.className += " small"
+        
+          
   Builder.initialized = false
   Builder.initialize = ->
     Traitify.getSlides(assessmentId, (data)->
@@ -345,7 +356,13 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.actions()
 
         Builder.prefetchSlides()
-
+        
+        Builder.events.setContainerSize()
+        
+        window.onresize = ->
+          Builder.events.setContainerSize()
+          console.log("resized")
+            
         if Builder.device && Builder.device != "iphone"
             Builder.nodes.main.style.height = screen.availHeight - 100
             

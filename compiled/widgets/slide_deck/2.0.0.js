@@ -342,6 +342,19 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     }
     return _results;
   };
+  Builder.events.setContainerSize = function() {
+    var width;
+    width = Builder.nodes.main.scrollWidth;
+    Builder.nodes.container.className = Builder.nodes.container.className.replace(" medium", "");
+    Builder.nodes.container.className = Builder.nodes.container.className.replace(" large", "");
+    Builder.nodes.container.className = Builder.nodes.container.className.replace(" small", "");
+    if (width < 700) {
+      Builder.nodes.container.className += " medium";
+    }
+    if (width < 380) {
+      return Builder.nodes.container.className += " small";
+    }
+  };
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
@@ -375,6 +388,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.nodes.main.appendChild(Builder.nodes.container);
         Builder.actions();
         Builder.prefetchSlides();
+        Builder.events.setContainerSize();
+        window.onresize = function() {
+          Builder.events.setContainerSize();
+          return console.log("resized");
+        };
         if (Builder.device && Builder.device !== "iphone") {
           Builder.nodes.main.style.height = screen.availHeight - 100;
           supportsOrientationChange = "onorientationchange" in window;
