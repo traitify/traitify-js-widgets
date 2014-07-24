@@ -393,6 +393,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           return console.log("resized");
         };
         if (Builder.device && Builder.device) {
+          console.log("Running Device Builder");
           if (["android", "iphone"].indexOf(Builder.device) !== -1) {
             Builder.nodes.container.className += " phone";
           }

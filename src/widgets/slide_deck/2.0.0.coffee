@@ -365,6 +365,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
           console.log("resized")
             
         if Builder.device && Builder.device
+            console.log("Running Device Builder")
             if ["android", "iphone"].indexOf(Builder.device) != -1
               Builder.nodes.container.className += " phone"
             Builder.nodes.main.style.height = screen.availHeight - 100
