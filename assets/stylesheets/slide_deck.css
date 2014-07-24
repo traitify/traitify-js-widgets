@@ -362,34 +362,49 @@
   overflow:hidden;
   height:50px;
   padding:0px;
-  margin: 0px 10%;
-  width:80%;
   bottom:10px;
   top:auto;
+  width:100%;
+  margin-left:0px;
+  margin-right:0px;
 }
 
 .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
-  width:50%;
-  font-size:22px;
-  height:50px;
-  line-height:50px;
+  width:40%;
+  font-size:20px;
+  height:45px;
+  line-height:45px;
   padding:0px;
 }
 
 .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
   background-color:rgb(203, 78, 78);
+  margin-right:10%;
 }
 .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me{
   background-color:rgb(5, 143, 196); 
+  margin-left:10%;
 }
 @media screen and (orientation:landscape) {
   .non-touch.iphone.tf-slide-deck-container .me-not-me-container{
     height:25px;
   }
-  .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
+  .non-touch.iphone.tf-slide-deck-container .me-not-me-container .me, 
+  .non-touch.iphone.tf-slide-deck-container .me-not-me-container .not-me{
     font-size:12px;
     height:25px;
     line-height:25px;
+  }
+  .non-touch.iphone.tf-slide-deck-container .progress-bar{
+    height:5px;
+  }
+  .tf-slide-deck-container .progress-bar .progress-bar .progress-bar-inner{
+    height:5px;
+  }
+  .non-touch.iphone.tf-slide-deck-container .slide .caption{
+    font-size:12px;
+    padding:3px;
+    margin-top:5px;
   }
 }
 /**********************
