@@ -354,10 +354,18 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       return Builder.nodes.container.className += " medium";
     }
   };
+  Builder.events.onRotate = function(rotateEvent) {
+    var orientationEvent, supportsOrientationChange;
+    supportsOrientationChange = "onorientationchange" in window;
+    orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
+    return window.addEventListener(orientationEvent, function(event) {
+      return rotateEvent(event);
+    }, false);
+  };
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var orientationEvent, style, supportsOrientationChange;
+      var style;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -389,8 +397,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.prefetchSlides();
         Builder.events.setContainerSize();
         window.onresize = function() {
-          Builder.events.setContainerSize();
-          return console.log("resized");
+          if (["iphone", "android"].indexOf(Builder.device) === -1) {
+            return Builder.events.setContainerSize();
+          }
         };
         if (Builder.device && Builder.device) {
           console.log("Running Device Builder");
@@ -398,11 +407,25 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             Builder.nodes.container.className += " phone";
           }
           Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
-          supportsOrientationChange = "onorientationchange" in window;
-          orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
-          window.addEventListener(orientationEvent, (function() {
-            Builder.nodes.main.style.height = (screen.availWidth - 100) + "px";
-          }), false);
+          if (Builder.device !== "android") {
+            if (window.orientation === 90 || window.orientation === -90) {
+              Builder.nodes.main.style.height = (screen.availWidth - 150) + "px";
+            } else {
+              Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
+            }
+          }
+          Builder.events.onRotate(function(event) {
+            if (Builder.device === "android") {
+              return Builder.nodes.main.style.height = (screen.availWidth - 100) + "px";
+            } else {
+              console.log(screen.availWidth);
+              if (window.orientation === 90 || window.orientation === -90) {
+                return Builder.nodes.main.style.height = (screen.availWidth - 150) + "px";
+              } else {
+                return Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
+              }
+            }
+          });
         }
       } else {
         if (typeof selector !== "string") {

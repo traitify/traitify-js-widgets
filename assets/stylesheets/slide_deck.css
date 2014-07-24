@@ -334,9 +334,6 @@
   .phone.tf-slide-deck-container .caption{
     font-size:16px;
   }
-  .phone.tf-slide-deck-container .slide .image{
-    height:160px;
-  }
   .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me, .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
     height: 160px;
     line-height:160px;
@@ -391,6 +388,7 @@
 @media screen and (orientation:landscape) {
   .non-touch.phone.tf-slide-deck-container .me-not-me-container{
     height:30px;
+    bottom:0px;
   }
   .non-touch.phone.tf-slide-deck-container .me-not-me-container .me, 
   .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{

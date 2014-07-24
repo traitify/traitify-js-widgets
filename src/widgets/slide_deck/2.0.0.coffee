@@ -321,7 +321,12 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       else if width < 768
         Builder.nodes.container.className += " medium"
       
-        
+  Builder.events.onRotate = (rotateEvent)->
+    supportsOrientationChange = "onorientationchange" of window
+    orientationEvent = (if supportsOrientationChange then "orientationchange" else "resize")
+    window.addEventListener(orientationEvent, (event)->
+      rotateEvent(event)
+    , false)
           
   Builder.initialized = false
   Builder.initialize = ->
@@ -361,21 +366,34 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.events.setContainerSize()
         
         window.onresize = ->
-          Builder.events.setContainerSize()
-          console.log("resized")
+          if ["iphone", "android"].indexOf(Builder.device) == -1
+            Builder.events.setContainerSize()
             
         if Builder.device && Builder.device
             console.log("Running Device Builder")
             if ["android", "iphone"].indexOf(Builder.device) != -1
               Builder.nodes.container.className += " phone"
             Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
+            if(Builder.device != "android")
+              if window.orientation == 90 || window.orientation == -90
+                  Builder.nodes.main.style.height = (screen.availWidth - 150) + "px"
+                else
+                  Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
             
-            supportsOrientationChange = "onorientationchange" of window
-            orientationEvent = (if supportsOrientationChange then "orientationchange" else "resize")
-            window.addEventListener orientationEvent, (->
-              Builder.nodes.main.style.height = (screen.availWidth - 100) + "px"
-              return
-            ), false
+            Builder.events.onRotate( (event)->
+              if(Builder.device == "android")
+                Builder.nodes.main.style.height = (screen.availWidth - 100) + "px"
+              else
+                console.log(screen.availWidth)
+                if window.orientation == 90 || window.orientation == -90
+                  
+                  Builder.nodes.main.style.height = (screen.availWidth - 150) + "px"
+                else
+                  Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
+                  
+            )
+              
+            
             
       else
         if typeof selector != "string"
