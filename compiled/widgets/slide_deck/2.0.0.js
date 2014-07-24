@@ -397,11 +397,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           if (["android", "iphone"].indexOf(Builder.device) !== -1) {
             Builder.nodes.container.className += " phone";
           }
-          Builder.nodes.main.style.height = screen.availHeight - 100;
+          Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
           supportsOrientationChange = "onorientationchange" in window;
           orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
           window.addEventListener(orientationEvent, (function() {
-            Builder.nodes.main.style.height = screen.availWidth - 100;
+            Builder.nodes.main.style.height = (screen.availWidth - 100) + "px";
           }), false);
         }
       } else {
