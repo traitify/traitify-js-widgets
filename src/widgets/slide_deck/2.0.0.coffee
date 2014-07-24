@@ -364,7 +364,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
           Builder.events.setContainerSize()
           console.log("resized")
             
-        if Builder.device && Builder.device != "iphone"
+        if Builder.device && Builder.device
+            if ["android", "iphone"].indexOf(Builder.device) != -1
+              Builder.nodes.container.className += " phone"
             Builder.nodes.main.style.height = screen.availHeight - 100
             
             supportsOrientationChange = "onorientationchange" of window

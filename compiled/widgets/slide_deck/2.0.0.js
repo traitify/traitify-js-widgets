@@ -392,7 +392,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           Builder.events.setContainerSize();
           return console.log("resized");
         };
-        if (Builder.device && Builder.device !== "iphone") {
+        if (Builder.device && Builder.device) {
+          if (["android", "iphone"].indexOf(Builder.device) !== -1) {
+            Builder.nodes.container.className += " phone";
+          }
           Builder.nodes.main.style.height = screen.availHeight - 100;
           supportsOrientationChange = "onorientationchange" in window;
           orientationEvent = (supportsOrientationChange ? "orientationchange" : "resize");
