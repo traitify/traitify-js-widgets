@@ -416,9 +416,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             }
             if (Builder.device === "ipad") {
               if (window.orientation === 90 || window.orientation === -90) {
-                return Builder.nodes.main.style.height = (screen.availWidth - 243) + "px";
+                return Builder.nodes.main.style.height = (screen.availWidth - 263) + "px";
               } else {
-                return Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
+                return Builder.nodes.main.style.height = (screen.availHeight - 76) + "px";
               }
             }
           };

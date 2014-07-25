@@ -381,9 +381,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
                     Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
               if(Builder.device == "ipad" )
                 if window.orientation == 90 || window.orientation == -90
-                    Builder.nodes.main.style.height = (screen.availWidth - 243) + "px"
+                    Builder.nodes.main.style.height = (screen.availWidth - 263) + "px"
                   else
-                    Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
+                    Builder.nodes.main.style.height = (screen.availHeight - 76) + "px"
             nonAndroid()
             
             Builder.events.onRotate( (event)->
