@@ -20,6 +20,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-box-sizing: initial;
+  -moz-box-sizing: initial;
+  box-sizing: initial;
 }
 .tf-slide-deck-container .slides {
   position:relative;
