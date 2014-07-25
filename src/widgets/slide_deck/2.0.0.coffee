@@ -349,10 +349,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       if Builder.data.slides.length != 0
         Builder.nodes.container = Builder.partials.slideDeckContainer()
         if Builder.device
-          if Builder.device != "ipad"
-            Builder.nodes.container.className += " #{Builder.device}"
-          else
-            Builder.nodes.container.className += " phone"
+          Builder.nodes.container.className += " #{Builder.device}"
           Builder.nodes.container.className += " mobile"
           if options && options.nonTouch
             Builder.nodes.container.className += " non-touch"
@@ -384,7 +381,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
                     Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
               if(Builder.device == "ipad" )
                 if window.orientation == 90 || window.orientation == -90
-                    Builder.nodes.main.style.height = (screen.availWidth - 250) + "px"
+                    Builder.nodes.main.style.height = (screen.availWidth - 280) + "px"
                   else
                     Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
             nonAndroid()
