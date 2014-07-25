@@ -397,7 +397,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.prefetchSlides();
         Builder.events.setContainerSize();
         window.onresize = function() {
-          if (["iphone", "android"].indexOf(Builder.device) === -1) {
+          if (["iphone", "android", "ipad"].indexOf(Builder.device) === -1) {
             return Builder.events.setContainerSize();
           }
         };
@@ -416,7 +416,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             }
             if (Builder.device === "ipad") {
               if (window.orientation === 90 || window.orientation === -90) {
-                return Builder.nodes.main.style.height = (screen.availWidth - 280) + "px";
+                return Builder.nodes.main.style.height = (screen.availWidth - 245) + "px";
               } else {
                 return Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
               }

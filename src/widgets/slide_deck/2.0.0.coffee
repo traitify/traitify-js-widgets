@@ -366,7 +366,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.events.setContainerSize()
         
         window.onresize = ->
-          if ["iphone", "android"].indexOf(Builder.device) == -1
+          if ["iphone", "android", "ipad"].indexOf(Builder.device) == -1
             Builder.events.setContainerSize()
             
         if Builder.device && Builder.device
@@ -381,7 +381,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
                     Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
               if(Builder.device == "ipad" )
                 if window.orientation == 90 || window.orientation == -90
-                    Builder.nodes.main.style.height = (screen.availWidth - 280) + "px"
+                    Builder.nodes.main.style.height = (screen.availWidth - 245) + "px"
                   else
                     Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
             nonAndroid()
