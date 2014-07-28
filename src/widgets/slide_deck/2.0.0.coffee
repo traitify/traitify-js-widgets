@@ -380,6 +380,9 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
               height = window.outterWidth + "px"
               width = window.outterHeight + "px"
             
+            Builder.nodes.main.style.height = width
+            Builder.nodes.main.style.height = height
+            
             Builder.events.onRotate( (event)->
               if window.orientation == 90 || window.orientation == -90
                 Builder.nodes.main.style.height = width
