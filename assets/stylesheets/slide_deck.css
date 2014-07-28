@@ -496,3 +496,29 @@
     margin-left:20%;
   }
 }
+
+
+/**************************************
+ * Android
+ **************************************/
+@media screen and (orientation:landscape) {
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container{
+    height:auto;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .caption{
+    font-size:20px;
+    padding:5px 0px;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+    font-size:18px;
+    padding:5px 0px;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me{
+    width:30%;
+    margin-left:20%;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+    width:30%;
+    margin-right:20%;
+  }
+}

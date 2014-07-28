@@ -365,7 +365,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var nonAndroid, style;
+      var android, nonAndroid, style;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -379,7 +379,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         rel: "stylesheet"
       });
       Builder.nodes.main.innerHTML = "";
-      Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
         Builder.nodes.container = Builder.partials.slideDeckContainer();
         if (Builder.device) {
@@ -405,7 +404,14 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           if (["android", "iphone", "ipad"].indexOf(Builder.device) !== -1) {
             Builder.nodes.container.className += " phone";
           }
-          Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
+          if (Builder.device === "android") {
+            Builder.nodes.main.style.height = window.innerHeight + "px";
+          }
+          android = function() {
+            if (Builder.device === "android") {
+              return Builder.nodes.main.style.height = (window.innerWidth - 100) + "px";
+            }
+          };
           nonAndroid = function() {
             if (Builder.device === "iphone") {
               if (window.orientation === 90 || window.orientation === -90) {
@@ -425,7 +431,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           nonAndroid();
           Builder.events.onRotate(function(event) {
             if (Builder.device === "android") {
-              return Builder.nodes.main.style.height = (screen.availWidth - 100) + "px";
+              return android();
             } else {
               return nonAndroid();
             }
