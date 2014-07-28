@@ -365,7 +365,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var android, nonAndroid, style;
+      var height, style, width;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -405,36 +405,18 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           if (["android", "iphone", "ipad"].indexOf(Builder.device) !== -1) {
             Builder.nodes.container.className += " phone";
           }
-          if (Builder.device === "android") {
-            Builder.nodes.main.style.height = window.innerHeight + "px";
+          if (window.outterHeight > window.outterWidth) {
+            height = window.outterHeight + "px";
+            width = window.outterWidth + "px";
+          } else {
+            height = window.outterWidth + "px";
+            width = window.outterHeight + "px";
           }
-          android = function() {
-            if (Builder.device === "android") {
-              return Builder.nodes.main.style.height = (window.innerWidth - 100) + "px";
-            }
-          };
-          nonAndroid = function() {
-            if (Builder.device === "iphone") {
-              if (window.orientation === 90 || window.orientation === -90) {
-                Builder.nodes.main.style.height = (screen.availWidth - 150) + "px";
-              } else {
-                Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
-              }
-            }
-            if (Builder.device === "ipad") {
-              if (window.orientation === 90 || window.orientation === -90) {
-                return Builder.nodes.main.style.height = (screen.availWidth - 263) + "px";
-              } else {
-                return Builder.nodes.main.style.height = (screen.availHeight - 76) + "px";
-              }
-            }
-          };
-          nonAndroid();
           Builder.events.onRotate(function(event) {
-            if (Builder.device === "android") {
-              return android();
+            if (window.orientation === 90 || window.orientation === -90) {
+              return Builder.nodes.main.style.height = width;
             } else {
-              return nonAndroid();
+              return Builder.nodes.main.style.height = height;
             }
           });
         }
