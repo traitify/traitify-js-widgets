@@ -406,13 +406,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             Builder.nodes.container.className += " phone";
           }
           if (Builder.device === "android") {
-            Builder.nodes.main.style.height = window.outterHeight + "px";
-            alert("android");
-            alert(window.outterHeight);
+            Builder.nodes.main.style.height = window.innerHeight + "px";
           }
           android = function() {
             if (Builder.device === "android") {
-              return Builder.nodes.main.style.height = window.outterWidth + "px";
+              return Builder.nodes.main.style.height = (window.innerWidth - 100) + "px";
             }
           };
           nonAndroid = function() {

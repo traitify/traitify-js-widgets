@@ -6,7 +6,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.data = Object()
   Builder.data.slideResponses = Object()
   Builder.finished = false
-  alert("LSJKDFLJKSDFJKLSDFJKLJKLSDF")
 
   if typeof options == "undefined"
     options = Object()
@@ -375,13 +374,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
               Builder.nodes.container.className += " phone"
             
             if(Builder.device == "android" )
-                Builder.nodes.main.style.height = window.outterHeight + "px"
-                alert("android")
-                alert(window.outterHeight)
+                Builder.nodes.main.style.height = window.innerHeight + "px"
             
             android = ->
               if(Builder.device == "android" )
-                Builder.nodes.main.style.height = (window.outterWidth) + "px"
+                Builder.nodes.main.style.height = (window.innerWidth - 100) + "px"
                 
             nonAndroid = ->
               if(Builder.device == "iphone" )
