@@ -516,9 +516,11 @@
   .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me{
     width:30%;
     margin-left:20%;
+    height:auto;
   }
   .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
     width:30%;
     margin-right:20%;
+    height:auto;
   }
 }
