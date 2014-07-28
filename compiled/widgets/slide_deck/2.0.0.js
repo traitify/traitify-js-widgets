@@ -412,6 +412,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
             height = window.outterWidth + "px";
             width = window.outterHeight + "px";
           }
+          Builder.nodes.main.style.height = width;
+          Builder.nodes.main.style.height = height;
           Builder.events.onRotate(function(event) {
             if (window.orientation === 90 || window.orientation === -90) {
               return Builder.nodes.main.style.height = width;
