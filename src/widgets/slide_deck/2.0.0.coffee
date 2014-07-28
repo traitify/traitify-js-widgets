@@ -344,7 +344,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
       Builder.nodes.main.innerHTML = ""
 
-      #Builder.nodes.main.appendChild(style)
+      Builder.nodes.main.appendChild(style)
 
       if Builder.data.slides.length != 0
         Builder.nodes.container = Builder.partials.slideDeckContainer()

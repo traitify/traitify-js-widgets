@@ -379,6 +379,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         rel: "stylesheet"
       });
       Builder.nodes.main.innerHTML = "";
+      Builder.nodes.main.appendChild(style);
       if (Builder.data.slides.length !== 0) {
         Builder.nodes.container = Builder.partials.slideDeckContainer();
         if (Builder.device) {
