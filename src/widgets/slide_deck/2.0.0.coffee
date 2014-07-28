@@ -373,21 +373,31 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
             if ["android", "iphone", "ipad"].indexOf(Builder.device) != -1
               Builder.nodes.container.className += " phone"
             
-            if window.outterHeight > window.outterWidth
-              height = window.outterHeight + "px"
-              width = window.outterWidth + "px"
-            else
-              height = window.outterWidth + "px"
-              width = window.outterHeight + "px"
+            if(Builder.device == "android" )
+                Builder.nodes.main.style.height = window.outterHeight + "px"
             
-            Builder.nodes.main.style.height = width
-            Builder.nodes.main.style.height = height
+            android = ->
+              if(Builder.device == "android" )
+                Builder.nodes.main.style.height = window.outterWidth + "px"
+                
+            nonAndroid = ->
+              if(Builder.device == "iphone" )
+                if window.orientation == 90 || window.orientation == -90
+                    Builder.nodes.main.style.height = (screen.availWidth - 150) + "px"
+                  else
+                    Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
+              if(Builder.device == "ipad" )
+                if window.orientation == 90 || window.orientation == -90
+                    Builder.nodes.main.style.height = (screen.availWidth - 263) + "px"
+                  else
+                    Builder.nodes.main.style.height = (screen.availHeight - 76) + "px"
+            nonAndroid()
             
             Builder.events.onRotate( (event)->
-              if window.orientation == 90 || window.orientation == -90
-                Builder.nodes.main.style.height = width
+              if(Builder.device == "android")
+                android()
               else
-                Builder.nodes.main.style.height = height
+                nonAndroid()
             )
               
             
