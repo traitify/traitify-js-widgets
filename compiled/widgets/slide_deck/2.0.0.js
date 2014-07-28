@@ -407,6 +407,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           }
           if (Builder.device === "android") {
             Builder.nodes.main.style.height = window.outterHeight + "px";
+            alert("android");
+            alert(window.outterHeight);
           }
           android = function() {
             if (Builder.device === "android") {
