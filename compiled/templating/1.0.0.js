@@ -25,7 +25,7 @@ Templating = function() {
       return window.attachEvent('onload', callBack);
     }
   };
-  Builder.templates.renderResults = function(assessmentId, personalityType) {
+  Builder.templates.render = function(assessmentId, personalityType) {
     var oldPersonalityTypes, _i, _len, _ref;
     if (Builder.templates[personalityType]) {
       _ref = Builder.templates[personalityType];
@@ -41,7 +41,7 @@ Templating = function() {
       Builder.analytics.endTypesTime = new Date().getTime();
       Builder.analytics.afterGettingResults = new Date().getTime();
       if (personalityType.getAttribute("hero-type")) {
-        data = data.slice(0, 1);
+        data.personality_types = data.personality_types.slice(0, 1);
       }
       for (index in data.personality_types) {
         personalityTypeData = data.personality_types[index];
