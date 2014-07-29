@@ -24,8 +24,8 @@ Templating = ->
             window.addEventListener('load', callBack)
         else if (window.attachEvent)
             window.attachEvent('onload', callBack)
-
-    Builder.templates.render = (assessmentId, personalityType)->
+      
+    Builder.templates.renderResults = (assessmentId, personalityType)->
         if Builder.templates[personalityType]
             for oldPersonalityTypes in Builder.templates[personalityType]
                 personalityType.parentNode.removeChild(oldPersonalityTypes)
@@ -34,6 +34,8 @@ Templating = ->
         Traitify.getPersonalityTypes(assessmentId, (data)->
             Builder.analytics.endTypesTime = new Date().getTime()
             Builder.analytics.afterGettingResults = new Date().getTime() 
+            if personalityType.getAttribute("hero-type")
+              data = data.slice(0, 1)
             for index of data.personality_types
                 personalityTypeData = data.personality_types[index]
                 personalityTypesNode = document.createElement("div")

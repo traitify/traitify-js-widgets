@@ -25,7 +25,7 @@ Templating = function() {
       return window.attachEvent('onload', callBack);
     }
   };
-  Builder.templates.render = function(assessmentId, personalityType) {
+  Builder.templates.renderResults = function(assessmentId, personalityType) {
     var oldPersonalityTypes, _i, _len, _ref;
     if (Builder.templates[personalityType]) {
       _ref = Builder.templates[personalityType];
@@ -40,6 +40,9 @@ Templating = function() {
       var attribute, attributeValue, color_1, color_2, color_3, index, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _len1, _ref1;
       Builder.analytics.endTypesTime = new Date().getTime();
       Builder.analytics.afterGettingResults = new Date().getTime();
+      if (personalityType.getAttribute("hero-type")) {
+        data = data.slice(0, 1);
+      }
       for (index in data.personality_types) {
         personalityTypeData = data.personality_types[index];
         personalityTypesNode = document.createElement("div");
