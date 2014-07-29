@@ -2,12 +2,12 @@
   font-family: 'proxima_nova';
   font-style: normal;
   font-weight: 100;
-  src: local('proxima_nova'), local('proxima_nova'), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/proxima_nova.woff") format('woff');
+  src: local('proxima_nova_light'), local('proxima_nova_light'), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/proxima_nova_light.woff") format('woff');
 }
 .tf-slide-deck-container{
   margin:0px auto;
   max-width:1200px;
-  font-family: "proxima_nova", "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-family: "proxima_nova_light", "Helvetica Neue", Helvetica, Arial, "sans-serif";
   overflow: hidden;
   color: #fff;
   width: 100%;
