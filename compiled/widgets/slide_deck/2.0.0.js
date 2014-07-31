@@ -54,10 +54,12 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   };
   Builder.data.slideValues = Array();
   Builder.data.addSlide = function(id, value) {
+    Builder.data.lastSlideTime = Builder.data.currentSlideTime;
+    Builder.data.currentSlideTime = new Date().getTime();
     Builder.data.slideValues.push({
       id: id,
       response: value,
-      time_taken: 1000
+      time_taken: Builder.data.currentSlideTime - Builder.data.lastSlideTime
     });
     Builder.data.sentSlides += 1;
     if (Builder.data.slideValues.length % 10 === 0 || Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
@@ -451,10 +453,11 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         }
       }
       if (Builder.callbacks.initialize) {
-        return Builder.callbacks.initialize(Builder);
+        Builder.callbacks.initialize(Builder);
       } else {
-        return Builder.initialized = true;
+        Builder.initialized = true;
       }
+      return Builder.data.currentSlideTime = new Date().getTime();
     });
   };
   Builder.callbacks = Object();

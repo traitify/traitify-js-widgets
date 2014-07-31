@@ -52,7 +52,13 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.data.slideValues = Array()
   # LOCAL DB FOR SLIDES
   Builder.data.addSlide = (id, value)->
-    Builder.data.slideValues.push({id: id, response: value, time_taken: 1000})
+    Builder.data.lastSlideTime = Builder.data.currentSlideTime
+    Builder.data.currentSlideTime = new Date().getTime()
+    Builder.data.slideValues.push({
+      id: id, 
+      response: value, 
+      time_taken: Builder.data.currentSlideTime - Builder.data.lastSlideTime
+    })
     Builder.data.sentSlides += 1
     if Builder.data.slideValues.length % 10 == 0 || Builder.data.sentSlides == Builder.data.slidesToPlayLength
       Traitify.addSlides(assessmentId, Builder.data.slideValues, (response)->
@@ -417,6 +423,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.callbacks.initialize(Builder)
       else
         Builder.initialized = true
+      Builder.data.currentSlideTime = new Date().getTime()
     )
 
   Builder.callbacks = Object()
