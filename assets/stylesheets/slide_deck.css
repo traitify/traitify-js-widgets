@@ -24,6 +24,10 @@
   -moz-box-sizing: initial;
   box-sizing: initial;
 }
+.tf-slide-deck-container .cover{
+  visibility: hidden;
+  background-color:#aaa;
+}
 .tf-slide-deck-container .slides {
   position:relative;
 }
@@ -363,6 +367,11 @@
   .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
     font-size:40px;
   }
+  .phone.tf-slide-deck-container .cover{
+    width:100%;
+    height:100%;
+    /*visibility: visible; This should be uncommented when the text is given*/
+  }
 }
 .non-touch.phone.tf-slide-deck-container .caption{
   margin-top:10px;
@@ -404,7 +413,6 @@
 @media screen and (orientation:landscape) {
   .non-touch.phone.tf-slide-deck-container .me-not-me-container{
     height:30px;
-    bottom:0px;
   }
   .non-touch.phone.tf-slide-deck-container .me-not-me-container .me, 
   .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{

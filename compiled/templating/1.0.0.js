@@ -37,21 +37,34 @@ Templating = function() {
     Builder.templates[personalityType] = Array();
     Builder.analytics.startTypesTime = new Date().getTime();
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
-      var attribute, attributeValue, color_1, color_2, color_3, index, innerHTML, name, personalityTypeData, personalityTypesNode, scoreValue, _j, _len1, _ref1;
+      var attribute, attributeValue, color_1, color_2, color_3, except, index, innerHTML, name, only, personalityTypeData, personalityTypesNode, scoreValue, types, _j, _len1, _ref1;
       Builder.analytics.endTypesTime = new Date().getTime();
       Builder.analytics.afterGettingResults = new Date().getTime();
       if (personalityType.getAttribute("hero-type")) {
         data.personality_types = data.personality_types.slice(0, 1);
       }
+      if (only = personalityType.getAttribute("only-types")) {
+        only = only.split(",");
+        data.personality_types = data.personality_types.filter(function(tp, i) {
+          return only.indexOf("" + i) !== -1;
+        });
+      }
+      if (except = personalityType.getAttribute("except-types")) {
+        types = data.personality_types;
+        except = except.split(",").map(function(data) {
+          return parseInt(data);
+        });
+        data.personality_types = data.personality_types.filter(function(tp, i) {
+          return except.indexOf("" + i) === -1;
+        });
+      }
       for (index in data.personality_types) {
         personalityTypeData = data.personality_types[index];
         personalityTypesNode = document.createElement("div");
-        personalityTypesNode.innerHTML = personalityType.innerHTML;
         color_1 = personalityTypeData.personality_type.badge.color_1;
         color_2 = personalityTypeData.personality_type.badge.color_2;
         color_3 = personalityTypeData.personality_type.badge.color_3;
-        innerHTML = personalityTypesNode.innerHTML;
-        console.log(personalityTypeData.score);
+        innerHTML = personalityType.innerHTML;
         if (personalityTypeData.score > 0) {
           scoreValue = Math.round(personalityTypeData.score);
         } else {

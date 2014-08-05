@@ -7,7 +7,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
   Builder.states.animating = false;
   Builder.data = Object();
   Builder.data.slideResponses = Object();
-  Builder.finished = false;
+  Builder.states.finished = false;
   if (typeof options === "undefined") {
     options = Object();
   }
@@ -107,10 +107,15 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     return (value / Builder.data.totalSlideLength) * 100;
   };
   Builder.partials.slideDeckContainer = function() {
-    var slidesContainer, slidesLeft;
+    var cover, slidesContainer, slidesLeft;
     slidesContainer = this.div({
       "class": "tf-slide-deck-container"
     });
+    cover = this.div({
+      "class": "cover"
+    });
+    cover.innerHTML = "Landscape mode is not currently supported";
+    slidesContainer.appendChild(cover);
     slidesLeft = Builder.data.getProgressBarNumbers("initializing");
     slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft));
     slidesContainer.appendChild(this.slides(Builder.data.slides));
@@ -128,8 +133,8 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
     Builder.nodes.notMe = this.div({
       "class": "not-me"
     });
-    Builder.nodes.notMe.innerHTML = "<div>Not Me</div>";
-    Builder.nodes.me.innerHTML = "<div>Me</div>";
+    Builder.nodes.notMe.innerHTML = "Not Me";
+    Builder.nodes.me.innerHTML = "Me";
     meNotMeContainer.appendChild(Builder.nodes.me);
     meNotMeContainer.appendChild(Builder.nodes.notMe);
     Builder.nodes.meNotMeContainer = meNotMeContainer;
@@ -226,6 +231,13 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         return callBack();
       }
     });
+  };
+  Builder.helpers.onload = function(callBack) {
+    if (window.addEventListener) {
+      return window.addEventListener('load', callBack);
+    } else if (window.attachEvent) {
+      return window.attachEvent('onload', callBack);
+    }
   };
   Builder.actions = function() {
     if (Builder.device === "iphone" || Builder.device === "ipad") {
@@ -364,10 +376,10 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       return rotateEvent(event);
     }, false);
   };
-  Builder.initialized = false;
+  Builder.states.initialized = false;
   Builder.initialize = function() {
     return Traitify.getSlides(assessmentId, function(data) {
-      var android, nonAndroid, style;
+      var setupScreen, style;
       Builder.data.currentSlide = 1;
       Builder.data.totalSlideLength = data.length;
       Builder.data.sentSlides = 0;
@@ -386,7 +398,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.nodes.container = Builder.partials.slideDeckContainer();
         if (Builder.device) {
           Builder.nodes.container.className += " " + Builder.device;
-          Builder.nodes.container.className += " mobile";
+          Builder.nodes.container.className += " mobile phone";
           if (options && options.nonTouch) {
             Builder.nodes.container.className += " non-touch";
           }
@@ -399,46 +411,25 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         Builder.prefetchSlides();
         Builder.events.setContainerSize();
         window.onresize = function() {
-          if (["iphone", "android", "ipad"].indexOf(Builder.device) === -1) {
+          if (!Builder.device) {
             return Builder.events.setContainerSize();
           }
         };
         if (Builder.device && Builder.device) {
-          if (["android", "iphone", "ipad"].indexOf(Builder.device) !== -1) {
-            Builder.nodes.container.className += " phone";
-          }
-          if (Builder.device === "android") {
-            Builder.nodes.main.style.height = window.innerHeight + "px";
-          }
-          android = function() {
-            if (Builder.device === "android") {
-              return Builder.nodes.main.style.height = (window.innerWidth - 100) + "px";
-            }
+          setupScreen = function() {
+            var windowOrienter;
+            windowOrienter = function() {
+              return Builder.nodes.main.style.height = window.innerHeight + "px";
+            };
+            windowOrienter();
+            return Builder.events.onRotate(function(event) {
+              return windowOrienter();
+            });
           };
-          nonAndroid = function() {
-            if (Builder.device === "iphone") {
-              if (window.orientation === 90 || window.orientation === -90) {
-                Builder.nodes.main.style.height = (screen.availWidth - 150) + "px";
-              } else {
-                Builder.nodes.main.style.height = (screen.availHeight - 100) + "px";
-              }
-            }
-            if (Builder.device === "ipad") {
-              if (window.orientation === 90 || window.orientation === -90) {
-                return Builder.nodes.main.style.height = (screen.availWidth - 263) + "px";
-              } else {
-                return Builder.nodes.main.style.height = (screen.availHeight - 76) + "px";
-              }
-            }
-          };
-          nonAndroid();
-          Builder.events.onRotate(function(event) {
-            if (Builder.device === "android") {
-              return android();
-            } else {
-              return nonAndroid();
-            }
+          Builder.helpers.onload(function() {
+            return setupScreen();
           });
+          setupScreen();
         }
       } else {
         if (typeof selector !== "string") {
@@ -448,28 +439,28 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
           Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options);
         }
         if (Builder.callbacks.finished) {
-          Builder.finished = true;
+          Builder.states.finished = true;
           Builder.callbacks.finished();
         }
       }
       if (Builder.callbacks.initialize) {
         Builder.callbacks.initialize(Builder);
       } else {
-        Builder.initialized = true;
+        Builder.states.initialized = true;
       }
       return Builder.data.currentSlideTime = new Date().getTime();
     });
   };
   Builder.callbacks = Object();
   Builder.onInitialize = function(callBack) {
-    if (Builder.initialized === true) {
+    if (Builder.states.initialized === true) {
       callBack();
     }
     Builder.callbacks.initialize = callBack;
     return Builder;
   };
   Builder.onFinished = function(callBack) {
-    if (Builder.finished === true) {
+    if (Builder.states.finished === true) {
       callBack();
     }
     Builder.callbacks.finished = callBack;
@@ -731,7 +722,7 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
       return Builder.nodes.printWindow.head.appendChild(title);
     };
   };
-  Builder.initialized = false;
+  Builder.states.initialized = false;
   Builder.initialize = function() {
     Builder.nodes.main.innerHTML = "";
     return Traitify.getPersonalityTypes(assessmentId, function(data) {
@@ -770,13 +761,13 @@ window.Traitify.ui.resultsDefault = function(assessmentId, selector, options) {
       if (Builder.callbacks.initialize) {
         return Builder.callbacks.initialize(Builder);
       } else {
-        return Builder.initialized = true;
+        return Builder.states.initialized = true;
       }
     });
   };
   Builder.callbacks = Object();
   Builder.onInitialize = function(callBack) {
-    if (Builder.initialized === true) {
+    if (Builder.states.initialized === true) {
       callBack();
     } else {
       Builder.callbacks.initialize = callBack;

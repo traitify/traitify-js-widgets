@@ -36,18 +36,31 @@ Templating = ->
             Builder.analytics.afterGettingResults = new Date().getTime() 
             if personalityType.getAttribute("hero-type")
               data.personality_types = data.personality_types.slice(0, 1)
+              
+            if only = personalityType.getAttribute("only-types")
+              only = only.split(",")
+              data.personality_types = data.personality_types.filter( (tp,i)->
+                only.indexOf("#{i}") != -1
+              )
+        
+            if except = personalityType.getAttribute("except-types")
+              types = data.personality_types
+              except = except.split(",").map((data)->
+                parseInt(data)
+              )
+              data.personality_types = data.personality_types.filter( (tp, i)->
+                except.indexOf("#{i}") == -1
+              )
 
             for index of data.personality_types
                 personalityTypeData = data.personality_types[index]
                 personalityTypesNode = document.createElement("div")
-                personalityTypesNode.innerHTML = personalityType.innerHTML
 
                 color_1 = personalityTypeData.personality_type.badge.color_1
                 color_2 = personalityTypeData.personality_type.badge.color_2
                 color_3 = personalityTypeData.personality_type.badge.color_3
 
-                innerHTML = personalityTypesNode.innerHTML
-                console.log(personalityTypeData.score)
+                innerHTML = personalityType.innerHTML
                 if personalityTypeData.score > 0
                     scoreValue = Math.round(personalityTypeData.score)
                 else

@@ -5,7 +5,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder.states.animating = false
   Builder.data = Object()
   Builder.data.slideResponses = Object()
-  Builder.finished = false
+  Builder.states.finished = false
 
   if typeof options == "undefined"
     options = Object()
@@ -102,6 +102,10 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 
   Builder.partials.slideDeckContainer = ->
     slidesContainer = @div({class:"tf-slide-deck-container"})
+    cover = @div({class:"cover"})
+    cover.innerHTML = "Landscape mode is not currently supported"
+    slidesContainer.appendChild(cover)
+    
     slidesLeft = Builder.data.getProgressBarNumbers("initializing")
 
     slidesContainer.appendChild(Builder.partials.progressBar(slidesLeft))
@@ -115,8 +119,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     meNotMeContainer = @div({class:"me-not-me-container"})
     Builder.nodes.me = @div({class:"me"})
     Builder.nodes.notMe = @div({class:"not-me"})
-    Builder.nodes.notMe.innerHTML = "<div>Not Me</div>"
-    Builder.nodes.me.innerHTML = "<div>Me</div>"
+    Builder.nodes.notMe.innerHTML = "Not Me"
+    Builder.nodes.me.innerHTML = "Me"
     meNotMeContainer.appendChild(Builder.nodes.me)
     meNotMeContainer.appendChild(Builder.nodes.notMe)
     Builder.nodes.meNotMeContainer = meNotMeContainer
@@ -199,6 +203,11 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       if (touchDifferenceX < 2 && touchDifferenceX < 2)   
         callBack()
     )
+  Builder.helpers.onload = (callBack)->
+    if (window.addEventListener)
+        window.addEventListener('load', callBack)
+    else if (window.attachEvent)
+        window.attachEvent('onload', callBack)
 
   Builder.actions = ->
     if Builder.device == "iphone"  ||  Builder.device == "ipad" 
@@ -334,7 +343,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       rotateEvent(event)
     , false)
           
-  Builder.initialized = false
+  Builder.states.initialized = false
   Builder.initialize = ->
     Traitify.getSlides(assessmentId, (data)->
       Builder.data.currentSlide = 1
@@ -356,7 +365,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.nodes.container = Builder.partials.slideDeckContainer()
         if Builder.device
           Builder.nodes.container.className += " #{Builder.device}"
-          Builder.nodes.container.className += " mobile"
+          Builder.nodes.container.className += " mobile phone"
           if options && options.nonTouch
             Builder.nodes.container.className += " non-touch"
 
@@ -372,41 +381,24 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
         Builder.events.setContainerSize()
         
         window.onresize = ->
-          if ["iphone", "android", "ipad"].indexOf(Builder.device) == -1
+          if !Builder.device
             Builder.events.setContainerSize()
             
         if Builder.device && Builder.device
-            if ["android", "iphone", "ipad"].indexOf(Builder.device) != -1
-              Builder.nodes.container.className += " phone"
-            
-            if(Builder.device == "android" )
+          
+          setupScreen = ->
+            windowOrienter = ->
                 Builder.nodes.main.style.height = window.innerHeight + "px"
-            
-            android = ->
-              if(Builder.device == "android" )
-                Builder.nodes.main.style.height = (window.innerWidth - 100) + "px"
-                
-            nonAndroid = ->
-              if(Builder.device == "iphone" )
-                if window.orientation == 90 || window.orientation == -90
-                    Builder.nodes.main.style.height = (screen.availWidth - 150) + "px"
-                  else
-                    Builder.nodes.main.style.height = (screen.availHeight - 100) + "px"
-              if(Builder.device == "ipad" )
-                if window.orientation == 90 || window.orientation == -90
-                    Builder.nodes.main.style.height = (screen.availWidth - 263) + "px"
-                  else
-                    Builder.nodes.main.style.height = (screen.availHeight - 76) + "px"
-            nonAndroid()
-            
-            Builder.events.onRotate( (event)->
-              if(Builder.device == "android")
-                android()
-              else
-                nonAndroid()
-            )
+            windowOrienter()
               
-            
+            Builder.events.onRotate( (event)->
+              windowOrienter()
+            )
+
+          Builder.helpers.onload( ->
+            setupScreen()
+          )
+          setupScreen()
             
       else
         if typeof selector != "string"
@@ -415,26 +407,26 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
           Builder.results = Traitify.ui.resultsDefault(assessmentId, selector, options)
         
         if Builder.callbacks.finished
-          Builder.finished = true
+          Builder.states.finished = true
           Builder.callbacks.finished()
           
       
       if Builder.callbacks.initialize 
         Builder.callbacks.initialize(Builder)
       else
-        Builder.initialized = true
+        Builder.states.initialized = true
       Builder.data.currentSlideTime = new Date().getTime()
     )
 
   Builder.callbacks = Object()
   Builder.onInitialize = (callBack)->
-    if Builder.initialized == true
+    if Builder.states.initialized == true
       callBack()
     Builder.callbacks.initialize = callBack
     Builder
 
   Builder.onFinished = (callBack)->
-    if Builder.finished == true
+    if Builder.states.finished == true
       callBack()
     Builder.callbacks.finished = callBack
     Builder
@@ -665,7 +657,7 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
       title.innerHTML = "PERSONALITY TO PRINT"
       Builder.nodes.printWindow.head.appendChild(title)
 
-  Builder.initialized = false
+  Builder.states.initialized = false
   Builder.initialize = ->
     Builder.nodes.main.innerHTML = ""
     Traitify.getPersonalityTypes(assessmentId, (data)->
@@ -702,12 +694,12 @@ window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
       if Builder.callbacks.initialize
         Builder.callbacks.initialize(Builder)
       else
-        Builder.initialized = true
+        Builder.states.initialized = true
     )
   
   Builder.callbacks = Object()
   Builder.onInitialize = (callBack)->
-    if Builder.initialized == true
+    if Builder.states.initialized == true
       callBack()
     else
       Builder.callbacks.initialize = callBack
