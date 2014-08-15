@@ -69,7 +69,9 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
         }
         if (Builder.data.sentSlides === Builder.data.slidesToPlayLength) {
           Builder.nodes.main.innerHTML = "";
-          Traitify.ui.resultsDefault(assessmentId, selector, options);
+          if (options.showResults !== false) {
+            Traitify.ui.resultsDefault(assessmentId, selector, options);
+          }
           if (Builder.callbacks.finished) {
             return Builder.callbacks.finished(Builder);
           }
@@ -279,7 +281,7 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       if (!Builder.data.slides[Builder.data.currentSlide]) {
         Builder.events.loadingAnimation();
       }
-      Builder.states.animating = false;
+      Builder.states.animating = true;
       Builder.events.advanceSlide();
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1];
       Builder.data.addSlide(currentSlide.id, false);
@@ -464,10 +466,6 @@ window.Traitify.ui.slideDeck = function(assessmentId, selector, options) {
       callBack();
     }
     Builder.callbacks.finished = callBack;
-    return Builder;
-  };
-  Builder.onFinish = function(callBack) {
-    Builder.callbacks.finish = callBack;
     return Builder;
   };
   Builder.onAddSlide = function(callBack) {

@@ -66,7 +66,8 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
           Builder.callbacks.addSlide(Builder)
         if Builder.data.sentSlides == Builder.data.slidesToPlayLength
           Builder.nodes.main.innerHTML = ""
-          Traitify.ui.resultsDefault(assessmentId, selector, options)
+          if options.showResults != false
+            Traitify.ui.resultsDefault(assessmentId, selector, options)
           if Builder.callbacks.finished
             Builder.callbacks.finished(Builder)
       )
@@ -249,7 +250,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
       if !Builder.data.slides[Builder.data.currentSlide] 
         Builder.events.loadingAnimation()
 
-      Builder.states.animating = false
+      Builder.states.animating = true
       Builder.events.advanceSlide()
 
       currentSlide = Builder.data.slides[Builder.data.currentSlide - 1]
@@ -429,10 +430,6 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
     if Builder.states.finished == true
       callBack()
     Builder.callbacks.finished = callBack
-    Builder
-    
-  Builder.onFinish = (callBack)->
-    Builder.callbacks.finish = callBack
     Builder
 
   Builder.onAddSlide = (callBack)->
