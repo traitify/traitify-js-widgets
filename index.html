@@ -1,15 +1,7 @@
 <html>
 	<head>
-		<script src="./js/api/1.0.0.js"></script>
-		<script src="./js/widgets/slide_deck/2.0.0.js"></script>
-		<script src="./compiled/api/1.0.0.js"></script>
-		<script src="./compiled/widgets/slide_deck/2.0.0.js"></script>
-		<script src="./compiled/templating/1.0.0.js"></script>
-        <!--
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" />
-        <script "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" ></script>
-        -->
+		<script src="./compiled/bundles/default.js"></script>
+        
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	</head>
 	<body>
@@ -27,10 +19,10 @@
 		for(index in splitQueries){
 			keyValue = splitQueries[index].split("=")
 			splitByKeyValue[keyValue[0]] = keyValue[1]
-        }
+		}
 
-		Traitify.setHost("api-sandbox.traitify.com");
-		Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr");
+		Traitify.setHost("api.traitify.com");
+		Traitify.setPublicKey("5b0amg81vrimd1mc88sroacdno");
 		Traitify.setVersion("v1");
 		if(splitByKeyValue.nonTouch){
 			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
@@ -56,19 +48,18 @@
 		</script>
 		<link href="assets/stylesheets/slide_deck.css" rel="stylesheet" />
 		<link href="assets/stylesheets/results_prop.css" rel="stylesheet" />
-        <div class="widget">
-            <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
-                <name class="awesome"></name>
-                <badge-image></badge-image>
-                <score></score>
-            </template>
-        </div>
-        <style>
-            body{
-              padding:0px;
-              margin:0px;
-            }
-        </style>
-
+		<div class="widget">
+		  <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
+        <name class="awesome"></name>
+        <badge-image></badge-image>
+        <score></score>
+		  </template>
+		</div>
+		<style>
+		    body{
+		      padding:0px;
+		      margin:0px;
+		    }
+		</style>
 	</body>
 </html>

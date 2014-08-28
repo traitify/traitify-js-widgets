@@ -13,8 +13,10 @@ files = [
 ]
 
 fs = require 'fs'
+minify = require('minify')
 {print} = require 'util'
 {spawn, exec} = require 'child_process'
+YAML = require 'yamljs'
 
 try
   which = require('which').sync
@@ -41,6 +43,17 @@ red = '\x1b[0;31m'
 # cake docs
 # ```
 task 'docs', 'generate documentation', -> docco()
+
+# ## *package*
+#
+# Packages Source Files
+#
+# <small>Usage</small>
+#
+# ```
+# cake build
+# ```
+task 'bundle', 'package source', -> bundle -> log ":)", green
 
 # ## *build*
 #
@@ -164,6 +177,49 @@ build = (watch, callback) ->
   options.unshift '-w' if watch
   launch 'coffee', options, callback
 
+readFiles = (bundleName, files, callback)->
+    index = 0
+    filesData = Array()
+    readLoop = (data, callback)->
+      index = index + 1
+      filesData.push(data)
+      if index != files.length
+        readFile("compiled/"+files[index], readLoop) 
+      else
+        minify({
+          ext: ".js",
+          data: filesData.join("")
+        },
+        (error, minifiedFile)->
+          fs.writeFile("compiled/bundles/#{bundleName}.js", minifiedFile, (err)->
+              if(err)
+                  return console.log(err)
+          )
+        )
+    readFile("compiled/"+files[index], readLoop) 
+        
+readFile = (file, callback)->
+    fs.readFile(file, 'utf8', (err,data)->
+      if (err)
+        return console.log(err)
+      
+      callback(data)
+    )
+
+bundle = (callback) ->
+  build(->)
+  readFile("bundles.yml", (data)->
+    bundles = YAML.parse(data)
+    for key in Object.keys(bundles)
+      readFiles(key, bundles[key], callback)
+  )
+  
+  
+
+    
+    
+    
+        
 # ## *unlinkIfCoffeeFile*
 #
 # **given** string as file

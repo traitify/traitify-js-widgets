@@ -1,4 +1,4 @@
-window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
+Traitify.ui.slideDeck = (assessmentId, selector, options)->
   Builder = Object()
   Builder.nodes = Object()
   Builder.states = Object()
@@ -468,7 +468,7 @@ window.Traitify.ui.slideDeck = (assessmentId, selector, options)->
 # RESULTS WIDGET
 #
 #############################################################
-window.Traitify.ui.resultsDefault = (assessmentId, selector, options)->
+Traitify.ui.resultsDefault = (assessmentId, selector, options)->
   Builder = Object()
   Builder.nodes = Object()
   Builder.states = Object()
