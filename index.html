@@ -1,6 +1,11 @@
 <html>
 	<head>
-		<script src="./compiled/bundles/default.js"></script>
+    <script src="./compiled/api/1.0.0.js"></script>
+		<script src="./compiled/bldr/1.0.0.js"></script>
+    <script src="./compiled/ldr/1.0.0.js"></script>
+    <script src="./compiled/widgets/slide_deck/3.0.0.js"></script>
+    <script src="./compiled/widgets/results/default/1.0.0.js"></script>
+    <link href="./assets/stylesheets/widgets/slide_deck/1.0.0.css" rel="stylesheet" />
         
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	</head>
@@ -8,7 +13,13 @@
 
 		<div class="slide-deck">
 		</div>
+    
+    
 		<script>
+		Traitify.setHost("api.traitify.com");
+		Traitify.setPublicKey("5b0amg81vrimd1mc88sroacdno");
+		Traitify.setVersion("v1");
+    /*
 		if(window.location.hash.substring(1).indexOf("&")){
 			var splitQueries = window.location.hash.substring(1).split("&")	
 		}else{
@@ -21,9 +32,7 @@
 			splitByKeyValue[keyValue[0]] = keyValue[1]
 		}
 
-		Traitify.setHost("api.traitify.com");
-		Traitify.setPublicKey("5b0amg81vrimd1mc88sroacdno");
-		Traitify.setVersion("v1");
+
 		if(splitByKeyValue.nonTouch){
 			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
 		}else{
@@ -39,13 +48,15 @@
 		Builder.onNotMe(function(){
 			console.log("You  not me'd a slide!")
 		})
-		Builder.onFinish(function(){
+		Builder.onFinished(function(){
 			console.log("You Finished!")
 		})
 		Builder.onAddSlide(function(){
 			console.log("You added a slide!")
 		})
+    */
 		</script>
+    <!--
 		<link href="assets/stylesheets/slide_deck.css" rel="stylesheet" />
 		<link href="assets/stylesheets/results_prop.css" rel="stylesheet" />
 		<div class="widget">
@@ -61,5 +72,6 @@
 		      margin:0px;
 		    }
 		</style>
+    -->
 	</body>
 </html>

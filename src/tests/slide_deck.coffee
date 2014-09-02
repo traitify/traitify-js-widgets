@@ -15,7 +15,7 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
   assert.equal(!Builder.onMe, false, "on Me Event Succeeds!" )
   assert.equal(!Builder.onNotMe, false, "on Not Me Event Succeeds!" )
   assert.equal(!Builder.onAddSlide, false, "on Add Slide Event Succeeds!" )
-  assert.equal(!Builder.onFinish, false, "on Finish Event Succeeds!" )
+  assert.equal(!Builder.onFinished, false, "on Finish Event Succeeds!" )
   assert.equal(!Builder.onAdvanceSlide, false, "on Advance Slide Event Succeeds!" )
 )
 
@@ -47,7 +47,8 @@ QUnit.asyncTest("Slide Deck Widget Initialize", (assert)->
       "slides", 
       "me", 
       "notMe", 
-      "meNotMeContainer"
+      "meNotMeContainer",
+      "container"
     ] 
 
     assert.equal( JSON.stringify(Object.keys(Builder.nodes)), JSON.stringify(builderNodeNames), "Node Names append to Builder Succeeds!" )
@@ -67,8 +68,7 @@ QUnit.asyncTest("Results Widget Appears on Screen", (assert)->
 
   Builder = Traitify.ui.slideDeck(playedAssessment, ".widget", Object())
   Builder.results.onInitialize(->
-    assert.equal(!document.getElementsByClassName("personality-types")[0], false, "Personality types container exists")
-    assert.equal(!document.getElementsByClassName("print-button")[0], false, "Print button exists")
+    assert.equal(!document.getElementsByClassName("blend")[0], false, "Personality types container exists")
     QUnit.start()
   )
 )

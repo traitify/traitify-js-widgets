@@ -20,7 +20,7 @@ QUnit.test("Slide Deck Hooks Exist", function(assert) {
   assert.equal(!Builder.onMe, false, "on Me Event Succeeds!");
   assert.equal(!Builder.onNotMe, false, "on Not Me Event Succeeds!");
   assert.equal(!Builder.onAddSlide, false, "on Add Slide Event Succeeds!");
-  assert.equal(!Builder.onFinish, false, "on Finish Event Succeeds!");
+  assert.equal(!Builder.onFinished, false, "on Finish Event Succeeds!");
   return assert.equal(!Builder.onAdvanceSlide, false, "on Advance Slide Event Succeeds!");
 });
 
@@ -41,7 +41,7 @@ QUnit.asyncTest("Slide Deck Widget Initialize", function(assert) {
     assert.equal(Builder.data.slides[0].caption, "Navigating", "First Slide Caption Succeeds!");
     firstSlide = Builder.nodes.currentSlide.getElementsByClassName("caption")[0].innerHTML;
     assert.equal(firstSlide, "Navigating", "First Slide is on DOM Succeeds!");
-    builderNodeNames = ["main", "progressBar", "progressBarInner", "currentSlide", "nextSlide", "slides", "me", "notMe", "meNotMeContainer"];
+    builderNodeNames = ["main", "progressBar", "progressBarInner", "currentSlide", "nextSlide", "slides", "me", "notMe", "meNotMeContainer", "container"];
     assert.equal(JSON.stringify(Object.keys(Builder.nodes)), JSON.stringify(builderNodeNames), "Node Names append to Builder Succeeds!");
     return QUnit.start();
   });
@@ -58,8 +58,7 @@ QUnit.asyncTest("Results Widget Appears on Screen", function(assert) {
   assert.equal(!document.getElementsByClassName("personality-types")[0], true, "Personality types container exists");
   Builder = Traitify.ui.slideDeck(playedAssessment, ".widget", Object());
   return Builder.results.onInitialize(function() {
-    assert.equal(!document.getElementsByClassName("personality-types")[0], false, "Personality types container exists");
-    assert.equal(!document.getElementsByClassName("print-button")[0], false, "Print button exists");
+    assert.equal(!document.getElementsByClassName("blend")[0], false, "Personality types container exists");
     return QUnit.start();
   });
 });
