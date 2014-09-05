@@ -19,7 +19,7 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
   assert.equal(!Builder.onAdvanceSlide, false, "on Advance Slide Event Succeeds!" )
 )
 
-QUnit.module( "Testing API Version 1", {a setup: ->
+QUnit.module( "Testing API Version 1", {setup: ->
   Traitify.setVersion("v1")
   Traitify.setHost("api-sandbox.traitify.com")
   Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
