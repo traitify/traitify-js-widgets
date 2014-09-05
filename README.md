@@ -20,5 +20,22 @@ How to initialize Version 1:
         Traitify.setVersion("Version of API (v1)");
         var assessmentId = "Your assessment Id";
 
-        Traitify.ui.load(assessmentId, ".traitify-widget")
+        traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
+        
+    </script>
+    
+The builder used for the widget is returned to you.
+
+    <script>
+        Traitify.setPublicKey("Your public key");
+        Traitify.setHost("The Host For Your Url");
+        Traitify.setVersion("Version of API (v1)");
+        var assessmentId = "Your assessment Id";
+
+        traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
+        
+        traitify.onInitialize(function(){
+            console.log(this.data);
+            console.log("INITIALIZED");
+        })
     </script>
