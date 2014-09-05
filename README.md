@@ -18,7 +18,7 @@ How to initialize Version 1:
         Traitify.setPublicKey("Your public key");
         Traitify.setHost("The Host For Your Url");
         Traitify.setVersion("Version of API (v1)");
-        var setAssessmentId = "Your assessment Id";
+        var assessmentId = "Your assessment Id";
 
         Traitify.ui.slideDeck(assessmentId, ".traitify", function(){
             Traitify.ui.resultsProp(assessmentId, ".traitify");
