@@ -44,7 +44,7 @@ Traitify.ui.resultsPersonalityTypes = (Widget, options)->
       pt = Widget.data.personality_types[index]
       personalityType = Widget.nodes.addDiv("personalityType", {"data-index":index})
       name = Widget.nodes.addDiv("name", Object(), pt.personality_type.name)
-      name.style.color = pt.personality_type.badge.color_1
+      name.style.color = "##{pt.personality_type.badge.color_1}"
       personalityType.appendChild(name)
       
       badge = Widget.nodes.addImg("badge", {src: pt.personality_type.badge.image_medium})
