@@ -1,24 +1,42 @@
 <html>
 	<head>
-    <script src="./compiled/api/1.0.0.js"></script>
-		<script src="./compiled/bldr/1.0.0.js"></script>
-    <script src="./compiled/ldr/1.0.0.js"></script>
-    <script src="./compiled/widgets/slide_deck/3.0.0.js"></script>
-    <script src="./compiled/widgets/results/default/1.0.0.js"></script>
-    <link href="./assets/stylesheets/widgets/slide_deck/1.0.0.css" rel="stylesheet" />
-        
+    <!--
+    <script src="./compiled/api/master.js"></script>
+		<script src="./compiled/builder/master.js"></script>
+    <script src="./compiled/loader/master.js"></script>
+    <script src="./compiled/widgets/slide_deck/master.js"></script>
+    <script src="./compiled/widgets/results/default/master.js"></script>
+    <link href="./assets/stylesheets/widgets/slide_deck/master.css" rel="stylesheet" />
+    -->    
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      body{
+        margin:0px;
+      }
+    </style>
+    <script src="./compiled/bundles/full-suite.js"></script>
 	</head>
 	<body>
 
-		<div class="slide-deck">
-		</div>
+		<div class="slide-deck"></div>
     
+    <div class="personality-types"></div>
     
 		<script>
 		Traitify.setHost("api.traitify.com");
-		Traitify.setPublicKey("5b0amg81vrimd1mc88sroacdno");
+		Traitify.setPublicKey("hfr3vcfqfshcolkhbbh01qlokv");
 		Traitify.setVersion("v1");
+    options = {
+                results:{
+                  params:{
+                    image_pack: "linear"  
+                  }
+                },
+                personalityTypes:{
+                    target:".personality-types"
+                }
+              }
+    tfPersonalityTypes = Traitify.ui.load("c528dfc7-708a-4ea6-b8ca-b719fbbe2b88", ".slide-deck", options)
     /*
 		if(window.location.hash.substring(1).indexOf("&")){
 			var splitQueries = window.location.hash.substring(1).split("&")	

@@ -1,0 +1,61 @@
+.tf-personality-types{
+  font-family: proxima_nova_light;
+}
+.tf-personality-types .description{
+  width:860px;
+  margin:0px auto;
+  padding:24px;
+  margin-top:6px;
+  text-align:justify;
+}
+.tf-personality-types .personality-types-container{
+  background-color:#022946;
+  width:100%;
+  
+}
+.tf-personality-types .personality-types-container .personality-types{
+  position:relative;
+}
+.tf-personality-types .personality-types-container .personality-types .arrow{
+  text-align:center;
+  width:130px;
+  bottom:-20px;
+  position:absolute;
+  left:0px;
+  -webkit-transition: left .2s linear;
+  -moz-transition: left .2s linear;
+  -o-transition: left .2s linear;
+  transition: left .2s linear;
+}
+.tf-personality-types .personality-types-container .personality-types .arrow .icon{
+  width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	
+	border-top: 20px solid #022946;
+  
+  margin:0px auto;
+}
+.tf-personality-types .personality-types-container .personality-types{
+  max-width: 910px;
+  margin:0px auto;
+}
+.tf-personality-types .personality-types-container .personality-types .personality-type {
+  display:inline-block;
+  width:130px;
+  text-align:center;
+  padding:20px 0px;
+  cursor:pointer;
+}
+.tf-personality-types .personality-types-container .personality-types .personality-type .badge{
+  width:60px;
+  margin:18px auto;
+}
+.tf-personality-types .personality-types-container .personality-types .personality-type .name{
+  text-align:center;
+  margin:0px auto;
+}
+.tf-personality-types .personality-types-container .personality-types .personality-type .score{
+  color:#fff;
+}

@@ -1,5 +1,43 @@
-default: 
-  - "api/1.0.0.js" 
-  - "widgets/slide_deck/2.0.0.js"
+stable: 
+  js:
+    - "api/master.js" 
+    - "widgets/slide_deck/master.js"
+development: 
+  js:
+    - "api/master.js" 
+    - "loader/master.js"
+    - "builder/master.js"
+    - "widgets/slide_deck/master.js"
+    - "widgets/results/default/master.js"
+  css:
+    - "widgets/all/master.css"
+    - "widgets/slide_deck/master.css"
+    - "widgets/results/default/master.css"
+full-suite: 
+  js:
+    - "api/master.js" 
+    - "loader/master.js"
+    - "builder/master.js"
+    - "widgets/slide_deck/master.js"
+    - "widgets/results/default/master.js"
+    - "widgets/results/personality-types/master.js"
+  css:
+    - "widgets/all/master.css"
+    - "widgets/slide_deck/master.css"
+    - "widgets/results/default/master.css"
+    - "widgets/results/personality-types/master.css"
+development-1-2-3: 
+  js:
+    - "api/master.js" 
+    - "loader/master.js"
+    - "builder/master.js"
+    - "widgets/slide_deck/master.js"
+    - "widgets/results/default/master.js"
 api:
-  - "api/1.0.0.js"
+  js:
+    - "api/master.js"
+slideDeck:
+  js:
+    - "api/master.js" 
+    - "widgets/slide_deck/master.js"
+  

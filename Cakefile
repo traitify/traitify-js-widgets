@@ -177,26 +177,33 @@ build = (watch, callback) ->
   options.unshift '-w' if watch
   launch 'coffee', options, callback
 
-readFiles = (bundleName, files, callback)->
+readFiles = (type, bundleName, files, next)->
     index = 0
     filesData = Array()
+    onLocal = Object()
+    if type == "css"
+      root_path = "assets/stylesheets/"
+    else
+      root_path = "compiled/"
     readLoop = (data, callback)->
       index = index + 1
       filesData.push(data)
       if index != files.length
-        readFile("compiled/"+files[index], readLoop) 
+        readFile(root_path+files[index], readLoop) 
       else
         minify({
-          ext: ".js",
+          ext: ".#{type}",
           data: filesData.join("")
         },
         (error, minifiedFile)->
-          fs.writeFile("compiled/bundles/#{bundleName}.js", minifiedFile, (err)->
-              if(err)
-                  return console.log(err)
-          )
+          if type=="css"
+            minifiedFile = minifiedFile.replace(/'/g, '\"')
+            minifiedFile = "Traitify.ui.styles = '<style>#{minifiedFile}</style>';"
+          fs.appendFileSync("compiled/bundles/#{bundleName}.js", minifiedFile)
+          if next
+            next(bundleName)
         )
-    readFile("compiled/"+files[index], readLoop) 
+    readFile(root_path+files[index], readLoop)
         
 readFile = (file, callback)->
     fs.readFile(file, 'utf8', (err,data)->
@@ -207,12 +214,28 @@ readFile = (file, callback)->
     )
 
 bundle = (callback) ->
-  build(->)
-  readFile("bundles.yml", (data)->
-    bundles = YAML.parse(data)
-    for key in Object.keys(bundles)
-      readFiles(key, bundles[key], callback)
+  build(->
+    afterFolderCheck = ()->
+      readFile("bundles.yml", (data)->
+        bundles = YAML.parse(data)
+        for key in Object.keys(bundles)
+          fs.writeFile("compiled/bundles/#{key}.js", "")
+
+          readFiles("js", key, bundles[key]["js"], (key)->
+            if bundles[key]["css"]
+              readFiles("css", key, bundles[key]["css"], callback)
+          )
+
+      )
+
+    fs.exists("compiled/bundles", (exists)->
+      if !exists
+        fs.mkdir("compiled/bundles")
+      afterFolderCheck()
+    )
   )
+  
+
   
   
 

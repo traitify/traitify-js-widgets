@@ -1,0 +1,529 @@
+.tf-slide-deck-container{
+  margin:0px auto;
+  max-width:1200px;
+  font-family: "proxima_nova_light", "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  overflow: hidden;
+  color: #fff;
+  width: 100%;
+  position: relative;
+  font-size: 22px;
+  -webkit-font-smoothing: antialised;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: initial;
+  -moz-box-sizing: initial;
+  box-sizing: initial;
+}
+.tf-slide-deck-container .cover{
+  display: none;
+  background-color:#aaa;
+}
+.tf-slide-deck-container .slides {
+  position:relative;
+}
+.tf-slide-deck-container .slide .image{
+  height:400px;
+  background-size: cover;
+}
+.tf-slide-deck-container .slides .loading{
+  color:#000;
+  text-align:center;
+  position:absolute;
+  width:100%;
+  top:40%;
+}
+.tf-slide-deck-container .slides .loading .left-dot{
+  background-color:#000;
+  width:20px;
+  height:20px;
+}
+.tf-slide-deck-container .slides .loading .right-dot{
+  background-color:#000;
+  width:20px;
+  height:20px;
+}
+.tf-slide-deck-container .slides .slide{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: initial;
+  -webkit-transition: left .3s linear;
+  -moz-transition: left .3s linear;
+  -o-transition: left .3s linear;
+  transition: left .3s linear;
+  position: absolute;
+  left: 100%;
+  top: 0px;
+  width: 100%;
+}
+.tf-slide-deck-container .slides .slide img{
+  width: 100%;
+}
+.tf-slide-deck-container .slides .slide.active{
+  left: 0%
+}
+.tf-slide-deck-container .slides .slide.played{
+  left: -100%;
+}
+.tf-slide-deck-container .slides .slide img{
+  width: 100%;
+}
+.tf-slide-deck-container .slides .slide.placeholder{
+  position:relative;
+}
+.tf-slide-deck-container .me-not-me-container.hide{
+  margin-left:100%;
+  opacity:0;
+  visibility:hidden;
+}
+.tf-slide-deck-container .me-not-me-container{
+  position:absolute;
+  z-index:1;
+  width:100%;
+  bottom:0px;
+  font-size:16px;
+}
+
+.tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
+  text-align: center;
+  padding: 1% 0px;
+  cursor: pointer;
+  margin-bottom:18px;
+}
+.tf-slide-deck-container .me{
+  background-color:rgb(5, 143, 196); 
+  position: relative;
+  width: 20%;
+  margin-left:30%;
+  display: inline-block;
+  border-radius:25px 0px 0px 25px;
+}
+.tf-slide-deck-container .not-me{
+  position: relative;
+  width: 20%;
+  margin-right:30%;
+  display: inline-block;
+  background-color:rgb(203, 78, 78);
+  border-radius:0px 25px 25px 0px;
+}
+.tf-slide-deck-container .me-not-me-container .not-me:active{
+  background-color:rgb(180, 70, 70); 
+}
+
+.tf-slide-deck-container .me-not-me-container .me:active{
+  background-color:rgb(0, 122, 156); 
+}
+.tf-slide-deck-container .caption{
+  background-color:rgba(0,0,0, .5);
+  padding:15px 0px 10px 0px;
+  text-align:center;
+  font-size:28px;
+  position:absolute;
+  
+  width:100%;
+}
+.tf-slide-deck-container .progress-bar{
+  height:10px;
+  display:block;
+  background-color:rgba(255, 255, 255, .5);
+  position:absolute;
+  z-index:1;
+  width: 100%;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: none;
+  transition: none;
+}
+.tf-slide-deck-container .progress-bar .progress-bar-inner{
+  width:0%;
+  height:10px;
+  background-color:#fff;
+  position:absolute;
+  -webkit-animation-delay: 2s; /* Safari and Chrome */
+  animation-delay: 2s;
+  -webkit-transition: width .3s linear;
+  -moz-transition: width .3s linear;
+  -o-transition: width .3s linear;
+  transition: width .3s linear;
+  border-radius: 0px 5px 5px 0px;
+}
+@media only screen and (min-width:760px){
+  .tf-slide-deck-container .slide .image{
+    height:570px;
+  }
+  .tf-slide-deck-container .me-not-me-container{
+    font-size:24px;
+  }
+  .tf-slide-deck-container .slide .caption{
+    font-size:32px;
+  }
+}
+@media only screen and (max-width:760px){
+ .tf-slide-deck-container .me-not-me-container{
+    padding: 10px 0px;
+    font-size:20px;
+    margin:0px auto;
+  }
+  .tf-slide-deck-container .me-not-me-container .me{
+    margin-left:30%;
+  }
+  .tf-slide-deck-container .me-not-me-container .not-me{
+    margin-right:30%;
+  }
+}
+
+.loading .symbol{
+  width: 30px;
+  height: 30px;
+  margin:0px auto;
+}
+.loading .symbol i{
+  margin-left: -15px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  background: #cb4e4e;
+  border-radius: 50%;
+  position: absolute;
+}
+.loading .symbol i:nth-child(1){
+  -webkit-transform:translate(-50px,0);
+  -webkit-animation:loading-ani1 1s linear infinite;
+
+}
+.loading .symbol i:nth-child(2){
+  background: #058fc4;
+  -webkit-transform:translate(50px,0);
+  -webkit-animation:loading-ani2 1s linear infinite;
+}
+@-webkit-keyframes loading-ani1{
+  25%{
+    z-index: 2;
+  }
+  50%{
+    -webkit-transform:translate(50px,0) scale(1);
+  }
+  75%{
+    -webkit-transform:translate(0,0) scale(0.75);
+  }
+  100%{
+    -webkit-transform:translate(-50px,0) scale(1);
+
+  }
+}
+@-webkit-keyframes loading-ani2{
+  25%{
+    -webkit-transform:translate(0,0) scale(0.75);
+  }
+  50%{
+    -webkit-transform:translate(-50px,0) scale(1);
+  }
+  75%{
+    z-index: 2;
+  }
+  100%{
+   	-webkit-transform:translate(50px,0) scale(1);
+  }
+}
+
+
+/*****************************
+ * Breakpoint Sizes
+ *****************************/
+.small.tf-slide-deck-container .me-not-me-container{
+  font-size:13px;
+}
+.small.tf-slide-deck-container .slide .caption{
+  font-size:18px;
+}
+.medium.tf-slide-deck-container .slide .caption{
+  font-size:24px;
+}
+.medium.tf-slide-deck-container .me-not-me-container{
+  font-size:15px;
+}
+.phone.tf-slide-deck-container .slide{
+  height:100%;
+}
+.phone.tf-slide-deck-container .slide .image{
+  height:100%;
+}
+
+
+/***************************
+ * MOBILE iPhone
+ ***************************/
+.phone.tf-slide-deck-container .progress-bar{
+  background-color:rgba(255,255,255, .5);
+  position:absolute;
+  z-index:2;
+  border:0px;
+  height:10px;
+}
+.phone.tf-slide-deck-container .progress-bar-inner{
+  border-radius: 0px 5px 5px 0px;
+  height:10px;
+}
+.phone.tf-slide-deck-container .slide.placeholder .caption{
+  z-index:-1;
+}
+.phone:not(.non-touch).tf-slide-deck-container .caption{
+  font-size:20px;
+  background-color:transparent;
+  position:relative;
+  width:100%;
+  padding-top:20px;
+}
+.phone.tf-slide-deck-container .slide{
+  padding: 0px;
+  margin: 0px;
+  -webkit-transition: width .4s linear;
+  -moz-transition: width .4s linear;
+  -o-transition: width .4s linear;
+  transition: width .4s linear;
+  position: absolute;
+  right:0%;
+  top: 0px;
+  width: 0%;
+  left:auto;
+}
+.phone.tf-slide-deck-container .slides .slide.played{
+  right:auto;
+  left:0%;
+  width: 0%;
+  left:auto;
+}
+.phone.tf-slide-deck-container .slides .slide.active{
+  right:0%;
+  width: 100%;
+  left:auto;
+}
+.phone.tf-slide-deck-container .slides .slide.active .caption{
+  z-index:2;
+}
+.phone.tf-slide-deck-container .slides .slide.played .caption{
+  z-index:auto;
+}
+.phone.tf-slide-deck-container, 
+.phone.tf-slide-deck-container .slides, 
+.phone.tf-slide-deck-container .slide .image{
+  height:100%;
+}
+
+.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
+  font-size:17px;
+  position:absolute;
+  height:100%;
+  top:0px;
+  width:100%;
+  overflow:hidden;
+  font-size:40px;
+}
+.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me, .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
+  height: 100%;
+  line-height:100%;
+  position:relative;
+}
+.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
+  background-color:rgba(203, 78, 78, .35);
+  border-radius:0px;
+  width:50%;
+  margin:0px;
+}
+.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me{
+  background-color:rgba(5, 143, 196, .35); 
+  border-radius:0px;
+  width:50%;
+  margin:0px;
+}
+@media screen and (device-width:320px) and (orientation:landscape) {
+  .phone.tf-slide-deck-container .caption{
+    font-size:16px;
+  }
+  .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me, .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
+    height: 160px;
+    line-height:160px;
+  }
+  .phone:not(.non-touch).tf-slide-deck-container .progress-bar{
+    background-color:rgba(255,255,255, .5);
+    position:absolute;
+    z-index:2;
+    border:0px;
+    height:8px;
+  }
+  .phone.tf-slide-deck-container .progress-bar-inner{
+    border-radius: 0px 4px 4px 0px;
+    height:8px;
+  }
+  .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
+    font-size:40px;
+  }
+  .phone.tf-slide-deck-container .cover{
+    width:100%;
+    height:100%;
+    position:absolute;
+    z-index:10;
+    /*display: block; This should be uncommented when the text is given*/
+  }
+}
+.non-touch.phone.tf-slide-deck-container .caption{
+  margin-top:10px;
+  padding: 10px 0px;
+}
+.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+  border-radius:40px;
+  overflow:hidden;
+  height:50px;
+  padding:0px;
+  bottom:10px;
+  top:auto;
+  width:100%;
+  margin-left:0px;
+  margin-right:0px;
+}
+.non-touch.phone.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+  width:40%;
+  font-size:20px;
+  height:45px;
+  line-height:45px;
+  padding:0px;
+}
+.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+  background-color:rgb(203, 78, 78);
+  margin-right:10%;
+}
+.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+  background-color:rgb(5, 143, 196); 
+  margin-left:10%;
+}
+.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me:active{
+  background-color:rgb(180, 70, 70); 
+}
+
+.non-touch.phone.tf-slide-deck-container .me-not-me-container .me:active{
+  background-color:rgb(0, 122, 156); 
+}
+@media screen and (orientation:landscape) {
+  .non-touch.phone.tf-slide-deck-container .me-not-me-container{
+    height:30px;
+  }
+  .non-touch.phone.tf-slide-deck-container .me-not-me-container .me, 
+  .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+    font-size:12px;
+    height:25px;
+    line-height:25px;
+  }
+  .non-touch.phone.tf-slide-deck-container .progress-bar{
+    height:5px;
+  }
+  .non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+    height:5px;
+  }
+  .non-touch.phone.tf-slide-deck-container .slide .caption{
+    font-size:12px;
+    padding:3px;
+    margin-top:5px;
+  }
+}
+
+
+/**********************
+ * iPad
+ **********************/
+.ipad.non-touch.phone.tf-slide-deck-container .progress-bar{
+  height:15px;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+  height:15px;
+  border-radius: 0px 8px 8px 0px;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+  margin-top:15px;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+  font-size:25px;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+  height:auto;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+  width:34%;
+  margin-left:16%;
+  font-size:30px;
+  padding: 8px 0px;
+  border-radius: 30px 0px 0px 30px;
+  height:auto;
+}
+.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+  width:34%;
+  margin-right:16%;
+  font-size:30px;
+  padding: 8px 0px;
+  border-radius: 0px 30px 30px 0px;
+  height:auto;
+}
+
+@media screen and (orientation:landscape) {
+  .ipad.non-touch.phone.tf-slide-deck-container .progress-bar{
+    height:10px;
+  }
+  .ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+    margin-top:10px;
+  }
+  .ipad.non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+    height:10px;
+  }
+  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+    height:auto;
+
+  }
+  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+    padding:7px 0px;
+    height:auto;
+    bottom:0px;
+    top:auto;
+    font-size:15px;
+    width:30%;
+    margin-right:20%;
+  }
+  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+    padding:7px 0px;
+    height:auto;
+    bottom:0px;
+    top:0px;
+    width:30%;
+    font-size:15px;
+    margin-left:20%;
+  }
+}
+
+
+/**************************************
+ * Android
+ **************************************/
+@media screen and (orientation:landscape) {
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container{
+    height:auto;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .caption{
+    font-size:20px;
+    padding:5px 0px;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+    font-size:18px;
+    padding:5px 0px;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me{
+    width:30%;
+    margin-left:20%;
+    height:auto;
+  }
+  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+    width:30%;
+    margin-right:20%;
+    height:auto;
+  }
+}
