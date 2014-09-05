@@ -86,7 +86,7 @@ task 'watch', 'compile and watch', -> build true, -> log ":-)", green
 # ```
 # cake test
 # ```
-task 'test', 'run tests', -> build -> mocha -> log ":)", green
+task 'test', 'test source', -> test -> log ":)", green
 
 # ## *clean*
 #
@@ -234,14 +234,19 @@ bundle = (callback) ->
       afterFolderCheck()
     )
   )
-  
 
+# ## *test*
+#
+# **given** string as a cmd
+# **and** optional array and option flags
+# **and** optional callback
+# **then** spawn cmd with options
+# **and** pipe to process stdout and stderr respectively
+# **and** on child process exit emit callback if set and status is 0
+test = (watch, callback) ->
+  options = ['tests/support/runner/runner.js', "#{__dirname}/tests/index.html" ]
   
-  
-
-    
-    
-    
+  launch 'phantomjs', options, ->
         
 # ## *unlinkIfCoffeeFile*
 #
