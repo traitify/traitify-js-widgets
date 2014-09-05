@@ -10,7 +10,7 @@ Html:
 How to initialize Version 1:
 
     <div>
-        <div class="traitify">
+        <div class="traitify-widget">
         </div>
     </div>
 
@@ -20,19 +20,5 @@ How to initialize Version 1:
         Traitify.setVersion("Version of API (v1)");
         var assessmentId = "Your assessment Id";
 
-        Traitify.ui.slideDeck(assessmentId, ".traitify", function(){
-            Traitify.ui.resultsProp(assessmentId, ".traitify");
-        });
-    </script>
-
-
-How to initialize Version 2:
-    <script>
-        Traitify.setPublicKey(“your public key”);
-        Traitify.setHost(“your host”);
-        Traitify.setVersion(“Version of API (v1)”);
-        var assessmentId = “Your assessment Id”;
-
-        Traitify.ui.slideDeck(assessmentid, “.traitify)
-
+        Traitify.ui.load(assessmentId, ".traitify-widget")
     </script>
