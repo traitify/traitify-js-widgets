@@ -245,7 +245,6 @@ bundle = (callback) ->
 # **and** on child process exit emit callback if set and status is 0
 test = (watch, callback) ->
   options = ['tests/support/runner/runner.js', "#{__dirname}/tests/index.html" ]
-  
   launch 'phantomjs', options, ->
         
 # ## *unlinkIfCoffeeFile*
