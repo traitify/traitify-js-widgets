@@ -11,7 +11,6 @@ Traitify.ui.slideDeck = (Widget, options)->
   Widget.callbacks.add("NotMe")
   Widget.callbacks.add("AdvanceSlide")
   Widget.callbacks.add("finished")
-    
 
   #######################
   # DATA
@@ -38,23 +37,21 @@ Traitify.ui.slideDeck = (Widget, options)->
           Widget.nodes.main.innerHTML = ""
           if options.showResults != false
             Widget.nodes.main.innerHTML = Traitify.ui.styles
-            Traitify.ui.loadResults(Widget.data.assessmentId, Widget.data.selector, options.results)
+            Traitify.ui.loadResults(Widget.data.assessmentId, Widget.selector, options.results)
+            if options.personalityTypes
+              Traitify.ui.loadPersonalityTypes(Widget.data.assessmentId, options.personalityTypes.target, options.personalityTypes)
           if Widget.callbacks.finished
             Widget.callbacks.finished(Widget)
       )
 
 
   Widget.data.getProgressBarNumbers = (initialize)->
-    slideLength = Widget.data.totalSlideLength 
-    currentLength = Widget.data.slides.all.length 
+    slideLength = Widget.data.slides.all.length
+    currentLength = Widget.data.slides.notCompleted.length 
     currentPosition = Widget.data.sentSlides
-    unless initialize == "initializing"
-      currentPosition += 1
-
-    value = slideLength - currentLength + currentPosition
-    (value / Widget.data.totalSlideLength) * 100
-    
-    
+    if !initialize
+      currentPosition +=1
+    (currentPosition / slideLength) * 100
     
   #########################  
   # PARTIALS
@@ -180,7 +177,6 @@ Traitify.ui.slideDeck = (Widget, options)->
     if !Widget.states.animating() && !Widget.data.slidesLeft() != 1
       if !Widget.data.slides.all[Widget.data.currentSlide] 
         Widget.events.loadingAnimation()
-
       Widget.states.animating(true)
       Widget.events.advanceSlide()
 
@@ -301,7 +297,6 @@ Traitify.ui.slideDeck = (Widget, options)->
 
     Widget.data.slides.all = Widget.data.slides.notCompleted.concat(Widget.data.slides.completed)
     Widget.data.sentSlides = 0
-    Widget.data.totalSlideLength = Widget.data.totalSlideLength
 
     Widget.data.slidesToPlayLength = Widget.data.slides.all.length
   )

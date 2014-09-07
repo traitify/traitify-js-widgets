@@ -1,12 +1,12 @@
 Traitify.ui.load = (assessmentId, target, options)->  
   Widgets = Object()
   options ?= Object()
-  Widgets.slideDeck = Traitify.ui.slideDeck(Bldr(target), options)
+  slideDeck = Bldr(target)
+  Widgets.slideDeck = Traitify.ui.slideDeck(slideDeck, options)
   Widgets.slideDeck.data.assessmentId = assessmentId
   
   if Traitify.ui.results
     Widgets.results = Traitify.ui.results(Bldr(target), options.results)
-  
   
   personalityTypesTarget = if options.personalityTypes then options.personalityTypes.target else Object()
   if Traitify.ui.resultsPersonalityTypes
@@ -66,7 +66,19 @@ Traitify.ui.loadSlideDeck = (assessmentId, target, options)->
     )
   else
     console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
-  
+
+Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
+  options ?= Object()
+  if Traitify.ui.resultsPersonalityTypes
+    Results = Traitify.ui.resultsPersonalityTypes(Bldr(target), options)
+    Results.nodes.main.innerHTML = Traitify.ui.styles
+    Traitify.getPersonalityTypes(assessmentId, options.params || {image_pack: "linear"}).then((data)->
+      Results.data = data
+      Results.initialize()
+    )
+  else
+    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
+    
 Traitify.ui.loadResults = (assessmentId, target, options)->
   options ?= Object()
   if Traitify.ui.results

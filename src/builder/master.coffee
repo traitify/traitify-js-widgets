@@ -32,6 +32,8 @@ Bldr = (selector, options)->
       
   Builder.states.add("logging")
   
+  Builder.selector = selector
+  
   if typeof options == "undefined"
     options = Object()
 
@@ -61,8 +63,6 @@ Bldr = (selector, options)->
     selector = selector.replace(".", "")
     selectedObject = document.getElementsByClassName(selector)
     Builder.nodes.main = if selectedObject then selectedObject[0] else null
-  
-  Builder.data.selector = selector
 
   if !Builder.nodes.main
     console.log("YOU MUST HAVE A TAG WITH A SELECTOR FOR THIS TO WORK")
