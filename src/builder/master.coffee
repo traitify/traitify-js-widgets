@@ -79,6 +79,9 @@ Bldr = (selector, options)->
 
     element
 
+  Builder.partials.a = (attributes)->
+    @make("a", attributes)
+    
   Builder.partials.div = (attributes)->
     @make("div", attributes)
 

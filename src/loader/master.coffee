@@ -4,7 +4,8 @@ Traitify.ui.load = (assessmentId, target, options)->
   slideDeck = Bldr(target)
   Widgets.slideDeck = Traitify.ui.slideDeck(slideDeck, options)
   Widgets.slideDeck.data.assessmentId = assessmentId
-  
+  Widgets.slideDeck.results = ->
+    Widgets.results
   if Traitify.ui.results
     Widgets.results = Traitify.ui.results(Bldr(target), options.results)
   
