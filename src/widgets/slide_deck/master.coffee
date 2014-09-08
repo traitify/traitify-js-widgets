@@ -37,7 +37,11 @@ Traitify.ui.slideDeck = (Widget, options)->
           Widget.nodes.main.innerHTML = ""
           if options.showResults != false
             Widget.nodes.main.innerHTML = Traitify.ui.styles
-            Traitify.ui.loadResults(Widget.data.assessmentId, Widget.selector, options.results)
+            Traitify.getPersonalityTypes(Widget.data.assessmentId).then((data)->
+              Widget.results().data = data
+              Widget.results().initialize()
+            )
+            
             if options.personalityTypes
               Traitify.ui.loadPersonalityTypes(Widget.data.assessmentId, options.personalityTypes.target, options.personalityTypes)
           if Widget.callbacks.finished
