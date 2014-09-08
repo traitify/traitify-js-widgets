@@ -8,6 +8,7 @@ Traitify.ui.results = (Widget, options)->
   ########################
   Widget.initialization.events.add("Setup Data", ->
     Widget.nodes.main.appendChild(Widget.partials.render("Results"))
+    Widget.callbacks.trigger("Initialize")
   )
 
   #########################
@@ -17,7 +18,6 @@ Traitify.ui.results = (Widget, options)->
     results = Widget.nodes.addDiv("tf-results", Object())
     results.appendChild(@render("Personality Blend"))
     
-    Widget.callbacks.trigger("Initialize")
     results
   )
 
