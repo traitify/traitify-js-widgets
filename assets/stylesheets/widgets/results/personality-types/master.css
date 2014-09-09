@@ -2,7 +2,7 @@
   font-family: proxima_nova_light;
 }
 .tf-personality-types .description{
-  width:860px;
+  max-width:860px;
   margin:0px auto;
   padding:24px;
   margin-top:6px;
@@ -13,7 +13,13 @@
   width:100%;
   
 }
+.tf-personality-types .personality-types-container-scroller{
+  height:200px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
 .tf-personality-types .personality-types-container .personality-types{
+  background-color:#022946;
   position:relative;
 }
 .tf-personality-types .personality-types-container .personality-types .arrow{
@@ -38,7 +44,7 @@
   margin:0px auto;
 }
 .tf-personality-types .personality-types-container .personality-types{
-  max-width: 910px;
+  width: 910px;
   margin:0px auto;
 }
 .tf-personality-types .personality-types-container .personality-types .personality-type {
