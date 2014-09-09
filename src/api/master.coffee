@@ -159,7 +159,8 @@
   @getPersonalityTypes = (id, options, callback)->
     promise = new tfPromise((resolve, reject)->
       try
-        options ?= {image_pack: "linear"}
+        options ?= Object()
+        options.image_pack ?= "linear"
         params = Array()
         
         for key in Object.keys(options)

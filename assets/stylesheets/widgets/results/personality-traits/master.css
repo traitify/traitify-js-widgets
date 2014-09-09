@@ -1,0 +1,38 @@
+.tf-personality-traits{
+  font-family: proxima_nova_light;
+}
+.tf-personality-traits .your-top-traits{
+  font-size: 24px;
+  margin: 20px;
+  text-align: center;
+}
+.tf-personality-traits .personality-traits{
+  max-width:800px;
+  margin:0px auto;
+}
+.tf-personality-traits .personality-traits .trait{
+  border-top: 6px solid;
+  border-color: #99aaff;
+  display: inline-block;
+  max-width: 180px;
+  margin: 5px;
+  vertical-align:top;
+  background-color:#fff;
+  height: 180px;
+  
+}
+.tf-personality-traits .personality-traits .trait .name{
+  font-family: proxima_nova;
+  margin: 20px 20px;
+  display: inline-block;
+  font-weight: 600;
+}
+.tf-personality-traits .personality-traits .trait .definition{
+  font-family: proxima_nova_light;
+  padding: 0px 20px;
+  display: table-cell;
+  font-size:13px;
+  font-weight: 400;
+  vertical-align:middle;
+  height: 100px;
+}
