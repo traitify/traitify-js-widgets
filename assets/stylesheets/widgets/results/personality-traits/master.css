@@ -19,20 +19,34 @@
   vertical-align:top;
   background-color:#fff;
   height: 180px;
-  
+  position:relative;
 }
 .tf-personality-traits .personality-traits .trait .name{
   font-family: proxima_nova;
   margin: 20px 20px;
+  margin-bottom: 0px;
   display: inline-block;
   font-weight: 600;
+  text-align: left;
 }
 .tf-personality-traits .personality-traits .trait .definition{
   font-family: proxima_nova_light;
   padding: 0px 20px;
   display: table-cell;
-  font-size:13px;
+  font-size:14px;
   font-weight: 400;
   vertical-align:middle;
   height: 100px;
+  text-align: left;
+}
+.tf-personality-traits .personality-traits .trait .background{
+  width: 180px;
+  height: 180px;
+  top:0px;
+  left: 0px;
+  position:absolute;
+  background-size: 130px 130px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: .15
 }
