@@ -51,42 +51,47 @@ Traitify.ui.load = (assessmentId, target, options)->
           Widgets.resultsPersonalityTypes.initialize()
         
         Widgets.loaded += 1
-        if Widgets.loaded == 2
-          if Widgets.resultsPersonalityTraits
-            typesLength = data.personality_types.length
-            currentLength = 1
-            for personalityType in data.personality_types
-              personalityType = personalityType.personality_type
-              personalityTraits = Traitify.getPersonalityTypesTraits(assessmentId, personalityType.id)
-              personalityTraits.personalityType = personalityType
-              personalityTraits.then((data)->
+        if Widgets.resultsPersonalityTraits
+          typesLength = data.personality_types.length
+          currentLength = 1
+          
+          for personalityType in data.personality_types
+            
+            personalityType = personalityType.personality_type
+            personalityTraits = Traitify.getPersonalityTypesTraits(assessmentId, personalityType.id)
+            personalityTraits.personalityType = personalityType
+            personalityTraits.then((data)->
+              
+              for trait in data
+                traits[trait.personality_trait.name] = this.personalityType
+                
                 currentLength += 1
-                for trait in data
-                  traits[trait.personality_trait.name] = @personalityType
-                if currentLength == typesLength
-                  mapedTraits = Widgets.resultsPersonalityTraits.data.traits.slice(0, 10).map((i)->
+
+                if Object.keys(traits).length == (Widgets.resultsPersonalityTraits.data || {traits: []}).traits.length
+                  mapedTraits = Widgets.resultsPersonalityTraits.data.traits.map((i)->
                     i.personalityType = traits[i.personality_trait.name]
                     i
                   )
-                  console.log(mapedTraits)
+
                   Widgets.resultsPersonalityTraits.data.traits = mapedTraits
                   Widgets.resultsPersonalityTraits.initialize()
-              )
-          
+
+            )
+
       )
       if Widgets.resultsPersonalityTraits
         Traitify.getPersonalityTraits(assessmentId,options.results.params).then((data)->
           if Widgets.resultsPersonalityTraits
-            Widgets.resultsPersonalityTraits.data.traits = data
-            
             Widgets.loaded += 1
-            if Widgets.loaded == 2
-              mapedTraits = Widgets.resultsPersonalityTraits.data.traits.slice(0, 10).map((i)->   
+            Widgets.resultsPersonalityTraits.data.traits = data
+            if Object.keys(traits).length == data.length
+              mapedTraits = Widgets.resultsPersonalityTraits.data.traits.map((i)->   
                 i.personalityType = traits[i.personality_trait.name]
                 i
               )
               Widgets.resultsPersonalityTraits.data.traits = mapedTraits
               Widgets.resultsPersonalityTraits.initialize()
+              
         )
   )
   Widgets
