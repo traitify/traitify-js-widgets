@@ -15,19 +15,16 @@ Traitify.ui.resultsPersonalityTypes = (Widget, options)->
   # PARTIALS
   #########################
   Widget.partials.add("Personality Types Container", ->
-    personalityTypesWidgetContainer = @addDiv("tfPersonalityTypes", Object())
-    personalityTypesContainer = @addDiv("personalityTypesContainer", Object())
+    personalityTypesWidgetContainer = @addDiv("tfPersonalityTypes")
+    @addDiv("personalityTypesContainerScroller").appendTo("tfPersonalityTypes")
+    @addDiv("personalityTypesContainer").appendTo("personalityTypesContainerScroller")
     
-    personalityTypes = @render("Personality Types")
-    description = @addDiv("description")
+    @render("Personality Types").appendTo("personalityTypesContainer")
+    description = @addDiv("description").appendTo("tfPersonalityTypes")
     description.innerHTML = Widget.data.personality_types[0].personality_type.description
     
     Widget.callbacks.trigger("Initialize")
-    personalityTypesContainer.appendChild(personalityTypes)
 
-    personalityTypesWidgetContainer.appendChild(personalityTypesContainer)
-    
-    personalityTypesWidgetContainer.appendChild(description)
     personalityTypesWidgetContainer
   )
 

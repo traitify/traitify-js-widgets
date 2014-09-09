@@ -6,7 +6,7 @@
   text-align:center;
 }
 .tf-results .personality-blend .badges-container{
-  width:400px;
+  max-width:500px;
   margin:0px auto;
 }
 .tf-results .personality-blend .badges-container .left-badge{
