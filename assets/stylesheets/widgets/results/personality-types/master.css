@@ -5,7 +5,7 @@
   max-width:860px;
   margin:0px auto;
   padding:24px;
-  margin-top:6px;
+  margin-top:-25px;
   text-align:justify;
 }
 .tf-personality-types .personality-types-container{
@@ -14,7 +14,7 @@
   
 }
 .tf-personality-types .personality-types-container-scroller{
-  height:200px;
+  height:220px;
   overflow-y: hidden;
   overflow-x: auto;
 }
