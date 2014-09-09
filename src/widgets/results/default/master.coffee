@@ -37,14 +37,14 @@ Traitify.ui.results = (Widget, options)->
     hexColorOne = Widget.helpers.hexToRGB(typeOneData.badge.color_1)
     leftBadge = @addDiv("leftBadge")
     leftBadge.style.backgroundImage = "url(#{typeOneData.badge.image_medium})"
-    leftBadge.style.backgroundColor = "rgba(#{hexColorOne.join(', ')}, .2)"
+    leftBadge.style.backgroundColor = "rgba(#{hexColorOne.join(', ')}, .07)"
     leftBadge.style.borderColor = "##{personalityBlendData.personality_type_1.badge.color_1}"
     
     typeTwoData = personalityBlendData.personality_type_2
     hexColorTwo = Widget.helpers.hexToRGB(typeTwoData.badge.color_1)
     rightBadge = @addDiv("rightBadge")
     rightBadge.style.backgroundImage = "url(#{typeTwoData.badge.image_medium})"
-    rightBadge.style.backgroundColor = "rgba(#{hexColorTwo.join(', ')}, .2)"
+    rightBadge.style.backgroundColor = "rgba(#{hexColorTwo.join(', ')}, .07)"
     rightBadge.style.borderColor = "##{typeTwoData.badge.color_1}"
     
     
