@@ -58,8 +58,8 @@ Traitify.ui.load = (assessmentId, target, options)->
       if Widgets.resultsPersonalityTraits
         Traitify.getPersonalityTraits(assessmentId,options.results.params).then((data)->
           Widgets.loaded += 1 
+          Widgets.resultsPersonalityTraits.data.traits = data
           if Widgets.resultsPersonalityTraits && Widgets.loaded == 2
-              Widgets.resultsPersonalityTraits.data.traits = data
               Widgets.resultsPersonalityTraits.initialize()
 
         )
