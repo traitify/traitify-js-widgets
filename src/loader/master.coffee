@@ -4,27 +4,21 @@ Traitify.ui.load = (assessmentId, target, options)->
   slideDeck = Bldr(target)
   Widgets.slideDeck = Traitify.ui.slideDeck(slideDeck, options)
   Widgets.slideDeck.data.assessmentId = assessmentId
-  Widgets.slideDeck.results = ->
-    Widgets.results
+  Widgets.slideDeck.Widgets = ->
+    Widgets
   if Traitify.ui.results
     Widgets.results = Traitify.ui.results(Bldr(target), options.results)
   
-  personalityTypesTarget = if options.personalityTypes then options.personalityTypes.target else Object()
-  if Traitify.ui.resultsPersonalityTypes
+  personalityTypesTarget = if options.personalityTypes then options.personalityTypes.target else null
+  if Traitify.ui.resultsPersonalityTypes && personalityTypesTarget
     Widgets.resultsPersonalityTypes = Traitify.ui.resultsPersonalityTypes(Bldr(personalityTypesTarget), options.personalityTypes)
   
-  options.personalityTypes ?= Object()
+  personalityTraitsTarget = if options.personalityTraits then options.personalityTraits.target else null
+  if Traitify.ui.resultsPersonalityTraits && personalityTraitsTarget
+      Widgets.resultsPersonalityTraits = Traitify.ui.resultsPersonalityTraits(Bldr(personalityTraitsTarget), options)
   
-  Widgets.slideDeck.nodes.main.innerHTML = Traitify.ui.styles
-  
-  options ?= Object()
-  options.results ?= Object()
-  options.slideDeck ?= Object()
-  options.personalityTypes ?= Object()
-  if options.results.logging
-    Widgets.results.states.logging(true)
-  if options.slideDeck.logging
-    Widgets.slideDeck.states.logging(true)
+  if Traitify.ui.styles
+    Widgets.slideDeck.nodes.main.innerHTML = Traitify.ui.styles
   
   Traitify.getSlides(assessmentId).then((data)->
     slides = Object()
@@ -42,7 +36,8 @@ Traitify.ui.load = (assessmentId, target, options)->
       )
       Widgets.slideDeck.initialize()
     else
-      Traitify.getPersonalityTypes(assessmentId, options.results.params || {image_pack: "linear"}).then((data)->
+      Widgets.loaded = 0
+      Traitify.getPersonalityTypes(assessmentId, options.results.params || Object()).then((data)->
         Widgets.slideDeck.callbacks.trigger("Finished")
         
         if Widgets.results
@@ -52,6 +47,18 @@ Traitify.ui.load = (assessmentId, target, options)->
         if Widgets.resultsPersonalityTypes
           Widgets.resultsPersonalityTypes.data = data
           Widgets.resultsPersonalityTypes.initialize()
+        
+        Widgets.loaded += 1
+        if Widgets.loaded == 2
+          Widgets.resultsPersonalityTraits.initialize()
+      )
+      Traitify.getPersonalityTraits(assessmentId,options.results.params).then((data)->
+        if Widgets.resultsPersonalityTraits
+          Widgets.resultsPersonalityTraits.data.traits = data
+          
+          Widgets.loaded += 1
+          if Widgets.loaded == 2
+            Widgets.resultsPersonalityTraits.initialize()
       )
   )
   Widgets
@@ -73,7 +80,19 @@ Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
   if Traitify.ui.resultsPersonalityTypes
     Results = Traitify.ui.resultsPersonalityTypes(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTypes(assessmentId, options.params || {image_pack: "linear"}).then((data)->
+    Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
+      Results.data = data
+      Results.initialize()
+    )
+  else
+    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
+
+Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
+  options ?= Object()
+  if Traitify.ui.resultsPersonalityTypes
+    Results = Traitify.ui.resultsPersonalityTraits(Bldr(target), options)
+    Results.nodes.main.innerHTML = Traitify.ui.styles
+    Traitify.getPersonalityTraits(assessmentId, options.params || Object()).then((data)->
       Results.data = data
       Results.initialize()
     )
@@ -85,7 +104,7 @@ Traitify.ui.loadResults = (assessmentId, target, options)->
   if Traitify.ui.results
     Results = Traitify.ui.results(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTypes(assessmentId, options.params || {image_pack: "linear"}).then((data)->
+    Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
       Results.data = data
       Results.initialize()
     )

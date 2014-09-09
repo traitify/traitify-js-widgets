@@ -177,7 +177,7 @@
   @getPersonalityTraits = (id, options, callback)->
     promise = new tfPromise((resolve, reject)->
       try 
-        Traitify.get("/assessments/#{id}/personality_traits", (data)->
+        Traitify.get("/assessments/#{id}/personality_traits/raw", (data)->
           callback(data) if callback
           resolve(data) if resolve
         )
