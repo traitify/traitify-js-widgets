@@ -21,11 +21,13 @@ full-suite:
     - "widgets/slide_deck/master.js"
     - "widgets/results/default/master.js"
     - "widgets/results/personality-types/master.js"
+    - "widgets/results/personality-traits/master.js"
   css:
     - "widgets/all/master.css"
     - "widgets/slide_deck/master.css"
     - "widgets/results/default/master.css"
     - "widgets/results/personality-types/master.css"
+    - "widgets/results/personality-traits/master.css"
 development-1-2-3: 
   js:
     - "api/master.js" 

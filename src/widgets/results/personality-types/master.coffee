@@ -15,11 +15,11 @@ Traitify.ui.resultsPersonalityTypes = (Widget, options)->
   # PARTIALS
   #########################
   Widget.partials.add("Personality Types Container", ->
-    personalityTypesWidgetContainer = Widget.nodes.addDiv("tfPersonalityTypes", Object())
-    personalityTypesContainer = Widget.nodes.addDiv("personalityTypesContainer", Object())
+    personalityTypesWidgetContainer = @addDiv("tfPersonalityTypes", Object())
+    personalityTypesContainer = @addDiv("personalityTypesContainer", Object())
     
     personalityTypes = @render("Personality Types")
-    description = Widget.nodes.addDiv("description")
+    description = @addDiv("description")
     description.innerHTML = Widget.data.personality_types[0].personality_type.description
     
     Widget.callbacks.trigger("Initialize")
@@ -32,29 +32,22 @@ Traitify.ui.resultsPersonalityTypes = (Widget, options)->
   )
 
   Widget.partials.add("Personality Types", ->
-    personalityTypes = Widget.nodes.addDiv("personalityTypes", Object())
+    personalityTypes = @addDiv("personalityTypes", Object())
     pts = Array()
+    @addDiv("arrow").appendTo("personalityTypes")
+    @addDiv("icon").appendTo("arrow")
     
-    arrowIcon = Widget.nodes.addDiv("icon")
-    arrow = Widget.nodes.addDiv("arrow")
-    arrow.appendChild(arrowIcon)
-    personalityTypes.appendChild(arrow)
     
     for index of Widget.data.personality_types
       pt = Widget.data.personality_types[index]
-      personalityType = Widget.nodes.addDiv("personalityType", {"data-index":index})
-      name = Widget.nodes.addDiv("name", Object(), pt.personality_type.name)
+      @addDiv("personalityType", {"data-index":index}).appendTo("personalityTypes")
+      name = @addDiv("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"
-      personalityType.appendChild(name)
       
-      badge = Widget.nodes.addImg("badge", {src: pt.personality_type.badge.image_medium})
-      personalityType.appendChild(badge)
+      @addImg("badge", {src: pt.personality_type.badge.image_medium}).appendTo("personalityType")
       
-      score = Widget.nodes.addDiv("score", Object(), "#{Math.round(pt.score)} / 100")
-      personalityType.appendChild(score)
+      score = @addDiv("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
       
-      personalityTypes.appendChild(personalityType)
-    
     personalityTypes
   )
   

@@ -3,20 +3,7 @@ Bldr = (selector, options)->
   Builder.nodes = Object()
   Builder.nodes.add = (name, content)->
     Builder.nodes[name] = content
-  
-  Builder.nodes.addDiv = (name, attrs, innerHTML)->
-    Builder.nodes.addTag("div", name, attrs, innerHTML)
-  
-  Builder.nodes.addImg = (name, attrs)->
-    Builder.nodes.addTag("img", name, attrs)
-  
-  Builder.nodes.addTag = (tag, name, attrs, innerHTML)->
-    attrs ?= Object()
-    if !attrs.class
-      attrs.class = Builder.helpers.toDash(name)
-    Builder.nodes[name] = Builder.partials[tag](attrs)
-    if innerHTML
-      Builder.nodes[name].innerHTML = innerHTML
+  Builder.nodes.get = (name)->
     Builder.nodes[name]
     
   Builder.states = Object()
@@ -91,12 +78,70 @@ Bldr = (selector, options)->
   Builder.partials.i = (attributes)->
     @make("i", attributes)
     
-  Builder.partials.add = (name, callback)->
-    Builder.partials[name] = callback
+  Builder.partials.add = (name, localNode)->
+    if typeof name == "object"
+      Builder.partials[name[0]].push(localNode)
+    else
+      Builder.partials[name] = localNode
     
   Builder.partials.render = (name, options)->
     Builder.partials[name](options)
-    
+  
+  Builder.partials.addDiv = (name, attrs, innerHTML)->
+    if typeof attrs != "object"
+      innerHTML = attrs
+      attrs = Object()
+
+    @addTag("div", name, attrs, innerHTML)
+  
+  Builder.partials.addImg = (name, attrs)->      
+    @addTag("img", name, attrs)
+  
+  Builder.partials.addTag = (tag, fullName, attrs, innerHTML)->
+    attrs ?= Object()
+    arrayType = false
+    name = fullName
+    if typeof fullName == "object"
+      arrayType = true
+      name = fullName = fullName[0]
+      
+    splitFullName = fullName.split(".")
+    if splitFullName.length != 1
+      name = splitFullName[splitFullName.length - 1]
+    if !attrs.class
+      attrs.class = Builder.helpers.toDash(name)
+    currentNode = Builder.partials[tag](attrs)
+    if arrayType
+      Builder.nodes[fullName] ?= Array()
+      Builder.nodes[fullName].push(currentNode)
+    else
+      Builder.nodes[fullName] = currentNode
+    if innerHTML
+      currentNode.innerHTML = innerHTML
+    currentNode.appendTo = (target)->
+      if typeof target == "object"
+        fullName = target[0]
+        index = target[1]
+        Builder.nodes[fullName][index].appendChild(@)
+      else
+        Builder.nodes[target].appendChild(@)
+    currentNode.append = (target)->
+      if typeof target == "object"
+        fullName = target[0]
+        index = target[1]
+        @appendChild(Builder.nodes[target][index])
+      else
+        @appendChild(Builder.nodes[target])
+    currentNode
+  
+  Builder.partials.data = (name, value)->
+    if name && value
+      Builder.data[name] = value
+    else if name
+      Builder.data[name]
+    else
+      Builder.data
+  
   #Callbacks
   Builder.callbacks = Object()
   Builder.callbacks.triggered = Object()
