@@ -96,7 +96,7 @@ Bldr = (selector, options)->
   
   Builder.partials.addImg = (name, attrs)->      
     @addTag("img", name, attrs)
-  
+
   Builder.partials.addTag = (tag, fullName, attrs, innerHTML)->
     attrs ?= Object()
     arrayType = false
@@ -164,6 +164,9 @@ Bldr = (selector, options)->
   Builder.helpers.toDash = (text)->
     if text
       text.replace(/([A-Z])/g, ($1)-> "-"+$1.toLowerCase())
+  Builder.helpers.hexToRGB = (hex)->
+    matches = hex.match(/([\da-f]{2})([\da-f]{2})([\da-f]{2})/i);
+    matches.slice(1).map((m)-> parseInt(m, 16) )
 
   Builder.events = Object()
   Builder.events.stack = Array()
