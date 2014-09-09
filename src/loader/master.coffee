@@ -72,7 +72,7 @@ Traitify.ui.loadSlideDeck = (assessmentId, target, options)->
       results.data = data
       results.initialize()
     )
-    results
+    Results
   else
     console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
 
@@ -85,7 +85,7 @@ Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
       Results.data = data
       Results.initialize()
     )
-    results
+    Results
   else
     console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
 
@@ -98,7 +98,7 @@ Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
       Results.data.traits = data
       Results.initialize()
     )
-    results
+    Results
   else
     console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
     
@@ -111,6 +111,6 @@ Traitify.ui.loadResults = (assessmentId, target, options)->
       Results.data = data
       Results.initialize()
     )
-    results
+    Results
   else
     console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
