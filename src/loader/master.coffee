@@ -93,7 +93,7 @@ Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
     Results = Traitify.ui.resultsPersonalityTraits(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
     Traitify.getPersonalityTraits(assessmentId, options.params || Object()).then((data)->
-      Results.data = data
+      Results.data.traits = data
       Results.initialize()
     )
   else
