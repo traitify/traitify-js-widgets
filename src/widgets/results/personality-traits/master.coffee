@@ -18,8 +18,11 @@ Traitify.ui.resultsPersonalityTraits = (Widget, options)->
     @addDiv("yourTopTraits", "Your Top Traits").appendTo("tfPersonalityTraits")
     @addDiv("personalityTraits").appendTo("tfPersonalityTraits")
     for trait in @data("traits").slice(0, 10)
+      personalityType = trait.personalityType || {badge: ""}
       trait = trait.personality_trait
-      @addDiv(["personalityTraits.trait"]).appendTo("personalityTraits")
+      console.log(personalityType.badge)
+      
+      @addDiv(["personalityTraits.trait"], {style: "border-color: ##{personalityType.badge.color_1};"}).appendTo("personalityTraits")
       @addDiv(["personalityTraits.trait.name"], trait.name).appendTo(["personalityTraits.trait", _i])
       @addDiv(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", _i])
       

@@ -33,14 +33,19 @@ Traitify.ui.results = (Widget, options)->
 
   Widget.partials.add("Personality Blend Badges", ->
     personalityBlendData = Widget.data.personality_blend
-    
+    typeOneData = personalityBlendData.personality_type_1
+    hexColorOne = Widget.helpers.hexToRGB(typeOneData.badge.color_1)
     leftBadge = @addDiv("leftBadge")
-    leftBadge.style.backgroundImage = "url(#{personalityBlendData.personality_type_1.badge.image_medium})"
+    leftBadge.style.backgroundImage = "url(#{typeOneData.badge.image_medium})"
+    leftBadge.style.backgroundColor = "rgba(#{hexColorOne.join(', ')}, .2)"
     leftBadge.style.borderColor = "##{personalityBlendData.personality_type_1.badge.color_1}"
     
+    typeTwoData = personalityBlendData.personality_type_2
+    hexColorTwo = Widget.helpers.hexToRGB(typeTwoData.badge.color_1)
     rightBadge = @addDiv("rightBadge")
-    rightBadge.style.backgroundImage = "url(#{personalityBlendData.personality_type_2.badge.image_medium})"
-    rightBadge.style.borderColor = "##{personalityBlendData.personality_type_2.badge.color_1}"
+    rightBadge.style.backgroundImage = "url(#{typeTwoData.badge.image_medium})"
+    rightBadge.style.backgroundColor = "rgba(#{hexColorTwo.join(', ')}, .2)"
+    rightBadge.style.borderColor = "##{typeTwoData.badge.color_1}"
     
     
     badgesContainer = @addDiv("badgesContainer", Object())
