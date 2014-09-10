@@ -1,5 +1,5 @@
 .tf-personality-types{
-  font-family: proxima_nova_light;
+  font-family: "Source Sans Pro";
 }
 .tf-personality-types .description{
   max-width:860px;
@@ -59,6 +59,7 @@
   margin:18px auto;
 }
 .tf-personality-types .personality-types-container .personality-types .personality-type .name{
+  font-family: "Adelle Sans Bold";
   text-align:center;
   margin:0px auto;
 }

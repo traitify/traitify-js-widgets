@@ -15,7 +15,6 @@ Traitify.ui.resultsPersonalityTraits = (Widget, options)->
   #########################
   Widget.partials.add("Personality Traits Container", ->
     personalityTraitsWidgetContainer = @addDiv("tfPersonalityTraits")
-    @addDiv("yourTopTraits", "Your Top Traits").appendTo("tfPersonalityTraits")
     @addDiv("personalityTraits").appendTo("tfPersonalityTraits")
     for trait in @data("traits").slice(0, 8)
       trait = trait.personality_trait
