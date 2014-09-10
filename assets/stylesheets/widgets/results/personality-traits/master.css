@@ -1,5 +1,5 @@
 .tf-personality-traits{
-  font-family: proxima_nova_light;
+  font-family: "Source Sans Pro";
 }
 .tf-personality-traits .your-top-traits{
   font-size: 24px;
@@ -20,9 +20,10 @@
   background-color:#fff;
   height: 180px;
   position:relative;
+  line-height: 1.2em;
 }
 .tf-personality-traits .personality-traits .trait .name{
-  font-family: proxima_nova;
+  font-family: "Adelle Sans Bold";
   margin: 20px 20px;
   margin-bottom: 0px;
   display: inline-block;
@@ -30,7 +31,6 @@
   text-align: left;
 }
 .tf-personality-traits .personality-traits .trait .definition{
-  font-family: proxima_nova_light;
   padding: 0px 20px;
   margin-top: 10px;
   font-size:14px;
