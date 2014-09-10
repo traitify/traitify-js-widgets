@@ -62,6 +62,7 @@ Traitify.ui.slideDeck = (Widget, options)->
   #########################
   Widget.partials.slideDeckContainer = ->
     slidesContainer = @div({class:"tf-slide-deck-container"})
+    slidesContainer.classes += " non-touch"
     cover = @div({class:"cover"})
     cover.innerHTML = "Landscape mode is not currently supported"
     slidesContainer.appendChild(cover)
