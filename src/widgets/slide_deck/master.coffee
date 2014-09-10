@@ -79,8 +79,8 @@ Traitify.ui.slideDeck = (Widget, options)->
     meNotMeContainer = @div({class:"me-not-me-container"})
     Widget.nodes.me = @div({class:"me"})
     Widget.nodes.notMe = @div({class:"not-me"})
-    Widget.nodes.notMe.innerHTML = "Not Me"
-    Widget.nodes.me.innerHTML = "Me"
+    Widget.nodes.notMe.innerHTML = "NOT ME"
+    Widget.nodes.me.innerHTML = "ME"
     meNotMeContainer.appendChild(Widget.nodes.me)
     meNotMeContainer.appendChild(Widget.nodes.notMe)
     Widget.nodes.meNotMeContainer = meNotMeContainer
