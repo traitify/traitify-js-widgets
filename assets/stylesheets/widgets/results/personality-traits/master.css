@@ -9,6 +9,7 @@
 .tf-personality-traits .personality-traits{
   max-width:800px;
   margin:0px auto;
+  text-align: center;
 }
 .tf-personality-traits .personality-traits .trait{
   border-top: 6px solid;
@@ -21,6 +22,12 @@
   height: 180px;
   position:relative;
   line-height: 1.2em;
+  text-align:left;
+}
+@media (max-width: 768px) {
+  .tf-personality-traits .personality-traits .trait{
+    width:45%;
+  }
 }
 .tf-personality-traits .personality-traits .trait .name{
   font-family: "Adelle Sans Bold";
