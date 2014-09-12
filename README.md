@@ -4,8 +4,10 @@ Traitify.js
 
 This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari, and firefox).
 
-Html:
+The CDN can be found at:
 
+    <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
+    <script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
 
 How to initialize:
 
