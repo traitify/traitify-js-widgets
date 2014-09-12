@@ -17,7 +17,10 @@ You can initialize using an id or a class on any div tag:
     <div class="traitify-widget">
     </div>
 </div>
+```
 
+The following javascript will initialize with the above html:
+```HTML
 <script>
     Traitify.setPublicKey("Your public key");
     Traitify.setHost("The Host For Your Url");
