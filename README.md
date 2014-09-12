@@ -11,7 +11,7 @@ Include the Traitify.js library:
 <script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
 ```
 
-How to initialize:
+You can initialize using an id or a class on any div tag:
 ```HTML
 <div>
     <div class="traitify-widget">
