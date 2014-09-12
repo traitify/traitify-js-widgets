@@ -15,7 +15,7 @@ $ cake test
 ### Using Traitify JS:
 The CDN can be found at:
 
-```HTML
+```xhtml
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 <script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
 ```
