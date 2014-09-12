@@ -12,7 +12,7 @@ $ cake bundle
 $ cake test
 ```
 
-### Using Traitify JS:
+### Using Traitify JS UI:
 The CDN can be found at:
 
 ```xhtml
@@ -52,4 +52,37 @@ When you initialize the widget we return our widget builder to you (This is the 
         console.log("INITIALIZED");
     })
 </script>
+```
+
+### Using Traitify JS UI:
+```xhtml
+<script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
+```
+
+#Get Decks
+```
+Traitify.getDecks("assessment id", function(data){
+  console.log(data)
+})
+```
+
+#Get Slides
+```
+Traitify.getSlides("assessment id", function(data){
+  console.log(data)
+})
+```
+
+#Get Personality Traits
+```
+Traitify.addSlide("assessment id", function(data){
+    console.log(data)
+})
+```
+
+#Get Personality Traits
+```
+Traitify.getPersonalityTraits("assessment id", function(data){
+    console.log(data)
+})
 ```
