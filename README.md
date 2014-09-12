@@ -50,7 +50,7 @@ When you initialize the widget we return our widget builder to you (This is the 
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 ```
 
-####Get Decks
+##### Get Decks
 ```JavaScript
 Traitify.getDecks("assessment id", function(data){
   console.log(data)
@@ -78,8 +78,8 @@ Traitify.getPersonalityTraits("assessment id", function(data){
 })
 ```
 
-### Running, Building, Testing and Bundling:
-
+### Contributining 
+#### Building, Testing and Bundling:
 ```Shell
 $ cake watch
 $ cake build
