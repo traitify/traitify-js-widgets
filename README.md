@@ -42,14 +42,14 @@ When you initialize the widget we return our widget builder to you (This is the 
     // the widget has finished loading
     traitify.onInitialize(function(){
         console.log(traitify.data);
-        console.log("INITIALIZED");
+        console.log("Initialized");
     })
     
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck
     traitify.onFinished(function(){
         console.log(traitify.data);
-        console.log("FINISHED!");
+        console.log("Finished!");
     })
 </script>
 ```
