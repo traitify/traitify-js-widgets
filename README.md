@@ -13,10 +13,7 @@ Include the Traitify.js library:
 
 You can initialize using an id or a class on any div tag:
 ```HTML
-<div>
-    <div class="traitify-widget">
-    </div>
-</div>
+<div class="traitify-widget"></div>
 ```
 
 The following javascript will initialize with the above html:
