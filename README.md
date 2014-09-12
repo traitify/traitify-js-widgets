@@ -3,15 +3,6 @@ Traitify.js
 
 This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari, and firefox).
 
-### Running, Building, Testing and Bundling:
-
-```Shell
-$ cake watch
-$ cake build
-$ cake bundle
-$ cake test
-```
-
 ### Using Traitify JS UI:
 The CDN can be found at:
 
@@ -85,4 +76,13 @@ Traitify.addSlide("assessment id", function(data){
 Traitify.getPersonalityTraits("assessment id", function(data){
     console.log(data)
 })
+```
+
+### Running, Building, Testing and Bundling:
+
+```Shell
+$ cake watch
+$ cake build
+$ cake bundle
+$ cake test
 ```
