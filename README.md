@@ -13,39 +13,44 @@ Include the Traitify.js library:
 
 You can initialize using an id or a class on any div tag:
 ```HTML
-<div class="traitify-widget"></div>
+<div class="traitify-widget"></div> <!-- Example Target Div for the widget -->
 ```
 
 The following javascript will initialize with the above html:
 ```HTML
 <script>
-    Traitify.setPublicKey("Your public key");
-    Traitify.setHost("The Host For Your Url");
-    Traitify.setVersion("Version of API (v1)");
-    var assessmentId = "Your assessment Id";
+    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
+    Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
+    Traitify.setVersion("v1"); // Example Version
+    var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
-    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget")
+    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget") // Example selector for widget target
 </script>
 ```
 
 When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
 ```HTML
 <script>
-    Traitify.setPublicKey("Your public key");
-    Traitify.setHost("The Host For Your Url");
-    Traitify.setVersion("Version of API (v1)");
-    var assessmentId = "Your assessment Id";
 
     traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget")
-        
+    
+    // This callback gives you the ability to trigger an event when
+    // the widget has finished loading
     traitify.onInitialize(function(){
         console.log(traitify.data);
         console.log("INITIALIZED");
     })
+    
+    // This callback gives you the ability to trigger an event when
+    // the user has finished playing the slide deck
+    traitify.onFinished(function(){
+        console.log(traitify.data);
+        console.log("FINISHED!");
+    })
 </script>
 ```
-
-### Using Traitify JS:
+===============
+### Using Traitify JS API CLIENT:
 ```xhtml
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 ```
