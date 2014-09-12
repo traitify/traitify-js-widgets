@@ -6,7 +6,7 @@ This package does not require jQuery, as it is a standalone encapsulated library
 
 The CDN can be found at:
 
-```
+```HTML
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 <script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
 ```
