@@ -1,6 +1,9 @@
 .tf-personality-traits{
   font-family: "Source Sans Pro";
 }
+.tf-personality-traits div, .tf-personality-traits img{
+	box-sizing: content-box;
+} 
 .tf-personality-traits .your-top-traits{
   font-size: 24px;
   margin: 20px;
@@ -22,7 +25,7 @@
   height: 180px;
   position:relative;
   line-height: 1.2em;
-  text-align:left;
+  text-align:center;
 }
 @media (max-width: 768px) {
   .tf-personality-traits .personality-traits .trait{
@@ -45,12 +48,12 @@
   text-align: left;
 }
 .tf-personality-traits .personality-traits .trait .background{
-  width: 180px;
-  height: 180px;
-  top:0px;
-  left: 0px;
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  top: 10px;
   position:absolute;
-  background-size: 130px 130px;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
   opacity: .15
