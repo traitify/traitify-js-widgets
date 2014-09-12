@@ -66,21 +66,21 @@ Traitify.getDecks("assessment id", function(data){
 })
 ```
 
-####Get Slides
+##### Get Slides
 ```
 Traitify.getSlides("assessment id", function(data){
   console.log(data)
 })
 ```
 
-####Get Personality Traits
+##### Get Personality Traits
 ```
 Traitify.addSlide("assessment id", function(data){
     console.log(data)
 })
 ```
 
-####Get Personality Traits
+##### Get Personality Traits
 ```
 Traitify.getPersonalityTraits("assessment id", function(data){
     console.log(data)
