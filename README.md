@@ -59,28 +59,28 @@ When you initialize the widget we return our widget builder to you (This is the 
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 ```
 
-#Get Decks
+####Get Decks
 ```
 Traitify.getDecks("assessment id", function(data){
   console.log(data)
 })
 ```
 
-#Get Slides
+####Get Slides
 ```
 Traitify.getSlides("assessment id", function(data){
   console.log(data)
 })
 ```
 
-#Get Personality Traits
+####Get Personality Traits
 ```
 Traitify.addSlide("assessment id", function(data){
     console.log(data)
 })
 ```
 
-#Get Personality Traits
+####Get Personality Traits
 ```
 Traitify.getPersonalityTraits("assessment id", function(data){
     console.log(data)
