@@ -12,7 +12,7 @@
 }
 .tf-results .personality-blend .badges-container .left-badge{
   width: 30%;
-  padding:30px;
+  padding:10%;
   z-index: 1;
   position: relative;
   border-radius: 50%;
@@ -25,7 +25,7 @@
 }
 .tf-results .personality-blend .badges-container .right-badge{
   width: 30%;
-  padding:30px;
+  padding:10%;
   position: relative;
   border-radius: 50%;
   border: 2px solid;
