@@ -54,7 +54,7 @@ When you initialize the widget we return our widget builder to you (This is the 
 </script>
 ```
 
-### Using Traitify JS UI:
+### Using Traitify JS:
 ```xhtml
 <script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
 ```
