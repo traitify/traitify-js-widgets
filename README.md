@@ -1,41 +1,97 @@
-
 Traitify.js
 ===============
 
-This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari).
+This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari, and firefox).
 
-Html:
+### Assessment id and public key required!
+For instructions on obtaining an assessment id and a public key visit:
+[https://developer.traitify.com](https://developer.traitify.com)
 
+### Using Traitify JS UI:
+Include the Traitify.js library:
 
-How to initialize Version 1:
+```xhtml
+<script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
+```
 
-    <div>
-        <div class="traitify-widget">
-        </div>
-    </div>
+You can initialize using an id or a class on any div tag:
+```HTML
+<div class="traitify-widget"></div> <!-- Example Target Div for the widget -->
+```
 
-    <script>
-        Traitify.setPublicKey("Your public key");
-        Traitify.setHost("The Host For Your Url");
-        Traitify.setVersion("Version of API (v1)");
-        var assessmentId = "Your assessment Id";
+The following javascript will initialize with the above html:
+```HTML
+<script>
+    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
+    Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
+    Traitify.setVersion("v1"); // Example Version
+    var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
-        traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
-        
-    </script>
+    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget") // Example selector for widget target
+</script>
+```
+
+When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
+```HTML
+<script>
+
+    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget")
     
-The builder used for the widget is returned to you.
+    // This callback gives you the ability to trigger an event when
+    // the widget has finished loading
+    traitify.onInitialize(function(){
+        console.log(traitify.data);
+        console.log("Initialized");
+    })
+    
+    // This callback gives you the ability to trigger an event when
+    // the user has finished playing the slide deck
+    traitify.onFinished(function(){
+        console.log(traitify.data);
+        console.log("Finished!");
+    })
+</script>
+```
+===============
+### Using Traitify JS API CLIENT:
+```xhtml
+<script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
+```
 
-    <script>
-        Traitify.setPublicKey("Your public key");
-        Traitify.setHost("The Host For Your Url");
-        Traitify.setVersion("Version of API (v1)");
-        var assessmentId = "Your assessment Id";
+##### Get Decks
+```JavaScript
+Traitify.getDecks("assessment id", function(data){
+  console.log(data)
+})
+```
 
-        traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
-        
-        traitify.onInitialize(function(){
-            console.log(this.data);
-            console.log("INITIALIZED");
-        })
-    </script>
+##### Get Slides
+```JavaScript
+Traitify.getSlides("assessment id", function(data){
+  console.log(data)
+})
+```
+
+##### Get Personality Traits
+```JavaScript
+Traitify.addSlide("assessment id", function(data){
+    console.log(data)
+})
+```
+
+##### Get Personality Traits
+```JavaScript
+Traitify.getPersonalityTraits("assessment id", function(data){
+    console.log(data)
+})
+```
+
+### Contributining 
+#### Building, Testing and Bundling:
+```Shell
+$ cake watch
+$ cake build
+$ cake bundle
+$ cake test
+```
