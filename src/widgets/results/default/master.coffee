@@ -21,12 +21,22 @@ Traitify.ui.results = (Widget, options)->
   )
 
   Widget.partials.add("Personality Blend", ->
-    personalityBlendData = Widget.data.personality_blend
-    personalityBlend = @addDiv("personalityBlend", Object())
-    personalityBlend.appendChild(@render("Personality Blend Badges"))
-    personalityBlend.appendChild(@addDiv("name", Object(), personalityBlendData.name))
-    personalityBlend.appendChild(@addDiv("blendDescription", Object(), personalityBlendData.description))
-    personalityBlend
+    if Widget.data.personality_blend
+      personalityBlend = @addDiv("personalityBlend", Object())
+      personalityBlendData = Widget.data.personality_blend
+      personalityBlend.appendChild(@render("Personality Blend Badges"))
+      personalityBlend.appendChild(@addDiv("name", Object(), personalityBlendData.name))
+      personalityBlend.appendChild(@addDiv("blendDescription", Object(), personalityBlendData.description))
+      returnType = personalityBlend
+    else
+      personalityType = @addDiv("personalityType", Object())
+      personalityTypeData = Widget.data.personality_types[0].personality_type
+      personalityType.appendChild(@render("Personality Type Badge"))
+      personalityType.appendChild(@addDiv("name", Object(), personalityTypeData.name))
+      personalityType.appendChild(@addDiv("typeDescription", Object(), personalityTypeData.description))    
+      returnType = personalityType
+    
+    returnType
   )
 
   Widget.partials.add("Personality Blend Badges", ->
@@ -53,5 +63,19 @@ Traitify.ui.results = (Widget, options)->
     badgesContainer.appendChild(rightBadge)
     badgesContainer
   )
-  
+
+  Widget.partials.add("Personality Type Badge", ->
+    personalityTypeData = Widget.data.personality_types[0].personality_type
+
+    hexColor = Widget.helpers.hexToRGB(personalityTypeData.badge.color_1)
+    badge = @addDiv("badge")
+    image = @addImg("badgeImage", {src: personalityTypeData.badge.image_medium})
+    badge.appendChild(image)
+    badge.style.backgroundColor = "rgba(#{hexColor.join(', ')}, .07)"
+    badge.style.borderColor = "##{personalityTypeData.badge.color_1}"
+    
+    badgeContainer = @addDiv("badgesContainer", Object())
+    badgeContainer.appendChild(badge)
+    badgeContainer
+  )
   Widget
