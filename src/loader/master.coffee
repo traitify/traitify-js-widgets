@@ -41,7 +41,6 @@ Traitify.ui.load = (assessmentId, target, options)->
       Traitify.getPersonalityTypes(assessmentId, options.results.params || Object()).then((data)->
         Widgets.slideDeck.callbacks.trigger("Finished")
         
-        
         if Widgets.results
           Widgets.results.data = data
           Widgets.results.initialize()

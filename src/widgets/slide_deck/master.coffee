@@ -10,7 +10,6 @@ Traitify.ui.slideDeck = (Widget, options)->
   Widget.callbacks.add("Me")
   Widget.callbacks.add("NotMe")
   Widget.callbacks.add("AdvanceSlide")
-  Widget.callbacks.add("finished")
 
   #######################
   # DATA
@@ -44,8 +43,7 @@ Traitify.ui.slideDeck = (Widget, options)->
             
             if options.personalityTypes
               Traitify.ui.loadPersonalityTypes(Widget.data.assessmentId, options.personalityTypes.target, options.personalityTypes)
-          if Widget.callbacks.finished
-            Widget.callbacks.finished(Widget)
+          Widget.callbacks.trigger("Finished")
       )
 
 
