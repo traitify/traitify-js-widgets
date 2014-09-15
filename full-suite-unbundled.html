@@ -12,9 +12,9 @@
     <!--
     <script src="./compiled/bundles/full-suite.js"></script>
 
-    
+   --> 
     <script src="https://s3.amazonaws.com/traitify-cdn/lib/stag/full-suite.js"></script>
-		-->
+		<!--
 
     <script src="./compiled/api/master.js"></script>
     <script src="./compiled/loader/master.js"></script>
@@ -29,7 +29,7 @@
     <link href="./assets/stylesheets/widgets/results/default/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet" />
-
+		-->
 	</head>
 	<body>
 
@@ -39,8 +39,8 @@
     <div class="personality-traits"></div>
     
 		<script>
-		Traitify.setHost("api.traitify.com");
-		Traitify.setPublicKey("hfr3vcfqfshcolkhbbh01qlokv");
+		Traitify.setHost("api-staging.traitify.com");
+		Traitify.setPublicKey("mc6geq9f4p9erhc908o6tik99b");
 		Traitify.setVersion("v1");
     options = {
                 results:{
@@ -55,7 +55,10 @@
                   target:".personality-traits"
                 }
               }
-    tfPersonalityTypes = Traitify.ui.load("ebed3765-22bb-42c2-ae2f-8b9f74e9710c", ".slide-deck", options)
+    tfPersonalityTypes = Traitify.ui.load("0192b799-908e-4193-881d-220e53497f78", ".slide-deck", options)
+    tfPersonalityTypes.slideDeck.onFinished(function(){
+      alert("HERE")
+		})
     /*
 		if(window.location.hash.substring(1).indexOf("&")){
 			var splitQueries = window.location.hash.substring(1).split("&")	

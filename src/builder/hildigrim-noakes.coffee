@@ -23,37 +23,49 @@
 #                                                                                                                                                       #
 #########################################################################################################################################################
 
+class Helpers
+  toDash: (text)->
+    if text
+      text.replace(/([A-Z])/g, ($1)-> "-"+$1.toLowerCase())
+
 class Data
   sources: Object()
   fetch: (name)->
     @source[name]()
   addDataSource: (name, dataSource)->
     @sources[name] = dataSource
+    
+Widget
 
-class Libary
+class Library
   store: Object()
   add: (name, item)->
-    store[name] item
+    @store[name] = item
   get: (name)->
-    store[name]
+    @store[name]
   
 class Tags
-  libary: new Library()
-  div: (name, options)->
-    @addTag("div", )
+  library: new Library()
+  div: (name, options, content)->
+    if typeof options is "string"
+      content = options
+      options = Object()
+    @tag(name, "div", options, content)
   tag: (name, tag, attributes, content)->
-    element = document.createElement(type)
+    element = document.createElement(tag)
+    element.className = (new Helpers()).toDash(name)
     for attributeName of attributes
       element.setAttribute(attributeName, attributes[attributeName])
     @library.add(name, element)
+    element
 
 class Views
   tags: new Tags()
-  
+
 class Widget
   version: "2.0.0 HN"
   views: new Views()
   library: new Library()
   constructor: (@selector)->
-    @nodes.main = document.querySelector(@selector)
+    @views.tags.library.add("main", document.querySelector(@selector))
   

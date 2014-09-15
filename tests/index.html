@@ -7,18 +7,18 @@
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-  <script src="./mocker.js"></script>
+ 	<script src="../compiled/tests/mocker.js"></script>
   <script src="./fake_api/v1/mocks.js"></script>
-
   <script src="../compiled/api/master.js"></script>
   <script src="../compiled/widgets/slide_deck/master.js"></script>
   <script src="../compiled/widgets/results/default/master.js"></script>
   <script src="../compiled/templating/master.js"></script>
+  <script src="../compiled/builder/hildigrim-noakes.js" data-cover></script>
   
   <script src="./support/qunit-1.14.0.js"></script>
-
-  <script src="../compiled/tests/api.js"></script>
-  <script src="../compiled/tests/slide_deck.js"></script>
-  <script src="../compiled/tests/templating.js"></script>
+	<script src="./support/blanket.min.js"></script>
+  <script src="../compiled/tests/builder/hildigrim-noakes.js"></script>
+  
+  <div id="test-case-container"></div>
   </body>
 </html>
