@@ -1,21 +1,21 @@
 Traitify.ui.load = (assessmentId, target, options)->  
   Widgets = Object()
   options ?= Object()
-  slideDeck = Widget(target)
+  slideDeck = Bldr(target)
   Widgets.slideDeck = Traitify.ui.slideDeck(slideDeck, options)
   Widgets.slideDeck.data.assessmentId = assessmentId
   Widgets.slideDeck.Widgets = ->
     Widgets
   if Traitify.ui.results
-    Widgets.results = Traitify.ui.results(Widget(target), options.results)
+    Widgets.results = Traitify.ui.results(Bldr(target), options.results)
   
   personalityTypesTarget = if options.personalityTypes then options.personalityTypes.target else null
   if Traitify.ui.resultsPersonalityTypes && personalityTypesTarget
-    Widgets.resultsPersonalityTypes = Traitify.ui.resultsPersonalityTypes(Widget(personalityTypesTarget), options.personalityTypes)
+    Widgets.resultsPersonalityTypes = Traitify.ui.resultsPersonalityTypes(Bldr(personalityTypesTarget), options.personalityTypes)
   
   personalityTraitsTarget = if options.personalityTraits then options.personalityTraits.target else null
   if Traitify.ui.resultsPersonalityTraits && personalityTraitsTarget
-      Widgets.resultsPersonalityTraits = Traitify.ui.resultsPersonalityTraits(Widget(personalityTraitsTarget), options)
+      Widgets.resultsPersonalityTraits = Traitify.ui.resultsPersonalityTraits(Bldr(personalityTraitsTarget), options)
   
   if Traitify.ui.styles
     Widgets.slideDeck.nodes.main.innerHTML = Traitify.ui.styles
@@ -66,10 +66,10 @@ Traitify.ui.load = (assessmentId, target, options)->
   Widgets
   
 Traitify.ui.loadSlideDeck = (assessmentId, target, options)->
-  Widget = Widget(target)
+  Widget = Bldr(target)
   options ?= Object()
   if Traitify.ui.slideDeck
-    results = Traitify.ui.results(Widget(target), options)
+    results = Traitify.ui.results(Bldr(target), options)
     Traitify.getSlides(assessmentId, (data)->
       results.data = data
       results.initialize()
@@ -81,7 +81,7 @@ Traitify.ui.loadSlideDeck = (assessmentId, target, options)->
 Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
   options ?= Object()
   if Traitify.ui.resultsPersonalityTypes
-    Results = Traitify.ui.resultsPersonalityTypes(Widget(target), options)
+    Results = Traitify.ui.resultsPersonalityTypes(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
     Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
       Results.data = data
@@ -94,7 +94,7 @@ Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
 Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
   options ?= Object()
   if Traitify.ui.resultsPersonalityTypes
-    Results = Traitify.ui.resultsPersonalityTraits(Widget(target), options)
+    Results = Traitify.ui.resultsPersonalityTraits(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
     Traitify.getPersonalityTraits(assessmentId, options.params || Object()).then((data)->
       Results.data.traits = data
@@ -107,7 +107,7 @@ Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
 Traitify.ui.loadResults = (assessmentId, target, options)->
   options ?= Object()
   if Traitify.ui.results
-    Results = Traitify.ui.results(Widget(target), options)
+    Results = Traitify.ui.results(Bldr(target), options)
     Results.nodes.main.innerHTML = Traitify.ui.styles
     Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
       Results.data = data

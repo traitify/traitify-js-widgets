@@ -80,10 +80,10 @@ class ApiClient
       xhr = new XDomainRequest()
       xhr.open method, url
     else
-      return new SimplePromise((resolve, reject)->
-        reject("CORS is Not Supported By This Browser")
-      )
-      
+
+      # CORS not supported.
+      console.log "There was an error making the request."
+      xhr = null
     xhr
 
     if xhr
