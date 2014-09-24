@@ -87,7 +87,7 @@ Traitify.getPersonalityTraits("assessment id", function(data){
 })
 ```
 
-### Contributining 
+### Contributing 
 #### Building, Testing and Bundling:
 ```Shell
 $ cake watch
