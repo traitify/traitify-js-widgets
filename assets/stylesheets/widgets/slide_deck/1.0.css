@@ -1,7 +1,7 @@
 .tf-slide-deck-container{
   margin:0px auto;
   max-width:1200px;
-  font-family: "Adelle Sans Bold", "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-family: "Adelle Sans", "Helvetica Neue", Helvetica, Arial, "sans-serif";
   overflow: hidden;
   color: #fff;
   width: 100%;
@@ -234,7 +234,7 @@
  * Breakpoint Sizes
  *****************************/
 .small.tf-slide-deck-container .me-not-me-container{
-  font-size:13px;
+  font-size:15px;
 }
 .small.tf-slide-deck-container .slide .caption{
   font-size:18px;
@@ -243,7 +243,7 @@
   font-size:24px;
 }
 .medium.tf-slide-deck-container .me-not-me-container{
-  font-size:15px;
+  font-size:17px;
 }
 .phone.tf-slide-deck-container .slide{
   height:100%;

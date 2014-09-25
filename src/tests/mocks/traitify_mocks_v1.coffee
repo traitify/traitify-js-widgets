@@ -13,11 +13,12 @@ MockRequest.addMock({
   params: {}, 
   response: apiFactory.build("slides", {number: 84})
 })
+
 MockRequest.addMock({
   method: "GET",
   url: "https://api-sandbox.traitify.com/v1/assessments/played/slides", 
   params: {}, 
-  response: apiFactory.build("slides", {number: 84})
+  response: apiFactory.build("slides", {number: 84, played: true})
 })
 
 MockRequest.addMock({
@@ -26,9 +27,30 @@ MockRequest.addMock({
   params: {}, 
   response: apiFactory.build("personality", {number: 6})
 })
+
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/unplayed/personality_types?image_pack=linear",
+  params: {}, 
+  response: apiFactory.build("personality", {number: 6})
+})
+
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/played_with_blend/personality_types?image_pack=linear",
+  params: {}, 
+  response: apiFactory.build("personalityWithBlend", {number: 6})
+})
+
 MockRequest.addMock({
   method: "PUT",
   url: "https://api-sandbox.traitify.com/v1/assessments/unplayed/slides/0"
+  params: {"response":true,"time_taken":1000},
+  response: ""
+})
+MockRequest.addMock({
+  method: "PUT",
+  url: "https://api-sandbox.traitify.com/v1/assessments/played/slides"
   params: {"response":true,"time_taken":1000},
   response: ""
 })
@@ -54,4 +76,16 @@ MockRequest.addMock({
   response: apiFactory.build("personalityTraits", {number: 10})
 })
 
-
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/unplayed/slides/0",
+  params: {"response":true, "time_taken":1000},
+  response: ""
+})
+ 
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/played_with_blend/slides",
+  params: {}, 
+  response: apiFactory.build("slides", {number: 84, played: true})
+})

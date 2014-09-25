@@ -1,5 +1,3 @@
-unPlayedAssessment = "unplayed"
-playedAssessment = "played"
 QUnit.module( "Testing API Version 2", {setup: ->
   @Traitify = new ApiClient() 
   @Traitify.setVersion("v1")
@@ -7,6 +5,7 @@ QUnit.module( "Testing API Version 2", {setup: ->
   @Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
   @Traitify.XHR = MockRequest
 });
+
 QUnit.test( "API Client Set Host", (assert)->
   @Traitify.setHost("hi")
   assert.equal( @Traitify.host, "https://hi", "Setting Host Succeeds!" )
@@ -28,8 +27,6 @@ QUnit.test( "API Client Set Public Key", (assert)->
   @Traitify.setPublicKey("here-is-the-key")
   assert.equal( @Traitify.publicKey, "here-is-the-key", "Setting public key Succeeds!" )
 )
-
-
 
 QUnit.test("API Client Get Slides", (assert)->
   @Traitify.getSlides(unPlayedAssessment, (slides)->
