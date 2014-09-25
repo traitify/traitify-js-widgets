@@ -1,24 +1,32 @@
-Traitify.ui.load = (assessmentId, target, options)->  
+Traitify.ui.load = (assessmentId, target, options, specificOptions)->  
   Widgets = Object()
   options ?= Object()
-  slideDeck = Bldr(target)
-  Widgets.slideDeck = Traitify.ui.slideDeck(slideDeck, options)
+  if Traitify.ui.loaders[assessmentId]
+    return Traitify.ui.loaders[assessmentId](target, options, specificOptions)
+  options.slideDeck ?= Object()
+  options.results ?= Object()
+  options.personalityTypes ?= Object()
+  options.personalityTraits ?= Object()
+
+  slideDeck = new Widget(target)
+  Widgets.slideDeck = Traitify.ui.widgets.slideDeck(slideDeck, options)
   Widgets.slideDeck.data.assessmentId = assessmentId
   Widgets.slideDeck.Widgets = ->
     Widgets
-  if Traitify.ui.results
-    Widgets.results = Traitify.ui.results(Bldr(target), options.results)
+
+  if Traitify.ui.widgets.results
+    Widgets.results = Traitify.ui.widgets.results(new Widget(target), options.results)
   
   personalityTypesTarget = if options.personalityTypes then options.personalityTypes.target else null
-  if Traitify.ui.resultsPersonalityTypes && personalityTypesTarget
-    Widgets.resultsPersonalityTypes = Traitify.ui.resultsPersonalityTypes(Bldr(personalityTypesTarget), options.personalityTypes)
+  if Traitify.ui.widgets.personalityTypes && personalityTypesTarget
+    Widgets.personalityTypes = Traitify.ui.widgets.personalityTypes(new Widget(personalityTypesTarget), options.personalityTypes)
   
   personalityTraitsTarget = if options.personalityTraits then options.personalityTraits.target else null
-  if Traitify.ui.resultsPersonalityTraits && personalityTraitsTarget
-      Widgets.resultsPersonalityTraits = Traitify.ui.resultsPersonalityTraits(Bldr(personalityTraitsTarget), options)
+  if Traitify.ui.widgets.personalityTraits && personalityTraitsTarget
+      Widgets.personalityTraits = Traitify.ui.widgets.personalityTraits(new Widget(personalityTraitsTarget), options)
   
   if Traitify.ui.styles
-    Widgets.slideDeck.nodes.main.innerHTML = Traitify.ui.styles
+    Widgets.slideDeck.nodes().main.innerHTML = Traitify.ui.styles
   
   Traitify.getSlides(assessmentId).then((data)->
     slides = Object()
@@ -26,7 +34,7 @@ Traitify.ui.load = (assessmentId, target, options)->
     slides.notCompleted = data.filter((slide)->
       !slide.completed_at
     )
-    
+
     if slides.notCompleted.length != 0
       Widgets.slideDeck.data.assessmentId = assessmentId
       Widgets.slideDeck.data.slides = Object()
@@ -34,85 +42,34 @@ Traitify.ui.load = (assessmentId, target, options)->
       Widgets.slideDeck.data.slides.completed = data.filter((slide)->
         slide.completed_at
       )
-      Widgets.slideDeck.initialize()
+
+      Widgets.slideDeck.run()
     else
       Widgets.loaded = 0
       traits = Object()
-      Traitify.getPersonalityTypes(assessmentId, options.results.params || Object()).then((data)->
+      Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
         Widgets.slideDeck.callbacks.trigger("Finished")
-        
+
         if Widgets.results
           Widgets.results.data = data
-          Widgets.results.initialize()
+          Widgets.results.run()
         
-        if Widgets.resultsPersonalityTypes
-          Widgets.resultsPersonalityTypes.data = data
-          Widgets.resultsPersonalityTypes.initialize()
+        if Widgets.personalityTypes
+          Widgets.personalityTypes.data = data
+          Widgets.personalityTypes.run()
         
         Widgets.loaded += 1
-        if Widgets.resultsPersonalityTraits && Widgets.loaded == 2
+        if Widgets.personalityTraits && Widgets.loaded == 2
           typesLength = data.personality_types.length
-          Widgets.resultsPersonalityTraits.initialize()
+          Widgets.personalityTraits.run()
       )
-      if Widgets.resultsPersonalityTraits
-        Traitify.getPersonalityTraits(assessmentId,options.results.params).then((data)->
+      if Widgets.personalityTraits
+        Traitify.getPersonalityTraits(assessmentId,options.params).then((data)->
           Widgets.loaded += 1 
-          Widgets.resultsPersonalityTraits.data.traits = data
-          if Widgets.resultsPersonalityTraits && Widgets.loaded == 2
-              Widgets.resultsPersonalityTraits.initialize()
+          Widgets.personalityTraits.data.traits = data
+          if Widgets.personalityTraits && Widgets.loaded == 2
+              Widgets.personalityTraits.run()
 
         )
   )
   Widgets
-  
-Traitify.ui.loadSlideDeck = (assessmentId, target, options)->
-  Widget = Bldr(target)
-  options ?= Object()
-  if Traitify.ui.slideDeck
-    results = Traitify.ui.results(Bldr(target), options)
-    Traitify.getSlides(assessmentId, (data)->
-      results.data = data
-      results.initialize()
-    )
-    Results
-  else
-    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
-
-Traitify.ui.loadPersonalityTypes = (assessmentId, target, options)->
-  options ?= Object()
-  if Traitify.ui.resultsPersonalityTypes
-    Results = Traitify.ui.resultsPersonalityTypes(Bldr(target), options)
-    Results.nodes.main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
-      Results.data = data
-      Results.initialize()
-    )
-    Results
-  else
-    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
-
-Traitify.ui.loadPersonalityTraits = (assessmentId, target, options)->
-  options ?= Object()
-  if Traitify.ui.resultsPersonalityTypes
-    Results = Traitify.ui.resultsPersonalityTraits(Bldr(target), options)
-    Results.nodes.main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTraits(assessmentId, options.params || Object()).then((data)->
-      Results.data.traits = data
-      Results.initialize()
-    )
-    Results
-  else
-    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")
-    
-Traitify.ui.loadResults = (assessmentId, target, options)->
-  options ?= Object()
-  if Traitify.ui.results
-    Results = Traitify.ui.results(Bldr(target), options)
-    Results.nodes.main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
-      Results.data = data
-      Results.initialize()
-    )
-    Results
-  else
-    console.log("BAD BUNDLE, RESULTS AREN'T AVAILABLE")

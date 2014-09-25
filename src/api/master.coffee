@@ -1,5 +1,4 @@
-@Traitify = new(()->
-  tfPromise = (callback)->
+SimplePromise = (callback)->
     localPromise = Object()
     localPromise.then = (callback)->
       if localPromise.resolved
@@ -21,6 +20,7 @@
     localPromise.catch = (callback)->
       if localPromise.rejected
         callback(localPromise.error)
+        localPromise
       else
         localPromise.rejectCallback = callback
       localPromise
@@ -29,45 +29,49 @@
     localPromise.reject = (error)->
       localPromise.error = error
       if localPromise.rejectCallback
-        localPromise.rejectCallback(data)
+        localPromise.rejectCallback(error)
       else
         localPromise.rejected = true
       localPromise
         
     callback(localPromise.resolve, localPromise.reject)
     localPromise
+
+class ApiClient
+  constructor: ->
+    @host = "https://api.traitify.com"
     
-  
-  @host = "https://api.traitify.com"
-  
-  @version = "v1"
+    @version = "v1"
 
-  @testMode = false
+    @testMode = false
+    @beautify = false  
+    @ui = Object()
+    @XHR = XMLHttpRequest
+    @
 
-  @setTestMode = (mode)->
-    @testMode = mode
-    this
+  setBeautify: (mode)->
+    @beautify = mode
+    @
 
-  @setHost = (host) ->
+  setHost: (host) ->
     host = host.replace("http://", "").replace("https://", "")
     host = "https://#{host}"
     @host = host
     this
 
-  @setPublicKey = (key) ->
+  setPublicKey: (key) ->
     @publicKey = key
     this
 
-  @setVersion = (version) ->
+  setVersion: (version) ->
     @version = version
     this
 
-  @ajax = (url, method, callback, params)->
+  ajax: (method, url, callback, params)->
+    beautify = @beautify
     url = "#{@host}/#{@version}#{url}"
-
-    xhr = new XMLHttpRequest()
+    xhr = new @XHR()
     if "withCredentials" of xhr
-
       # XHR for Chrome/Firefox/Opera/Safari.
       xhr.open method, url, true
     else unless typeof XDomainRequest is "undefined"
@@ -76,131 +80,66 @@
       xhr = new XDomainRequest()
       xhr.open method, url
     else
-
-      # CORS not supported.
-      console.log "There was an error making the request."
-      xhr = null
+      return new SimplePromise((resolve, reject)->
+        reject("CORS is Not Supported By This Browser")
+      )
+      
     xhr
 
-    xhr.open method, url, true
+    if xhr
+      xhr.setRequestHeader "Authorization", "Basic " + btoa(@publicKey + ":x")
 
-    xhr.setRequestHeader "Authorization", "Basic " + btoa(@publicKey + ":x")
+      xhr.setRequestHeader "Content-type", "application/json"
+      xhr.setRequestHeader "Accept", "application/json"
 
-    xhr.setRequestHeader "Content-type", "application/json"
-    xhr.setRequestHeader "Accept", "application/json"
-    xhr.onload = ->
-      data = JSON.parse(xhr.response)
-      callback data
-      return false
-
-    xhr.send params
-    xhr
-
-
-    this
-
-  @put = (url, params, callback) ->
-    @ajax url, "PUT", callback, params
-    this
-
-  @get = (url, callback) ->
-    @ajax url, "GET", callback, ""
-    this
-
-  @getDecks = (callback)->
-    promise = new tfPromise((resolve, reject)->
+    promise = new SimplePromise((resolve, reject)->
       try
-        Traitify.get("/decks", (data)->
+        xhr.onload = ->
+          data = xhr.response
+          if beautify
+            data = data.replace(/_([a-z])/g, (m, w)->
+                return w.toUpperCase()
+            ).replace(/_/g, "")
+          data = JSON.parse(data)
           callback(data) if callback
-          resolve(data) if resolve
-        )
+          resolve(data)
+        xhr.send JSON.stringify(params)
+        xhr
       catch error
-        reject(error) if reject
+        reject(error)
     )
-    promise
-        
 
-  @getSlides = (id, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try
-        Traitify.get("/assessments/#{id}/slides", (data)->
-            callback(data) if callback
-            resolve(data) if resolve
-        )
-      catch error
-          reject(error) if reject
-    )
     promise
 
-  @addSlide = (assessmentId, slideId, value, timeTaken, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try
-        Traitify.put("/assessments/#{assessmentId}/slides/#{slideId}", JSON.stringify({"response":value, "time_taken": timeTaken}), (data)->
-            callback(data) if callback
-            resolve(data) if resolve
-        )
-      catch error
-          reject(error) if reject
-    )
-    promise
+  put: (url, params, callback) ->
+    @ajax "PUT", url, callback, params
 
-  @addSlides = (assessmentId, values, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try
-        Traitify.put("/assessments/#{assessmentId}/slides", JSON.stringify(values), (data)->
-            callback(data) if callback
-            resolve(data) if resolve
-        )
-      catch error
-          reject(error) if reject
-    )
-    promise
+  get: (url, callback) ->
+    @ajax "GET", url, callback, ""
+
+  getDecks: (callback)->
+    @get("/decks", callback)
+
+  getSlides: (id, callback)->
+    @get("/assessments/#{id}/slides", callback)
+
+  addSlide: (assessmentId, slideId, value, timeTaken, callback)->
+    @put("/assessments/#{assessmentId}/slides/#{slideId}", {"response":value, "time_taken": timeTaken}, callback)
+
+  addSlides: (assessmentId, values, callback)->
+    @put("/assessments/#{assessmentId}/slides", values, callback)
     
-  @getPersonalityTypes = (id, options, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try
-        options ?= Object()
-        options.image_pack ?= "linear"
-        params = Array()
+  getPersonalityTypes: (id, options, callback)->
+    options ?= Object()
+    options.image_pack ?= "linear"
+    params = Array()
         
-        for key in Object.keys(options)
-          params.push("#{key}=#{options[key]}")
+    for key in Object.keys(options)
+      params.push("#{key}=#{options[key]}")
         
-        Traitify.get("/assessments/#{id}/personality_types?#{params.join("&")}", (data)->
-            callback(data) if callback
-            resolve(data) if resolve
-        )
-      catch error
-        reject(error) if reject
-    )
-    promise
+    @get("/assessments/#{id}/personality_types?#{params.join("&")}", callback)
 
-  @getPersonalityTraits = (id, options, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try 
-        Traitify.get("/assessments/#{id}/personality_traits/raw", (data)->
-          callback(data) if callback
-          resolve(data) if resolve
-        )
-      catch error
-        reject(error) if reject
-    )
-    promise
+  getPersonalityTraits: (id, options, callback)->
+    @get("/assessments/#{id}/personality_traits/raw", callback)
 
-  @getPersonalityTypesTraits = (assessmentId, personalityTypeId, callback)->
-    promise = new tfPromise((resolve, reject)->
-      try
-        Traitify.get("/assessments/#{assessmentId}/personality_types/#{personalityTypeId}/personality_traits", (data)->
-          callback(data) if callback
-          resolve(data) if resolve
-        )
-      catch error
-        reject(error) if reject
-    )
-    promise
-    
-  
-  @ui = Object()
-  
-  this
-)()
+Traitify = new ApiClient()

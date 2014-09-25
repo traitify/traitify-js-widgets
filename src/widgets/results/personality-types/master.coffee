@@ -1,54 +1,64 @@
-Traitify.ui.resultsPersonalityTypes = (Widget, options)->
-  Widget.states.add("initialized")
+Traitify.ui.loaders ?= Object()
+Traitify.ui.loaders.personalityTypes = (assessmentId, target, options)->
+  options ?= Object()
+  personalityTypes = Traitify.ui.widgets.personalityTypes(new Widget(target), options)
+  personalityTypes.nodes().main.innerHTML = Traitify.ui.styles
+  Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
+    personalityTypes.data = data
+    personalityTypes.run()
+  )
+  personalityTypes
+
+Traitify.ui.widgets ?= Object()
+Traitify.ui.widgets.personalityTypes = (widget, options)->
+  widget.states.add("initialized")
   
-  Widget.callbacks.add("Initialize")
+  widget.callbacks.add("Initialize")
   
   ########################
   # INITIALIZE
   ########################
-  Widget.initialization.events.add("Setup Data", ->
-    tfPersonalityTypes = Widget.partials.render("Personality Types Container")
-    Widget.nodes.main.appendChild(tfPersonalityTypes)
+  widget.initialization.events.add("Setup Data", ->
+    widget.views.render("Personality Types Container").appendTo("main")
   )
 
   #########################
   # PARTIALS
   #########################
-  Widget.partials.add("Personality Types Container", ->
-    personalityTypesWidgetContainer = @addDiv("tfPersonalityTypes")
-    @addDiv("personalityTypesContainerScroller").appendTo("tfPersonalityTypes")
-    @addDiv("personalityTypesContainer").appendTo("personalityTypesContainerScroller")
+  widget.views.add("Personality Types Container", ->
+    personalityTypesWidgetContainer = @tags.div("tfPersonalityTypes")
+    @tags.div("personalityTypesContainerScroller").appendTo("tfPersonalityTypes")
+    @tags.div("personalityTypesContainer").appendTo("personalityTypesContainerScroller")
     
     @render("Personality Types").appendTo("personalityTypesContainer")
-    description = @addDiv("description").appendTo("tfPersonalityTypes")
-    description.innerHTML = Widget.data.personality_types[0].personality_type.description
+    description = @tags.div("description").appendTo("tfPersonalityTypes")
+    description.innerHTML = widget.data.personality_types[0].personality_type.description
     
-    Widget.callbacks.trigger("Initialize")
+    widget.callbacks.trigger("Initialize")
 
     personalityTypesWidgetContainer
   )
 
-  Widget.partials.add("Personality Types", ->
-    personalityTypes = @addDiv("personalityTypes", Object())
+  widget.views.add("Personality Types", ->
+    personalityTypes = @tags.div("personalityTypes", Object())
     pts = Array()
-    @addDiv("arrow").appendTo("personalityTypes")
-    @addDiv("icon").appendTo("arrow")
+    @tags.div("arrow").appendTo("personalityTypes")
+    @tags.div("icon").appendTo("arrow")
     
-    
-    for index of Widget.data.personality_types
-      pt = Widget.data.personality_types[index]
-      @addDiv("personalityType", {"data-index":index}).appendTo("personalityTypes")
-      name = @addDiv("name", Object(), pt.personality_type.name).appendTo("personalityType")
+    for index of widget.data.personality_types
+      pt = widget.data.personality_types[index]
+      @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
+      name = @tags.div("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"
       
-      @addImg("badge", {src: pt.personality_type.badge.image_medium}).appendTo("personalityType")
+      @tags.img("badge", pt.personality_type.badge.image_medium).appendTo("personalityType")
       
-      score = @addDiv("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
+      score = @tags.div("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
       
     personalityTypes
   )
   
-  Widget.events.add(->
+  widget.initialization.events.add("personalityTypes", ->
     personalityTypes = document.querySelectorAll(".tf-personality-types .personality-type")
     for personalityType in personalityTypes
       personalityType.onclick = ()->
@@ -57,8 +67,8 @@ Traitify.ui.resultsPersonalityTypes = (Widget, options)->
         arrow = document.querySelector(".tf-personality-types .arrow")
 
         arrow.style.left = (index * 130) + "px"
-        descriptionData = Widget.data.personality_types[index].personality_type.description
+        descriptionData = widget.data.personality_types[index].personality_type.description
         description.innerHTML = descriptionData
   )
   
-  Widget
+  widget
