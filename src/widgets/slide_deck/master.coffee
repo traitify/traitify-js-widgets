@@ -62,10 +62,15 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
             Traitify.getPersonalityTypes(widget.data.assessmentId).then((data)->
               widget.Widgets().results.data = data
               widget.Widgets().results.run()
+              if widget.Widgets().personalityTypes
+                widget.Widgets().personalityTypes.data = data
+                widget.Widgets().personalityTypes.run()
+              if widget.Widgets().personalityTraits
+                Traitify.getPersonalityTraits(widget.data.assessmentId).then((data)->  
+                  widget.Widgets().personalityTraits.data.traits = data
+                  widget.Widgets().personalityTraits.run()
+                )
             )
-            
-            if options.personalityTypes
-              Traitify.ui.loadPersonalityTypes(widget.data.assessmentId, options.personalityTypes.target, options.personalityTypes)
           widget.callbacks.trigger("Finished")
       )
 
@@ -73,10 +78,10 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   widget.data.getProgressBarNumbers = (initialize)->
     slideLength = widget.data.slides.all.length
     currentLength = widget.data.slides.notCompleted.length 
-    currentPosition = widget.data.sentSlides
+    currentPosition = currentLength - widget.data.sentSlides
     if !initialize
-      currentPosition +=1
-    (currentPosition / slideLength) * 100
+      currentPosition += 1
+    (1 - (currentPosition / slideLength)) * 100
 
   #########################  
   # PARTIALS
@@ -321,7 +326,7 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
     widget.data.slides.all = widget.data.slides.notCompleted.concat(widget.data.slides.completed)
     widget.data.sentSlides = 0
 
-    widget.data.slidesToPlayLength = widget.data.slides.all.length
+    widget.data.slidesToPlayLength = widget.data.slides.notCompleted.length
 
   )
       

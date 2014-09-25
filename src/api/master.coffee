@@ -119,7 +119,6 @@ class ApiClient
 
   getDecks: (callback)->
     @get("/decks", callback)
-        
 
   getSlides: (id, callback)->
     @get("/assessments/#{id}/slides", callback)
@@ -142,8 +141,5 @@ class ApiClient
 
   getPersonalityTraits: (id, options, callback)->
     @get("/assessments/#{id}/personality_traits/raw", callback)
-
-  getPersonalityTypesTraits: (assessmentId, personalityTypeId, callback)->
-    @get("/assessments/#{assessmentId}/personality_types/#{personalityTypeId}/personality_traits", callback)
 
 Traitify = new ApiClient()
