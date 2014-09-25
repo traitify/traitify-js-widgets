@@ -1,0 +1,78 @@
+.tf-results{
+  font-family: "Source Sans Pro";
+  padding: 10px;
+}
+.tf-results div, .tf-results img{
+	box-sizing: content-box;
+} 
+.tf-results .personality-blend, .tf-results .personality-type{
+  text-align: center;
+}
+.tf-results .personality-blend .badges-container, .tf-results .personality-type .badges-container{
+  max-width: 264px;
+  width:100%;
+  margin: 0px auto;
+}
+.tf-results .personality-type .badges-container .badge{
+  width: 29%;
+  padding:12%;
+  z-index: 1;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid;
+  display: inline-block;
+  background-color: rgba(255,255,255, .5);
+  margin:0px auto;
+}
+.tf-results .personality-type .badges-container .badge img{
+  width: 100%;
+}
+.tf-results .personality-type .name{
+  font-size: 24px;
+  margin: 12px 0px;
+}
+.tf-results .personality-type .type-description{
+  width: 100%;
+  margin: 0px auto;
+  position: relative;
+  text-align: justify;
+  max-width:860px;
+  margin: 0px auto;
+}
+.tf-results .personality-blend .badges-container .left-badge{
+  width: 29%;
+  padding:12%;
+  z-index: 1;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid;
+  display: inline-block;
+  background-color: rgba(255,255,255, .5);
+}
+.tf-results .personality-blend .badges-container .left-badge img{
+  width: 100%;
+}
+.tf-results .personality-blend .badges-container .right-badge{
+  width: 29%;
+  padding:12%;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid;
+  margin-left: -10%;
+  display: inline-block;
+}
+.tf-results .personality-blend .badges-container .right-badge img{
+  width: 100%;
+}
+.tf-results .personality-blend .name{
+  font-size: 24px;
+  margin: 12px 0px;
+}
+.tf-results .personality-blend .blend-description{
+  width: 100%;
+  margin: 0px auto;
+  position: relative;
+  text-align: justify;
+  max-width:860px;
+  margin: 0px auto;
+}
