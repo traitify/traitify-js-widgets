@@ -35,8 +35,7 @@
       </nav>
       <div id='filecontents'>
         <h1 id="traitify-js">Traitify.js</h1><p>This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie10 and up, chrome, safari, and firefox).</p><h3 id="assessment-id-and-public-key-required-">Assessment id and public key required!</h3><p>For instructions on obtaining an assessment id and a public key visit:
-<a href="https://developer.traitify.com">https://developer.traitify.com</a></p><h3 id="using-traitify-js-ui-">Using Traitify JS UI:</h3><p>Include the Traitify.js library:</p><pre><code class="lang-xhtml">&lt;script src=&quot;https://cdn.traitify.com/js/api/1.0.0.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js&quot;&gt;&lt;/script&gt;
+<a href="https://developer.traitify.com">https://developer.traitify.com</a></p><h3 id="using-the-latest-and-greatest-edge-">Using The Latest and Greatest(Edge)!</h3><p>For directions on using the latest traitify js scroll to the bottom</p><h3 id="using-traitify-js-ui-">Using Traitify JS UI:</h3><p>Include the Traitify.js library:</p><pre><code class="lang-xhtml">&lt;script src=&quot;https://cdn.traitify.com/lib/stable.js&quot;&gt;&lt;/script&gt;
 </code></pre><p>You can initialize using an id or a class on any div tag:</p><pre><code class="lang-HTML">&lt;div class=&quot;traitify-widget&quot;&gt;&lt;/div&gt; &lt;!-- Example Target Div for the widget --&gt;
 </code></pre><p>The following javascript will initialize with the above html:</p><pre><code class="lang-HTML">&lt;script&gt;
     Traitify.setPublicKey(&quot;8asdf8sda-f98as-df8ads-fadsf&quot;); // Example Public Key
@@ -44,11 +43,11 @@
     Traitify.setVersion(&quot;v1&quot;); // Example Version
     var assessmentId = &quot;34aeraw23-3a43a32-234a34as42&quot;; // Example Assessment id
 
-    traitify = Traitify.ui.slideDeck(assessmentId, &quot;.traitify-widget&quot;) // Example selector for widget target
+    traitify = Traitify.ui.load(assessmentId, &quot;.traitify-widget&quot;); // Example selector for widget target
 &lt;/script&gt;
 </code></pre><p>When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).</p><pre><code class="lang-HTML">&lt;script&gt;
 
-    traitify = Traitify.ui.slideDeck(assessmentId, &quot;.traitify-widget&quot;)
+    traitify = Traitify.ui.load(assessmentId, &quot;.traitify-widget&quot;)
 
     // This callback gives you the ability to trigger an event when
     // the widget has finished loading
@@ -65,7 +64,7 @@
     })
 &lt;/script&gt;
 </code></pre><p>===============</p><h3 id="using-traitify-js-api-client-">Using Traitify JS API CLIENT:</h3>
-<pre><code class="lang-xhtml">&lt;script src=&quot;https://cdn.traitify.com/js/api/1.0.0.js&quot;&gt;&lt;/script&gt;
+<pre><code class="lang-xhtml">&lt;script src=&quot;https://cdn.traitify.com/lib/stable.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <h5 id="get-decks">Get Decks</h5>
 <pre><code class="lang-JavaScript">Traitify.getDecks(&quot;assessment id&quot;, function(data){
@@ -87,7 +86,17 @@
     console.log(data)
 })
 </code></pre>
-<h3 id="contributining">Contributining</h3>
+<h3 id="using-edge">Using Edge</h3><p>Warning, things may break if you use edge, it is not stable, and is not intended to be. If you&#39;re looking for a stable deployment the stable bundle from the above cdn.</p><pre><code class="lang-xhtml">&lt;script src=&quot;https://cdn.traitify.com/lib/edge.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    Traitify.setPublicKey(&quot;8asdf8sda-f98as-df8ads-fadsf&quot;); // Example Public Key
+    Traitify.setHost(&quot;api-sandbox.traitify.com&quot;); // Example host url (Defaults to api.traitify.com)
+    Traitify.setVersion(&quot;v1&quot;); // Example Version
+    var assessmentId = &quot;34aeraw23-3a43a32-234a34as42&quot;; // Example Assessment id
+
+    traitify = Traitify.ui.load(assessmentId, &quot;.traitify-widget&quot;); // Example selector for widget target
+&lt;/script&gt;
+</code></pre>
+<h3 id="contributing">Contributing</h3>
 <h4 id="building-testing-and-bundling-">Building, Testing and Bundling:</h4>
 <pre><code class="lang-Shell">$ cake watch
 $ cake build
@@ -98,7 +107,7 @@ $ cake test
       </div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

@@ -1,17 +1,6 @@
-Traitify.ui.loaders ?= Object()
-Traitify.ui.loaders.personalityTypes = (assessmentId, target, options)->
-  options ?= Object()
-  personalityTypes = Traitify.ui.widgets.personalityTypes(new Widget(target), options)
-  personalityTypes.nodes().main.innerHTML = Traitify.ui.styles
-  Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
-    personalityTypes.data = data
-    personalityTypes.run()
-  )
-  personalityTypes
-
-Traitify.ui.widgets ?= Object()
-Traitify.ui.widgets.personalityTypes = (widget, options)->
+Traitify.ui.widget("personalityTypes", (widget, options)->
   widget.states.add("initialized")
+  widget.dataDependency("PersonalityTypes")
   
   widget.callbacks.add("Initialize")
   
@@ -32,7 +21,7 @@ Traitify.ui.widgets.personalityTypes = (widget, options)->
     
     @render("Personality Types").appendTo("personalityTypesContainer")
     description = @tags.div("description").appendTo("tfPersonalityTypes")
-    description.innerHTML = widget.data.personality_types[0].personality_type.description
+    description.innerHTML = widget.data.get("PersonalityTypes").personality_types[0].personality_type.description
     
     widget.callbacks.trigger("Initialize")
 
@@ -45,8 +34,8 @@ Traitify.ui.widgets.personalityTypes = (widget, options)->
     @tags.div("arrow").appendTo("personalityTypes")
     @tags.div("icon").appendTo("arrow")
     
-    for index of widget.data.personality_types
-      pt = widget.data.personality_types[index]
+    for index of widget.data.get("PersonalityTypes").personality_types
+      pt = widget.data.get("PersonalityTypes").personality_types[index]
       @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
       name = @tags.div("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"
@@ -67,8 +56,8 @@ Traitify.ui.widgets.personalityTypes = (widget, options)->
         arrow = document.querySelector(".tf-personality-types .arrow")
 
         arrow.style.left = (index * 130) + "px"
-        descriptionData = widget.data.personality_types[index].personality_type.description
+        descriptionData = widget.data.get("PersonalityTypes").personality_types[index].personality_type.description
         description.innerHTML = descriptionData
   )
   
-  widget
+)

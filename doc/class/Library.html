@@ -30,9 +30,24 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;builder&#47;hildigrim-noakes.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Base Library for consistent storage and retrieval.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How to use Library
+    </h4>
+    <pre><code class='coffeescript'>libary = new Library()
+library.add(&quot;userName&quot;, &quot;Carson Wright&quot;)
+library.get(&quot;userName&quot;) # &quot;Carson Wright&quot;</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
   <li>
@@ -44,6 +59,7 @@
       </a>
     </span>
     <span class='desc'>
+      Add 
     </span>
   </li>
   <li>
@@ -55,9 +71,22 @@
       </a>
     </span>
     <span class='desc'>
+      Get 
     </span>
   </li>
 </ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>()</span>
+      <br>
+    </p>
+    
+  </div>
+</div>
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
@@ -67,7 +96,42 @@
 <b>add</b><span>(name, item)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Add</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      add(name, helper)
+    </h4>
+    <pre><code class='coffeescript'>library = new Library()
+library.add(&quot;thisName&quot;, &quot;item here&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the data </span>
+    </li>
+    <li>
+      <span class='name'>Item</span>
+      <span class='type'>
+        (
+          <tt>String, Object, Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>to store </span>
+    </li>
+  </ul>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='get-dynamic'>
@@ -76,12 +140,47 @@
 <b>get</b><span>(name)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Get</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      get(name)
+    </h4>
+    <pre><code class='coffeescript'>library = new Library()
+library.get(&quot;thisName&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the data </span>
+    </li>
+    <li>
+      <span class='name'>Data</span>
+      <span class='type'>
+        (
+          <tt>String, Object, Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>to store </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

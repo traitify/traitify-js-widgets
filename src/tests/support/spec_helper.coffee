@@ -43,8 +43,8 @@ testSuite.add("master", ->
   # Libraries
   ###############################
   require("../compiled/api/master", cover: true)
+  require("../compiled/ui/master", cover: true)
   require("../compiled/builder/master", cover: true)
-  require("../compiled/loader/master", cover: true)
   require("../compiled/widgets/slide_deck/master", cover: true)
   require("../compiled/widgets/results/default/master", cover: true)
   require("../compiled/widgets/results/personality-traits/master", cover: true)

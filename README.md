@@ -7,12 +7,14 @@ This package does not require jQuery, as it is a standalone encapsulated library
 For instructions on obtaining an assessment id and a public key visit:
 [https://developer.traitify.com](https://developer.traitify.com)
 
+### Using The Latest and Greatest(Edge)!
+For directions on using the latest traitify js scroll to the bottom
+
 ### Using Traitify JS UI:
 Include the Traitify.js library:
 
 ```xhtml
-<script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
-<script src="https://cdn.traitify.com/js/widgets/slide_deck/2.0.0.js"></script>
+<script src="https://cdn.traitify.com/lib/stable.js"></script>
 ```
 
 You can initialize using an id or a class on any div tag:
@@ -28,7 +30,7 @@ The following javascript will initialize with the above html:
     Traitify.setVersion("v1"); // Example Version
     var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
-    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget") // Example selector for widget target
+    traitify = Traitify.ui.load(assessmentId, ".traitify-widget"); // Example selector for widget target
 </script>
 ```
 
@@ -36,7 +38,7 @@ When you initialize the widget we return our widget builder to you (This is the 
 ```HTML
 <script>
 
-    traitify = Traitify.ui.slideDeck(assessmentId, ".traitify-widget")
+    traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
     
     // This callback gives you the ability to trigger an event when
     // the widget has finished loading
@@ -56,7 +58,7 @@ When you initialize the widget we return our widget builder to you (This is the 
 ===============
 ### Using Traitify JS API CLIENT:
 ```xhtml
-<script src="https://cdn.traitify.com/js/api/1.0.0.js"></script>
+<script src="https://cdn.traitify.com/lib/stable.js"></script>
 ```
 
 ##### Get Decks
@@ -85,6 +87,19 @@ Traitify.addSlide("assessment id", function(data){
 Traitify.getPersonalityTraits("assessment id", function(data){
     console.log(data)
 })
+```
+### Using Edge
+Warning, things may break if you use edge, it is not stable, and is not intended to be. If you're looking for a stable deployment the stable bundle from the above cdn.
+```xhtml
+<script src="https://cdn.traitify.com/lib/edge.js"></script>
+<script>
+    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
+    Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
+    Traitify.setVersion("v1"); // Example Version
+    var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
+
+    traitify = Traitify.ui.load(assessmentId, ".traitify-widget"); // Example selector for widget target
+</script>
 ```
 
 ### Contributing 

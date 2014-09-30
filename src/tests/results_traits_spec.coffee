@@ -18,7 +18,7 @@ QUnit.module( "Results Traits Tests", {
 
 QUnit.asyncTest("Results Traits Widget Appears with load('perosnalityTraits'...)", (assert)->
   builder = Traitify.ui.load("personalityTraits", playedAssessment, ".widget")
-  builder.onInitialize(->
+  builder.personalityTraits.onInitialize(->
     trait = document.querySelector(".trait")
 
     assert.ok(trait, "Personality types container exists")

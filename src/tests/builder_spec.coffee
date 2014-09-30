@@ -12,7 +12,7 @@ QUnit.module( "Testing Builder Version 2", {setup: ->
 })
 
 QUnit.test("Builder Version", (assert)->
-  assert.equal(@widget.version, "2.0.0 HN", "passed!")
+  assert.equal(@widget.version, "3.0.0 HNA", "passed!")
 )
 
 QUnit.test("Builder Main Node", (assert)->
@@ -93,18 +93,13 @@ QUnit.test("Data works with storing and fetching", (assert)->
     new SimplePromise((resolve, reject)->
       resolve(expectedReturn)
     )
-  data.sources.add("awesome", Traitify.getDecks())
+  data.add("awesome", Traitify.getDecks())
 
-  data.sources.fetch("awesome").then((localData)->
-    assert.equal(JSON.stringify(data.sources.data.get("awesome")), JSON.stringify(expectedReturn), "fetches and stores data")
+  data.get("awesome").then((localData)->
+    assert.equal(JSON.stringify(data.get("awesome").data), JSON.stringify(expectedReturn), "fetches and stores data")
     assert.equal(JSON.stringify(localData), JSON.stringify(expectedReturn), "fetches and stores data")
   )
   expectedStoredReturn = {"expected Stored Return"}
-
-  data.sources.data.add("awesome", expectedStoredReturn)
-  data.sources.fetch("awesome").then((localData)->
-    assert.equal(JSON.stringify(localData), JSON.stringify(expectedStoredReturn), "returns stored data")
-  )
 )
 
 QUnit.test("Data passes error on correctly", (assert)->
@@ -114,9 +109,9 @@ QUnit.test("Data passes error on correctly", (assert)->
     new SimplePromise((resolve, reject)->
       reject(expectedCatch)
     )
-  data.sources.add("awesome", Traitify.getDecks())
+  data.add("awesome", Traitify.getDecks())
 
-  data.sources.fetch("awesome").catch((localData)->
+  data.get("awesome").catch((localData)->
     assert.equal(JSON.stringify(localData), JSON.stringify(expectedCatch), "contains class")
   )
 )

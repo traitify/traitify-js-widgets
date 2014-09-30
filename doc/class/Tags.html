@@ -30,9 +30,26 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;widget&#47;master.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Tags Logic for Building tags with additional helpers</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How use Tags
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.div(&quot;sitDown&quot;, &quot;data-id&quot;:&quot;your-id&quot;, &quot;Div with id attached&quot;)
+tags.get(&quot;sitDown&quot;) # &lt;div class=&quot;sit-down&quot; data-id=&quot;your-id&quot;&gt;Div with id attached&lt;&#47;div&gt;
+
+tags.img(&quot;getUp&quot;, &quot;sitting-up.jpg&quot;, &quot;data-id&quot;:&quot;your-id&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
   <li>
@@ -40,10 +57,47 @@
       <a href='#div-dynamic'>
         #
 (void)
-<b>div</b><span>(name, options)</span>
+<b>div</b><span>(name, options, content)</span>
       </a>
     </span>
     <span class='desc'>
+      Div 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#img-dynamic'>
+        #
+(void)
+<b>img</b><span>(name, src, options)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Img 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#i-dynamic'>
+        #
+(void)
+<b>i</b><span>(name, options, content)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      I 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#get-dynamic'>
+        #
+(void)
+<b>get</b><span>(name)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Get 
     </span>
   </li>
   <li>
@@ -51,37 +105,292 @@
       <a href='#tag-dynamic'>
         #
 (void)
-<b>tag</b><span>(name, tag, attributes, content)</span>
+<b>tag</b><span>(fullName, tag, attributes, content)</span>
       </a>
     </span>
     <span class='desc'>
+      Tag 
     </span>
   </li>
 </ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>()</span>
+      <br>
+    </p>
+    
+  </div>
+</div>
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
     <p class='signature' id='div-dynamic'>
       #
 (void)
-<b>div</b><span>(name, options)</span>
+<b>div</b><span>(name, options, content)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Div</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      div(name, options, content)
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.div(&quot;someTag&quot;, {style: {color: &quot;blue&quot;}}, &quot;This is an awesome tag!&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Content</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='img-dynamic'>
+      #
+(void)
+<b>img</b><span>(name, src, options)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Img</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      img(name, src, options)
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.img(&quot;someTag&quot;, &quot;your-image.jpg&quot;, &quot;This is an awesome tag!&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Src</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='i-dynamic'>
+      #
+(void)
+<b>i</b><span>(name, options, content)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>I</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      i(name, options)
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.i(&quot;someTag&quot;, &quot;This is an awesome tag!&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Content</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='get-dynamic'>
+      #
+(void)
+<b>get</b><span>(name)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Get</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      get(name, options)
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.get(&quot;someTag&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+  </ul>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='tag-dynamic'>
       #
 (void)
-<b>tag</b><span>(name, tag, attributes, content)</span>
+<b>tag</b><span>(fullName, tag, attributes, content)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Tag</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      tag(fullName, type, options, content)
+    </h4>
+    <pre><code class='coffeescript'>tags = new Tags()
+tags.tag(&quot;someTag&quot;, &quot;div&quot;, {class: &quot;blue&quot;}, This is an awesome tag!&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>fullName</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>type</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+    <li>
+      <span class='name'>Options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag  </span>
+    </li>
+    <li>
+      <span class='name'>Content</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the tag </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

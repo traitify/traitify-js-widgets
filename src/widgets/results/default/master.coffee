@@ -1,48 +1,35 @@
-Traitify.ui.loaders ?= Object()
-Traitify.ui.loaders.results = (assessmentId, target, options)->
-  options ?= Object()
-  if Traitify.ui.widgets.results
-    results = Traitify.ui.widgets.results(new Widget(target), options)
-    results.nodes().main.innerHTML = Traitify.ui.styles
-    Traitify.getPersonalityTypes(assessmentId, options.params || Object()).then((data)->
-      results.data = data
-      results.run()
-    )
-    results
-
-Traitify.ui.widgets ?= Object()
-Traitify.ui.widgets.results = (Widget, options)->
-  Widget.states.add("initialized")
-  Widget.callbacks.add("Initialize")
-  
+Traitify.ui.widget("results", (widget, options)->
+  widget.states.add("initialized")
+  widget.callbacks.add("Initialize")
+  widget.dataDependency("PersonalityTypes")
   ########################
   # INITIALIZE
   ########################
-  Widget.initialization.events.add("Setup Data", ->
-    Widget.views.render("Results").appendTo("main")
-    Widget.callbacks.trigger("Initialize")
+  widget.initialization.events.add("Setup Data", ->
+    widget.views.render("Results").appendTo("main")
+    widget.callbacks.trigger("Initialize")
   )
 
   #########################
   # PARTIALS
   #########################
-  Widget.views.add("Results", ->
+  widget.views.add("Results", ->
     @tags.div("tfResults")
     @render("Personality Blend").appendTo("tfResults")
     @tags.library.get("tfResults")
   )
 
-  Widget.views.add("Personality Blend", ->
-    if Widget.data.personality_blend
+  widget.views.add("Personality Blend", ->
+    if widget.data.personality_blend
 
       @tags.div("personalityBlend")
-      personalityBlendData = Widget.data.personality_blend
+      personalityBlendData = widget.data.personality_blend
       @render("Personality Blend Badges").appendTo("personalityBlend")
       @tags.div("name", personalityBlendData.name).appendTo("personalityBlend")
       @tags.div("blendDescription", personalityBlendData.description).appendTo("personalityBlend")
     else
       @tags.div("personalityType")
-      personalityTypeData = Widget.data.personality_types[0].personality_type
+      personalityTypeData = widget.data.get("PersonalityTypes").personality_types[0].personality_type
 
       @render("Personality Type Badge").appendTo("personalityType")
       @tags.div("name", personalityTypeData.name).appendTo("personalityType")
@@ -51,10 +38,10 @@ Traitify.ui.widgets.results = (Widget, options)->
     @tags.library.get("personalityBlend") or @tags.library.get("personalityType")
   )
 
-  Widget.views.add("Personality Blend Badges", ->
-    personalityBlendData = Widget.data.personality_blend
+  widget.views.add("Personality Blend Badges", ->
+    personalityBlendData = widget.data.personality_blend
     typeOneData = personalityBlendData.personality_type_1
-    hexColorOne = Widget.helpers.hexToRGB(typeOneData.badge.color_1)
+    hexColorOne = widget.helpers.hexToRGB(typeOneData.badge.color_1)
     @tags.div("badgesContainer")
 
     @tags.div("leftBadge", {style: {
@@ -65,7 +52,7 @@ Traitify.ui.widgets.results = (Widget, options)->
     
     
     typeTwoData = personalityBlendData.personality_type_2
-    hexColorTwo = Widget.helpers.hexToRGB(typeTwoData.badge.color_1)
+    hexColorTwo = widget.helpers.hexToRGB(typeTwoData.badge.color_1)
     @tags.div("rightBadge", {style:{
       "background-color":"rgba(#{hexColorTwo.join(', ')}, .07)",
       "border-color": "##{typeTwoData.badge.color_1}"
@@ -75,12 +62,12 @@ Traitify.ui.widgets.results = (Widget, options)->
     @tags.library.get("badgesContainer")
   )
 
-  Widget.views.add("Personality Type Badge", ->
-    personalityTypeData = Widget.data.personality_types[0].personality_type
+  widget.views.add("Personality Type Badge", ->
+    personalityTypeData = widget.data.get("PersonalityTypes").personality_types[0].personality_type
 
     @tags.div("badgesContainer")
 
-    hexColor = Widget.helpers.hexToRGB(personalityTypeData.badge.color_1)
+    hexColor = widget.helpers.hexToRGB(personalityTypeData.badge.color_1)
     badge = @tags.div("badge").appendTo("badgesContainer")
 
     image = @tags.img("badgeImage", personalityTypeData.badge.image_medium, {style:{
@@ -90,4 +77,4 @@ Traitify.ui.widgets.results = (Widget, options)->
 
     @tags.library.get("badgesContainer")
   )
-  Widget
+)

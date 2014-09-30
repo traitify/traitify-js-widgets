@@ -1,19 +1,8 @@
-Traitify.ui.loaders ?= Object()
-Traitify.ui.loaders.personalityTraits = (assessmentId, target, options)->
-  options ?= Object()
-  results = Traitify.ui.widgets.personalityTraits(new Widget(target), options)
-  results.nodes().main.innerHTML = Traitify.ui.styles
-  Traitify.getPersonalityTraits(assessmentId, options.params || Object()).then((data)->
-    results.data.traits = data
-    results.run()
-  )
-  results
-
-Traitify.ui.widgets ?= Object()
-Traitify.ui.widgets.personalityTraits = (widget, options)->
+Traitify.ui.widget("personalityTraits", (widget, options)->
   widget.states.add("initialized")
   widget.callbacks.add("Initialize")
-  
+  widget.dataDependency("PersonalityTraits")
+
   ########################
   # INITIALIZE
   ########################
@@ -28,7 +17,8 @@ Traitify.ui.widgets.personalityTraits = (widget, options)->
   widget.views.add("Personality Traits Container", ->
     personalityTraitsWidgetContainer = @tags.div("tfPersonalityTraits")
     @tags.div("personalityTraits").appendTo("tfPersonalityTraits")
-    for trait in @data.traits.slice(0, 8)
+
+    for trait in @data.get("PersonalityTraits").slice(0, 8)
       trait = trait.personality_trait
       personalityType = trait.personality_type
       @tags.div(["personalityTraits.trait"], {style: {borderColor: personalityType.badge.color_1}}).appendTo("personalityTraits")
@@ -41,5 +31,4 @@ Traitify.ui.widgets.personalityTraits = (widget, options)->
       
     personalityTraitsWidgetContainer
   )
-
-  widget
+)

@@ -16,7 +16,9 @@ QUnit.module( "module A", {
 })
 
 QUnit.test("Slide Deck Hooks Exist", (assert)->
+
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
+
 
   assert.equal(!widgets.slideDeck.onInitialize, false, "on Initialize Event Succeeds!" )
   assert.equal(!widgets.slideDeck.onMe, false, "on Me Event Succeeds!" )
@@ -36,11 +38,12 @@ QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
 QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert)->
 
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
-  slideDeck = widgets.slideDeck
 
+  slideDeck = widgets.slideDeck
+  console.log(JSON.stringify(slideDeck))
   slideDeck.onInitialize(->
     #Data Should Exist
-    assert.equal(slideDeck.data.slides.all[0].caption, "Navigating", "First Slide Caption Succeeds!")
+    assert.equal(slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!")
 
     #First Slide
     firstSlide = slideDeck.nodes().currentSlide.getElementsByClassName("caption")[0].innerHTML

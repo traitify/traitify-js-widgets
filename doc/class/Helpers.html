@@ -30,20 +30,61 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;builder&#47;hildigrim-noakes.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Base Helpers with the ability to add More helpers.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How use Helpers
+    </h4>
+    <pre><code class='coffeescript'>helpers = new Helpers()
+helpers.add(&quot;removeXHR&quot;, -&gt;
+  window.XMLHttpRequest = Object()
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
   <li>
     <span class='signature'>
       <a href='#toDash-dynamic'>
         #
-(void)
+(String)
 <b>toDash</b><span>(text)</span>
       </a>
     </span>
     <span class='desc'>
+      toDash 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#hexToRGB-dynamic'>
+        #
+(Array&lt;Numbers&gt;)
+<b>hexToRGB</b><span>(hex)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      hexToRGB 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#add-dynamic'>
+        #
+(void)
+<b>add</b><span>(name, helper)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      add 
     </span>
   </li>
 </ul>
@@ -52,16 +93,142 @@
   <div class='method_details'>
     <p class='signature' id='toDash-dynamic'>
       #
-(void)
+(String)
 <b>toDash</b><span>(text)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>toDash</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      toDash(text)
+    </h4>
+    <pre><code class='coffeescript'>new Helpers().toDash(&#39;veryCoolThing&#39;) # very-cool-thing</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Text</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the string that you wish to conver </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>String</tt>
+      )
+      &mdash;
+      <span class='desc'>the text value of the string </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='hexToRGB-dynamic'>
+      #
+(Array&lt;Numbers&gt;)
+<b>hexToRGB</b><span>(hex)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>hexToRGB</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      hexToRGB(hex)
+    </h4>
+    <pre><code class='coffeescript'>new Helpers().hexToRGB(&#39;8d834f&#39;) # [141, 131, 79]</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Hex</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the string that you wish to convert </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Array&lt;Numbers&gt;</tt>
+      )
+      &mdash;
+      <span class='desc'>The 3 decimal values of rgb </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='add-dynamic'>
+      #
+(void)
+<b>add</b><span>(name, helper)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>add</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      add(name, helper)
+    </h4>
+    <pre><code class='coffeescript'>helpers = new Helpers()
+helpers.add(&quot;noNegative&quot;, (negative)-&gt;
+  if negative &lt; 0 
+     negative * -1
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the method </span>
+    </li>
+    <li>
+      <span class='name'>Process</span>
+      <span class='type'>
+        (
+          <tt>Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for the Helper </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

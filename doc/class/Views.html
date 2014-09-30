@@ -30,12 +30,169 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;widget&#47;master.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>View Logic for building, and storing Views</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How to use Views
+    </h4>
+    <pre><code class='coffeescript'>view = new View()
+view.add(&quot;room&quot;, -&gt;
+  @div(&quot;room&quot;)
+  @div(&quot;room.chairs&quot;, &quot;data-number&quot;:6, &quot;This Room Has 6 Chairs&quot;).appendTo(&quot;room&quot;) # &lt;div class=&quot;chairs&quot; ..&gt;&lt;&#47;div&gt;
+  for [0..6]
+    @div([&quot;room.chairs.chair&quot;], &quot;This is a Chair&quot;).appendTo(&quot;room.chairs&quot;) # &lt;div class=&quot;chair&quot; ..&gt;&lt;&#47;div&gt;
+  @div(&quot;table&quot;, &quot;This Room Has 1 table&quot;).appendTo(&quot;room&quot;) 
+  @tags.get(&quot;room&quot;) # return the room with table and chairs
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#add-dynamic'>
+        #
+(void)
+<b>add</b><span>(name, view)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Add 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#render-dynamic'>
+        #
+(void)
+<b>render</b><span>(name, options)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Render 
+    </span>
+  </li>
+</ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>()</span>
+      <br>
+    </p>
+    
+  </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='add-dynamic'>
+      #
+(void)
+<b>add</b><span>(name, view)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Add</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      add(name, view)
+    </h4>
+    <pre><code class='coffeescript'>views = new Views()
+views.add(&quot;someView&quot;, -&gt;
+  @div(&quot;everythingIsAwesome&quot;)
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for view </span>
+    </li>
+    <li>
+      <span class='name'>Callback</span>
+      <span class='type'>
+        (
+          <tt>Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for view </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='render-dynamic'>
+      #
+(void)
+<b>render</b><span>(name, options)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Render</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      render(name, options)
+    </h4>
+    <pre><code class='coffeescript'>views = new Views()
+views.add(&quot;someView&quot;, (o)-&gt;
+  @div(&quot;everythingIsAwesome&quot;, o.content)
+)
+views.render(&quot;someView&quot;, content: &quot;Everything is awesome!&quot;)
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for view </span>
+    </li>
+    <li>
+      <span class='name'>Options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for rendering view </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

@@ -36,10 +36,70 @@
           <td>Defined in:</td>
           <td>src&#47;api</td>
         </tr>
+        <tr>
+          <td>
+            Classes:
+          </td>
+          <td>
+            <a href='../../../class/ApiClient.html'>
+              ApiClient
+            </a>
+          </td>
+        </tr>
       </table>
+      <h2>Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#SimplePromise-'>
+        ~
+(void)
+<b>SimplePromise</b><span>(callback)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Build a New Widget. 
+    </span>
+  </li>
+</ul>
+      <h2>Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='SimplePromise-'>
+      ~
+(void)
+<b>SimplePromise</b><span>(callback)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Build a New Widget.</p><p>@callback Do something Async and Resolve or Reject</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      SimplePromise()
+    </h4>
+    <pre><code class='coffeescript'>response = new SimplePromise((resolve, reject)-&gt;
+  try
+   # something async
+   resolve(data)
+  catch error
+    reject(error)
+)
+response.then((dataResolved)-&gt;
+  console.log(dataResolved)
+)
+response.catch((dataRejected)-&gt;
+  console.log(dataRejected)
+)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+  </div>
+</div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

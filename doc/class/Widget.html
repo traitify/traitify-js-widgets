@@ -30,24 +30,181 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;widget&#47;master.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Base to building a Widget</p><p>param [String] Target an html selector</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How to use Widget
+    </h4>
+    <pre><code class='coffeescript'>widget = new Widget(target)
+# Data Business Logic
+widget.run()</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+      <h2>Variables Summary</h2>
+      <dl class='constants'>
+  <dt id='version-variable'>
+    version
+    =
+  </dt>
+  <dd>
+    <pre><code class='coffeescript'>&quot;3.0.0 HNA&quot;</code></pre>
+    
+  </dd>
+</dl>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#dataDependency-dynamic'>
+        #
+(void)
+<b>dataDependency</b><span>(dependencyName)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      dataDependency 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#nodes-dynamic'>
+        #
+(void)
+<b>nodes</b><span>(name)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Nodes 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#run-dynamic'>
+        #
+(void)
+<b>run</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Run 
+    </span>
+  </li>
+</ul>
       <h2>Constructor Details</h2>
       <div class='methods'>
   <div class='method_details'>
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>(selector)</span>
+<b>constructor</b><span>(target)</span>
       <br>
     </p>
     
   </div>
 </div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='dataDependency-dynamic'>
+      #
+(void)
+<b>dataDependency</b><span>(dependencyName)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>dataDependency</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      dataDependency(dependencyName)
+    </h4>
+    <pre><code class='coffeescript'>widget = new Widget(&quot;.example-selector&quot;)
+states.dataDependency(&quot;SomeData&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>DependencyName</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for widget </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='nodes-dynamic'>
+      #
+(void)
+<b>nodes</b><span>(name)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Nodes</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      nodes(name)
+    </h4>
+    <pre><code class='coffeescript'>widget = new Widget(&quot;.example-selector&quot;)
+states.nodes(&quot;someNode&quot;)</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>Name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for node in widgets </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='run-dynamic'>
+      #
+(void)
+<b>run</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Run</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      run()
+    </h4>
+    <pre><code class='coffeescript'>widget = new Widget(&quot;.example-selector&quot;)
+states.run() # Triggers all initialization events</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+  </div>
+</div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

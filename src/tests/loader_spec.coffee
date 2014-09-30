@@ -53,7 +53,7 @@ QUnit.asyncTest("Results Puts Traits in when the Traits callback is faster than 
     )
     
   builder = Traitify.ui.load(playedAssessment, ".widget", options)
-  builder.results.onInitialize(->
+  builder.Results.onInitialize(->
     badge = document.querySelector(".badge")
     badge.innerHTML = ""
     assert.equal(badge.outerHTML, '<div class=\"badge\"></div>', "Personality types container exists")

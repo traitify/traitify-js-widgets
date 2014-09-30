@@ -1,29 +1,6 @@
-Traitify.ui.loaders ?= Object()
-Traitify.ui.loaders.slideDeck = (assessmentId, target, options)->
-  slideDeck = Traitify.ui.widgets.slideDeck(new Widget(target), options)
-  Traitify.getSlides(assessmentId, (data)->
 
-    slides = Object()
-    
-    slides.notCompleted = data.filter((slide)->
-      !slide.completed_at
-    )
-
-    slideDeck.data.assessmentId = assessmentId
-    slideDeck.data.slides = Object()
-    slideDeck.data.slides.notCompleted = slides.notCompleted
-    slideDeck.data.slides.completed = data.filter((slide)->
-      slide.completed_at
-    )
-    
-    slideDeck.run()
-  )
-
-  slideDeck
-
-Traitify.ui.widgets ?= Object()    
-Traitify.ui.widgets.slideDeck = (widget, options)->
-  widget.data.slideResponses = Object()
+Traitify.ui.widget("slideDeck", (widget, options)->
+  widget.data.add("slideResponses", Object())
   widget.states.add("animating")
   widget.states.add("finished")
   widget.states.add("initialized")
@@ -35,53 +12,66 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   widget.callbacks.add("NotMe")
   widget.callbacks.add("AdvanceSlide")
 
+  #######################
+  # DATA DEPENDENCIES
+  #######################
+  widget.dataDependency("Slides")
 
   #######################
   # DATA
   #######################
-
-  widget.data.slideValues = Array()
+  widget.data.add("slideValues", Array())
   
-  widget.data.addSlide = (id, value)->
-    widget.data.lastSlideTime = widget.data.currentSlideTime
-    widget.data.currentSlideTime = new Date().getTime()
-    widget.data.slideValues.push({
-      id: id, 
-      response: value, 
-      time_taken: widget.data.currentSlideTime - widget.data.lastSlideTime
+  widget.actions.add("processSlide", (options)->
+    widget.actions.trigger("addSlide", options)
+    widget.actions.trigger("afterSlideSave")
+  )
+
+  widget.actions.add("addSlide", (options)->
+    widget.data.add("lastSlideTime", widget.data.get("currentSlideTime"))
+    widget.data.add("currentSlideTime", new Date().getTime())
+    widget.data.get("slideValues").push({
+      id: options.id, 
+      response: options.value, 
+      time_taken: widget.data.get("currentSlideTime") - widget.data.get("lastSlideTime")
     })
-    widget.data.sentSlides += 1
-    if widget.data.slideValues.length % 10 == 0 || widget.data.sentSlides == widget.data.slidesToPlayLength
-      Traitify.addSlides(widget.data.assessmentId, widget.data.slideValues, (response)->
-        if widget.callbacks.addSlide
-          widget.callbacks.addSlide(widget)
-        if widget.data.sentSlides == widget.data.slidesToPlayLength
-          widget.nodes().main.innerHTML = ""
-          if options.showResults != false
-            widget.nodes().main.innerHTML = Traitify.ui.styles
-            Traitify.getPersonalityTypes(widget.data.assessmentId).then((data)->
-              widget.Widgets().results.data = data
-              widget.Widgets().results.run()
-              if widget.Widgets().personalityTypes
-                widget.Widgets().personalityTypes.data = data
-                widget.Widgets().personalityTypes.run()
-              if widget.Widgets().personalityTraits
-                Traitify.getPersonalityTraits(widget.data.assessmentId).then((data)->  
-                  widget.Widgets().personalityTraits.data.traits = data
-                  widget.Widgets().personalityTraits.run()
-                )
-            )
+    console.log(widget.data.get("slideValues"))
+  )
+
+  widget.actions.add("afterSlideSave", ->
+    widgets = widget.widgets
+    widget.data.counter("sentSlides").up()
+    sentSlides = widget.data.get("sentSlides")
+
+    if widget.data.get("slideValues").length % 10 == 0 || sentSlides == widget.data.get("slidesToPlayLength")
+      addSlide = Traitify.addSlides(widget.assessmentId, widget.data.get("slideValues"))
+      addSlide.then((response)->
+        widget.callbacks.trigger("addSlide")
+        if sentSlides == widget.data.get("slidesToPlayLength")
+          widget.nodes("main").innerHTML = ""
+          if widget.options && widget.options.showResults != false
+            widget.nodes("main").innerHTML = Traitify.ui.styles
+            if widgets.results
+              Traitify.ui.load("results", widget.assessmentId, widgets.results.target, widgets.results.options)
+            if widgets.personalityTypes
+              Traitify.ui.load("personalityTypes", widget.assessmentId, widgets.results.target, widgets.personalityTypes.options)
+            if widgets.personalityTraits
+              Traitify.ui.load("personalityTraits", widget.assessmentId, widgets.results.target, widgets.personalityTraits.options)
+            
           widget.callbacks.trigger("Finished")
       )
+  )
 
-
-  widget.data.getProgressBarNumbers = (initialize)->
-    slideLength = widget.data.slides.all.length
-    currentLength = widget.data.slides.notCompleted.length 
-    currentPosition = currentLength - widget.data.sentSlides
+  widget.helpers.add("getProgressBarNumbers", (initialize)->
+    slideLength = widget.data.get("Slides").length
+    completed = widget.data.get("SlidesCompleted").length 
+    notCompleted = widget.data.get("SlidesNotCompleted").length 
+    currentPosition = completed + widget.data.get("sentSlides")
     if !initialize
       currentPosition += 1
-    (1 - (currentPosition / slideLength)) * 100
+
+    Math.round((currentPosition / slideLength) * 100)
+  )
 
   #########################  
   # PARTIALS
@@ -92,11 +82,11 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
     cover.innerHTML = "Landscape mode is not currently supported"
     slidesContainer.appendChild(cover)
     
-    slidesLeft = widget.data.getProgressBarNumbers("initializing")
+    slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
 
     slidesContainer.appendChild(widget.views.render("progressBar", slidesLeft))
 
-    slidesContainer.appendChild(@render("slides", widget.data.slides.all))
+    slidesContainer.appendChild(@render("slides", widget.data.get("Slides")))
 
     slidesContainer.appendChild(@render("meNotMe"))
     slidesContainer
@@ -186,7 +176,6 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
       
     )
     touchNode.addEventListener('touchend', (event)->
-      debugger
       touchobj = event.changedTouches[0]
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
@@ -206,17 +195,17 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   ###########################
   widget.actions.add("me", ->
     if !widget.states.get("animating") && widget.nodes().nextSlide
-      if !widget.data.slides.all[widget.data.currentSlide] 
+      if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
         widget.actions.trigger("loadingAnimation")
       widget.states.set("animating", true)
 
       widget.actions.trigger("advanceSlide")
 
-      currentSlide = widget.data.slides.all[widget.data.currentSlide - 1]
+      currentSlide = widget.data.get("Slides")[widget.data.get("currentSlide") - 1]
 
-      widget.data.addSlide(currentSlide.id, true)
+      widget.actions.trigger("processSlide", id: currentSlide.id, value: true)
 
-      widget.data.currentSlide += 1
+      widget.data.counter("currentSlide").up()
 
       widget.callbacks.trigger("Me")
   )
@@ -224,25 +213,26 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   widget.actions.add("notMe", ->
     if !widget.states.get("animating") && widget.nodes().nextSlide
 
-      if !widget.data.slides.all[widget.data.currentSlide] 
+      if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
 
         widget.actions.trigger("loadingAnimation")
 
       widget.states.set("animating", true)
       widget.actions.trigger("advanceSlide")
 
-      currentSlide = widget.data.slides.all[widget.data.currentSlide - 1]
+      currentSlide = widget.data.get("Slides")[widget.data.get("currentSlide") - 1]
 
-      widget.data.addSlide(currentSlide.id, false)
+      widget.actions.trigger("processSlide", id: currentSlide.id, value: false)
 
-      widget.data.currentSlide += 1
+      widget.data.counter("currentSlide").up()
 
       widget.callbacks.trigger("notMe")
   )
 
   widget.actions.add("advanceSlide", ->
     widget.prefetchSlides()
-    widget.nodes().progressBarInner.style.width = widget.data.getProgressBarNumbers() + "%"
+    console.log("triggered Advance Slide")
+    widget.nodes("progressBarInner").style.width = widget.helpers.getProgressBarNumbers() + "%"
 
     if widget.nodes().playedSlide
       # REMOVE NODE
@@ -272,11 +262,11 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
     , false )
-  
+
     widget.nodes().playedSlide.className += " played"
     widget.nodes().currentSlide.className += " active"
     # NEW NEXT SLIDE
-    nextSlideData = widget.data.slides.all[widget.data.currentSlide + 1]
+    nextSlideData = widget.data.get("Slides")[widget.data.get("currentSlide") + 1]
     if nextSlideData
       widget.nodes().nextSlide = widget.views.render("slide", nextSlideData)
       widget.nodes().slides.appendChild(widget.nodes().nextSlide)
@@ -293,10 +283,10 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
 
   widget.imageCache = Object()
   widget.prefetchSlides = (count)->
-    start = widget.data.currentSlide - 1
-    end = widget.data.currentSlide + 9
+    start = widget.data.get("currentSlide") - 1
+    end = widget.data.get("currentSlide") + 9
 
-    for slide in widget.data.slides.all.slice(start, end)
+    for slide in widget.data.get("Slides").slice(start, end)
       unless widget.imageCache[slide.image_desktop_retina]
         widget.imageCache[slide.image_desktop_retina] = new Image()
         widget.imageCache[slide.image_desktop_retina].src = slide.image_desktop_retina
@@ -321,12 +311,24 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   )  
 
   widget.initialization.events.add("Setup Data", ->
-    widget.data.currentSlide = 1
+    slides = widget.data.get("Slides")  
+    slides.notCompleted = slides.filter((slide)->
+      !slide.completed_at
+    )
 
-    widget.data.slides.all = widget.data.slides.notCompleted.concat(widget.data.slides.completed)
-    widget.data.sentSlides = 0
+    slides.completed = slides.filter((slide)->
+      slide.completed_at
+    )
 
-    widget.data.slidesToPlayLength = widget.data.slides.notCompleted.length
+    widget.data.add("currentSlide", 1)
+
+    completed = widget.data.get("Slides").filter((slide)-> slide.completed_at)
+    uncompleted = widget.data.get("Slides").filter((slide)-> !slide.completed_at)
+    widget.data.add("SlidesCompleted", completed)
+    widget.data.add("SlidesNotCompleted", uncompleted)
+    widget.data.add("sentSlides", 0)
+
+    widget.data.add("slidesToPlayLength", widget.data.get("SlidesNotCompleted").length)
 
   )
       
@@ -391,7 +393,7 @@ Traitify.ui.widgets.slideDeck = (widget, options)->
   widget.initialization.events.add("initialized", ->
     widget.states.set("initialized", true)
     widget.callbacks.trigger("Initialize")
-    widget.data.currentSlideTime = new Date().getTime()
+    widget.data.add("currentSlideTime", new Date().getTime())
   )
 
-  widget
+)

@@ -30,58 +30,99 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;widget&#47;master.coffee</td>
+          <td>src&#47;builder&#47;master.coffee</td>
+        </tr>
+        <tr>
+          <td>Inherits:</td>
+          <td>
+            <a href='../class/Library.html'>Library</a>
+          </td>
         </tr>
       </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Data Logic for storing data including a counter helper</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      How use Data
+    </h4>
+    <pre><code class='coffeescript'>data = new Data()
+data.add(&quot;chairs&quot;, 0)
+data.counter(&quot;chairs&quot;).up()
+data.get(&quot;chairs&quot;) # 1
+data.counter(&quot;chairs&quot;).down()
+data.get(&quot;chairs&quot;) # 0</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#fetch-dynamic'>
+      <a href='#counter-dynamic'>
         #
 (void)
-<b>fetch</b><span>(name)</span>
+<b>counter</b><span>(name)</span>
       </a>
     </span>
     <span class='desc'>
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#addDataSource-dynamic'>
-        #
-(void)
-<b>addDataSource</b><span>(name, dataSource)</span>
-      </a>
-    </span>
-    <span class='desc'>
+      Counter 
     </span>
   </li>
 </ul>
+      <h2>
+        <small>Inherited Method Summary</small>
+        <h3 class='inherited'>
+          Methods inherited from
+          <a href='../class/Library.html'>Library</a>
+        </h3>
+        <p class='inherited'>
+          <a href='../class/Library.html#add-dynamic'>#add</a>
+          <a href='../class/Library.html#get-dynamic'>#get</a>
+        </p>
+      </h2>
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='fetch-dynamic'>
+    <p class='signature' id='counter-dynamic'>
       #
 (void)
-<b>fetch</b><span>(name)</span>
+<b>counter</b><span>(name)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Counter</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      counter(name)
+    </h4>
+    <pre><code class='coffeescript'>data = new Data()
+data.counter(&quot;someData&quot;).up()</code></pre>
   </div>
-  <div class='method_details'>
-    <p class='signature' id='addDataSource-dynamic'>
-      #
-(void)
-<b>addDataSource</b><span>(name, dataSource)</span>
-      <br>
-    </p>
-    
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>name</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>for data </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  September 15, 14 17:04:07 by
+  September 30, 14 18:27:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

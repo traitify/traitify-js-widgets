@@ -63,6 +63,7 @@ class ApiFactory extends FactoryBoy
         image_desktop_retina: "#/desktop_retina",
         image_phone_landscape: "#/sample",
         image_phone_portrait: "#/sample",
+        completed_at: null,
         position: index + 1
       }
 

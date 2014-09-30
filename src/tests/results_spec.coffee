@@ -15,7 +15,7 @@ QUnit.module( "Results Tests", {
     Traitify.XHR = XMLHttpRequest
 })
 
-QUnit.asyncTest("Results without type When Requested", (assert)->
+QUnit.asyncTest("Results with type When Requested", (assert)->
   unless document.querySelector(".personality-types")
     personalityTypes = document.createElement("div")
     personalityTypes.setAttribute("class", "personality-types")
@@ -34,10 +34,10 @@ QUnit.asyncTest("Results without type When Requested", (assert)->
       target:".personality-traits"
     }
   }
+
   builder = Traitify.ui.load(playedAssessment, ".widget", options)
 
   builder.results.onInitialize(->
-    builder
     assert.equal(!document.querySelector(".badge"), false, "Personality types container exists")
     QUnit.start()
   )

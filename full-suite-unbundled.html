@@ -17,8 +17,8 @@
     -->
 
     <script src="./compiled/api/master.js"></script>
-    <script src="./compiled/builder/master.js"></script>
-    <script src="./compiled/loader/master.js"></script>
+    <script src="./compiled/ui/master.js"></script>
+    <script src="./compiled/builder/master.js"></script> 
     <script src="./compiled/widgets/slide_deck/master.js"></script>
     <script src="./compiled/widgets/results/default/master.js"></script>
     <script src="./compiled/widgets/results/personality-types/master.js"></script>
@@ -38,26 +38,24 @@
     <div class="personality-traits"></div>
     
 		<script>
-		Traitify.setHost("api.traitify.com");
-		Traitify.setPublicKey("hfr3vcfqfshcolkhbbh01qlokv");
+		Traitify.setHost("api-sandbox.traitify.com");
+		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
 		Traitify.setVersion("v1");
-    options = {
-                results:{
-                  params:{
-                    image_pack: "linear"  
-                  }
-                },
-                personalityTypes:{
-                    target:".personality-types"
-                },
-                personalityTraits:{
-                  target:".personality-traits"
-                }
-              }
-    tfPersonalityTypes = Traitify.ui.load("ef54d70d-d8d0-4c67-8a9c-c5d98237f7dd", ".slide-deck", options)
-    tfPersonalityTypes.slideDeck.onFinished(function(){
-      alert("HERE")
-		})
+  	options = {
+      results:{
+        params:{
+          image_pack: "linear"  
+        }
+      },
+      personalityTypes:{
+          target:".personality-types"
+      },
+      personalityTraits:{
+        target:".personality-traits"
+      }
+    }
+    tfPersonalityTypes = Traitify.ui.load("personalityTraits", "83990506-ac1f-4ead-97a0-e53fd7e458ed", ".slide-deck", options)
+ 
     /*
 		if(window.location.hash.substring(1).indexOf("&")){
 			var splitQueries = window.location.hash.substring(1).split("&")	
@@ -96,8 +94,6 @@
     */
 		</script>
 
-		<link href="assets/stylesheets/slide_deck.css" rel="stylesheet" />
-		<link href="assets/stylesheets/results_prop.css" rel="stylesheet" />
 		<div class="widget">
 		  <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
         <name class="awesome"></name>
