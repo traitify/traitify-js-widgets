@@ -16,7 +16,7 @@ stable:
 edge: 
   js:
     - "api/master.js" 
-    - "loader/master.js"
+    - "ui/master.js"
     - "builder/master.js"
     - "widgets/slide_deck/master.js"
     - "widgets/results/default/master.js"
