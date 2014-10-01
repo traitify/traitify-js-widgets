@@ -20,10 +20,10 @@ Traitify.ui.widget("results", (widget, options)->
   )
 
   widget.views.add("Personality Blend", ->
-    if widget.data.personality_blend
+    if widget.data.get("PersonalityTypes").personality_blend
 
       @tags.div("personalityBlend")
-      personalityBlendData = widget.data.personality_blend
+      personalityBlendData = widget.data.get("PersonalityTypes").personality_blend
       @render("Personality Blend Badges").appendTo("personalityBlend")
       @tags.div("name", personalityBlendData.name).appendTo("personalityBlend")
       @tags.div("blendDescription", personalityBlendData.description).appendTo("personalityBlend")
@@ -39,7 +39,7 @@ Traitify.ui.widget("results", (widget, options)->
   )
 
   widget.views.add("Personality Blend Badges", ->
-    personalityBlendData = widget.data.personality_blend
+    personalityBlendData = widget.data.get("PersonalityTypes").personality_blend
     typeOneData = personalityBlendData.personality_type_1
     hexColorOne = widget.helpers.hexToRGB(typeOneData.badge.color_1)
     @tags.div("badgesContainer")

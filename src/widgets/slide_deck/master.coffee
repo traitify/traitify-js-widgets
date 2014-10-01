@@ -35,7 +35,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       response: options.value, 
       time_taken: widget.data.get("currentSlideTime") - widget.data.get("lastSlideTime")
     })
-    console.log(widget.data.get("slideValues"))
   )
 
   widget.actions.add("afterSlideSave", ->
@@ -232,7 +231,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.actions.add("advanceSlide", ->
     widget.prefetchSlides()
-    console.log("triggered Advance Slide")
     widget.nodes("progressBarInner").style.width = widget.helpers.getProgressBarNumbers() + "%"
 
     if widget.nodes().playedSlide
