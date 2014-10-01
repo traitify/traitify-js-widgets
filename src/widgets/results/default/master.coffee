@@ -46,7 +46,7 @@ Traitify.ui.widget("results", (widget, options)->
 
     @tags.div("leftBadge", {style: {
       backgroundColor: "rgba(#{hexColorOne.join(', ')}, .07)",
-      borderColor: "##{personalityBlendData.personality_type_1.badge.color_1}"
+      borderColor: "##{typeOneData.badge.color_1}"
     }}).appendTo("badgesContainer")
     @tags.img("leftBadgeImage", typeOneData.badge.image_medium).appendTo("leftBadge")
     
