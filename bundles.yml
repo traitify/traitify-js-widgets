@@ -27,6 +27,7 @@ edge:
     - "widgets/slide_deck/master.css"
     - "widgets/results/default/master.css"
     - "widgets/results/personality-types/master.css"
+    - "widgets/results/personality-traits/master.css"
 full-suite: 
   js:
     - "api/1.0.js" 

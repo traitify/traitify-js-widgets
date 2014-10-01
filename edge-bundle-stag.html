@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      html, body{
+        margin:0px;
+        overflow-x:hidden;
+        width:100%;
+      }
+    </style>
+
+    <script src="https://s3.amazonaws.com/traitify-cdn/lib/stag/edge.js"></script>
+
+	</head>
+	<body>
+
+	<div class="slide-deck"></div>
+    
+    <div class="personality-types"></div>
+    <div class="personality-traits"></div>
+    
+		<script>
+		Traitify.setHost("api-sandbox.traitify.com");
+		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+		Traitify.setVersion("v1");
+  	options = {
+      results:{
+        params:{
+          image_pack: "linear"  
+        }
+      },
+      personalityTypes:{
+          target:".personality-types"
+      },
+      personalityTraits:{
+        target:".personality-traits"
+      }
+    }
+    tfPersonalityTypes = Traitify.ui.load("83990506-ac1f-4ead-97a0-e53fd7e458ed", ".slide-deck", options)
+ 
+    /*
+		if(window.location.hash.substring(1).indexOf("&")){
+			var splitQueries = window.location.hash.substring(1).split("&")	
+		}else{
+			var splitQueries = window.location.hash.substring(1)
+		}
+
+		var splitByKeyValue = Object() 
+		for(index in splitQueries){
+			keyValue = splitQueries[index].split("=")
+			splitByKeyValue[keyValue[0]] = keyValue[1]
+		}
+
+
+		if(splitByKeyValue.nonTouch){
+			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
+		}else{
+			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, {traits:true, size:"small"});	
+		}
+		
+		Builder.onInitialize(function(){
+			console.log("initialized!")
+		})
+		Builder.onMe(function(){
+			console.log("You me'd a slide!")
+		})
+		Builder.onNotMe(function(){
+			console.log("You  not me'd a slide!")
+		})
+		Builder.onFinished(function(){
+			console.log("You Finished!")
+		})
+		Builder.onAddSlide(function(){
+			console.log("You added a slide!")
+		})
+    */
+		</script>
+
+		<div class="widget">
+		  <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
+        <name class="awesome"></name>
+        <badge-image></badge-image>
+        <score></score>
+		  </template>
+		</div>
+		<style>
+		    body{
+		      padding:0px;
+		      margin:0px;
+		    }
+		</style>
+	</body>
+</html>

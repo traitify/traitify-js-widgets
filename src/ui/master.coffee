@@ -26,6 +26,7 @@ class Ui
   load: (assessmentId, target, options = Object(), shiftedOptions)->
     nonSlideWidgets = Object()
     slideWidgets = Object()
+    document.querySelector(target).innerHTML = Traitify.ui.styles
     if widget = @widgets[assessmentId]
       assessmentId = target
       target = options
