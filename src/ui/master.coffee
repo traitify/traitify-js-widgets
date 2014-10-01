@@ -26,16 +26,17 @@ class Ui
   load: (assessmentId, target, options = Object(), shiftedOptions)->
     nonSlideWidgets = Object()
     slideWidgets = Object()
-    document.querySelector(target).innerHTML = Traitify.ui.styles
     if widget = @widgets[assessmentId]
       assessmentId = target
       target = options
       options = shiftedOptions
+      document.querySelector(target).innerHTML = Traitify.ui.styles
 
       widget = widget(assessmentId, target, options)
       Traitify.ui.loadResults({slideDeck: widget})
       return widget
     else
+      document.querySelector(target).innerHTML = Traitify.ui.styles
       allWidgets = Object()
       for widgetName in Object.keys(@widgets)
         if options[widgetName] && options[widgetName]["target"]
