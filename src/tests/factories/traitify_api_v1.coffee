@@ -13,7 +13,7 @@ class ApiFactory extends FactoryBoy
     )
 
     @factory("personalityType", (factory, options, index)->
-      name = ["Charmer", "Inventor"][index % 2]
+      name = ["Charmer", "Inventor"][index % 6]
       {
         badge: factory.build("badge")
         description: "A #{name} and can draw people in like flies to honey."

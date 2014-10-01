@@ -23,7 +23,7 @@ class Ui
   # @param [String] Widget Name
   # @param [Function] Callback for Widget Specifications
   #
-  load: (assessmentId, target, options, shiftedOptions)->
+  load: (assessmentId, target, options = Object(), shiftedOptions)->
     nonSlideWidgets = Object()
     slideWidgets = Object()
     if widget = @widgets[assessmentId]
@@ -32,9 +32,10 @@ class Ui
       options = shiftedOptions
 
       widget = widget(assessmentId, target, options)
-      Traitify.ui.loadResults([widget])
-      return slideWidgets
+      Traitify.ui.loadResults({slideDeck: widget})
+      return widget
     else
+      allWidgets = Object()
       for widgetName in Object.keys(@widgets)
         if options[widgetName] && options[widgetName]["target"]
           currentTarget = options[widgetName]["target"]
@@ -44,8 +45,10 @@ class Ui
         dataDependencies = @runningWidgets[widgetName].dataDependencies
         if dataDependencies.indexOf("Slides") != -1
           slideWidgets[widgetName] = @runningWidgets[widgetName]
+          slideWidgets[widgetName].widgets = allWidgets
         else
           nonSlideWidgets[widgetName] = @runningWidgets[widgetName]
+          nonSlideWidgets[widgetName].widgets = allWidgets
       if Object.keys(slideWidgets).length != 0
         Traitify.getSlides(assessmentId).then((slides)->
           if slides.filter( (slide)-> typeof slide.completed_at == "number" ).length != 0
@@ -57,8 +60,6 @@ class Ui
               slideWidget.run()
         )
 
-        allWidgets = Object()
-        console.log("RUN")
         for widgetName in Object.keys(nonSlideWidgets)
           allWidgets[widgetName] = nonSlideWidgets[widgetName]
         for widgetName in Object.keys(slideWidgets)
@@ -69,16 +70,17 @@ class Ui
     dependencies = Object()
     for widgetName in Object.keys(widgets)
       widget = widgets[widgetName]
+      widget.widgets = widgets
       for dependency in widget.dataDependencies
         if dependencies[dependency] != true
           dependencies[dependency] = true
-          console.log(dependency)
           results = Traitify["get#{dependency}"](widget.assessmentId)
           results.cleanName = dependency
 
           results.then((data)->
             dependency = @cleanName
             dependentWidgetNames = Object.keys(widgets).filter((widgetName)-> 
+              widgets[widgetName]
               widgets[widgetName].dataDependencies.indexOf(dependency) != -1
             )
             for widgetName in dependentWidgetNames

@@ -1,5 +1,5 @@
 
-Traitify.ui.widget("slideDeck", (widget, options)->
+Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.data.add("slideResponses", Object())
   widget.states.add("animating")
   widget.states.add("finished")
@@ -51,12 +51,13 @@ Traitify.ui.widget("slideDeck", (widget, options)->
           widget.nodes("main").innerHTML = ""
           if widget.options && widget.options.showResults != false
             widget.nodes("main").innerHTML = Traitify.ui.styles
+            widgets = widget.widgets
             if widgets.results
               Traitify.ui.load("results", widget.assessmentId, widgets.results.target, widgets.results.options)
             if widgets.personalityTypes
-              Traitify.ui.load("personalityTypes", widget.assessmentId, widgets.results.target, widgets.personalityTypes.options)
+              Traitify.ui.load("personalityTypes", widget.assessmentId, widgets.personalityTypes.target, widgets.personalityTypes.options)
             if widgets.personalityTraits
-              Traitify.ui.load("personalityTraits", widget.assessmentId, widgets.results.target, widgets.personalityTraits.options)
+              Traitify.ui.load("personalityTraits", widget.assessmentId, widgets.personalityTraits.target, widgets.personalityTraits.options)
             
           widget.callbacks.trigger("Finished")
       )

@@ -19,11 +19,9 @@
 SimplePromise = (callback)->
     localPromise = Object()
     localPromise.then = (callback)->
+      localPromise.thenCallback = callback
       if localPromise.resolved
-        callback(localPromise.data)
-        localPromise
-      else
-        localPromise.thenCallback = callback
+        localPromise.thenCallback(localPromise.data)
       localPromise
     localPromise.resolved = false
     
@@ -161,7 +159,7 @@ class ApiClient
 
       xhr.setRequestHeader "Content-type", "application/json"
       xhr.setRequestHeader "Accept", "application/json"
-
+    that = this
     promise = new SimplePromise((resolve, reject)->
       try
         xhr.onload = ->
@@ -175,7 +173,8 @@ class ApiClient
               ).replace(/_/g, "")
             data = JSON.parse(data)
             callback(data) if callback
-            resolve(data)
+            that.resolve = resolve
+            that.resolve(data)
         xhr.send JSON.stringify(params)
         xhr
       catch error

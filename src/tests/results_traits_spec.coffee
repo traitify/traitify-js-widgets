@@ -6,19 +6,21 @@ QUnit.module( "Results Traits Tests", {
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
-    document.getElementsByClassName("widget")[0].innerHTML = ""
     unless document.querySelector(".widget")
       widget = document.createElement("div")
       widget.setAttribute("class", "widget")
       body.appendChild(widget)
+    document.getElementsByClassName("widget")[0].innerHTML = ""
   ,
   teardown: ->
     Traitify.XHR = XMLHttpRequest
 })
 
-QUnit.asyncTest("Results Traits Widget Appears with load('perosnalityTraits'...)", (assert)->
-  builder = Traitify.ui.load("personalityTraits", playedAssessment, ".widget")
-  builder.personalityTraits.onInitialize(->
+QUnit.asyncTest("Results Traits Widget Appears with load('personalityTraits'...)", (assert)->
+  console.log(personalityTraits)
+  personalityTraits = Traitify.ui.load("personalityTraits", playedAssessment, ".widget")
+
+  personalityTraits.onInitialize(->
     trait = document.querySelector(".trait")
 
     assert.ok(trait, "Personality types container exists")

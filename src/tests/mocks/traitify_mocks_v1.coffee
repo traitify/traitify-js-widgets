@@ -61,14 +61,24 @@ MockRequest.addMock({
   params: [{"id":0,"response":true,"response_time":1000}],
   response: ""
 })
-
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/played_with_blend/personality_traits/raw",
+  params: "",
+  response: apiFactory.build("personalityTraits", {number: 10})
+})
 MockRequest.addMock({
   method: "GET",
   url: "https://api-sandbox.traitify.com/v1/assessments/played/personality_traits/raw",
   params: "",
   response: apiFactory.build("personalityTraits", {number: 10})
 })
-
+MockRequest.addMock({
+  method: "GET",
+  url: "https://api-sandbox.traitify.com/v1/assessments/unplayed/personality_traits/raw",
+  params: "",
+  response: apiFactory.build("personalityTraits", {number: 10})
+})
 MockRequest.addMock({
   method: "GET",
   url: "https://api-sandbox.traitify.com/v1/assessments/played/personality_types/{personality_type_id}/personality_traits",

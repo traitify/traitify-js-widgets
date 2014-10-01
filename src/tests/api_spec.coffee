@@ -128,11 +128,3 @@ QUnit.test("Test Get Personality Traits", (assert)->
     assert.ok(response[0].personality_trait.definition, "Checking that The First Deck Succeedss!" )
   )
 )
-
-
-QUnit.test("Test Get Personality Types Personality Traits", (assert)->
-  personalityTypes = @Traitify.getPersonalityTypesTraits(playedAssessment, "{personality_type_id}")
-  personalityTypes.then((response)->
-    assert.ok(response[0].personality_trait.definition, "Checking that The First Deck Succeedss!" )
-  )
-)
