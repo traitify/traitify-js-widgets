@@ -44,6 +44,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     if widget.data.get("slideValues").length % 10 == 0 || sentSlides == widget.data.get("slidesToPlayLength")
       addSlide = Traitify.addSlides(widget.assessmentId, widget.data.get("slideValues"))
+      widget.data.add("slideValues", Array())
       addSlide.then((response)->
         widget.callbacks.trigger("addSlide")
         if sentSlides == widget.data.get("slidesToPlayLength")
