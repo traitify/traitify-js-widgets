@@ -48,9 +48,9 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       addSlide.then((response)->
         widget.callbacks.trigger("addSlide")
         if sentSlides == widget.data.get("slidesToPlayLength")
-          widget.nodes("main").innerHTML = ""
+          widget.nodes.get("main").innerHTML = ""
           if widget.options && widget.options.showResults != false
-            widget.nodes("main").innerHTML = Traitify.ui.styles
+            widget.nodes.get("main").innerHTML = Traitify.ui.styles
             widgets = widget.widgets
             if widgets.results
               Traitify.ui.load("results", widget.assessmentId, widgets.results.target, widgets.results.options)
@@ -95,33 +95,33 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.views.add("meNotMe", ->
     meNotMeContainer = @tags.div("meNotMeContainer")
-    widget.nodes().me = @tags.div("me")
-    widget.nodes().notMe = @tags.div("notMe")
-    widget.nodes().notMe.innerHTML = "NOT ME"
-    widget.nodes().me.innerHTML = "ME"
-    meNotMeContainer.appendChild(widget.nodes().me)
-    meNotMeContainer.appendChild(widget.nodes().notMe)
-    widget.nodes().meNotMeContainer = meNotMeContainer
+    widget.nodes.set("me", @tags.div("me"))
+    widget.nodes.set("notMe", @tags.div("notMe"))
+    widget.nodes.get("notMe").innerHTML = "NOT ME"
+    widget.nodes.get("me").innerHTML = "ME"
+    meNotMeContainer.appendChild(widget.nodes.get("me"))
+    meNotMeContainer.appendChild(widget.nodes.get("notMe"))
+    widget.nodes.set("meNotMeContainer", meNotMeContainer)
     
     meNotMeContainer
   )
   widget.views.add("slides", (slidesData)->
     slides = @tags.div("slides")
     placeHolderSlide = widget.views.render("slide", slidesData[0])
+    placeHolderSlide.appendTo("slides")
     placeHolderSlide.className += " placeholder"
-    slides.appendChild(placeHolderSlide)
 
-    widget.nodes().currentSlide = widget.views.render("slide", slidesData[0])
-    widget.nodes().currentSlide.className += " active"
-    slides.appendChild(widget.nodes().currentSlide)
+    widget.nodes.set("currentSlide", widget.views.render("slide", slidesData[0]))
+    widget.nodes.get("currentSlide").className += " active"
+    widget.nodes.get("currentSlide").appendTo("slides")
 
     if slidesData[1]
-      widget.nodes().nextSlide = widget.views.render("slide", slidesData[1])
-      slides.appendChild(widget.nodes().nextSlide)
+      widget.nodes.set("nextSlide", widget.views.render("slide", slidesData[1]))
+      widget.nodes.get("nextSlide").appendTo("slides")
     else
-      widget.nodes().nextSlide = false
+      widget.nodes.set("nextSlide", false)
 
-    widget.nodes().slides = slides
+    widget.nodes.set("slides", slides)
 
     slides
   )
@@ -149,8 +149,8 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     progressBarInner.style.width = percentFinished + "%"
     progressBar.appendChild(progressBarInner)
 
-    widget.nodes().progressBar = progressBar
-    widget.nodes().progressBarInner = progressBarInner
+    widget.nodes.set("progressBar", progressBar)
+    widget.nodes.set("progressBarInner", progressBarInner)
 
     progressBar
   )
@@ -168,8 +168,9 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   ##########################
   # HELPERS
   ##########################
-  touched = Object()
+  widget.data.add("touched", Object())
   widget.helpers.add("touch", (touchNode, callBack)->
+    touched = widget.data.get("touched")
     touchNode.addEventListener('touchstart', (event)->
       touchobj = event.changedTouches[0]
       touched.startx = parseInt(touchobj.clientX)
@@ -186,16 +187,16 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
   widget.helpers.add("onload", (callBack)->
     if (window.addEventListener)
-        window.addEventListener('load', callBack)
+      window.addEventListener('load', callBack)
     else if (window.attachEvent)
-        window.attachEvent('onload', callBack)
+      window.attachEvent('onload', callBack)
   )
     
   ###########################
   # EVENTS
   ###########################
   widget.actions.add("me", ->
-    if !widget.states.get("animating") && widget.nodes().nextSlide
+    if !widget.states.get("animating") && widget.nodes.get().nextSlide
       if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
         widget.actions.trigger("loadingAnimation")
       widget.states.set("animating", true)
@@ -212,7 +213,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
 
   widget.actions.add("notMe", ->
-    if !widget.states.get("animating") && widget.nodes().nextSlide
+    if !widget.states.get("animating") && widget.nodes.get("nextSlide")
 
       if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
 
@@ -231,75 +232,76 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
 
   widget.actions.add("advanceSlide", ->
-    widget.prefetchSlides()
-    widget.nodes("progressBarInner").style.width = widget.helpers.getProgressBarNumbers() + "%"
+    widget.actions.trigger("prefetchSlides")
+    widget.nodes.get("progressBarInner").style.width = widget.helpers.getProgressBarNumbers() + "%"
 
-    if widget.nodes().playedSlide
+    if widget.nodes.get("playedSlide")
       # REMOVE NODE
-      widget.nodes().slides.removeChild(widget.nodes().playedSlide)
+      widget.nodes.get("slides").removeChild(widget.nodes.get("playedSlide"))
 
-    widget.nodes().playedSlide = widget.nodes().currentSlide
+    widget.nodes.set("playedSlide", widget.nodes.get("currentSlide"))
 
-    widget.nodes().currentSlide = widget.nodes().nextSlide
+    widget.nodes.set("currentSlide", widget.nodes.get("nextSlide"))
     
-    widget.nodes().currentSlide.addEventListener('webkitTransitionEnd', (event)-> 
+    widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', (event)-> 
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
       widget.states.set("transitionEndListens", true)
     , false )
 
-    widget.nodes().currentSlide.addEventListener('transitionend', (event)-> 
+    widget.nodes.get("currentSlide").addEventListener('transitionend', (event)-> 
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
     , false )
   
-    widget.nodes().currentSlide.addEventListener('oTransitionEnd', (event)-> 
+    widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', (event)-> 
       widget.events.trigger("advancedSlide")
       widget.states.set("animating", false)
     , false )
   
-    widget.nodes().currentSlide.addEventListener('otransitionend', (event)-> 
+    widget.nodes.get("currentSlide").addEventListener('otransitionend', (event)-> 
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
     , false )
 
-    widget.nodes().playedSlide.className += " played"
-    widget.nodes().currentSlide.className += " active"
+    widget.nodes.get("playedSlide").className += " played"
+    widget.nodes.get("currentSlide").className += " active"
     # NEW NEXT SLIDE
     nextSlideData = widget.data.get("Slides")[widget.data.get("currentSlide") + 1]
     if nextSlideData
-      widget.nodes().nextSlide = widget.views.render("slide", nextSlideData)
-      widget.nodes().slides.appendChild(widget.nodes().nextSlide)
+      widget.nodes.set("nextSlide", widget.views.render("slide", nextSlideData))
+      widget.nodes.get("slides").appendChild(widget.nodes.get().nextSlide)
 
     if widget.callbacks.advanceSlide
       widget.callbacks.advanceSlide(widget)
   )
 
   widget.actions.add("loadingAnimation", ->
-    widget.nodes().meNotMeContainer.className += " hide"
-    widget.nodes().slides.removeChild(widget.nodes().currentSlide)
-    widget.nodes().slides.insertBefore(widget.views.render("loadingAnimation"), widget.nodes().slides.firstChild)
+    widget.nodes.get("meNotMeContainer").className += " hide"
+    widget.nodes.get("slides").removeChild(widget.nodes.get("currentSlide"))
+    widget.nodes.get("slides").insertBefore(widget.views.render("loadingAnimation"), widget.nodes.get("slides").firstChild)
   )
 
-  widget.imageCache = Object()
-  widget.prefetchSlides = (count)->
+  widget.data.add("imageCache", Object())
+  widget.actions.add("prefetchSlides", (count)->
     start = widget.data.get("currentSlide") - 1
     end = widget.data.get("currentSlide") + 9
 
     for slide in widget.data.get("Slides").slice(start, end)
-      unless widget.imageCache[slide.image_desktop_retina]
-        widget.imageCache[slide.image_desktop_retina] = new Image()
-        widget.imageCache[slide.image_desktop_retina].src = slide.image_desktop_retina
+      unless widget.data.get("imageCache")[slide.image_desktop_retina]
+        widget.data.get("imageCache")[slide.image_desktop_retina] = new Image()
+        widget.data.get("imageCache")[slide.image_desktop_retina].src = slide.image_desktop_retina
+  )
 
   widget.actions.add("setContainerSize", ->
-      width = widget.nodes().main.scrollWidth
-      widget.nodes().container.className = widget.nodes().container.className.replace(" medium", "")
-      widget.nodes().container.className = widget.nodes().container.className.replace(" large", "")
-      widget.nodes().container.className = widget.nodes().container.className.replace(" small", "")
+      width = widget.nodes.get("main").scrollWidth
+      widget.nodes.get("container").className = widget.nodes.get("container").className.replace(" medium", "")
+      widget.nodes.get("container").className = widget.nodes.get("container").className.replace(" large", "")
+      widget.nodes.get("container").className = widget.nodes.get("container").className.replace(" small", "")
       if width < 480
-        widget.nodes().container.className += " small"
+        widget.nodes.get("container").className += " small"
       else if width < 768
-        widget.nodes().container.className += " medium"
+        widget.nodes.get("container").className += " medium"
   )
 
   widget.actions.add("onRotate", (rotateEvent)->
@@ -333,36 +335,36 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
       
   widget.initialization.events.add("Handle device type", ->
-    widget.nodes().container = widget.views.render("slideDeckContainer")
+    widget.nodes.set("container", widget.views.render("slideDeckContainer"))
     if widget.device
-      widget.nodes().container.className += " #{widget.device}"
-      widget.nodes().container.className += " mobile phone"
-      widget.nodes().container.className += " non-touch"
+      widget.nodes.get("container").className += " #{widget.device}"
+      widget.nodes.get("container").className += " mobile phone"
+      widget.nodes.get("container").className += " non-touch"
 
     if options && options.size
-      widget.nodes().container.className += " #{options.size}"
-    widget.nodes().main.appendChild(widget.nodes().container)
+      widget.nodes.get("container").className += " #{options.size}"
+    widget.nodes.get("main").appendChild(widget.nodes.get().container)
   )
 
   widget.initialization.events.add("Actions", ->
     if widget.device == "iphone"  ||  widget.device == "ipad" 
-      widget.helpers.touch(widget.nodes().notMe, ->
+      widget.helpers.touch(widget.nodes.get("notMe"), ->
         widget.events.trigger("notMe")
       )
-      widget.helpers.touch(widget.nodes().me, ->
+      widget.helpers.touch(widget.nodes.get("me"), ->
         widget.events.trigger("me")
       )
     else
-      widget.nodes().notMe.onclick = ->
+      widget.nodes.get("notMe").onclick = ->
         widget.actions.trigger("notMe")
 
-      widget.nodes().me.onclick = ->
+      widget.nodes.get("me").onclick = ->
         widget.actions.trigger("me")
   )
 
 
   widget.initialization.events.add("Prefetch Slides", ->
-    widget.prefetchSlides()
+    widget.actions.trigger("prefetchSlides")
   )
 
 
@@ -376,7 +378,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     if widget.device && widget.device
       setupScreen = ->
         windowOrienter = ->
-            widget.nodes().main.style.height = window.innerHeight + "px"
+          widget.nodes.get("main").style.height = window.innerHeight + "px"
         windowOrienter()
 
       widget.actions.trigger("onRotate", (event)->

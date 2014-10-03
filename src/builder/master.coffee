@@ -68,6 +68,18 @@ class Library
   #
   add: (name, item)->
     @store[name] = item
+  # set
+  #
+  # @example set(name, helper)
+  #   library = new Library()
+  #   library.set("thisName", "item here")
+  #
+  # @param [String] Name for the data
+  # @param [String, Object, Function] Item to store
+  # @return [Object, String, Number, Function] The stored item
+  #  
+  set: (name, item)->
+    @store[name] = item
   # Get
   #
   # @example get(name)
@@ -429,6 +441,7 @@ class Widget
       @device = "blackberry"
     if @userAgent.match(/webOS/i)
       @device = "webos"
+    @nodes = @views.tags.library
     @
   # dataDependency
   #
@@ -439,18 +452,6 @@ class Widget
   #
   dataDependency: (dependencyName)->
     @dataDependencies.push(dependencyName)
-  # Nodes
-  #
-  # @example nodes(name)
-  #   widget = new Widget(".example-selector")
-  #   states.nodes("someNode")
-  # @param [String] Name for node in widgets
-  #
-  nodes: (name)->
-    if name
-      @views.tags.library.get(name)
-    else
-      @views.tags.library.store
   # Run
   #
   # @example run()

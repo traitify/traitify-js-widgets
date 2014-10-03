@@ -1,6 +1,6 @@
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
       html, body{
         margin:0px;
@@ -11,32 +11,32 @@
 
     <script src="https://s3.amazonaws.com/traitify-cdn/lib/stag/edge.js"></script>
 
-	</head>
-	<body>
+  </head>
+  <body>
 
-	<div class="slide-deck"></div>
+  <div class="slide-deck"></div>
     
     <div class="personality-types"></div>
     <div class="personality-traits"></div>
     
-	<script>
-		Traitify.setHost("api-sandbox.traitify.com");
-		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
-		Traitify.setVersion("v1");
-	  	options = {
-	      results:{
-	        params:{
-	          image_pack: "linear"  
-	        }
-	      },
-	      personalityTypes:{
-	          target:".personality-types"
-	      },
-	      personalityTraits:{
-	        target:".personality-traits"
-	      }
-	    }
-	    tfPersonalityTypes = Traitify.ui.load("4cd45c08-98a3-4a62-9913-dd009a29a7ae", ".slide-deck", options)
+  <script>
+    Traitify.setHost("api-sandbox.traitify.com");
+    Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+    Traitify.setVersion("v1");
+      options = {
+        results:{
+          params:{
+            image_pack: "linear"  
+          }
+        },
+        personalityTypes:{
+            target:".personality-types"
+        },
+        personalityTraits:{
+          target:".personality-traits"
+        }
+      }
+      tfPersonalityTypes = Traitify.ui.load("17297085-bfaa-49fc-9f43-328ffcd705e8", ".slide-deck", options)
     </script>
-	</body>
+  </body>
 </html>
