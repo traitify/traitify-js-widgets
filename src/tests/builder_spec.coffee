@@ -20,8 +20,8 @@ QUnit.test("Builder Main Node", (assert)->
 )
 
 QUnit.test("Has View class Attached", (assert)->
-  delete @widget.views.tags.library.store["main"] 
-  delete @widget.views.tags.library.store["main"] 
+  delete @widget.views.tags.library.store["main"]
+  delete @widget.views.tags.library.store["main"]
   views = new Views()
   views.data = new Data()
   assert.equal(JSON.stringify(@widget.views), JSON.stringify(views), "passed!")
@@ -262,7 +262,7 @@ QUnit.test("States should be able to be Set with set not just Add", (assert)->
 
 QUnit.test("Can get Nodes", (assert)->
   main = document.querySelector(".builder-test-initialization")
-
-  assert.equal(@widget.nodes()["main"], main, "Can get all nodes and compare")
-  assert.equal(@widget.nodes("main"), main, "Can get single node and compare")
+  
+  assert.equal(@widget.nodes.get()["main"], main, "Can get all nodes and compare")
+  assert.equal(@widget.nodes.get("main"), main, "Can get single node and compare")
 )

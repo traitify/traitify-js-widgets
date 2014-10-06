@@ -46,7 +46,7 @@ QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert
     assert.equal(slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!")
 
     #First Slide
-    firstSlide = slideDeck.nodes().currentSlide.getElementsByClassName("caption")[0].innerHTML
+    firstSlide = slideDeck.nodes.get("currentSlide").getElementsByClassName("caption")[0].innerHTML
     assert.equal(firstSlide, "Navigating", "First Slide is on DOM Succeeds!")
 
     #Builder Nodes
@@ -70,7 +70,7 @@ QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert
       "container"
     ]
     for name in builderNodeNames
-      assert.ok( slideDeck.nodes(), name, "Node Name #{name} exists in Node list!")
+      assert.ok( slideDeck.nodes.get(name), "Node Name #{name} exists in Node list!")
     QUnit.start()
   )
 
@@ -85,14 +85,14 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
     assert.equal( slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!" )
 
     #First Slide
-    firstSlide = slideDeck.nodes().currentSlide.getElementsByClassName("caption")[0].innerHTML
+    firstSlide = slideDeck.nodes.get("currentSlide").getElementsByClassName("caption")[0].innerHTML
     assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
 
     document.querySelector(".widget").innerHTML
     
     slideDeck.data.assessmentId = "played"
     slideDeck.data.get("SlidesNotCompleted").length.times((i)->
-      currentSlide = slideDeck.nodes().currentSlide
+      currentSlide = slideDeck.nodes.get("currentSlide")
       type =  if i % 2 == 0 then 0 else 1
       meNotMe = [document.querySelector(".me"), document.querySelector(".not-me")][type]
       meNotMe.trigger('click')
@@ -101,16 +101,47 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
       currentSlide.trigger("transitionEnd")
       sentSlideNumber = slideDeck.data.get("sentSlides")
     )
-    
-    waitUntil( ->
-      slideDeck.data.get("sentSlides") == slideDeck.data.get("slidesToPlayLength")
-    ).then(->
+
+    widgets.results.onInitialize(->
       assert.ok(document.querySelector(".widget .tf-results"), "Node exists!")
       QUnit.start()    
     )
-    
   )
 
+)
+
+
+QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
+  widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
+  slideDeck = widgets.slideDeck
+
+  slideDeck.onInitialize(->
+    #Data Should Exist
+    assert.equal( slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!" )
+
+    #First Slide
+    firstSlide = slideDeck.nodes.get("currentSlide").getElementsByClassName("caption")[0].innerHTML
+    assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
+
+    document.querySelector(".widget").innerHTML
+    
+    slideDeck.data.assessmentId = "played"
+    slideDeck.data.get("SlidesNotCompleted").length.times((i)->
+      currentSlide = slideDeck.nodes.get("currentSlide")
+      type =  if i % 2 == 0 then 0 else 1
+      meNotMe = [document.querySelector(".me"), document.querySelector(".not-me")][type]
+      meNotMe.trigger('click')
+
+      currentSlide.trigger("webkitTransitionEnd")
+      currentSlide.trigger("transitionEnd")
+      sentSlideNumber = slideDeck.data.get("sentSlides")
+    )
+
+    widgets.results.onInitialize(->
+      assert.ok(document.querySelector(".widget .tf-results"), "Node exists!")
+      QUnit.start()    
+    )
+  )
 )
 
 QUnit.asyncTest("Slide Deck Widget Initialize with load('slideDeck', ...)", (assert)->

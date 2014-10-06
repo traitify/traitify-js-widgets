@@ -47,9 +47,8 @@ QUnit.asyncTest("Results Widget Appears on Screen", (assert)->
   builder = Traitify.ui.load(playedWithBlend, ".widget")
 
   builder.results.onInitialize(->
-    badge = document.querySelector(".widget .badges-container .badge")
-    badge.innerHTML = ""
-    assert.equal(badge.outerHTML, "<div class=\"badge\"></div>", "Personality types container exists")
+    badge = document.querySelector(".widget .badges-container .left-badge")
+    assert.equal(badge.getAttribute("class"), "left-badge", "Personality types container exists")
     QUnit.start()
   )
 )

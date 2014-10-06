@@ -46,8 +46,6 @@ QUnit.asyncTest("Results Click Through Personality Types", (assert)->
         descriptionAfter = document.querySelector(".widget .description").innerHTML
         descriptionAfter != descriptionBefore
       ).then((truthy)->
-        console.log(descriptionBefore)
-        console.log(descriptionAfter)
         assert.ok(descriptionBefore != descriptionAfter, "Personality types container exists")
         QUnit.start()
       )

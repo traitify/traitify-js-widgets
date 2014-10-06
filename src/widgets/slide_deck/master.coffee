@@ -52,13 +52,12 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
           if widget.options && widget.options.showResults != false
             widget.nodes.get("main").innerHTML = Traitify.ui.styles
             widgets = widget.widgets
-            if widgets.results
-              Traitify.ui.load("results", widget.assessmentId, widgets.results.target, widgets.results.options)
-            if widgets.personalityTypes
-              Traitify.ui.load("personalityTypes", widget.assessmentId, widgets.personalityTypes.target, widgets.personalityTypes.options)
             if widgets.personalityTraits
-              Traitify.ui.load("personalityTraits", widget.assessmentId, widgets.personalityTraits.target, widgets.personalityTraits.options)
-            
+              widgets.personalityTraits = Traitify.ui.load("personalityTraits", widget.assessmentId, widgets.personalityTraits.target, widgets.personalityTraits.options)
+            if widgets.personalityTypes
+              widgets.personalityTypes = Traitify.ui.load("personalityTypes", widget.assessmentId, widgets.personalityTypes.target, widgets.personalityTypes.options)
+            if widgets.results
+              widgets.results = Traitify.ui.load("results", widget.assessmentId, widgets.results.target, widgets.results.options)
           widget.callbacks.trigger("Finished")
       )
   )
@@ -377,12 +376,13 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     if widget.device && widget.device
       setupScreen = ->
-        windowOrienter = ->
+        widget.helpers.add("windowOrienter", ->
           widget.nodes.get("main").style.height = window.innerHeight + "px"
-        windowOrienter()
+        )
+        widget.helpers.windowOrienter()
 
       widget.actions.trigger("onRotate", (event)->
-        windowOrienter()
+        widget.helpers.windowOrienter()
       )
 
       widget.helpers.onload( ->

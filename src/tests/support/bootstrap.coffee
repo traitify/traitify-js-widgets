@@ -43,9 +43,15 @@ waitUntil = (item)->
 HTMLElement.prototype.trigger = (eventType, options)->
   switch eventType
     when "click"
-      event = document.createEvent("MouseEvent");
+      event = document.createEvent("MouseEvent")
       event.initMouseEvent('click', true, true, window, 1, 0, 0)
-      this.dispatchEvent(event)
+      @dispatchEvent(event)
+    when "touch"
+      event = document.createEvent('TouchEvent')
+      @
+      event.touches = [{pageX: pageX, pageY: pageY}];
+      event.initTouchEvent()
+
     else
       event = document.createEvent("Event");
       event.initEvent(eventType, true, true)
