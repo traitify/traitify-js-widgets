@@ -1,5 +1,7 @@
 widget = Object()
 QUnit.module( "Testing API Version 1", { setup: ->
+  Traitify = new ApiClient()
+  Traitify.XHR = MockRequest
   Traitify.setVersion("v1")
   Traitify.setHost("api-sandbox.traitify.com")
   Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")

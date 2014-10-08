@@ -110,6 +110,7 @@ class Ui
   widget: (widgetName, callback)->
     Traitify.ui.widgets[widgetName] = (assessmentId, target, options)->
       localWidget = new Widget(target)
+      localWidget.data.cookies.scope = assessmentId
       localWidget.build = callback
       localWidget.assessmentId = assessmentId
       localWidget.options = options  

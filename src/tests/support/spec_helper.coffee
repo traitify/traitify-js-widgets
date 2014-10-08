@@ -29,6 +29,7 @@ testSuite.defaultSuite("master")
 ################################
 require("./support/qunit-1.14.0")
 require("./support/blanket.min")
+require("./support/jquery.min")
 require("../compiled/tests/support/mocker")
   
 

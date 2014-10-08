@@ -46,6 +46,28 @@ class Helpers
   add: (name, helper)->
     @[name] = helper
 
+class Cookie
+  constructor: ->
+    @scope = "default"
+  set: (name, item, @time = 2)->
+    time = new Date()
+    time.setTime(time.getTime() + (@time * 60000))
+    expires = "expires="+time.toUTCString();
+    item = JSON.stringify(item)
+    document.cookie = "tf-cookie-#{@scope}-#{name}=#{item}; " + expires;
+
+  get: (name)->
+    ca = document.cookie.split(";")
+    i = 0
+    name = "tf-cookie-#{@scope}-#{name}="
+    while i < ca.length
+      c = ca[i]
+      c = c.substring(1)  while c.charAt(0) is " "
+      tfCookie = c.substring(name.length, c.length)  unless c.indexOf(name) is -1
+      i++
+    if tfCookie
+      return JSON.parse(tfCookie)
+
 # Base Library for consistent storage and retrieval.
 #
 # @example How to use Library
@@ -68,6 +90,7 @@ class Library
   #
   add: (name, item)->
     @store[name] = item
+
   # set
   #
   # @example set(name, helper)
@@ -79,7 +102,8 @@ class Library
   # @return [Object, String, Number, Function] The stored item
   #  
   set: (name, item)->
-    @store[name] = item
+    @add(name, item)
+
   # Get
   #
   # @example get(name)
@@ -95,6 +119,7 @@ class Library
       @store[name]
     else
       @store
+
 
 # Base Callbacks Logic for simple Callback addition, setting, and triggering.
 #
@@ -272,6 +297,21 @@ class Tags
 #   data.get("chairs") # 0
 #
 class Data extends Library
+  constructor: ->
+    super()
+    @cookies = new Cookie()
+    @persists = Object()
+  add: (name, item)->
+    super(name, item)
+    if @persists[name]
+      @cookies.set(name, item, @persists[name])
+    item
+  get: (name)->
+    if @persists[name] && !@store[name]
+      return @set(name, @cookies.get(name))
+    else
+      super(name)
+
   # Counter
   #
   # @example counter(name)
@@ -284,7 +324,18 @@ class Data extends Library
     up: (number)->
       store[name] += number || 1
     down: (number)->
-      store[name] -= number || 1
+      store[name] -= number || 1 
+  # Persist
+  #
+  # @example persist(name)
+  #   data = new Data()
+  #   data.persist("someData")
+  # @param [String] name for data
+  #
+  persist: (name, time = 2)->
+    @persists[name] = time
+    undefined
+
 
 # View Logic for building, and storing Views
 #

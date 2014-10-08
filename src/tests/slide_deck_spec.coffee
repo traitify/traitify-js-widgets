@@ -1,11 +1,10 @@
-Traitify.XHR = MockRequest
-
 QUnit.module( "module A", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+
     unless document.querySelector(".widget .slide-deck")
       widget = document.createElement("div")
       widget.setAttribute("class", "widget")
@@ -111,7 +110,11 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
 )
 
 
-QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
+QUnit.asyncTest("Slide Deck Widget can touch through slides", (assert)->
+  oldUserAgent = Traitify.ui.userAgent.toString()
+
+  Traitify.ui.userAgent = "iPhone"
+
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
   slideDeck = widgets.slideDeck
 
@@ -124,16 +127,15 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
     assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
 
     document.querySelector(".widget").innerHTML
-    
+
     slideDeck.data.assessmentId = "played"
     slideDeck.data.get("SlidesNotCompleted").length.times((i)->
       currentSlide = slideDeck.nodes.get("currentSlide")
       type =  if i % 2 == 0 then 0 else 1
       meNotMe = [document.querySelector(".me"), document.querySelector(".not-me")][type]
-      meNotMe.trigger('click')
+      meNotMe.trigger('touch')
 
       currentSlide.trigger("webkitTransitionEnd")
-      currentSlide.trigger("transitionEnd")
       sentSlideNumber = slideDeck.data.get("sentSlides")
     )
 
@@ -142,6 +144,46 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
       QUnit.start()    
     )
   )
+
+  Traitify.ui.userAgent = oldUserAgent
+)
+
+QUnit.asyncTest("Slide Deck Widget can touch through slides triggering the not me animation", (assert)->
+  oldUserAgent = Traitify.ui.userAgent.toString()
+
+  Traitify.ui.userAgent = "iPhone"
+
+  widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
+  slideDeck = widgets.slideDeck
+
+  slideDeck.onInitialize(->
+    #Data Should Exist
+    assert.equal( slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!" )
+
+    #First Slide
+    firstSlide = slideDeck.nodes.get("currentSlide").getElementsByClassName("caption")[0].innerHTML
+    assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
+
+    document.querySelector(".widget").innerHTML
+
+    slideDeck.data.assessmentId = "played"
+    slideDeck.data.get("SlidesNotCompleted").length.times((i)->
+      currentSlide = slideDeck.nodes.get("currentSlide")
+      type =  if i % 2 == 0 then 0 else 1
+      meNotMe = [document.querySelector(".not-me"), document.querySelector(".me")][type]
+      meNotMe.trigger('touch')
+
+      currentSlide.trigger("webkitTransitionEnd")
+      sentSlideNumber = slideDeck.data.get("sentSlides")
+    )
+
+    widgets.results.onInitialize(->
+      assert.ok(document.querySelector(".widget .tf-results"), "Node exists!")
+      QUnit.start()    
+    )
+  )
+
+  Traitify.ui.userAgent = oldUserAgent
 )
 
 QUnit.asyncTest("Slide Deck Widget Initialize with load('slideDeck', ...)", (assert)->

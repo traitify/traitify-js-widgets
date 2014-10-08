@@ -47,11 +47,14 @@ HTMLElement.prototype.trigger = (eventType, options)->
       event.initMouseEvent('click', true, true, window, 1, 0, 0)
       @dispatchEvent(event)
     when "touch"
-      event = document.createEvent('TouchEvent')
-      @
-      event.touches = [{pageX: pageX, pageY: pageY}];
-      event.initTouchEvent()
-
+      event = document.createEvent('UIEvent')
+      event.changedTouches = [{clientX: 10, clientY: 10}];
+      event.initUIEvent('touchstart', true, true)
+      @dispatchEvent(event)
+      event = document.createEvent('UIEvent')
+      event.changedTouches = [{clientX: 10, clientY: 10}];
+      event.initUIEvent('touchend', true, true)
+      @dispatchEvent(event)
     else
       event = document.createEvent("Event");
       event.initEvent(eventType, true, true)

@@ -3,7 +3,7 @@ QUnit.module( "Results Personality Types Tests", {
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
-    Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")    
+    Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
 
     unless document.querySelector(".widget")
       widget = document.createElement("div")

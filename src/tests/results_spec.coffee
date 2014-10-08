@@ -6,6 +6,7 @@ QUnit.module( "Results Tests", {
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+
     unless document.querySelector(".widget")
       widget = document.createElement("div")
       widget.setAttribute("class", "widget")

@@ -11,6 +11,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.callbacks.add("Me")
   widget.callbacks.add("NotMe")
   widget.callbacks.add("AdvanceSlide")
+  widget.data.persist("slideValues")
 
   #######################
   # DATA DEPENDENCIES
@@ -20,7 +21,8 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   #######################
   # DATA
   #######################
-  widget.data.add("slideValues", Array())
+  if !widget.data.get("slideValues")
+    widget.data.add("slideValues", Array())
   
   widget.actions.add("processSlide", (options)->
     widget.actions.trigger("addSlide", options)
@@ -30,11 +32,13 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.actions.add("addSlide", (options)->
     widget.data.add("lastSlideTime", widget.data.get("currentSlideTime"))
     widget.data.add("currentSlideTime", new Date().getTime())
-    widget.data.get("slideValues").push({
+    slideValues = widget.data.get("slideValues")
+    slideValues.push({
       id: options.id, 
       response: options.value, 
       time_taken: widget.data.get("currentSlideTime") - widget.data.get("lastSlideTime")
     })
+    widget.data.set("slideValues", slideValues)
   )
 
   widget.actions.add("afterSlideSave", ->
@@ -44,7 +48,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     if widget.data.get("slideValues").length % 10 == 0 || sentSlides == widget.data.get("slidesToPlayLength")
       addSlide = Traitify.addSlides(widget.assessmentId, widget.data.get("slideValues"))
-      widget.data.add("slideValues", Array())
+      widget.data.set("slideValues", Array())
       addSlide.then((response)->
         widget.callbacks.trigger("addSlide")
         if sentSlides == widget.data.get("slidesToPlayLength")
@@ -86,7 +90,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slidesContainer.appendChild(widget.views.render("progressBar", slidesLeft))
 
-    slidesContainer.appendChild(@render("slides", widget.data.get("Slides")))
+    slidesContainer.appendChild(@render("slides", widget.data.get("SlidesNotCompleted")))
 
     slidesContainer.appendChild(@render("meNotMe"))
     slidesContainer
@@ -117,8 +121,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     if slidesData[1]
       widget.nodes.set("nextSlide", widget.views.render("slide", slidesData[1]))
       widget.nodes.get("nextSlide").appendTo("slides")
-    else
-      widget.nodes.set("nextSlide", false)
 
     widget.nodes.set("slides", slides)
 
@@ -187,8 +189,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.helpers.add("onload", (callBack)->
     if (window.addEventListener)
       window.addEventListener('load', callBack)
-    else if (window.attachEvent)
-      window.attachEvent('onload', callBack)
   )
     
   ###########################
@@ -196,13 +196,13 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   ###########################
   widget.actions.add("me", ->
     if !widget.states.get("animating") && widget.nodes.get().nextSlide
-      if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
+      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
         widget.actions.trigger("loadingAnimation")
       widget.states.set("animating", true)
 
       widget.actions.trigger("advanceSlide")
 
-      currentSlide = widget.data.get("Slides")[widget.data.get("currentSlide") - 1]
+      currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") - 1]
 
       widget.actions.trigger("processSlide", id: currentSlide.id, value: true)
 
@@ -214,14 +214,14 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.actions.add("notMe", ->
     if !widget.states.get("animating") && widget.nodes.get("nextSlide")
 
-      if !widget.data.get("Slides")[widget.data.get("currentSlide")] 
+      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
 
         widget.actions.trigger("loadingAnimation")
 
       widget.states.set("animating", true)
       widget.actions.trigger("advanceSlide")
 
-      currentSlide = widget.data.get("Slides")[widget.data.get("currentSlide") - 1]
+      currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") - 1]
 
       widget.actions.trigger("processSlide", id: currentSlide.id, value: false)
 
@@ -241,38 +241,24 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     widget.nodes.set("playedSlide", widget.nodes.get("currentSlide"))
 
     widget.nodes.set("currentSlide", widget.nodes.get("nextSlide"))
-    
-    widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', (event)-> 
-      widget.actions.trigger("advancedSlide")
-      widget.states.set("animating", false)
-      widget.states.set("transitionEndListens", true)
-    , false )
 
-    widget.nodes.get("currentSlide").addEventListener('transitionend', (event)-> 
+    callback = (event)->
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
-    , false )
-  
-    widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', (event)-> 
-      widget.events.trigger("advancedSlide")
-      widget.states.set("animating", false)
-    , false )
-  
-    widget.nodes.get("currentSlide").addEventListener('otransitionend', (event)-> 
-      widget.actions.trigger("advancedSlide")
-      widget.states.set("animating", false)
-    , false )
+    widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', callback, false)
+    widget.nodes.get("currentSlide").addEventListener('transitionend', callback, false)
+    widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', callback, false)
+    widget.nodes.get("currentSlide").addEventListener('otransitionend', callback, false )
 
     widget.nodes.get("playedSlide").className += " played"
     widget.nodes.get("currentSlide").className += " active"
     # NEW NEXT SLIDE
-    nextSlideData = widget.data.get("Slides")[widget.data.get("currentSlide") + 1]
+    nextSlideData = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
     if nextSlideData
       widget.nodes.set("nextSlide", widget.views.render("slide", nextSlideData))
       widget.nodes.get("slides").appendChild(widget.nodes.get().nextSlide)
 
-    if widget.callbacks.advanceSlide
-      widget.callbacks.advanceSlide(widget)
+      widget.callbacks.trigger("AdvanceSlide")
   )
 
   widget.actions.add("loadingAnimation", ->
@@ -286,7 +272,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     start = widget.data.get("currentSlide") - 1
     end = widget.data.get("currentSlide") + 9
 
-    for slide in widget.data.get("Slides").slice(start, end)
+    for slide in widget.data.get("SlidesNotCompleted").slice(start, end)
       unless widget.data.get("imageCache")[slide.image_desktop_retina]
         widget.data.get("imageCache")[slide.image_desktop_retina] = new Image()
         widget.data.get("imageCache")[slide.image_desktop_retina].src = slide.image_desktop_retina
@@ -312,19 +298,19 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )  
 
   widget.initialization.events.add("Setup Data", ->
-    slides = widget.data.get("Slides")  
-    slides.notCompleted = slides.filter((slide)->
-      !slide.completed_at
-    )
+    slides = widget.data.get("Slides")
 
-    slides.completed = slides.filter((slide)->
-      slide.completed_at
-    )
 
+    playedSlideIds = widget.data.get("slideValues").map((slide)-> slide.id)
+    
     widget.data.add("currentSlide", 1)
 
-    completed = widget.data.get("Slides").filter((slide)-> slide.completed_at)
-    uncompleted = widget.data.get("Slides").filter((slide)-> !slide.completed_at)
+    completed = widget.data.get("Slides").filter((slide)-> 
+      slide.completed_at || playedSlideIds.indexOf(slide.id) != -1
+    )
+    uncompleted = widget.data.get("Slides").filter((slide)-> 
+      !slide.completed_at && playedSlideIds.indexOf(slide.id) == -1
+    )
     widget.data.add("SlidesCompleted", completed)
     widget.data.add("SlidesNotCompleted", uncompleted)
     widget.data.add("sentSlides", 0)
@@ -348,10 +334,10 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.initialization.events.add("Actions", ->
     if widget.device == "iphone"  ||  widget.device == "ipad" 
       widget.helpers.touch(widget.nodes.get("notMe"), ->
-        widget.events.trigger("notMe")
+        widget.actions.trigger("notMe")
       )
       widget.helpers.touch(widget.nodes.get("me"), ->
-        widget.events.trigger("me")
+        widget.actions.trigger("me")
       )
     else
       widget.nodes.get("notMe").onclick = ->

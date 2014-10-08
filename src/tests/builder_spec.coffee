@@ -1,14 +1,20 @@
-QUnit.module( "Testing Builder Version 2", {setup: ->
-  @testDiv = document.createElement("div")
-  @testDiv.className = "builder-test-initialization"
-  testCaseContainer = document.querySelector("#test-case-container")
-  testCaseContainer.innerHTML = ""
-  
-  testCaseContainer.appendChild(@testDiv)
-  @widget = new Widget(".builder-test-initialization")
-  Traitify = new ApiClient() 
-, teardown: ->
-  Traitify = new ApiClient() 
+QUnit.module( "Testing Builder Version 2", {
+  setup: ->
+    Traitify.XHR = MockRequest
+    Traitify.setVersion("v1")
+    Traitify.setHost("api-sandbox.traitify.com")
+    Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+
+    @testDiv = document.createElement("div")
+    @testDiv.className = "builder-test-initialization"
+    testCaseContainer = document.querySelector("#test-case-container")
+    testCaseContainer.innerHTML = ""
+
+    testCaseContainer.appendChild(@testDiv)
+    @widget = new Widget(".builder-test-initialization")
+
+  , teardown: ->
+    Traitify.XHR = XMLHttpRequest
 })
 
 QUnit.test("Builder Version", (assert)->
@@ -114,6 +120,63 @@ QUnit.test("Data passes error on correctly", (assert)->
   data.get("awesome").catch((localData)->
     assert.equal(JSON.stringify(localData), JSON.stringify(expectedCatch), "contains class")
   )
+)
+
+QUnit.test("Data works with storing and fetching", (assert)->
+  data = new Data()
+  data.add("blue", 0)
+  assert.equal(data.get("blue"), 0, "store retreives data as 0")
+  data.counter("blue").up()
+  assert.equal(data.get("blue"), 1, "store retreives data as 1 with counter up()")
+  data.counter("blue").up(2)
+  assert.equal(data.get("blue"), 3, "store retreives data as 3 with counter up(2)")
+  data.counter("blue").down()
+  assert.equal(data.get("blue"), 2, "store retreives data as 2 with counter down()")
+  data.counter("blue").down(3)
+  assert.equal(data.get("blue"), -1, "store retreives data as -1 with counter down(3)")
+)
+
+QUnit.test("Data works with storing and fetching with persistence", (assert)->
+  data = new Data()
+  expectedReturn = {awesome: "thing"}
+  data.persist("bats")
+  data.add("bats", expectedReturn)
+  delete data.store["bats"]
+  if(navigator.userAgent.indexOf("PhantomJS") != -1) #TODO: Change this so the test isn't conditional
+    assert.equal(JSON.parse(data.get("bats")).awesome, expectedReturn.awesome, "fetches and stores data in cookie")  
+  else
+    assert.equal(data.get("bats").awesome, expectedReturn.awesome, "fetches and stores data in cookie")  
+
+  data = new Data()
+  expectedReturn = {awesome: "thing"}
+  data.persist("bats")
+  data.set("bats", expectedReturn)
+  delete data.store["bats"]
+  if(navigator.userAgent.indexOf("PhantomJS") != -1) #TODO: Change this so the test isn't conditional
+    assert.equal(JSON.parse(data.get("bats")).awesome, expectedReturn.awesome, "fetches and stores data in cookie")  
+  else
+    assert.equal(data.get("bats").awesome, expectedReturn.awesome, "fetches and stores data in cookie")  
+)
+
+
+QUnit.test("Cookies work with storing and fetching", (assert)->
+  cookie = new Cookie()
+  expectedReturn = {awesome: "thing"}  
+  cookie.set("cookieStoreA", expectedReturn)
+  if(navigator.userAgent.indexOf("PhantomJS") != -1) #TODO: Change this so the test isn't conditional
+    assert.equal(JSON.parse(cookie.get("bats")).awesome, expectedReturn.awesome, "fetches and stores data in cookie")
+  else
+    assert.equal(cookie.get("bats").awesome, expectedReturn.awesome, "fetches and stores data in cookie")
+
+  expectedReturnTwo = {awesome: "thingTwo"}
+
+  cookie.set("cookieStoreB", expectedReturnTwo)
+  if(navigator.userAgent.indexOf("PhantomJS") != -1) #TODO: Change this so the test isn't conditional
+    assert.equal(JSON.parse(cookie.get("cookieStoreB")).awesome, expectedReturnTwo.awesome, "fetches and stores data in cookie")  
+    assert.equal(JSON.parse(cookie.get("cookieStoreA")).awesome, expectedReturn.awesome, "fetches and stores data in cookie")  
+  else
+    assert.equal(cookie.get("cookieStoreB").awesome, expectedReturnTwo.awesome, "fetches and stores data in cookie")  
+    assert.equal(cookie.get("bats").awesome, expectedReturn.awesome, "fetches and stores data in cookie")
 )
 
 QUnit.test("Promises then works whether the Promise finishes first or not", (assert)->
@@ -265,4 +328,31 @@ QUnit.test("Can get Nodes", (assert)->
   
   assert.equal(@widget.nodes.get()["main"], main, "Can get all nodes and compare")
   assert.equal(@widget.nodes.get("main"), main, "Can get single node and compare")
+)
+
+QUnit.test("Builder with Iphone Device and Ipad Device initialize correctly", (assert)->
+
+  oldUserAgent = Traitify.ui.userAgent.toString()
+
+  Traitify.ui.userAgent = "iPhone"
+  results = Traitify.ui.load("results", playedAssessment, ".builder-test-initialization")
+  assert.equal(results.device, "iphone", "Can get all nodes and compare")
+
+  Traitify.ui.userAgent = "iPad"
+  results = Traitify.ui.load("results", playedAssessment, ".builder-test-initialization")
+  assert.equal(results.device, "ipad", "Can get all nodes and compare")
+
+  Traitify.ui.userAgent = "Android"
+  results = Traitify.ui.load("results", playedAssessment, ".builder-test-initialization")
+  assert.equal(results.device, "android", "Can get all nodes and compare")
+
+  Traitify.ui.userAgent = "Blackberry"
+  results = Traitify.ui.load("results", playedAssessment, ".builder-test-initialization")
+  assert.equal(results.device, "blackberry", "Can get all nodes and compare")
+
+  Traitify.ui.userAgent = "webOS"
+  results = Traitify.ui.load("results", playedAssessment, ".builder-test-initialization")
+  assert.equal(results.device, "webos", "Can get all nodes and compare")
+
+  Traitify.ui.userAgent = oldUserAgent
 )

@@ -1,4 +1,16 @@
-      
+QUnit.module( "Testing Loader Spec", {
+  setup: ->
+    Traitify.XHR = MockRequest
+    Traitify.setVersion("v1")
+    Traitify.setHost("api-sandbox.traitify.com")
+    Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+
+    document.querySelector(".widget").innerHTML=""
+
+  , teardown: ->
+    Traitify.XHR = XMLHttpRequest
+})
+
 QUnit.asyncTest("Results Loader works", (assert)->
   builder = Traitify.ui.load("results", playedAssessment, ".widget")
 
