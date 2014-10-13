@@ -71,12 +71,12 @@ Traitify.ui.widget("results", (widget, options)->
     @tags.div("badgesContainer")
 
     hexColor = widget.helpers.hexToRGB(personalityTypeData.badge.color_1)
-    badge = @tags.div("badge").appendTo("badgesContainer")
-
-    image = @tags.img("badgeImage", personalityTypeData.badge.image_medium, {style:{
+    badge = @tags.div("badge", {style:{
       backgroundColor: "rgba(#{hexColor.join(', ')}, .07)"
       borderColor: "##{personalityTypeData.badge.color_1}"
-    }}).appendTo("badge")
+    }}).appendTo("badgesContainer")
+
+    image = @tags.img("badgeImage", personalityTypeData.badge.image_medium).appendTo("badge")
 
     @tags.library.get("badgesContainer")
   )
