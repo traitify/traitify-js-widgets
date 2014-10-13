@@ -177,56 +177,34 @@ build = (watch, callback) ->
   options.unshift '-w' if watch
   launch 'coffee', options, callback
 
-readFiles = (type, bundleName, files, next)->
-    index = 0
-    filesData = Array()
-    onLocal = Object()
-    if type == "css"
-      root_path = "assets/stylesheets/"
-    else
-      root_path = "compiled/"
-    readLoop = (data, callback)->
-      index = index + 1
-      filesData.push(data)
-      if index != files.length
-        readFile(root_path+files[index], readLoop) 
-      else
-        minify({
-          ext: ".#{type}",
-          data: filesData.join("")
-        },
-        (error, minifiedFile)->
-          if type=="css"
-            minifiedFile = minifiedFile.replace(/'/g, '\"')
-            minifiedFile = "Traitify.ui.styles = '<style>#{minifiedFile}</style>';"
-          fs.appendFileSync("compiled/bundles/#{bundleName}.js", minifiedFile)
-          if next
-            next(bundleName)
-        )
-    readFile(root_path+files[index], readLoop)
-        
-readFile = (file, callback)->
-    fs.readFile(file, 'utf8', (err,data)->
-      if (err)
-        return console.log(err)
-      
-      callback(data)
-    )
-
 bundle = (callback) ->
   build(->
     afterFolderCheck = ()->
-      readFile("bundles.yml", (data)->
-        bundles = YAML.parse(data)
-        for key in Object.keys(bundles)
-          fs.writeFile("compiled/bundles/#{key}.js", "")
-
-          readFiles("js", key, bundles[key]["js"], (key)->
-            if bundles[key]["css"]
-              readFiles("css", key, bundles[key]["css"], callback)
+      bundles = YAML.parse(fs.readFileSync('bundles.yml').toString())
+      for key in Object.keys(bundles)
+        bundleFile = "compiled/bundles/#{key}.js"
+        fs.writeFile(bundleFile, "")
+        for file in bundles[key].js
+          file = "compiled/#{file}"
+          fileData = fs.readFileSync(file).toString()
+          minify(ext: ".js", data: fileData, (error, minifiedFileData)->
+            fs.appendFileSync(bundleFile, minifiedFileData);
           )
+        if bundles[key].css
+          for file in bundles[key].css
+            file = "assets/stylesheets/#{file}"
+            fileData = fs.readFileSync(file).toString()
 
-      )
+            minify(ext: ".css", data: fileData, (error, minifiedFileData)->
+              cleanFileName = file.split("/").slice(0, file.split("/").length - 1).join("/")
+              cleanFileName = cleanFileName.replace("assets/stylesheets/widgets/", "")
+              minifiedFileData = minifiedFileData.replace(/'/g, '"')
+
+              minifiedFileData = "Traitify.ui.styles['#{cleanFileName}']='#{minifiedFileData}';"
+              fs.appendFileSync(bundleFile, minifiedFileData);
+            )
+
+
 
     fs.exists("compiled/bundles", (exists)->
       if !exists
@@ -313,4 +291,3 @@ mocha = (options, callback) ->
 docco = (callback) ->
   #if moduleExists('docco')
   walk 'src', (err, files) -> launch 'docco', files, callback
-

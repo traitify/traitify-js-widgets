@@ -474,6 +474,7 @@ class Widget
     @library = new Library()
     @data = new Data()
     @dataDependencies = Array()
+    @styles = Array()
     @states = new States()
     @callbacks = new Callbacks(@)
     @helpers = new Helpers()
@@ -482,6 +483,7 @@ class Widget
     @views.data = @data
     @userAgent = Traitify.ui.userAgent
     @views.tags.library.add("main", document.querySelector(@target))
+    @views.tags.library.get("main").innerHTML = ""
     if @userAgent.match(/iPad/i)
       @device = "ipad"
     if @userAgent.match(/iPhone/i)
@@ -503,6 +505,15 @@ class Widget
   #
   dataDependency: (dependencyName)->
     @dataDependencies.push(dependencyName)
+  # styleDependency
+  #
+  # @example dataDependency(dependencyName)
+  #   widget = new Widget(".example-selector")
+  #   states.dataDependency("SomeData")
+  # @param [String] DependencyName for widget
+  #
+  styleDependency: (styleName)->
+    @styles.push(styleName)
   # Run
   #
   # @example run()
@@ -510,6 +521,10 @@ class Widget
   #   states.run() # Triggers all initialization events
   #
   run: ->
+    for style in @styles
+        styleElement = document.createElement("style")
+        styleElement.innerHTML = Traitify.ui.styles[style]
+        @nodes.get("main").appendChild(styleElement)
     @initialization.trigger()
     
   	

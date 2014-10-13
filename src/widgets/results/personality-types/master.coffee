@@ -1,7 +1,9 @@
 Traitify.ui.widget("personalityTypes", (widget, options)->
   widget.states.add("initialized")
   widget.dataDependency("PersonalityTypes")
-  
+  widget.styleDependency("all")
+  widget.styleDependency("results/personality-types")
+
   widget.callbacks.add("Initialize")
   
   ########################

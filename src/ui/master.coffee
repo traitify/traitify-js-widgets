@@ -30,13 +30,11 @@ class Ui
       assessmentId = target
       target = options
       options = shiftedOptions
-      document.querySelector(target).innerHTML = Traitify.ui.styles
 
       widget = widget(assessmentId, target, options)
       Traitify.ui.loadResults({slideDeck: widget})
       return widget
     else
-      document.querySelector(target).innerHTML = Traitify.ui.styles
       allWidgets = Object()
       for widgetName in Object.keys(@widgets)
         if options[widgetName] && options[widgetName]["target"]
@@ -53,7 +51,7 @@ class Ui
           nonSlideWidgets[widgetName].widgets = allWidgets
       if Object.keys(slideWidgets).length != 0
         Traitify.getSlides(assessmentId).then((slides)->
-          if slides.filter( (slide)-> typeof slide.completed_at == "number" ).length != 0
+          unless slides.filter( (slide)-> slide.completed_at ).length == 0
             Traitify.ui.loadResults(nonSlideWidgets)
           else
             for slideWidgetName in Object.keys(slideWidgets)
@@ -108,13 +106,15 @@ class Ui
   # @param [String] callback Widget Specifications
   #
   widget: (widgetName, callback)->
+    styles = @styles
     Traitify.ui.widgets[widgetName] = (assessmentId, target, options)->
       localWidget = new Widget(target)
       localWidget.data.cookies.scope = assessmentId
       localWidget.build = callback
       localWidget.assessmentId = assessmentId
-      localWidget.options = options  
+      localWidget.options = options
       localWidget.build(localWidget)
       localWidget
 
 Traitify.ui = new Ui
+Traitify.ui.styles = Object()

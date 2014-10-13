@@ -1,5 +1,6 @@
-var NON_WORD_REGEXP   = require('./vendor/non-word-regexp.js');
-var CAMEL_CASE_REGEXP = require('./vendor/camel-case-regexp.js');
+var NON_WORD_REGEXP       = require('./vendor/non-word-regexp.js');
+var CAMEL_CASE_REGEXP     = require('./vendor/camel-case-regexp.js');
+var TRAILING_DIGIT_REGEXP = require('./vendor/trailing-digit-regexp.js');
 
 /**
  * Sentence case a string.
@@ -15,6 +16,8 @@ module.exports = function (str) {
   return String(str)
     // Enables camel case support.
     .replace(CAMEL_CASE_REGEXP, '$1 $2')
+    // Add a space after any digits.
+    .replace(TRAILING_DIGIT_REGEXP, '$1 $2')
     // Remove all non-word characters and replace with a single space.
     .replace(NON_WORD_REGEXP, ' ')
     // Trim whitespace around the string.

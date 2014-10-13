@@ -42,7 +42,10 @@ var TESTS = [
   // Non-ascii characters.
   ['español', 'español'],
   ['Beyoncé Knowles', 'beyoncé knowles'],
-  ['Iñtërnâtiônàlizætiøn', 'iñtërnâtiônàlizætiøn']
+  ['Iñtërnâtiônàlizætiøn', 'iñtërnâtiônàlizætiøn'],
+
+  // Number string input.
+  ['something2014other', 'something 2014 other']
 ];
 
 describe('sentence case', function () {

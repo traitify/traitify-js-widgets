@@ -2,6 +2,9 @@ Traitify.ui.widget("results", (widget, options)->
   widget.states.add("initialized")
   widget.callbacks.add("Initialize")
   widget.dataDependency("PersonalityTypes")
+  widget.styleDependency("all")
+  widget.styleDependency("results/default")
+  
   ########################
   # INITIALIZE
   ########################
