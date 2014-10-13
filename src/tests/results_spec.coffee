@@ -59,8 +59,7 @@ QUnit.asyncTest("Results Widget Appears on Screen", (assert)->
 
   builder.results.onInitialize(->
     badge = document.querySelector(".widget .badges-container .badge")
-    badge.innerHTML = ""
-    assert.equal(badge.outerHTML, '<div class=\"badge\"></div>', "Personality types container exists")
+    assert.equal(badge.className, "badge", "Personality types container exists")
     QUnit.start()
   )
 )
