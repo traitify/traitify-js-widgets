@@ -1,18 +1,18 @@
-stable: 
+v1: 
   js:
-    - "api/1.0.js" 
-    - "loader/1.0.js"
-    - "builder/1.0.js"
-    - "widgets/slide-deck/3.0.js"
-    - "widgets/results/default/1.0.js"
-    - "widgets/results/personality-types/1.0.js"
-    - "widgets/results/personality-traits/1.0.js"
+    - "api/2.0.js" 
+    - "ui/2.0.js"
+    - "builder/3.0.js"
+    - "widgets/slide-deck/4.0.js"
+    - "widgets/results/default/2.0.js"
+    - "widgets/results/personality-types/2.0.js"
+    - "widgets/results/personality-traits/2.0.js"
   css:
-    - "widgets/all/1.0.css"
-    - "widgets/slide-deck/1.0.css"
-    - "widgets/results/default/1.0.css"
-    - "widgets/results/personality-types/1.0.css"
-    - "widgets/results/personality-traits/1.0.css"
+    - "widgets/all/2.0.css"
+    - "widgets/slide-deck/2.0.css"
+    - "widgets/results/default/2.0.css"
+    - "widgets/results/personality-types/2.0.css"
+    - "widgets/results/personality-traits/2.0.css"
 edge: 
   js:
     - "api/master.js" 
@@ -28,28 +28,15 @@ edge:
     - "widgets/results/default/master.css"
     - "widgets/results/personality-types/master.css"
     - "widgets/results/personality-traits/master.css"
-full-suite: 
-  js:
-    - "api/1.0.js" 
-    - "loader/1.0.js"
-    - "builder/1.0.js"
-    - "widgets/slide-deck/3.0.js"
-    - "widgets/results/default/1.0.js"
-    - "widgets/results/personality-types/1.0.js"
-    - "widgets/results/personality-traits/1.0.js"
-  css:
-    - "widgets/all/1.0.css"
-    - "widgets/slide-deck/1.0.css"
-    - "widgets/results/default/1.0.css"
-    - "widgets/results/personality-types/1.0.css"
-    - "widgets/results/personality-traits/1.0.css"
 api:
   js:
     - "api/master.js"
-slideDeck:
+api-v1:
+  js:
+    - "api/2.0.js"
+slidedeck-v1:
   js:
     - "api/master.js" 
     - "loader/1.0.js"
     - "builder/1.0.js"
     - "widgets/slide-deck/3.0.js"
-  

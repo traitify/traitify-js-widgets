@@ -20,61 +20,16 @@
     <div class="personality-traits"></div>
     
 		<script>
-		Traitify.setHost("api-sandbox.traitify.com");
-		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
-		Traitify.setVersion("v1");
-  	options = {
-      results:{
-        params:{
-          image_pack: "linear"  
-        }
-      },
-      personalityTypes:{
-          target:".personality-types"
-      },
-      personalityTraits:{
-        target:".personality-traits"
-      }
-    }
-
-    tfPersonalityTypes = Traitify.ui.load("a55382cc-e089-4d20-ad9e-d5428c79fe9c", ".slide-deck", options)
- 
-    /*
-		if(window.location.hash.substring(1).indexOf("&")){
-			var splitQueries = window.location.hash.substring(1).split("&")	
-		}else{
-			var splitQueries = window.location.hash.substring(1)
-		}
-
-		var splitByKeyValue = Object() 
-		for(index in splitQueries){
-			keyValue = splitQueries[index].split("=")
-			splitByKeyValue[keyValue[0]] = keyValue[1]
-		}
-
-
-		if(splitByKeyValue.nonTouch){
-			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, ".slide-deck", {traits:true, nonTouch:true});	
-		}else{
-			Builder = Traitify.ui.slideDeck(splitByKeyValue.assessmentId, {traits:true, size:"small"});	
-		}
-		
-		Builder.onInitialize(function(){
-			console.log("initialized!")
-		})
-		Builder.onMe(function(){
-			console.log("You me'd a slide!")
-		})
-		Builder.onNotMe(function(){
-			console.log("You  not me'd a slide!")
-		})
-		Builder.onFinished(function(){
-			console.log("You Finished!")
-		})
-		Builder.onAddSlide(function(){
-			console.log("You added a slide!")
-		})
-    */
+			Traitify.setHost("api-sandbox.traitify.com");
+			Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+			Traitify.setVersion("v1");
+		      personalityTypes:{
+		        target:".personality-types"
+		      },
+		      personalityTraits:{
+		        target:".personality-traits"
+		      }
+		    })
 		</script>
 
 		<div class="widget">

@@ -86,16 +86,28 @@ class TestSuite
   defaultSuite: (@version)->
     @defaultVersion = @version
   run: ->
-    if locationHash["suite"]
-      @versions[locationHash["suite"]]()
+    if(params.suite)
+      @versions[params.suite]()
     else
-      @versions[@defaultVersion]()
+      suites = Array()
+      for versionName in Object.keys(@versions)
+        suites.push(window.location + "?suite=#{versionName}")
+      QUnit.testSuites(suites);
 testSuite = new TestSuite()
+
+################################
+# Global
+################################
+require("./support/qunit-1.14.0")
+require("./support/blanket.min")
+require("./support/jquery.min")
+require("./support/qunit-composite/qunit-composite")
+require("./support/qunit-composite/qunit-composite", "css")
 
 require("../compiled/tests/support/spec_helper")
 
-locationHash = Object()
+params = Object()
 location.search.replace("?", "").split("&").forEach((value)->
   value = value.split("=")
-  locationHash[value[0]]=value[1]
+  params[value[0]]=value[1]
 )

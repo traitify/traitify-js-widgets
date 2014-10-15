@@ -1,3 +1,6 @@
 [submodule "tests/support/runner"]
 	path = tests/support/runner
 	url = git@github.com:jonkemp/qunit-phantomjs-runner.git
+[submodule "tests/support/qunit-composite"]
+	path = tests/support/qunit-composite
+	url = git@github.com:jquery/qunit-composite.git
