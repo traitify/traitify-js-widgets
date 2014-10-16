@@ -13,13 +13,13 @@
     <script src="./compiled/api/master.js"></script>
     <script src="./compiled/ui/master.js"></script>
     <script src="./compiled/builder/master.js"></script> 
-    <script src="./compiled/widgets/slide_deck/master.js"></script>
+    <script src="./compiled/widgets/slide-deck/master.js"></script>
     <script src="./compiled/widgets/results/default/master.js"></script>
     <script src="./compiled/widgets/results/personality-types/master.js"></script>
     <script src="./compiled/widgets/results/personality-traits/master.js"></script>
 
     <link href="./assets/stylesheets/widgets/all/master.css" rel="stylesheet" />
-    <link href="./assets/stylesheets/widgets/slide_deck/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/default/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet" />
@@ -36,20 +36,14 @@
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
 		Traitify.setVersion("v1");
-	  	options = {
-	      results:{
-	        params:{
-	          image_pack: "linear"  
-	        }
-	      },
-	      personalityTypes:{
-	          target:".personality-types"
-	      },
-	      personalityTraits:{
-	        target:".personality-traits"
-	      }
-	    }
-    tfPersonalityTypes = Traitify.ui.load("391a9868-2556-4fb6-a7e0-4f052fc42c99", ".slide-deck", options) 
+
+	    tfPersonalityTypes = Traitify.ui.load("fbd32e9a-f27b-45c4-abe7-7b51f0ccb6b3", ".slide-deck", {
+	    	personalityTypes:{
+		        target:".personality-types"
+		    }, personalityTraits:{
+		        target:".personality-traits"
+			}
+		}) 
     </script>
 	</body>
 </html>

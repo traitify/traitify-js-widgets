@@ -51,13 +51,16 @@ class Ui
           nonSlideWidgets[widgetName].widgets = allWidgets
       if Object.keys(slideWidgets).length != 0
         Traitify.getSlides(assessmentId).then((slides)->
-          unless slides.filter( (slide)-> slide.completed_at ).length == 0
-            Traitify.ui.loadResults(nonSlideWidgets)
-          else
+          playedSlides = slides.filter( (slide)-> 
+            slide.completed_at != null 
+          )
+          if playedSlides.length != slides.length
             for slideWidgetName in Object.keys(slideWidgets)
               slideWidget = slideWidgets[slideWidgetName]
               slideWidget.data.add("Slides", slides)
               slideWidget.run()
+          else
+            Traitify.ui.loadResults(nonSlideWidgets)
         )
 
         for widgetName in Object.keys(nonSlideWidgets)
