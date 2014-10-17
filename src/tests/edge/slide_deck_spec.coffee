@@ -18,7 +18,6 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
 
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
 
-
   assert.equal(!widgets.slideDeck.onInitialize, false, "on Initialize Event Succeeds!" )
   assert.equal(!widgets.slideDeck.onMe, false, "on Me Event Succeeds!" )
   assert.equal(!widgets.slideDeck.onNotMe, false, "on Not Me Event Succeeds!" )
@@ -81,6 +80,7 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
 
   slideDeck.onInitialize(->
     #Data Should Exist
+
     assert.equal( slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!" )
 
     #First Slide
@@ -95,7 +95,6 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
       type =  if i % 2 == 0 then 0 else 1
       meNotMe = [document.querySelector(".me"), document.querySelector(".not-me")][type]
       meNotMe.trigger('click')
-
       currentSlide.trigger("webkitTransitionEnd")
       currentSlide.trigger("transitionEnd")
       sentSlideNumber = slideDeck.data.get("sentSlides")

@@ -27,8 +27,8 @@ testSuite.add("edge", ->
   ###############################
   # External Libraries
   ###############################
-  require("../compiled/tests/factories/traitify_api_v1")
-  require("../compiled/tests/mocks/traitify_mocks_v1")
+  require("../compiled/tests/support/factories/traitify_api_v1")
+  require("../compiled/tests/support/mocks/traitify_mocks_v1")
 
   ###############################
   # Libraries
@@ -36,7 +36,7 @@ testSuite.add("edge", ->
   require("../compiled/api/master", cover: true)
   require("../compiled/ui/master", cover: true)
   require("../compiled/builder/master", cover: true)
-  require("../compiled/widgets/slide_deck/master", cover: true)
+  require("../compiled/widgets/slide-deck/master", cover: true)
   require("../compiled/widgets/results/default/master", cover: true)
   require("../compiled/widgets/results/personality-traits/master", cover: true)
   require("../compiled/widgets/results/personality-types/master", cover: true)
@@ -46,7 +46,7 @@ testSuite.add("edge", ->
   # Tests
   ###############################
   require("../compiled/tests/edge/builder_spec")
-  require("../compiled/tests/edge/slide_deck_spec")
+  #require("../compiled/tests/edge/slide_deck_spec")
   require("../compiled/tests/edge/results_spec")
   require("../compiled/tests/edge/loader_spec")
   require("../compiled/tests/edge/results_traits_spec")
@@ -59,8 +59,8 @@ testSuite.add("v1", ->
   ###############################
   # External Libraries
   ###############################
-  require("../compiled/tests/factories/traitify_api_v1")
-  require("../compiled/tests/mocks/traitify_mocks_v1")
+  require("../compiled/tests/support/factories/traitify_api_v1")
+  require("../compiled/tests/support/mocks/traitify_mocks_v1")
 
   ###############################
   # Libraries
@@ -68,7 +68,7 @@ testSuite.add("v1", ->
   require("../compiled/api/master", cover: true)
   require("../compiled/ui/master", cover: true)
   require("../compiled/builder/master", cover: true)
-  require("../compiled/widgets/slide_deck/master", cover: true)
+  require("../compiled/widgets/slide-deck/master", cover: true)
   require("../compiled/widgets/results/default/master", cover: true)
   require("../compiled/widgets/results/personality-traits/master", cover: true)
   require("../compiled/widgets/results/personality-types/master", cover: true)
@@ -78,7 +78,7 @@ testSuite.add("v1", ->
   # Tests
   ###############################
   require("../compiled/tests/v1/builder_spec")
-  require("../compiled/tests/v1/slide_deck_spec")
+  #require("../compiled/tests/v1/slide_deck_spec")
   require("../compiled/tests/v1/results_spec")
   require("../compiled/tests/v1/loader_spec")
   require("../compiled/tests/v1/results_traits_spec")

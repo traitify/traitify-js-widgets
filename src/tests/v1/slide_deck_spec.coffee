@@ -15,7 +15,6 @@ QUnit.module( "module A", {
 })
 
 QUnit.test("Slide Deck Hooks Exist", (assert)->
-
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
 
   assert.equal(!widgets.slideDeck.onInitialize, false, "on Initialize Event Succeeds!" )
@@ -34,7 +33,6 @@ QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
 )
 
 QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert)->
-
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
 
   slideDeck = widgets.slideDeck

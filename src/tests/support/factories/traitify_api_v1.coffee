@@ -6,9 +6,9 @@ class ApiFactory extends FactoryBoy
         color_2: "",
         color_3: "",
         font_color: "fffff9",
-        image_large: "#/badges/charmer/linear/large",
-        image_medium: "#/badges/charmer/linear/medium",
-        image_small: "#/badges/charmer/linear/small"
+        image_large: "../assets/images/cities.jpg",
+        image_medium: "../assets/images/cities.jpg",
+        image_small: "../assets/images/cities.jpg"
       }
     )
 
@@ -59,10 +59,10 @@ class ApiFactory extends FactoryBoy
         focus_x: 50,
         focus_y: 50,
         id: UUID(),
-        image_desktop: "#/sample",
-        image_desktop_retina: "#/desktop_retina",
-        image_phone_landscape: "#/sample",
-        image_phone_portrait: "#/sample",
+        image_desktop: "../assets/images/cities.jpg",
+        image_desktop_retina: "../assets/images/cities.jpg",
+        image_phone_landscape: "../assets/images/cities.jpg",
+        image_phone_portrait: "../assets/images/cities.jpg",
         completed_at: null,
         position: index + 1
       }
