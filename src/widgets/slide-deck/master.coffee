@@ -389,7 +389,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.nodes.get("container").className += " #{options.size}"
     widget.views.tags.div("definition", "HD").appendTo("slides")
     widget.views.tags.get("definition", "HD").onclick = ->
-      console.log("HERE")
       definition = widget.data.get("definition")
       if definition == "HD"
         definition = "SD"
