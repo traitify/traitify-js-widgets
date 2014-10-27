@@ -161,9 +161,12 @@ class ApiClient
       xhr.setRequestHeader "Accept", "application/json"
     that = this
     promise = new SimplePromise((resolve, reject)->
-      
+      that.reject = reject
+      try
         xhr.onload = ->
-          if xhr.status == 200
+          if xhr.status == 404
+            that.reject(xhr.response)
+          else
             data = xhr.response
             if beautify
               data = data.replace(/_([a-z])/g, (m, w)->
@@ -173,10 +176,8 @@ class ApiClient
             callback(data) if callback
             that.resolve = resolve
             that.resolve(data)
-          else
-            that.reject(xhr.response)
-      try
         xhr.send JSON.stringify(params)
+        xhr
       catch error
         that.reject(error)
     )
