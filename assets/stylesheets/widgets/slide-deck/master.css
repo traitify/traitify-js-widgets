@@ -17,13 +17,21 @@
   -webkit-box-sizing: initial;
   -moz-box-sizing: initial;
   box-sizing: initial;
+  background-color: #024f84;
 }
 .tf-slide-deck-container .cover{
   display: none;
-  background-color:#aaa;
+  background-color: #aaa;
 }
 .tf-slide-deck-container .slides {
-  position:relative;
+  position: relative;
+}
+.tf-slide-deck-container .internet-failure{
+  position: absolute;
+  top: 45%;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0px 0px 3px #000;
 }
 .tf-slide-deck-container .slide .image{
   height:400px;
@@ -71,6 +79,20 @@
 .tf-slide-deck-container .slides .slide img{
   width: 100%;
 }
+.tf-slide-deck-container .slides .slide.active.not-ready-animation{
+  -webkit-animation: not-ready-animation 1s;
+}
+@-webkit-keyframes not-ready-animation {
+  0% {
+    left: 0%;
+  }
+  50% {
+    left: -10%;
+  }
+  100% {
+    left: 0%;
+  }
+}
 .tf-slide-deck-container .slides .slide.placeholder{
   position:relative;
 }
@@ -85,29 +107,120 @@
   width:100%;
   bottom:0px;
   font-size:16px;
+  line-height: 1em;
+}
+.tf-slide-deck-container .wifi-loading{
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  bottom: 0px;
+  font-size: 16px;
+  vertical-align: middle;
+  text-align: center;
+}
+.tf-slide-deck-container .wifi-loading .loading .loading-text{;
+  -webkit-animation: pulse-animation 2s ease-in-out infinite;
+  -moz-animation: pulse-animation .3s ease-in-out infinite;
+  -o-animation: pulse-animation .3s ease-in-out infinite;
+  animation: pulse-animation .3s ease-in-out infinite;
+}
+@-webkit-keyframes pulse-animation { 
+    0% { opacity: 0.3; }
+    10% { opacity: 0.2; }
+    50% { opacity: .9;}
+    60% { opacity: 1;}
+    100% { opacity: 0.3;}
+}
+.tf-slide-deck-container .wifi-loading.fade-in{
+    -webkit-animation: fade 1s;
+    -webkit-animation-fill-mode: both;
+}
+@-webkit-keyframes fade {
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
+}
+
+.tf-slide-deck-container .wifi-loading .loading {
+  font-size:18px;
+  background-color: rgb(5, 143, 196);
+  position: relative;
+  width: 36%;
+  display: inline-block;
+  border-radius: 28px;
+  padding:21px 0px 17px;
+  margin-bottom:18px;
+  color:#fff;
+}
+
+.tf-slide-deck-container.medium .wifi-loading .loading {
+  width: 46%;
+  font-size: 14px;
+  padding: 15px 0px 10px 0px;
+
+  margin-bottom:27px;
+}
+
+.tf-slide-deck-container.small .wifi-loading .loading {
+  width: 56%;
+  font-size: 13px;
+  padding: 12px 0px 10px 0px;
+
+  margin-bottom:28px;
+
+}
+
+.tf-slide-deck-container.mobile .wifi-loading .loading {
+  width: 80%;
+  font-size: 14px;
+  padding: 15px 0px 14px 0px;
+
+  margin-bottom:15px;
+}
+
+.tf-slide-deck-container.ipad .wifi-loading .loading {
+  width: 68%;
+  font-size: 16px;
+  padding: 22px 0px 19px 0px;
+
+  margin-bottom:28px;
+}
+
+@media screen and (orientation:landscape) {
+  .tf-slide-deck-container.ipad .wifi-loading .loading {
+    width: 59.7%;
+    font-size: 18px;
+    padding: 22px 0px 21px 0px;
+
+    margin-bottom:28px;
+  }
 }
 
 .tf-slide-deck-container .me, .tf-slide-deck-container .not-me{
   text-align: center;
-  padding: 1% 0px;
+  padding: 22px 0px 15px;
   cursor: pointer;
   margin-bottom:18px;
 }
 .tf-slide-deck-container .me{
   background-color:rgb(5, 143, 196); 
   position: relative;
-  width: 20%;
-  margin-left:30%;
+  width: 18%;
+  margin-left:32%;
   display: inline-block;
-  border-radius:25px 0px 0px 25px;
+  border-radius:50px 0px 0px 50px;
 }
 .tf-slide-deck-container .not-me{
   position: relative;
-  width: 20%;
-  margin-right:30%;
+  width: 18%;
+  margin-right:32%;
   display: inline-block;
   background-color:rgb(203, 78, 78);
-  border-radius:0px 25px 25px 0px;
+  border-radius: 0px 50px 50px 0px;
 }
 .tf-slide-deck-container .me-not-me-container .not-me:active{
   background-color:rgb(180, 70, 70); 
@@ -229,22 +342,22 @@
   }
 }
 
-
-.definition{
-  position: absolute;
-  bottom: 10px;
-  right: 30px; 
-  z-index: 100;
-  text-shadow: 0px 0px 3px #000;
-  cursor: pointer;
-  visibility: hidden
-}
-
 /*****************************
  * Breakpoint Sizes
  *****************************/
+ .small.tf-slide-deck-container .me-not-me-container .me, .small.tf-slide-deck-container .me-not-me-container .not-me{
+  width:28%;
+  padding:14px 0px 9px;
+}
+.small.tf-slide-deck-container .me-not-me-container .me {
+  margin-left:22%;
+}
+.small.tf-slide-deck-container .me-not-me-container .not-me {
+  margin-right:22%;
+}
+
 .small.tf-slide-deck-container .me-not-me-container{
-  font-size:15px;
+    font-size:15px;  
 }
 .small.tf-slide-deck-container .slide .caption{
   font-size:18px;
@@ -255,13 +368,22 @@
 .medium.tf-slide-deck-container .me-not-me-container{
   font-size:17px;
 }
+.medium.tf-slide-deck-container .me-not-me-container .me, .medium.tf-slide-deck-container .me-not-me-container .not-me{
+  width:23%;
+  padding:15px 0px 10px;
+}
+.medium.tf-slide-deck-container .me-not-me-container .me {
+  margin-left:27%;
+}
+.medium.tf-slide-deck-container .me-not-me-container .not-me {
+  margin-right:27%;
+}
 .phone.tf-slide-deck-container .slide{
   height:100%;
 }
 .phone.tf-slide-deck-container .slide .image{
   height:100%;
 }
-
 
 /***************************
  * MOBILE iPhone
@@ -491,21 +613,21 @@
 
   }
   .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
-    padding:7px 0px;
+    padding:20px 0px;
     height:auto;
     bottom:0px;
     top:auto;
-    font-size:15px;
+    font-size:20px;
     width:30%;
     margin-right:20%;
   }
   .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
-    padding:7px 0px;
+    padding:20px 0px;
     height:auto;
     bottom:0px;
     top:0px;
     width:30%;
-    font-size:15px;
+    font-size:20px;
     margin-left:20%;
   }
 }

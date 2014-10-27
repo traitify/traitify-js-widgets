@@ -17,6 +17,7 @@
     <script src="./compiled/widgets/results/default/master.js"></script>
     <script src="./compiled/widgets/results/personality-types/master.js"></script>
     <script src="./compiled/widgets/results/personality-traits/master.js"></script>
+    <script src="./compiled/widgets/results/ericsresults.js"></script>
 
     <link href="./assets/stylesheets/widgets/all/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet" />
@@ -36,8 +37,13 @@
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
 		Traitify.setVersion("v1");
-
-	    tfPersonalityTypes = Traitify.ui.load("201aff7e-3c55-4d1b-930b-d0c966d194ba", ".slide-deck", {
+        window.onerror = function(e){
+            setTimeout(function(){
+              console.log(e)
+              debugger                
+          }, 1)
+        }
+	    tfPersonalityTypes = Traitify.ui.load("52f13773-38ad-4361-91d2-0c7ae0d50729", ".slide-deck", {
 	    	personalityTypes:{
 		        target:".personality-types"
 		    }, personalityTraits:{

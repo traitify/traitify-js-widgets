@@ -1,4 +1,3 @@
-
 Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.data.add("slideResponses", Object())
   widget.states.add("animating")
@@ -13,10 +12,11 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.callbacks.add("NotMe")
   widget.callbacks.add("AdvanceSlide")
   widget.data.persist("slideValues")
-  widget.data.add("slideImageCache", Array())
-  widget.data.add("definition", "HD")
+  widget.data.add("imageCache", Array())
+  widget.data.add("fetchErroring")
   widget.styleDependency("all")
   widget.styleDependency("slide-deck")
+  widget.states.add("trying", true)
   
   #######################
   # DATA DEPENDENCIES
@@ -90,7 +90,26 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     Math.round((currentPosition / slideLength) * 100)
   )
+  
 
+  widget.views.add("internetFailure", ->
+    widget.views.render("wifiLoading")
+    loadingInner = @tags.get("loading").innerHTML
+    @tags.get("loading").innerHTML = ""
+    @tags.div("refreshButton", "Refresh.").appendTo("loading")
+    @tags.get("refreshButton").onclick = ->
+      widget.views.tags.get("loading").innerHTML = loadingInner
+      widget.actions.trigger("fetchNext")
+    @tags.get("wifiLoading")
+  )
+
+  widget.views.add("wifiLoading", ->
+    unless @tags.get("wifiLoading")
+      @tags.div("wifiLoading")
+      @tags.div("loading").appendTo("wifiLoading")
+      @tags.div("loadingText", "Loading").appendTo("loading")
+    @tags.get("wifiLoading")
+  )
   #########################  
   # PARTIALS
   #########################
@@ -107,6 +126,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     slidesContainer.appendChild(@render("slides", widget.data.get("SlidesNotCompleted")))
 
     slidesContainer.appendChild(@render("meNotMe"))
+
     slidesContainer
   )
 
@@ -140,15 +160,13 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slides
   )
+
   widget.views.add("slide", (slideData)->
     slide = @tags.div("slide")
 
     slideCaption = @tags.div("caption")
     slideCaption.innerHTML = slideData.caption
-    if widget.data.get("definition") == "HD"
-      image = slideData.image_desktop_retina
-    else
-      image = slideData.image_desktop
+    image = slideData.image_desktop_retina
     slideImg = @tags.div(["slide.image"], {
       style:{
         backgroundImage: "url('#{image}')",
@@ -215,11 +233,8 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.actions.add("me", ->
     currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") - 1]
     afterNextSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
-    imageCache = widget.data.get("slideImageCache")
-    lastSlides = widget.data.get("SlidesNotCompleted").slice(-2).map((slide)-> slide.id)
-    nextSlideFromCache = imageCache.indexOf(afterNextSlide.id) != -1 if afterNextSlide
 
-    if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide && (nextSlideFromCache || lastSlides.indexOf(currentSlide.id) != -1 )
+    if !widget.states.get("animating") && widget.nodes.get("nextSlide") && currentSlide && widget.actions.trigger("cacheCheck?")
       if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
         widget.actions.trigger("loadingAnimation")
       widget.states.set("animating", true)
@@ -230,20 +245,16 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.data.counter("currentSlide").up()
 
       widget.callbacks.trigger("Me")
-    else if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide && nextSlideFromCache
-      unless widget.states.get("imagesLoading")
-        widget.views.render("loadingAnimation").appendTo("slides")
-      widget.states.set("imagesLoading", true)
-
+    else if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide
+      widget.actions.trigger("setWifiLoading", true)
+      widget.actions.trigger("failSlideAnimation")
   )
 
   widget.actions.add("notMe", ->
     currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") - 1]
     afterNextSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
-    imageCache = widget.data.get("slideImageCache")
-    lastSlides = widget.data.get("SlidesNotCompleted").slice(-2).map((slide)-> slide.id)
-    nextSlideFromCache = imageCache.indexOf(afterNextSlide.id) != -1 if afterNextSlide
-    if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide && (nextSlideFromCache || lastSlides.indexOf(currentSlide.id) != -1 )
+
+    if !widget.states.get("animating") && widget.nodes.get("nextSlide") && currentSlide && widget.actions.trigger("cacheCheck?")
       if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
         widget.actions.trigger("loadingAnimation")
 
@@ -257,14 +268,12 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.data.counter("currentSlide").up()
 
       widget.callbacks.trigger("notMe")
-    else if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide && nextSlideFromCache
-      unless widget.states.get("imagesLoading")
-        widget.views.render("loadingAnimation").appendTo("slides")
-      widget.states.set("imagesLoading", true)
+    else if !widget.states.get("animating") && widget.nodes.get().nextSlide && currentSlide
+      widget.actions.trigger("setWifiLoading", true)
+      widget.actions.trigger("failSlideAnimation")
   )
 
   widget.actions.add("advanceSlide", ->
-    widget.actions.trigger("prefetchSlides")
     widget.nodes.get("progressBarInner").style.width = widget.helpers.getProgressBarNumbers() + "%"
 
     if widget.nodes.get("playedSlide")
@@ -301,41 +310,73 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
 
   widget.data.add("imageCache", Object())
-  widget.actions.add("prefetchSlides", (count)->
-    start = widget.data.get("currentSlide") - 1
-    end = widget.data.get("currentSlide") + 9
-    unless widget.views.tags.get("imageSpeed")
-      widget.views.tags.div("imageSpeed", {style: {position: "absolute", bottom: "10px", right: "80px", textShadow: "0px 0px 8px #000", zIndex: 100}}).appendTo("slides")
-    for slide in widget.data.get("SlidesNotCompleted").slice(start, end)
-      unless widget.data.get("imageCache")[slide.image_desktop_retina]
-        
-        if widget.data.get("definition") == "HD"
-          imageSrc = slide.image_desktop_retina
-        else
-          imageSrc = slide.image_desktop
-        widget.data.get("imageCache")[imageSrc] = new Image()
-        image = widget.data.get("imageCache")[imageSrc]
-        image.id = slide.id
-        setTimeout(->
-          if widget.data.get("slideImageCache").indexOf(image.id) == -1
-            image.interval = setInterval(->
-              widget.data.get("imageCache")[imageSrc].src = imageSrc
-            , 1000)
-        , 1000)
-        image.onload = ->
-          widget.data.get("slideImageCache").push(@id)
-          clearInterval(@interval)
-          afterNextSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")+1]
-          imageCache = widget.data.get("slideImageCache")
-          lastSlide = widget.data.get("SlidesNotCompleted").slice(-1).pop()
-
-          if !widget.states.get("animating") && widget.nodes.get().nextSlide && afterNextSlide && imageCache.indexOf(afterNextSlide.id) != -1
-            if widget.views.tags.get("loading") && widget.views.tags.get("loading").parentNode
-              widget.views.tags.get("loading").parentNode.removeChild(widget.views.tags.get("loading"))
-              widget.states.set("imagesLoading", false)
-        widget.data.get("imageCache")[imageSrc].src = imageSrc
+  widget.actions.add("prefetchSlides", ->
+    widget.data.add("slideIndex", 0)
+    widget.actions.trigger("fetchNext")
   )
 
+  widget.actions.add("fetchNext", ->
+      widget.data.set("fetchErroring", false)
+      slides = widget.data.get("SlidesNotCompleted")
+
+      slide = slides[widget.data.get("slideIndex")]
+      image = new Image()
+      image.id = slide.id
+      image.src = slide.image_desktop_retina
+
+      image.onerror = ->
+        unless widget.data.get("fetchErroring")
+          widget.data.set("fetchSlides", true)
+          widget.data.set("fetchErroring", true)
+          setTimeout(->
+            widget.data.set("fetchSlides", false)
+            widget.actions.trigger("setWifiLoading", false)
+            widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
+          , 30000)          
+        onload = @onload
+        onerror = @onerror
+        src = @src
+        if widget.data.get("fetchSlides")
+          setTimeout(->
+            errorImage = new Image()
+            errorImage.onload = onload
+            errorImage.onerror = onerror
+            errorImage.src = src
+          , 1000)
+
+      image.onload = ->
+        widget.data.get("imageCache")[@src] = this
+        widget.data.counter("slideIndex").up()
+        
+        if widget.data.get("SlidesNotCompleted")[widget.data.get("slideIndex")]
+          widget.actions.trigger("fetchNext")
+        if widget.actions.trigger("cacheCheck?")
+          widget.actions.trigger("setWifiLoading", false)
+
+  )
+
+  widget.actions.add("cacheCheck?", ->
+
+    currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
+    if currentSlide
+      !!widget.data.get("imageCache")[currentSlide.image_desktop_retina]
+    else if widget.data.get("currentSlide") + 1 >= widget.data.get("SlidesNotCompleted").length
+      true
+  )
+
+  widget.actions.add("setWifiLoading", (value)->
+    if value
+      wifiLoading = widget.views.render("wifiLoading")
+      wifiLoading.className += " fade-in"
+      wifiLoading.appendTo("tfSlideDeckContainer")
+      
+    else if widget.views.tags.get("wifiLoading")
+      widget.views.tags.get("wifiLoading").parentNode.removeChild(widget.views.tags.get("wifiLoading"))
+      widget.views.tags.library.set("wifiLoading", null)
+  )
+  widget.actions.add("failSlideAnimation", ->
+    widget.nodes.get("currentSlide").className = widget.nodes.get("currentSlide").className + " not-ready-animation"
+  )
   widget.actions.add("setContainerSize", ->
       width = widget.nodes.get("main").scrollWidth
       widget.nodes.get("container").className = widget.nodes.get("container").className.replace(" medium", "")
@@ -387,18 +428,11 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     if options && options.size
       widget.nodes.get("container").className += " #{options.size}"
-    widget.views.tags.div("definition", "HD").appendTo("slides")
-    widget.views.tags.get("definition", "HD").onclick = ->
-      definition = widget.data.get("definition")
-      if definition == "HD"
-        definition = "SD"
-      else
-        definition = "HD"
-
-      widget.views.tags.get("definition").innerHTML = definition
-      widget.data.set("definition", definition)
 
     widget.nodes.get("main").appendChild(widget.nodes.get().container)
+
+    unless widget.actions.trigger("cacheCheck?")
+      widget.actions.trigger("setWifiLoading", true)
   )
 
   widget.initialization.events.add("Actions", ->
@@ -451,6 +485,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.initialization.events.add("initialized", ->
     widget.states.set("initialized", true)
     widget.callbacks.trigger("Initialize")
+
     widget.data.add("currentSlideTime", new Date().getTime())
   )
 

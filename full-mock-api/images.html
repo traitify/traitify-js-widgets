@@ -1,0 +1,57 @@
+
+<!-- saved from url=(0030)http://js.dev/edge-source.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      html, body{
+        margin:0px;
+        overflow-x:hidden;
+        width:100%;
+      }
+    </style>
+    
+
+    <script src="./images_files/master.js"></script>
+    <script src="./images_files/master(1).js"></script>
+    <script src="./images_files/master(2).js"></script> 
+    <script src="./images_files/master(3).js"></script>
+    <script src="./images_files/master(4).js"></script>
+    <script src="./images_files/master(5).js"></script>
+    <script src="./images_files/master(6).js"></script>
+    <script src="./images_files/ericsresults.js"></script>
+
+    <link href="http://js.dev/assets/stylesheets/widgets/all/master.css" rel="stylesheet">
+    <link href="http://js.dev/assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet">
+    <link href="http://js.dev/assets/stylesheets/widgets/results/default/master.css" rel="stylesheet">
+    <link href="http://js.dev/assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet">
+    <link href="http://js.dev/assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet">
+	</head>
+	<body>
+
+	<div class="slide-deck"><style>undefined</style><style>undefined</style><div class="tf-slide-deck-container"><div class="cover">Landscape mode is not currently supported</div><div class="progress-bar"><div class="progress-bar-inner" style="width: 68%;"></div></div><div class="slides"><div class="slide placeholder"><div class="image" style="background-image: url(https://traitify-api.s3.amazonaws.com/slides/6e1d8806-115c-4c83-9a18-7d4f12fcf53f/desktop_retina); background-position: 50% 50%;"><div class="caption">Snakes</div></div></div><div class="slide active played"><div class="image" style="background-image: url(https://traitify-api.s3.amazonaws.com/slides/6d270b5d-1e49-411e-9ad5-7757140ae35f/desktop_retina); background-position: 50% 50%;"><div class="caption">Teaching</div></div></div><div class="slide active"><div class="image" style="background-image: url(https://traitify-api.s3.amazonaws.com/slides/24a7e68e-ebdb-4c05-a517-c69898d004b3/desktop_retina); background-position: 48% 63%;"><div class="caption">Using Machinery</div></div></div><div class="slide"><div class="image" style="background-image: url(https://traitify-api.s3.amazonaws.com/slides/90e1546b-b425-4137-9266-c946be5b6935/desktop_retina); background-position: 34% 36%;"><div class="caption">Deep Thinking</div></div></div></div><div class="me-not-me-container"><div class="me">ME</div><div class="not-me">NOT ME</div></div></div></div>
+    
+    <div class="personality-types"></div>
+    <div class="personality-traits"></div>
+    
+	<script>
+		Traitify.ui.styles = ""
+		Traitify.setHost("api-sandbox.traitify.com");
+		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+		Traitify.setVersion("v1");
+        window.onerror = function(e){
+            setTimeout(function(){
+              console.log(e)
+              debugger                
+          }, 1)
+        }
+	    tfPersonalityTypes = Traitify.ui.load("56e07d09-0455-4520-9ce4-7295d95e65b7", ".slide-deck", {
+	    	personalityTypes:{
+		        target:".personality-types"
+		    }, personalityTraits:{
+		        target:".personality-traits"
+			}
+		}) 
+    </script>
+	
+
+</body></html>
