@@ -43,6 +43,9 @@
   width:100%;
   top:40%;
 }
+.tf-slide-deck-container .slides .loading .refresh-button{
+  cursor: pointer;
+}
 .tf-slide-deck-container .slides .loading .left-dot{
   background-color:rgb(5, 143, 196); 
   width:20px;

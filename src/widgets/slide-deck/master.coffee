@@ -93,7 +93,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     widget.views.render("wifiLoading")
     loadingInner = @tags.get("loading").innerHTML
     @tags.get("loading").innerHTML = ""
-    @tags.div("refreshButton", "Refresh.").appendTo("loading")
+    @tags.div("refreshButton", "Refresh").appendTo("loading")
     @tags.get("refreshButton").onclick = ->
       widget.views.tags.get("loading").innerHTML = loadingInner
       widget.actions.trigger("fetchNext")
