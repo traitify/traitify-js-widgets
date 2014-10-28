@@ -43,9 +43,6 @@
   width:100%;
   top:40%;
 }
-.tf-slide-deck-container .slides .loading .refresh-button{
-  cursor: pointer;
-}
 .tf-slide-deck-container .slides .loading .left-dot{
   background-color:rgb(5, 143, 196); 
   width:20px;
@@ -125,6 +122,9 @@
   -moz-animation: pulse-animation .3s ease-in-out infinite;
   -o-animation: pulse-animation .3s ease-in-out infinite;
   animation: pulse-animation .3s ease-in-out infinite;
+}
+.tf-slide-deck-container .wifi-loading .loading .refresh-button{
+  cursor: pointer;
 }
 @-webkit-keyframes pulse-animation { 
     0% { opacity: 0.3; }
