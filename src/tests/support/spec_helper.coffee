@@ -65,14 +65,14 @@ testSuite.add("v1", ->
   ###############################
   # Libraries
   ###############################
-  require("../compiled/api/master", cover: true)
-  require("../compiled/ui/master", cover: true)
-  require("../compiled/builder/master", cover: true)
-  require("../compiled/widgets/slide-deck/master", cover: true)
-  require("../compiled/widgets/results/default/master", cover: true)
-  require("../compiled/widgets/results/personality-traits/master", cover: true)
-  require("../compiled/widgets/results/personality-types/master", cover: true)
-  require("../assets/widgets/slide-deck/master", "css")
+  require("../compiled/api/v1", cover: true)
+  require("../compiled/ui/v1", cover: true)
+  require("../compiled/builder/v1", cover: true)
+  require("../compiled/widgets/slide-deck/v1", cover: true)
+  require("../compiled/widgets/results/default/v1", cover: true)
+  require("../compiled/widgets/results/personality-traits/v1", cover: true)
+  require("../compiled/widgets/results/personality-types/v1", cover: true)
+  require("../assets/widgets/slide-deck/v1", "css")
 
   ###############################
   # Tests

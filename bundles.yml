@@ -1,18 +1,18 @@
 v1: 
   js:
-    - "api/2.0.js" 
-    - "ui/2.0.js"
-    - "builder/3.0.js"
-    - "widgets/slide-deck/4.0.js"
-    - "widgets/results/default/2.0.js"
-    - "widgets/results/personality-types/2.0.js"
-    - "widgets/results/personality-traits/2.0.js"
+    - "api/v1.js" 
+    - "ui/v1.js"
+    - "builder/v1.js"
+    - "widgets/slide-deck/v1.js"
+    - "widgets/results/default/v1.js"
+    - "widgets/results/personality-types/v1.js"
+    - "widgets/results/personality-traits/v1.js"
   css:
-    - "widgets/all/2.0.css"
-    - "widgets/slide-deck/2.0.css"
-    - "widgets/results/default/2.0.css"
-    - "widgets/results/personality-types/2.0.css"
-    - "widgets/results/personality-traits/2.0.css"
+    - "widgets/all/v1.css"
+    - "widgets/slide-deck/v1.css"
+    - "widgets/results/default/v1.css"
+    - "widgets/results/personality-types/v1.css"
+    - "widgets/results/personality-traits/v1.css"
 edge: 
   js:
     - "api/master.js" 
