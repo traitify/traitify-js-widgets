@@ -178,10 +178,10 @@
 
 .tf-slide-deck-container.mobile .wifi-loading .loading {
   width: 80%;
-  font-size: 14px;
-  padding: 15px 0px 14px 0px;
+  font-size: 13px;
+  padding: 11px 0px 10px 0px;
 
-  margin-bottom:15px;
+  margin-bottom:18px;
 }
 
 .tf-slide-deck-container.ipad .wifi-loading .loading {
