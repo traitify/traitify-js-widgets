@@ -326,9 +326,10 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
           widget.data.set("fetchSlides", true)
           widget.data.set("fetchErroring", true)
           setTimeout(->
-            widget.data.set("fetchSlides", false)
-            widget.actions.trigger("setWifiLoading", false)
-            widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
+            unless  widget.actions.trigger("cacheCheck?")
+                widget.data.set("fetchSlides", false)
+                widget.actions.trigger("setWifiLoading", false)
+                widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
           , 30000)          
         onload = @onload
         onerror = @onerror
