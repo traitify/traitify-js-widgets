@@ -20,7 +20,7 @@
 }
 .tf-slide-deck-container .cover{
   display: none;
-  background-color: #aaa;
+  background-color: #35aaf1;
 }
 .tf-slide-deck-container .slides {
   position: relative;
@@ -154,7 +154,7 @@
   width: 36%;
   display: inline-block;
   border-radius: 28px;
-  padding:21px 0px 17px;
+  padding:18px 0px 16px;
   margin-bottom:18px;
   color:#fff;
 }
@@ -414,7 +414,7 @@
 .phone.tf-slide-deck-container .slide{
   padding: 0px;
   margin: 0px;
-  -webkit-transition: width .4s linear;
+  -webkit-tr2nsition: width .4s linear;
   -moz-transition: width .4s linear;
   -o-transition: width .4s linear;
   transition: width .4s linear;
@@ -492,7 +492,7 @@
     border-radius: 0px 4px 4px 0px;
     height:8px;
   }
-  .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
+  .phone.tf-slide-deck-container .me-not-me-container{
     font-size:40px;
   }
   .phone.tf-slide-deck-container .cover{
@@ -500,7 +500,16 @@
     height:100%;
     position:absolute;
     z-index:10;
-    /*display: block; This should be uncommented when the text is given*/
+    display: block;
+  }
+  .phone.tf-slide-deck-container .cover .rotate-back{
+    width: 90%;
+    margin-left:5%;
+    margin-right:5%;
+    height: 90%;
+    bottom: 0px;
+    position:absolute;
+    background-size: cover;
   }
 }
 .non-touch.phone.tf-slide-deck-container .caption{
@@ -510,9 +519,8 @@
 .non-touch.phone.tf-slide-deck-container .me-not-me-container{
   border-radius:40px;
   overflow:hidden;
-  height:50px;
   padding:0px;
-  bottom:10px;
+  bottom:0px;
   top:auto;
   width:100%;
   margin-left:0px;
@@ -520,18 +528,17 @@
 }
 .non-touch.phone.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
   width:40%;
-  font-size:20px;
-  height:45px;
-  line-height:45px;
-  padding:0px;
+  font-size:15px;
 }
 .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
   background-color:rgb(203, 78, 78);
   margin-right:10%;
+  padding: 12px 0px 10px;
 }
 .non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
   background-color:rgb(5, 143, 196); 
   margin-left:10%;
+  padding: 12px 0px 10px;
 }
 .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me:active{
   background-color:rgb(180, 70, 70); 

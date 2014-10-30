@@ -113,7 +113,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.views.add("slideDeckContainer", ->
     slidesContainer = @tags.div("tfSlideDeckContainer")
     cover = @tags.div("cover")
-    cover.innerHTML = "Landscape mode is not currently supported"
+    @tags.tag("rotateBack", "object", {"data":"https://s3.amazonaws.com/traitify-cdn/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
     slidesContainer.appendChild(cover)
     
     slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
