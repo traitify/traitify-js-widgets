@@ -57,10 +57,10 @@
   padding: 0px;
   margin: 0px;
   box-sizing: initial;
-  -webkit-transition: left .3s linear;
-  -moz-transition: left .3s linear;
-  -o-transition: left .3s linear;
-  transition: left .3s linear;
+  -webkit-transition: left .5s ease-in-out;
+  -moz-transition: left .5s ease-in-out;
+  -o-transition: left .5s ease-in-out;
+  transition: left .5s ease-in-out;
   position: absolute;
   left: 100%;
   top: 0px;
