@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      html, body{
+        margin:0px;
+        overflow-x:hidden;
+        width:100%;
+      }
+    </style>
+
+    <script src="https://s3.amazonaws.com/traitify-cdn/lib/edge.js"></script>
+
+	</head>
+	<body>
+
+	<div class="slide-deck"></div>
+    
+    <div class="personality-types"></div>
+    <div class="personality-traits"></div>
+    
+		<script>
+			Traitify.setHost("api-sandbox.traitify.com");
+			Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+			Traitify.setVersion("v1");
+      Traitify.ui.load("34423384-cc0f-4c77-b139-866c795b6adb", ".slide-deck", {
+		      personalityTypes:{
+		        target:".personality-types"
+		      },
+		      personalityTraits:{
+		        target:".personality-traits"
+		      }
+		    })
+		</script>
+
+		<div class="widget">
+		  <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
+        <name class="awesome"></name>
+        <badge-image></badge-image>
+        <score></score>
+		  </template>
+		</div>
+		<style>
+		    body{
+		      padding:0px;
+		      margin:0px;
+		    }
+		</style>
+	</body>
+</html>

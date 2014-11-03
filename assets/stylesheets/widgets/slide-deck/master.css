@@ -503,10 +503,10 @@
     display: block;
   }
   .phone.tf-slide-deck-container .cover .rotate-back{
-    width: 60%;
-    margin-left:20%;
-    margin-right:20%;
-    height: 60%;
+    width: 70%;
+    margin-left:15%;
+    margin-right:15%;
+    height: 70%;
     bottom: 0px;
     position:absolute;
     background-size: cover;
