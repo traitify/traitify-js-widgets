@@ -28,7 +28,8 @@ Traitify.ui.widget("results", (widget, options)->
       @tags.div("personalityBlend")
       personalityBlendData = widget.data.get("PersonalityTypes").personality_blend
       @render("Personality Blend Badges").appendTo("personalityBlend")
-      @tags.div("name", personalityBlendData.name.gsub("/", "/&#8203;")).appendTo("personalityBlend")
+      personalityName = if personalityBlendData.name then personalityBlendData.name.replace("/", "/&#8203;") else ""
+      @tags.div("name", personalityName).appendTo("personalityBlend")
       @tags.div("blendDescription", personalityBlendData.description).appendTo("personalityBlend")
     else
       @tags.div("personalityType")
