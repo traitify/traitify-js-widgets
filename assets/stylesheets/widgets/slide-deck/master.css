@@ -446,47 +446,9 @@
 .phone.tf-slide-deck-container .slide .image{
   height:100%;
 }
-
-.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container{
-  font-size:17px;
-  position:absolute;
-  height:100%;
-  top:0px;
-  width:100%;
-  overflow:hidden;
-  font-size:40px;
-}
-.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me, .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
-  height: 100%;
-  line-height:100%;
-  position:relative;
-}
-.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
-  background-color:rgba(203, 78, 78, .35);
-  border-radius:0px;
-  width:50%;
-  margin:0px;
-}
-.phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me{
-  background-color:rgba(5, 143, 196, .35); 
-  border-radius:0px;
-  width:50%;
-  margin:0px;
-}
 @media screen and (device-width:320px) and (orientation:landscape) {
   .phone.tf-slide-deck-container .caption{
     font-size:16px;
-  }
-  .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .me, .phone:not(.non-touch).tf-slide-deck-container .me-not-me-container .not-me{
-    height: 160px;
-    line-height:160px;
-  }
-  .phone:not(.non-touch).tf-slide-deck-container .progress-bar{
-    background-color:rgba(255,255,255, .5);
-    position:absolute;
-    z-index:2;
-    border:0px;
-    height:8px;
   }
   .phone.tf-slide-deck-container .progress-bar-inner{
     border-radius: 0px 4px 4px 0px;
@@ -512,11 +474,11 @@
     background-size: cover;
   }
 }
-.non-touch.phone.tf-slide-deck-container .caption{
+.phone.tf-slide-deck-container .caption{
   margin-top:10px;
   padding: 10px 0px;
 }
-.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+.phone.tf-slide-deck-container .me-not-me-container{
   border-radius:40px;
   overflow:hidden;
   padding:0px;
@@ -526,44 +488,44 @@
   margin-left:0px;
   margin-right:0px;
 }
-.non-touch.phone.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+.phone.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
   width:40%;
   font-size:15px;
 }
-.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+.phone.tf-slide-deck-container .me-not-me-container .not-me{
   background-color:rgb(203, 78, 78);
   margin-right:10%;
   padding: 12px 0px 10px;
 }
-.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+.phone.tf-slide-deck-container .me-not-me-container .me{
   background-color:rgb(5, 143, 196); 
   margin-left:10%;
   padding: 12px 0px 10px;
 }
-.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me:active{
+.phone.tf-slide-deck-container .me-not-me-container .not-me:active{
   background-color:rgb(180, 70, 70); 
 }
 
-.non-touch.phone.tf-slide-deck-container .me-not-me-container .me:active{
+.phone.tf-slide-deck-container .me-not-me-container .me:active{
   background-color:rgb(0, 122, 156); 
 }
 @media screen and (orientation:landscape) {
-  .non-touch.phone.tf-slide-deck-container .me-not-me-container{
+  .phone.tf-slide-deck-container .me-not-me-container{
     height:30px;
   }
-  .non-touch.phone.tf-slide-deck-container .me-not-me-container .me, 
-  .non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+  .phone.tf-slide-deck-container .me-not-me-container .me, 
+  .phone.tf-slide-deck-container .me-not-me-container .not-me{
     font-size:12px;
     height:25px;
     line-height:25px;
   }
-  .non-touch.phone.tf-slide-deck-container .progress-bar{
+  .phone.tf-slide-deck-container .progress-bar{
     height:5px;
   }
-  .non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+  .phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
     height:5px;
   }
-  .non-touch.phone.tf-slide-deck-container .slide .caption{
+  .phone.tf-slide-deck-container .slide .caption{
     font-size:12px;
     padding:3px;
     margin-top:5px;
@@ -574,23 +536,23 @@
 /**********************
  * iPad
  **********************/
-.ipad.non-touch.phone.tf-slide-deck-container .progress-bar{
+.ipad.phone.tf-slide-deck-container .progress-bar{
   height:15px;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+.ipad.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
   height:15px;
   border-radius: 0px 8px 8px 0px;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+.ipad.phone.tf-slide-deck-container .slide .caption{
   margin-top:15px;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+.ipad.phone.tf-slide-deck-container .slide .caption{
   font-size:25px;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+.ipad.phone.tf-slide-deck-container .me-not-me-container{
   height:auto;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+.ipad.phone.tf-slide-deck-container .me-not-me-container .me{
   width:34%;
   margin-left:16%;
   font-size:30px;
@@ -598,7 +560,7 @@
   border-radius: 30px 0px 0px 30px;
   height:auto;
 }
-.ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+.ipad.phone.tf-slide-deck-container .me-not-me-container .not-me{
   width:34%;
   margin-right:16%;
   font-size:30px;
@@ -608,20 +570,20 @@
 }
 
 @media screen and (orientation:landscape) {
-  .ipad.non-touch.phone.tf-slide-deck-container .progress-bar{
+  .ipad.phone.tf-slide-deck-container .progress-bar{
     height:10px;
   }
-  .ipad.non-touch.phone.tf-slide-deck-container .slide .caption{
+  .ipad.phone.tf-slide-deck-container .slide .caption{
     margin-top:10px;
   }
-  .ipad.non-touch.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
+  .ipad.phone.tf-slide-deck-container .progress-bar .progress-bar-inner{
     height:10px;
   }
-  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container{
+  .ipad.phone.tf-slide-deck-container .me-not-me-container{
     height:auto;
 
   }
-  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .not-me{
+  .ipad.phone.tf-slide-deck-container .me-not-me-container .not-me{
     padding:20px 0px;
     height:auto;
     bottom:0px;
@@ -630,7 +592,7 @@
     width:30%;
     margin-right:20%;
   }
-  .ipad.non-touch.phone.tf-slide-deck-container .me-not-me-container .me{
+  .ipad.phone.tf-slide-deck-container .me-not-me-container .me{
     padding:20px 0px;
     height:auto;
     bottom:0px;
@@ -646,23 +608,23 @@
  * Android
  **************************************/
 @media screen and (orientation:landscape) {
-  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container{
+  .phone.android.tf-slide-deck-container .me-not-me-container{
     height:auto;
   }
-  .non-touch.phone.android.tf-slide-deck-container .caption{
+  .phone.android.tf-slide-deck-container .caption{
     font-size:20px;
     padding:5px 0px;
   }
-  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+  .phone.android.tf-slide-deck-container .me-not-me-container .me, .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
     font-size:18px;
     padding:5px 0px;
   }
-  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .me{
+  .phone.android.tf-slide-deck-container .me-not-me-container .me{
     width:30%;
     margin-left:20%;
     height:auto;
   }
-  .non-touch.phone.android.tf-slide-deck-container .me-not-me-container .not-me{
+  .phone.android.tf-slide-deck-container .me-not-me-container .not-me{
     width:30%;
     margin-right:20%;
     height:auto;

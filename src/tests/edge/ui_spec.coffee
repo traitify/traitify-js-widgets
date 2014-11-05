@@ -1,10 +1,14 @@
-QUnit.module( "Testing Loader Spec", {
+QUnit.module( "Testing UI", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
 
+    unless document.querySelector(".widget .slide-deck")
+      widget = document.createElement("div")
+      widget.setAttribute("class", "widget")
+      body.appendChild(widget)
     document.querySelector(".widget").innerHTML=""
 
   , teardown: ->

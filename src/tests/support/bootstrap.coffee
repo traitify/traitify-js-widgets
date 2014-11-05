@@ -78,23 +78,6 @@ class FactoryBoy
     else
       console.log("Your Factory #{key} Doesn't Exist")
 
-class TestSuite
-  constructor: ->
-    @versions = Object()
-  add: (@version, @setup)->
-    @versions[@version] = @setup
-  defaultSuite: (@version)->
-    @defaultVersion = @version
-  run: ->
-    if(params.suite)
-      @versions[params.suite]()
-    else
-      suites = Array()
-      for versionName in Object.keys(@versions)
-        suites.push(window.location + "?suite=#{versionName}")
-      QUnit.testSuites(suites);
-testSuite = new TestSuite()
-
 ################################
 # Global
 ################################

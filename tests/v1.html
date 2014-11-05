@@ -1,0 +1,46 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Traitify JS Tests</title>
+  <style>
+   .personality-types, .personality-traits, #test-case-container, .widget{
+       display:none
+   }
+  </style>
+</head>
+<body>
+  <script src="../compiled/tests/support/bootstrap.js"></script>
+  <script>
+   /*******************************
+    * External Libraries
+    *******************************/
+    require("../compiled/tests/support/factories/traitify_api_v1")
+    require("../compiled/tests/support/mocks/traitify_mocks_v1")
+
+   /*****************************
+    * Libraries
+    *****************************/
+    require("../compiled/api/v1", {cover: true})
+    require("../compiled/ui/v1", {cover: true})
+    require("../compiled/builder/v1", {cover: true})
+    require("../compiled/widgets/slide-deck/v1", {cover: true})
+    require("../compiled/widgets/results/default/v1", {cover: true})
+    require("../compiled/widgets/results/personality-traits/v1", {cover: true})
+    require("../compiled/widgets/results/personality-types/v1", {cover: true})
+    require("../assets/widgets/slide-deck/v1", "css")
+
+   /*****************************
+    * Tests
+    *****************************/
+    require("../compiled/tests/v1/api_spec")
+    require("../compiled/tests/v1/builder_spec")
+    require("../compiled/tests/v1/ui_spec")
+    require("../compiled/tests/v1/slide_deck_spec")
+    require("../compiled/tests/v1/results_spec")
+    require("../compiled/tests/v1/results_traits_spec")
+    require("../compiled/tests/v1/results_personality_types_spec")
+
+    div({id: "test-case-container"})
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-QUnit.module( "Results Personality Types Tests", {
+QUnit.module( "Testing Results Personality Types", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")

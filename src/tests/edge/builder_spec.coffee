@@ -1,4 +1,4 @@
-QUnit.module( "Testing Builder Version 2", {
+QUnit.module( "Testing Builder", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")
@@ -12,6 +12,7 @@ QUnit.module( "Testing Builder Version 2", {
 
     testCaseContainer.appendChild(@testDiv)
     @widget = new Widget(".builder-test-initialization")
+
   , teardown: ->
     Traitify.XHR = XMLHttpRequest
 })
@@ -66,7 +67,7 @@ QUnit.test("Has Tags addTag works", (assert)->
 )
 
 QUnit.test("callbacks work", (assert)->
-  parent = new Widget("div")
+  parent = new Widget(".builder-test-initialization")
   callbacks = new Callbacks(parent)
   callbacks.states.add("bandOfBrothers", false)
   callbacks.add("Awesome")

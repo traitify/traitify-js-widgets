@@ -1,6 +1,6 @@
 Traitify.XHR = MockRequest
 
-QUnit.module( "Results Tests", {
+QUnit.module( "Testing Results", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")

@@ -1,4 +1,4 @@
-QUnit.module( "module A", {
+QUnit.module( "Testing Slide Deck", {
   setup: ->
     Traitify.XHR = MockRequest
     Traitify.setVersion("v1")
@@ -15,7 +15,6 @@ QUnit.module( "module A", {
 })
 
 QUnit.test("Slide Deck Hooks Exist", (assert)->
-
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
 
   assert.equal(!widgets.slideDeck.onInitialize, false, "on Initialize Event Succeeds!" )
@@ -34,7 +33,6 @@ QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
 )
 
 QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert)->
-
   widgets = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
 
   slideDeck = widgets.slideDeck
@@ -80,7 +78,6 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
 
   slideDeck.onInitialize(->
     #Data Should Exist
-
     assert.equal( slideDeck.data.get("Slides")[0].caption, "Navigating", "First Slide Caption Succeeds!" )
 
     #First Slide
@@ -90,11 +87,17 @@ QUnit.asyncTest("Slide Deck Widget can click through slides", (assert)->
     document.querySelector(".widget").innerHTML
     
     slideDeck.data.assessmentId = "played"
-    slideDeck.data.get("SlidesNotCompleted").length.times((i)->
+    
+    slideDeck.actions.store["cacheCheck?"] = ->
+      true
+
+    slides = slideDeck.data.get("SlidesNotCompleted")
+    slides.length.times((i)->
       currentSlide = slideDeck.nodes.get("currentSlide")
       type =  if i % 2 == 0 then 0 else 1
       meNotMe = [document.querySelector(".me"), document.querySelector(".not-me")][type]
       meNotMe.trigger('click')
+
       currentSlide.trigger("webkitTransitionEnd")
       currentSlide.trigger("transitionEnd")
       sentSlideNumber = slideDeck.data.get("sentSlides")
@@ -126,6 +129,9 @@ QUnit.asyncTest("Slide Deck Widget can touch through slides", (assert)->
     assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
 
     document.querySelector(".widget").innerHTML
+
+    slideDeck.actions.store["cacheCheck?"] = ->
+      true
 
     slideDeck.data.assessmentId = "played"
     slideDeck.data.get("SlidesNotCompleted").length.times((i)->
@@ -164,6 +170,9 @@ QUnit.asyncTest("Slide Deck Widget can touch through slides triggering the not m
     assert.equal( firstSlide, "Navigating", "First Slide is on DOM Succeeds!" )
 
     document.querySelector(".widget").innerHTML
+
+    slideDeck.actions.store["cacheCheck?"] = ->
+      true
 
     slideDeck.data.assessmentId = "played"
     slideDeck.data.get("SlidesNotCompleted").length.times((i)->
