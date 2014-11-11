@@ -22,7 +22,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   # DATA DEPENDENCIES
   #######################
   widget.dataDependency("Slides")
-
+  
   #######################
   # DATA
   #######################
@@ -73,10 +73,11 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
           widget.callbacks.trigger("Finished")
       ).catch(->
-        widget.data.get("slideValues").push(currentSlides)
+        console.log("internet offline")
+        widget.data.set("slideValues", widget.data.get("slideValues").concat(currentSlides))
       )
   )
-
+  
   widget.helpers.add("getProgressBarNumbers", (initialize)->
     slideLength = widget.data.get("Slides").length
     completed = widget.data.get("SlidesCompleted").length 
@@ -88,7 +89,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     Math.round((currentPosition / slideLength) * 100)
   )
   
-
   widget.views.add("internetFailure", ->
     widget.views.render("wifiLoading")
     loadingInner = @tags.get("loading").innerHTML
@@ -99,7 +99,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.actions.trigger("fetchNext")
     @tags.get("wifiLoading")
   )
-
+  
   widget.views.add("wifiLoading", ->
     unless @tags.get("wifiLoading")
       @tags.div("wifiLoading")
@@ -107,6 +107,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       @tags.div("loadingText", "Loading").appendTo("loading")
     @tags.get("wifiLoading")
   )
+  
   #########################  
   # PARTIALS
   #########################
@@ -126,7 +127,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slidesContainer
   )
-
+  
   widget.views.add("meNotMe", ->
     meNotMeContainer = @tags.div("meNotMeContainer")
     widget.nodes.set("me", @tags.div("me"))
@@ -139,6 +140,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     
     meNotMeContainer
   )
+
   widget.views.add("slides", (slidesData)->
     slides = @tags.div("slides")
     placeHolderSlide = widget.views.render("slide", slidesData[0])
@@ -157,7 +159,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slides
   )
-
+  
   widget.views.add("slide", (slideData)->
     slide = @tags.div("slide")
 
@@ -168,7 +170,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       style:{
         backgroundImage: "url('#{image}')",
         backgroundPosition:"#{slideData.focus_x}% #{slideData.focus_y}%"
-      } 
+      }
     })
     slideImg.appendChild(slideCaption)
 
@@ -176,7 +178,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slide
   )
-
+  
   widget.views.add("progressBar", (percentFinished)->
     progressBar = @tags.div("progress-bar")
     progressBarInner = @tags.div("progress-bar-inner")
@@ -188,7 +190,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     progressBar
   )
-
+  
   widget.views.add("loadingAnimation", ->
     @tags.div("loading")
     @tags.div("symbol").appendTo("loading")
@@ -198,7 +200,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     @tags.get("loading")
   )
 
-    
+  
   ##########################
   # HELPERS
   ##########################
@@ -209,7 +211,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       touchobj = event.changedTouches[0]
       touched.startx = parseInt(touchobj.clientX)
       touched.starty = parseInt(touchobj.clientY)
-      
+    
     )
     touchNode.addEventListener('touchend', (event)->
       touchobj = event.changedTouches[0]
@@ -219,11 +221,12 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
         callBack()
     )
   )
+
   widget.helpers.add("onload", (callBack)->
     if (window.addEventListener)
       window.addEventListener('load', callBack)
   )
-    
+  
   ###########################
   # EVENTS
   ###########################
@@ -330,7 +333,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
                 widget.data.set("fetchSlides", false)
                 widget.actions.trigger("setWifiLoading", false)
                 widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
-          , 30000)          
+          , 30000)
         onload = @onload
         onerror = @onerror
         src = @src

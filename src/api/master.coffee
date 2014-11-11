@@ -66,7 +66,7 @@ class ApiClient
   constructor: ->
     # Your Api Host (sets to https://api.traitify.com by default)
     @host = "https://api.traitify.com"
-    
+    @online = navigator.onLine
     # Your Api Version (sets to v1 by default)
     @version = "v1"
 
@@ -135,7 +135,7 @@ class ApiClient
   # @param [Function] Callback
   # @param [String] Params
   #
-  ajax: (method, path, callback, params)->
+  ajax: (method, path, callback, params)-> 
     beautify = @beautify
     url = "#{@host}/#{@version}#{path}"
     xhr = new @XHR()
@@ -160,8 +160,12 @@ class ApiClient
       xhr.setRequestHeader "Content-type", "application/json"
       xhr.setRequestHeader "Accept", "application/json"
     that = this
+    online = @online
     promise = new SimplePromise((resolve, reject)->
       that.reject = reject
+
+      unless online
+        return that.reject()
       try
         xhr.onload = ->
           if xhr.status == 404

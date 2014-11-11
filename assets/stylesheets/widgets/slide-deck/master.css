@@ -474,6 +474,25 @@
     background-size: cover;
   }
 }
+@media screen and (orientation:landscape) {
+  .iphone.tf-slide-deck-container .cover{
+    width:100%;
+    height:100%;
+    position:absolute;
+    z-index:10;
+    display: block;
+  }
+  .iphone.tf-slide-deck-container .cover .rotate-back{
+    width: 70%;
+    margin-left:15%;
+    margin-right:15%;
+    height: 70%;
+    bottom: 0px;
+    position:absolute;
+    background-size: cover;
+  }
+}
+
 .phone.tf-slide-deck-container .caption{
   margin-top:10px;
   padding: 10px 0px;
