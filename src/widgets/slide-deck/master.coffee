@@ -129,16 +129,14 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
   
   widget.views.add("meNotMe", ->
-    meNotMeContainer = @tags.div("meNotMeContainer")
-    widget.nodes.set("me", @tags.div("me"))
-    widget.nodes.set("notMe", @tags.div("notMe"))
+    @tags.div("meNotMeContainerAttachment")
+    @tags.div("meNotMeContainer").appendTo("meNotMeContainerAttachment")
+    @tags.div("me").appendTo("meNotMeContainer")
+    @tags.div("notMe").appendTo("meNotMeContainer")
     widget.nodes.get("notMe").innerHTML = "NOT ME"
     widget.nodes.get("me").innerHTML = "ME"
-    meNotMeContainer.appendChild(widget.nodes.get("me"))
-    meNotMeContainer.appendChild(widget.nodes.get("notMe"))
-    widget.nodes.set("meNotMeContainer", meNotMeContainer)
     
-    meNotMeContainer
+    @tags.get("meNotMeContainerAttachment")
   )
 
   widget.views.add("slides", (slidesData)->
@@ -332,7 +330,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
             unless  widget.actions.trigger("cacheCheck?")
                 widget.data.set("fetchSlides", false)
                 widget.actions.trigger("setWifiLoading", false)
-                widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
+                widget.views.render("internetFailure").appendTo("meNotMeContainer")
           , 30000)
         onload = @onload
         onerror = @onerror
@@ -369,7 +367,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     if value
       wifiLoading = widget.views.render("wifiLoading")
       wifiLoading.className += " fade-in"
-      wifiLoading.appendTo("tfSlideDeckContainer")
+      wifiLoading.appendTo("meNotMeContainer")
       
     else if widget.views.tags.get("wifiLoading")
       widget.views.tags.get("wifiLoading").parentNode.removeChild(widget.views.tags.get("wifiLoading"))
