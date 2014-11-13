@@ -14,7 +14,7 @@ For directions on using the latest traitify js scroll to the bottom
 Include the Traitify.js library:
 
 ```xhtml
-<script src="https://cdn.traitify.com/lib/stable.js"></script>
+<script src="https://cdn.traitify.com/lib/v1.js"></script>
 ```
 
 You can initialize using an id or a class on any div tag:
@@ -58,7 +58,7 @@ When you initialize the widget we return our widget builder to you (This is the 
 ===============
 ### Using Traitify JS API CLIENT:
 ```xhtml
-<script src="https://cdn.traitify.com/lib/stable.js"></script>
+<script src="https://cdn.traitify.com/lib/v1.js"></script>
 ```
 
 ##### Get Decks
@@ -89,7 +89,7 @@ Traitify.getPersonalityTraits("assessment id", function(data){
 })
 ```
 ### Using Edge
-Warning, things may break if you use edge, it is not stable, and is not intended to be. If you're looking for a stable deployment the stable bundle from the above cdn.
+Warning, things may break if you use edge, it is not stable, and is not intended to be. If you're looking for a stable deployment then use the v1 bundle from the above cdn.
 ```xhtml
 <script src="https://cdn.traitify.com/lib/edge.js"></script>
 <script>
