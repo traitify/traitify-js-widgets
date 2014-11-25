@@ -18,6 +18,9 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
   #########################
   widget.views.add("Personality Types Container", ->
     personalityTypesWidgetContainer = @tags.div("tfPersonalityTypes")
+    if Traitify.oldIE
+        personalityTypesWidgetContainer.className += " ie"
+
     @tags.div("personalityTypesContainerScroller").appendTo("tfPersonalityTypes")
     @tags.div("personalityTypesContainer").appendTo("personalityTypesContainerScroller")
     
@@ -36,8 +39,8 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
     @tags.div("arrow").appendTo("personalityTypes")
     @tags.div("icon").appendTo("arrow")
     
-    for index of widget.data.get("PersonalityTypes").personality_types
-      pt = widget.data.get("PersonalityTypes").personality_types[index]
+    for pt in widget.data.get("PersonalityTypes").personality_types
+      index = _i
       @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
       name = @tags.div("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"

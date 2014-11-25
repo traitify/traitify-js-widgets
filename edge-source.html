@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -32,30 +33,17 @@
     <div class="personality-traits"></div>
     
 	<script>
-		Traitify.ui.styles = ""
+		Traitify.ui.styles = []
 		Traitify.setHost("api-sandbox.traitify.com");
 		Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
-		Traitify.setVersion("v1");
-        window.onerror = function(e){
-            setTimeout(function(){
-              console.log(e)
-              debugger                
-          }, 1)
-        }
-	    tfPersonalityTypes = Traitify.ui.load("f660dc85-4eb4-41d6-ac41-11d1873112d2", ".slide-deck", {
-            slideDeck:{
-                showResults: false
-            },
+        Traitify.setVersion("v1");
+        window.tfWidget = Traitify.ui.load("c89ef4f3-7743-4767-a47d-124bfe261852", ".slide-deck", {
 	    	personalityTypes:{
 		        target:".personality-types"
 		    }, personalityTraits:{
 		        target:".personality-traits"
 			}
 		}) 
-
-        tfPersonalityTypes.slideDeck.onFinished(function(){
-           alert("HERE") 
-        })
     </script>
 	</body>
 </html>

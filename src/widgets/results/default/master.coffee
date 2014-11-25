@@ -18,6 +18,8 @@ Traitify.ui.widget("results", (widget, options)->
   #########################
   widget.views.add("Results", ->
     @tags.div("tfResults")
+    if Traitify.oldIE
+        @tags.get("tfResults").className += " ie"
     @render("Personality Blend").appendTo("tfResults")
     @tags.library.get("tfResults")
   )
@@ -48,19 +50,28 @@ Traitify.ui.widget("results", (widget, options)->
     hexColorOne = widget.helpers.hexToRGB(typeOneData.badge.color_1)
     @tags.div("badgesContainer")
 
-    @tags.div("leftBadge", {style: {
-      backgroundColor: "rgba(#{hexColorOne.join(', ')}, .07)",
-      borderColor: "##{typeOneData.badge.color_1}"
-    }}).appendTo("badgesContainer")
+    unless Traitify.oldIE
+        leftBadgeCSS = {style: {
+          backgroundColor: "rgba(#{hexColorOne.join(', ')}, .07)",
+          borderColor: "##{typeOneData.badge.color_1}"
+        }}
+    else
+        leftBadgeCSS = {}
+    @tags.div("leftBadge", leftBadgeCSS).appendTo("badgesContainer")
     @tags.img("leftBadgeImage", typeOneData.badge.image_medium).appendTo("leftBadge")
     
     
     typeTwoData = personalityBlendData.personality_type_2
     hexColorTwo = widget.helpers.hexToRGB(typeTwoData.badge.color_1)
-    @tags.div("rightBadge", {style:{
-      "background-color":"rgba(#{hexColorTwo.join(', ')}, .07)",
-      "border-color": "##{typeTwoData.badge.color_1}"
-    }}).appendTo("badgesContainer")
+
+    unless Traitify.oldIE
+        rightBadgeCSS = {style:{
+          backgroundColor: "rgba(#{hexColorTwo.join(', ')}, .07)",
+          borderColor: "##{typeTwoData.badge.color_1}"
+        }}
+    else
+        rightBadgeCSS = {}
+    @tags.div("rightBadge", rightBadgeCSS).appendTo("badgesContainer")
     @tags.img("leftBadgeImage", typeTwoData.badge.image_medium).appendTo("rightBadge")
 
     @tags.library.get("badgesContainer")
@@ -72,8 +83,9 @@ Traitify.ui.widget("results", (widget, options)->
     @tags.div("badgesContainer")
 
     hexColor = widget.helpers.hexToRGB(personalityTypeData.badge.color_1)
+    BGColor = if Traitify.oldIE then "#{personalityTypeData.badge.color_1}" else "rgba(#{hexColor.join(', ')}, .07)"
     badge = @tags.div("badge", {style:{
-      backgroundColor: "rgba(#{hexColor.join(', ')}, .07)"
+      backgroundColor: BGColor
       borderColor: "##{personalityTypeData.badge.color_1}"
     }}).appendTo("badgesContainer")
 

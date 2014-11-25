@@ -2,6 +2,10 @@
   font-family: "Source Sans Pro";
   padding: 10px;
 }
+.tf-results.ie{
+  font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
+}
+
 .tf-results div, .tf-results img{
 	box-sizing: content-box;
 } 
@@ -23,6 +27,9 @@
   display: inline-block;
   background-color: rgba(255,255,255, .5);
   margin:0px auto;
+}
+.tf-results.ie .personality-type .badge{
+    border: 0px solid;
 }
 .tf-results .personality-type .badges-container .badge img{
   width: 100%;
@@ -61,6 +68,14 @@
   margin-left: -10%;
   display: inline-block;
 }
+.tf-results.ie .personality-blend .badges-container .left-badge, .tf-results.ie .personality-blend .badges-container .right-badge{
+    border: 0px solid;
+}
+.tf-results.ie .personality-blend .badges-container .left-badge img, .tf-results.ie .personality-blend .badges-container .right-badge img{
+    width: 100px;
+    height: 100px;
+}
+
 .tf-results .personality-blend .badges-container .right-badge img{
   width: 100%;
 }

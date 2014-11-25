@@ -523,7 +523,10 @@ class Widget
   run: ->
     for style in @styles
         styleElement = document.createElement("style")
-        styleElement.innerHTML = Traitify.ui.styles[style]
+        if Traitify.oldIE
+            styleElement.cssText = Traitify.ui.styles[style]
+        else
+            styleElement.innerHTML = Traitify.ui.styles[style]
         @nodes.get("main").appendChild(styleElement)
     @initialization.trigger()
     

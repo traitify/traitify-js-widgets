@@ -162,12 +162,12 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     slide = @tags.div("slide")
 
     slideCaption = @tags.div("caption")
-    slideCaption.innerHTML = slideData.caption
-    image = slideData.image_desktop_retina
+    slideCaption.innerHTML = slideData.caption || ""
+    image = slideData.image_desktop_retina || ""
     slideImg = @tags.div(["slide.image"], {
       style:{
         backgroundImage: "url('#{image}')",
-        backgroundPosition:"#{slideData.focus_x}% #{slideData.focus_y}%"
+        backgroundPosition:"#{slideData.focus_x || ""}% #{slideData.focus_y || ""}%"
       }
     })
     slideImg.appendChild(slideCaption)
@@ -285,10 +285,14 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     callback = (event)->
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
-    widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('transitionend', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('otransitionend', callback, false )
+    if !Traitify.oldIE
+        widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('transitionend', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('otransitionend', callback, false )
+
+    if Traitify.oldIE
+        callback()
 
     widget.nodes.get("playedSlide").className += " played"
     widget.nodes.get("currentSlide").className += " active"
@@ -320,7 +324,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       slide = slides[widget.data.get("slideIndex")]
       image = new Image()
       image.id = slide.id
-      image.src = slide.image_desktop_retina
 
       image.onerror = ->
         unless widget.data.get("fetchErroring")
@@ -344,21 +347,21 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
           , 1000)
 
       image.onload = ->
-        widget.data.get("imageCache")[@src] = this
+        widget.data.get("imageCache")[@src] = true
         widget.data.counter("slideIndex").up()
-        
+
         if widget.data.get("SlidesNotCompleted")[widget.data.get("slideIndex")]
           widget.actions.trigger("fetchNext")
         if widget.actions.trigger("cacheCheck?")
           widget.actions.trigger("setWifiLoading", false)
 
+      image.src = slide.image_desktop_retina
   )
 
   widget.actions.add("cacheCheck?", ->
-
     currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
     if currentSlide
-      !!widget.data.get("imageCache")[currentSlide.image_desktop_retina]
+      widget.data.get("imageCache")[currentSlide.image_desktop_retina]
     else if widget.data.get("currentSlide") + 1 >= widget.data.get("SlidesNotCompleted").length
       true
   )
@@ -458,7 +461,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.initialization.events.add("Setup Screen", ->
     widget.actions.trigger("setContainerSize")
-
+  
     window.onresize = ->
       if !widget.device
         widget.actions.trigger("setContainerSize")
