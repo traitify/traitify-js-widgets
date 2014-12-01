@@ -215,7 +215,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       touchobj = event.changedTouches[0]
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
-      if (touchDifferenceX < 2 && touchDifferenceX < 2)   
+      if (touchDifferenceX < 60 && touchDifferenceX < 60)   
         callBack()
     )
   )
