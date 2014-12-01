@@ -22,7 +22,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   # DATA DEPENDENCIES
   #######################
   widget.dataDependency("Slides")
-
+  
   #######################
   # DATA
   #######################
@@ -73,10 +73,11 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
           widget.callbacks.trigger("Finished")
       ).catch(->
-        widget.data.get("slideValues").push(currentSlides)
+        console.log("internet offline")
+        widget.data.set("slideValues", widget.data.get("slideValues").concat(currentSlides))
       )
   )
-
+  
   widget.helpers.add("getProgressBarNumbers", (initialize)->
     slideLength = widget.data.get("Slides").length
     completed = widget.data.get("SlidesCompleted").length 
@@ -88,7 +89,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     Math.round((currentPosition / slideLength) * 100)
   )
   
-
   widget.views.add("internetFailure", ->
     widget.views.render("wifiLoading")
     loadingInner = @tags.get("loading").innerHTML
@@ -99,7 +99,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.actions.trigger("fetchNext")
     @tags.get("wifiLoading")
   )
-
+  
   widget.views.add("wifiLoading", ->
     unless @tags.get("wifiLoading")
       @tags.div("wifiLoading")
@@ -107,13 +107,14 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       @tags.div("loadingText", "Loading").appendTo("loading")
     @tags.get("wifiLoading")
   )
+  
   #########################  
   # PARTIALS
   #########################
   widget.views.add("slideDeckContainer", ->
     slidesContainer = @tags.div("tfSlideDeckContainer")
     cover = @tags.div("cover")
-    cover.innerHTML = "Landscape mode is not currently supported"
+    @tags.tag("rotateBack", "object", {"data":"https://s3.amazonaws.com/traitify-cdn/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
     slidesContainer.appendChild(cover)
     
     slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
@@ -126,19 +127,18 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slidesContainer
   )
-
+  
   widget.views.add("meNotMe", ->
-    meNotMeContainer = @tags.div("meNotMeContainer")
-    widget.nodes.set("me", @tags.div("me"))
-    widget.nodes.set("notMe", @tags.div("notMe"))
+    @tags.div("meNotMeContainerAttachment")
+    @tags.div("meNotMeContainer").appendTo("meNotMeContainerAttachment")
+    @tags.div("me").appendTo("meNotMeContainer")
+    @tags.div("notMe").appendTo("meNotMeContainer")
     widget.nodes.get("notMe").innerHTML = "NOT ME"
     widget.nodes.get("me").innerHTML = "ME"
-    meNotMeContainer.appendChild(widget.nodes.get("me"))
-    meNotMeContainer.appendChild(widget.nodes.get("notMe"))
-    widget.nodes.set("meNotMeContainer", meNotMeContainer)
     
-    meNotMeContainer
+    @tags.get("meNotMeContainerAttachment")
   )
+
   widget.views.add("slides", (slidesData)->
     slides = @tags.div("slides")
     placeHolderSlide = widget.views.render("slide", slidesData[0])
@@ -157,18 +157,18 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slides
   )
-
+  
   widget.views.add("slide", (slideData)->
     slide = @tags.div("slide")
 
     slideCaption = @tags.div("caption")
-    slideCaption.innerHTML = slideData.caption
-    image = slideData.image_desktop_retina
+    slideCaption.innerHTML = slideData.caption || ""
+    image = slideData.image_desktop_retina || ""
     slideImg = @tags.div(["slide.image"], {
       style:{
         backgroundImage: "url('#{image}')",
-        backgroundPosition:"#{slideData.focus_x}% #{slideData.focus_y}%"
-      } 
+        backgroundPosition:"#{slideData.focus_x || ""}% #{slideData.focus_y || ""}%"
+      }
     })
     slideImg.appendChild(slideCaption)
 
@@ -176,7 +176,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slide
   )
-
+  
   widget.views.add("progressBar", (percentFinished)->
     progressBar = @tags.div("progress-bar")
     progressBarInner = @tags.div("progress-bar-inner")
@@ -188,7 +188,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     progressBar
   )
-
+  
   widget.views.add("loadingAnimation", ->
     @tags.div("loading")
     @tags.div("symbol").appendTo("loading")
@@ -198,7 +198,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     @tags.get("loading")
   )
 
-    
+  
   ##########################
   # HELPERS
   ##########################
@@ -209,21 +209,22 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       touchobj = event.changedTouches[0]
       touched.startx = parseInt(touchobj.clientX)
       touched.starty = parseInt(touchobj.clientY)
-      
+    
     )
     touchNode.addEventListener('touchend', (event)->
       touchobj = event.changedTouches[0]
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
-      if (touchDifferenceX < 2 && touchDifferenceX < 2)   
+      if (touchDifferenceX < 60 && touchDifferenceX < 60)   
         callBack()
     )
   )
+
   widget.helpers.add("onload", (callBack)->
     if (window.addEventListener)
       window.addEventListener('load', callBack)
   )
-    
+  
   ###########################
   # EVENTS
   ###########################
@@ -284,10 +285,14 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     callback = (event)->
       widget.actions.trigger("advancedSlide")
       widget.states.set("animating", false)
-    widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('transitionend', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', callback, false)
-    widget.nodes.get("currentSlide").addEventListener('otransitionend', callback, false )
+    if !Traitify.oldIE
+        widget.nodes.get("currentSlide").addEventListener('webkitTransitionEnd', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('transitionend', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('oTransitionEnd', callback, false)
+        widget.nodes.get("currentSlide").addEventListener('otransitionend', callback, false )
+
+    if Traitify.oldIE
+        callback()
 
     widget.nodes.get("playedSlide").className += " played"
     widget.nodes.get("currentSlide").className += " active"
@@ -319,17 +324,17 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       slide = slides[widget.data.get("slideIndex")]
       image = new Image()
       image.id = slide.id
-      image.src = slide.image_desktop_retina
 
       image.onerror = ->
         unless widget.data.get("fetchErroring")
           widget.data.set("fetchSlides", true)
           widget.data.set("fetchErroring", true)
           setTimeout(->
-            widget.data.set("fetchSlides", false)
-            widget.actions.trigger("setWifiLoading", false)
-            widget.views.render("internetFailure").appendTo("tfSlideDeckContainer")
-          , 30000)          
+            unless  widget.actions.trigger("cacheCheck?")
+                widget.data.set("fetchSlides", false)
+                widget.actions.trigger("setWifiLoading", false)
+                widget.views.render("internetFailure").appendTo("meNotMeContainer")
+          , 30000)
         onload = @onload
         onerror = @onerror
         src = @src
@@ -342,21 +347,21 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
           , 1000)
 
       image.onload = ->
-        widget.data.get("imageCache")[@src] = this
+        widget.data.get("imageCache")[@src] = true
         widget.data.counter("slideIndex").up()
-        
+
         if widget.data.get("SlidesNotCompleted")[widget.data.get("slideIndex")]
           widget.actions.trigger("fetchNext")
         if widget.actions.trigger("cacheCheck?")
           widget.actions.trigger("setWifiLoading", false)
 
+      image.src = slide.image_desktop_retina
   )
 
   widget.actions.add("cacheCheck?", ->
-
     currentSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
     if currentSlide
-      !!widget.data.get("imageCache")[currentSlide.image_desktop_retina]
+      widget.data.get("imageCache")[currentSlide.image_desktop_retina]
     else if widget.data.get("currentSlide") + 1 >= widget.data.get("SlidesNotCompleted").length
       true
   )
@@ -365,7 +370,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     if value
       wifiLoading = widget.views.render("wifiLoading")
       wifiLoading.className += " fade-in"
-      wifiLoading.appendTo("tfSlideDeckContainer")
+      wifiLoading.appendTo("meNotMeContainer")
       
     else if widget.views.tags.get("wifiLoading")
       widget.views.tags.get("wifiLoading").parentNode.removeChild(widget.views.tags.get("wifiLoading"))
@@ -456,7 +461,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.initialization.events.add("Setup Screen", ->
     widget.actions.trigger("setContainerSize")
-
+  
     window.onresize = ->
       if !widget.device
         widget.actions.trigger("setContainerSize")

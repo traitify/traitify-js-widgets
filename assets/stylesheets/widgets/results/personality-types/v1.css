@@ -1,6 +1,9 @@
 .tf-personality-types{
   font-family: "Source Sans Pro";
 }
+.tf-personality-types.ie{
+  font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
+}
 .tf-personality-types .description{
   max-width:860px;
   margin:0px auto;
@@ -55,6 +58,7 @@
 }
 .tf-personality-types .personality-types-container .personality-types .personality-type .badge{
   width:60px;
+  height:60px;
   margin:18px auto;
 }
 .tf-personality-types .personality-types-container .personality-types .personality-type .name{
