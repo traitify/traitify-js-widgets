@@ -25,7 +25,7 @@ V1 Version:
 
 You can initialize using an id or a class on any div tag:
 ```HTML
-<div class="traitify-slide-deck"></div> <!-- Example Target Div for the widget -->
+<div class="slide-deck"></div> <!-- Example Target Div for the widget -->
 <div class="results"></div>
 <div class="personality-types"></div>
 <div class="personality-traits"></div>
@@ -39,7 +39,7 @@ The following javascript will initialize with the above html:
     Traitify.setVersion("v1"); // Example Version
     var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
-    traitify = Traitify.ui.load(assessmentId, ".traitify-widget", {
+    traitify = Traitify.ui.load(assessmentId, ".slide-deck", {
         results: {target: ".results"},
         personalityTypes: {target: ".personality-types"},
         personalityTraits: {target: ".personality-traits"}
