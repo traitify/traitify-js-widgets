@@ -15,12 +15,6 @@ Stable Version:
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 ```
 
-### Using The Latest and Greatest(Edge)!
-Edge Version:
-```xhtml
-<script src="https://cdn.traitify.com/lib/edge.js"></script>
-```
-
 You can initialize using an id or a class on any div tag:
 ```HTML
 <div class="slide-deck"></div> <!-- Example Target Div for the widget -->
@@ -118,6 +112,12 @@ When you initialize the widget we return our widget builder to you (This is the 
         console.log("Finished!");
     })
 </script>
+```
+
+### Using The Latest and Greatest(Edge)!
+Edge Version:
+```xhtml
+<script src="https://cdn.traitify.com/lib/edge.js"></script>
 ```
 
 ### Contributing 
