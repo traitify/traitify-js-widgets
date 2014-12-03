@@ -17,7 +17,8 @@ Stable Version:
 
 You can initialize using an id or a class on any div tag:
 ```HTML
-<div class="slide-deck"></div> <!-- Example Target Div for the widget -->
+
+<div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
 <div class="results"></div>
 <div class="personality-types"></div>
 <div class="personality-traits"></div>
@@ -112,6 +113,43 @@ When you initialize the widget we return our widget builder to you (This is the 
         console.log("Finished!");
     })
 </script>
+```
+
+
+Styling the Slide Deck
+```HTML
+<style>
+.tf-slide-deck-container.your-class .me{
+  background-color: #aaa;
+}
+</style>
+```
+
+Styling the Results
+```HTML
+<style>
+.tf-results.your-class .personality-type .name{
+  background-color: #aaa;
+}
+</style>
+```
+
+Styling the Personality Traits
+```HTML
+<style>
+.tf-personality-traits.your-class .personality-traits .trait .name{
+  background-color: #aaa;
+}
+</style>
+```
+
+Styling the Personality Types
+```HTML
+<style>
+.tf-personality-types.your-class .personality-types-container .personality-types{
+  background-color: #aaa;
+}
+</style>
 ```
 
 ### Using The Latest and Greatest(Edge)!
