@@ -47,6 +47,16 @@ The following javascript will initialize with the above html:
 </script>
 ```
 
+The following javascript will initialize with the above html:
+```HTML
+<script>
+    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
+    Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
+    Traitify.setVersion("v1"); // Example Version
+    var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
+
+    traitify = Traitify.ui.load(assessmentId, ".slide-deck",{slideDeck: {showResults: false}})
+
 When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
 ```HTML
 <script>
