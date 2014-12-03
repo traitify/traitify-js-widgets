@@ -19,9 +19,9 @@ You can initialize using an id or a class on any div tag:
 ```HTML
 
 <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
-<div class="results"></div>
-<div class="personality-types"></div>
-<div class="personality-traits"></div>
+<div class="results your-class"></div>
+<div class="personality-types your-class"></div>
+<div class="personality-traits your-class"></div>
 ```
 
 The following javascript will initialize with the above html:
