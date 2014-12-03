@@ -100,7 +100,7 @@ When you initialize the widget we return our widget builder to you (This is the 
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck    
     traitify = Traitify.ui.load("personalityTypes", assessmentId, ".traitify-widget"); // Example selector for widget target
-    traitify.onInitialized(function(){
+    traitify.onInitialize(function(){
         console.log(traitify.data.get("PersonalityTypes"));
         console.log("Finished!");
     })
@@ -108,7 +108,7 @@ When you initialize the widget we return our widget builder to you (This is the 
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck
     traitify = Traitify.ui.load("personalityTraits", assessmentId, ".traitify-widget"); // Example selector for widget target
-    traitify.onInitialized(function(){
+    traitify.onInitialize(function(){
         console.log(traitify.data.get("PersonalityTraits"));
         console.log("Finished!");
     })
