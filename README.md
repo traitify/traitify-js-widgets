@@ -84,7 +84,7 @@ When you initialize the widget we return our widget builder to you (This is the 
     // the widget has finished loading
     traitify = Traitify.ui.load("slideDeck", assessmentId, ".traitify-widget"); // Example selector for widget target
     traitify.onInitialize(function(){
-        console.log(traitify.data.get("PersonalityTypes"));
+        console.log(traitify.data.get("slideDeck"));
         console.log("Initialized");
     })
 
@@ -92,7 +92,7 @@ When you initialize the widget we return our widget builder to you (This is the 
     // the widget has finished loading
     traitify = Traitify.ui.load("results", assessmentId, ".traitify-widget"); // Example selector for widget target
     traitify.onInitialize(function(){
-        console.log(traitify.data.get("PersonalityTypes"));
+        console.log(traitify.data.get("Results"));
         console.log("Initialized");
     })
 
