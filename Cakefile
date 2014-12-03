@@ -14,6 +14,7 @@ files = [
 
 fs = require 'fs'
 minify = require('minify')
+gzipme = require('gzipme')
 {print} = require 'util'
 {spawn, exec} = require 'child_process'
 YAML = require 'yamljs'
@@ -178,38 +179,46 @@ build = (watch, callback) ->
   launch 'coffee', options, callback
 
 bundle = (callback) ->
-  build(->
-    afterFolderCheck = ()->
-      bundles = YAML.parse(fs.readFileSync('bundles.yml').toString())
-      for key in Object.keys(bundles)
-        bundleFile = "compiled/bundles/#{key}.js"
-        fs.writeFile(bundleFile, "")
-        for file in bundles[key].js
-          file = "compiled/#{file}"
-          fileData = fs.readFileSync(file).toString()
-          minify(ext: ".js", data: fileData, (error, minifiedFileData)->
-            fs.appendFileSync(bundleFile, minifiedFileData);
-          )
-        if bundles[key].css
-          for file in bundles[key].css
-            file = "assets/stylesheets/#{file}"
+  process.chdir('api-client')
+  launch("cake", ["build"], ->
+    build(->
+      process.chdir('../')
+      afterFolderCheck = ()->
+        bundles = YAML.parse(fs.readFileSync('bundles.yml').toString())
+        for key in Object.keys(bundles)
+          bundleFile = "compiled/bundles/#{key}.js"
+          fs.writeFile(bundleFile, "")
+
+          for file in bundles[key].js
+            file = "#{file}"
             fileData = fs.readFileSync(file).toString()
-
-            minify(ext: ".css", data: fileData, (error, minifiedFileData)->
-              cleanFileName = file.split("/").slice(0, file.split("/").length - 1).join("/")
-              cleanFileName = cleanFileName.replace("assets/stylesheets/widgets/", "")
-              minifiedFileData = minifiedFileData.replace(/'/g, '"')
-
-              minifiedFileData = "Traitify.ui.styles['#{cleanFileName}']='#{minifiedFileData}';"
+            minify(ext: ".js", data: fileData, (error, minifiedFileData)->
               fs.appendFileSync(bundleFile, minifiedFileData);
             )
+          if bundles[key].css
+            for fileName in bundles[key].css
+              file = "assets/stylesheets/#{fileName}"
+              fileData = fs.readFileSync(file).toString()
+
+              minify(ext: ".css", data: fileData, (error, minifiedFileData)->
+                cleanFileName = file.split("/").slice(0, file.split("/").length - 1).join("/")
+                cleanFileName = cleanFileName.replace("assets/stylesheets/widgets/", "")
+                minifiedFileData = minifiedFileData.replace(/'/g, '"')
+
+                minifiedFileData = "Traitify.ui.styles['#{cleanFileName}']='#{minifiedFileData}';"
+                
+                fs.appendFileSync(bundleFile, minifiedFileData);
+                if bundles[key].css.indexOf(fileName) == bundles[key].css.length - 1
+                  gzipme(bundleFile); 
+              )
 
 
 
-    fs.exists("compiled/bundles", (exists)->
-      if !exists
-        fs.mkdir("compiled/bundles")
-      afterFolderCheck()
+      fs.exists("compiled/bundles", (exists)->
+        if !exists
+          fs.mkdir("compiled/bundles")
+        afterFolderCheck()
+      )
     )
   )
 

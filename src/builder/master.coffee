@@ -522,12 +522,18 @@ class Widget
   #
   run: ->
     for style in @styles
-        styleElement = document.createElement("style")
-        if Traitify.oldIE
-            styleElement.cssText = Traitify.ui.styles[style]
+      styleElement = document.createElement("style")
+      styleElement.type = "text/css"
+      if Traitify.oldIE
+        if styleElement.styleSheet
+          styleElement.styleSheet.cssText = Traitify.ui.styles[style]
         else
-            styleElement.innerHTML = Traitify.ui.styles[style]
-        @nodes.get("main").appendChild(styleElement)
+          styleInnerHTML = document.createTextNode(Traitify.ui.styles[style])
+          alert("THROUGH")
+          styleElement.appendChild(styleInnerHTML)
+      else
+        styleElement.innerHTML = Traitify.ui.styles[style]
+      @nodes.get("main").appendChild(styleElement)
     @initialization.trigger()
     
   	

@@ -13,13 +13,22 @@ For directions on using the latest traitify js scroll to the bottom
 ### Using Traitify JS UI:
 Include the Traitify.js library:
 
+Stable Version:
 ```xhtml
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 ```
 
+V1 Version:
+```xhtml
+<script src="https://cdn.traitify.com/lib/edge.js"></script>
+```
+
 You can initialize using an id or a class on any div tag:
 ```HTML
-<div class="traitify-widget"></div> <!-- Example Target Div for the widget -->
+<div class="traitify-slide-deck"></div> <!-- Example Target Div for the widget -->
+<div class="results"></div>
+<div class="personality-types"></div>
+<div class="personality-traits"></div>
 ```
 
 The following javascript will initialize with the above html:
@@ -30,75 +39,66 @@ The following javascript will initialize with the above html:
     Traitify.setVersion("v1"); // Example Version
     var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
-    traitify = Traitify.ui.load(assessmentId, ".traitify-widget"); // Example selector for widget target
+    traitify = Traitify.ui.load(assessmentId, ".traitify-widget", {
+        results: ".results",
+        personalityTypes: ".personality-types",
+        personalityTraits: ".personality-traits"
+    }); // Example selector for widget target
 </script>
 ```
 
 When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
 ```HTML
 <script>
-
-    traitify = Traitify.ui.load(assessmentId, ".traitify-widget")
+    traitify = Traitify.ui.load(assessmentId, ".traitify-widget", {
+        results: ".results",
+        personalityTypes: ".personality-types",
+        personalityTraits: ".personality-traits"
+    }); // Example selector for widget target
     
     // This callback gives you the ability to trigger an event when
     // the widget has finished loading
-    traitify.onInitialize(function(){
-        console.log(traitify.data);
+    traitify.slideDeck.onInitialize(function(){
+        console.log(traitify.data.get("slides"));
         console.log("Initialized");
     })
     
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck
-    traitify.onFinished(function(){
-        console.log(traitify.data);
+    traitify.slideDeck.onFinished(function(){
+        console.log(traitify.data.get("slides"));
         console.log("Finished!");
     })
 </script>
 ```
-===============
-### Using Traitify JS API CLIENT:
-```xhtml
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
-```
 
-##### Get Decks
-```JavaScript
-Traitify.getDecks("assessment id", function(data){
-  console.log(data)
-})
-```
-
-##### Get Slides
-```JavaScript
-Traitify.getSlides("assessment id", function(data){
-  console.log(data)
-})
-```
-
-##### Get Personality Traits
-```JavaScript
-Traitify.addSlide("assessment id", function(data){
-    console.log(data)
-})
-```
-
-##### Get Personality Traits
-```JavaScript
-Traitify.getPersonalityTraits("assessment id", function(data){
-    console.log(data)
-})
-```
-### Using Edge
-Warning, things may break if you use edge, it is not stable, and is not intended to be. If you're looking for a stable deployment then use the v1 bundle from the above cdn.
-```xhtml
-<script src="https://cdn.traitify.com/lib/edge.js"></script>
+When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
+```HTML
 <script>
-    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
-    Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
-    Traitify.setVersion("v1"); // Example Version
-    var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
+    // This callback gives you the ability to trigger an event when
+    // the widget has finished loading
+    traitify = Traitify.ui.load("Results", assessmentId, ".traitify-widget"); // Example selector for widget target
+    traitify.onInitialize(function(){
+        console.log(traitify.data.get("PersonalityTypes"));
+        console.log("Initialized");
+    })
 
-    traitify = Traitify.ui.load(assessmentId, ".traitify-widget"); // Example selector for widget target
+
+    // This callback gives you the ability to trigger an event when
+    // the user has finished playing the slide deck    
+    traitify = Traitify.ui.load("PersonalityTypes", assessmentId, ".traitify-widget"); // Example selector for widget target
+    traitify.onInitialized(function(){
+        console.log(traitify.data.get("PersonalityTypes"));
+        console.log("Finished!");
+    })
+
+    // This callback gives you the ability to trigger an event when
+    // the user has finished playing the slide deck
+    traitify = Traitify.ui.load("PersonalityTraits", assessmentId, ".traitify-widget"); // Example selector for widget target
+    traitify.onInitialized(function(){
+        console.log(traitify.data.get("PersonalityTraits"));
+        console.log("Finished!");
+    })
 </script>
 ```
 

@@ -9,21 +9,18 @@
       }
     </style>
 
-    <script src="https://s3.amazonaws.com/traitify-cdn/lib/stag/edge.js"></script>
+    <script src="/compiled/bundles/edge.js"></script>
 
 	</head>
 	<body>
-
 	<div class="slide-deck"></div>
-    
     <div class="personality-types"></div>
     <div class="personality-traits"></div>
-    
 		<script>
 			Traitify.setHost("api-sandbox.traitify.com");
 			Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
 			Traitify.setVersion("v1");
-      Traitify.ui.load("34423384-cc0f-4c77-b139-866c795b6adb", ".slide-deck", {
+      		traitify = Traitify.ui.load("fcc761ba-04d1-4112-8aa9-5b513425929e", ".slide-deck", {
 		      personalityTypes:{
 		        target:".personality-types"
 		      },
@@ -32,19 +29,5 @@
 		      }
 		    })
 		</script>
-
-		<div class="widget">
-		  <template name="tf-personality-types" class="row"  style="background-color:#{{colorLight}}" assessment-id="6815f30c-d58d-41c5-af9d-e11f0208e176">
-        <name class="awesome"></name>
-        <badge-image></badge-image>
-        <score></score>
-		  </template>
-		</div>
-		<style>
-		    body{
-		      padding:0px;
-		      margin:0px;
-		    }
-		</style>
 	</body>
 </html>
