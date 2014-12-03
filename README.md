@@ -119,36 +119,36 @@ When you initialize the widget we return our widget builder to you (This is the 
 Styling the Slide Deck
 ```HTML
 <style>
-.tf-slide-deck-container.your-class .me{
-  background-color: #aaa;
-}
+    .tf-slide-deck-container.your-class .me{
+        background-color: #aaa;
+    }
 </style>
 ```
 
 Styling the Results
 ```HTML
 <style>
-.tf-results.your-class .personality-type .name{
-  background-color: #aaa;
-}
+    .tf-results.your-class .personality-type .name{
+        background-color: #aaa;
+    }
 </style>
 ```
 
 Styling the Personality Traits
 ```HTML
 <style>
-.tf-personality-traits.your-class .personality-traits .trait .name{
-  background-color: #aaa;
-}
+    .tf-personality-traits.your-class .personality-traits .trait .name{
+        background-color: #aaa;
+    }
 </style>
 ```
 
 Styling the Personality Types
 ```HTML
 <style>
-.tf-personality-types.your-class .personality-types-container .personality-types{
-  background-color: #aaa;
-}
+    .tf-personality-types.your-class .personality-types-container .personality-types{
+        background-color: #aaa;
+    }
 </style>
 ```
 
