@@ -7,9 +7,6 @@ This package does not require jQuery, as it is a standalone encapsulated library
 For instructions on obtaining an assessment id and a public key visit:
 [https://developer.traitify.com](https://developer.traitify.com)
 
-### Using The Latest and Greatest(Edge)!
-For directions on using the latest traitify js scroll to the bottom
-
 ### Using Traitify JS UI:
 Include the Traitify.js library:
 
@@ -18,7 +15,8 @@ Stable Version:
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 ```
 
-V1 Version:
+### Using The Latest and Greatest(Edge)!
+Edge Version:
 ```xhtml
 <script src="https://cdn.traitify.com/lib/edge.js"></script>
 ```
