@@ -56,8 +56,10 @@ The following javascript will initialize with the above html:
     var assessmentId = "34aeraw23-3a43a32-234a34as42"; // Example Assessment id
 
     traitify = Traitify.ui.load(assessmentId, ".slide-deck",{slideDeck: {showResults: false}})
-
+</script>
+```
 When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).
+
 ```HTML
 <script>
     traitify = Traitify.ui.load(assessmentId, ".traitify-widget", {
