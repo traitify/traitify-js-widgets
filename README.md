@@ -96,7 +96,7 @@ If you choose to pass the widget you want to load at the beginning then the load
     }); // Example selector for widget target
 </script>
 ```
-#### show an example of not rendering the results when the assessment is complete
+#### Turning Off Results
  ```HTML
 	<script>
 	    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
