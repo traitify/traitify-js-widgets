@@ -59,15 +59,15 @@ class Ui
             options[widgetName].showResults == false 
           ).length == 0
 
-          if playedSlides.length != slides.length
-            for slideWidgetName in Object.keys(slideWidgets)
-              slideWidget = slideWidgets[slideWidgetName]
-              slideWidget.data.add("Slides", slides)
-              if playedSlides.length == slides.length && showResults
-                slideWidget.callbacks.trigger("Finished")
-              else
-                slideWidget.run()
-          else if showResults != false
+
+          for slideWidgetName in Object.keys(slideWidgets)
+            slideWidget = slideWidgets[slideWidgetName]
+            slideWidget.data.add("Slides", slides)
+            if playedSlides.length == slides.length && !showResults
+              slideWidget.callbacks.trigger("Finished")
+            else
+              slideWidget.run()
+          if showResults != false
             Traitify.ui.loadResults(nonSlideWidgets)
         )
 

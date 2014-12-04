@@ -13,20 +13,19 @@
 
 	</head>
 	<body>
-	<div class="slide-deck"></div>
-    <div class="personality-types"></div>
-    <div class="personality-traits"></div>
+	<div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
+	<div class="results your-class"></div>
+	<div class="personality-types your-class"></div>
+	<div class="personality-traits your-class"></div>
 		<script>
 			Traitify.setHost("api-sandbox.traitify.com");
 			Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
 			Traitify.setVersion("v1");
-      		traitify = Traitify.ui.load("fcc761ba-04d1-4112-8aa9-5b513425929e", ".slide-deck", {
-		      personalityTypes:{
-		        target:".personality-types"
-		      },
-		      personalityTraits:{
-		        target:".personality-traits"
-		      }
+			assessmentId = "5499829e-b1c9-4cde-802b-2646afd9740a"
+
+		    traitify = Traitify.ui.load(assessmentId, ".slide-deck",{slideDeck: {showResults: false}})
+		    traitify.slideDeck.onFinished(function(){
+		    	alert("HERE")
 		    })
 		</script>
 	</body>
