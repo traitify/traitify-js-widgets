@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Traitify-js-widgets by traitify</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Traitify-js-widgets</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/traitify/traitify-js-widgets">View the Project on GitHub <small>traitify/traitify-js-widgets</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/traitify/traitify-js-widgets/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/traitify/traitify-js-widgets/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/traitify/traitify-js-widgets">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="traitifyjs" class="anchor" href="#traitifyjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Traitify.js</h1>
+
+<p>This package does not require jQuery, as it is a standalone encapsulated library. It does however require a browser with the ability to make cors requests (currently only supports ie8 and up, chrome, safari, and firefox).</p>
+
+<h3>
+<a id="assessment-id-and-public-key-required" class="anchor" href="#assessment-id-and-public-key-required" aria-hidden="true"><span class="octicon octicon-link"></span></a>Assessment id and public key required!</h3>
+
+<p>For instructions on obtaining an assessment id and a public key visit:
+<a href="https://developer.traitify.com">https://developer.traitify.com</a></p>
+
+<h3>
+<a id="using-traitify-js-ui" class="anchor" href="#using-traitify-js-ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Traitify JS UI:</h3>
+
+<p>Include the Traitify.js library:</p>
+
+<p>Stable Version:</p>
+
+<div class="highlight highlight-xhtml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>https://cdn.traitify.com/lib/v1.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p>You can initialize using an id or a class on any div tag:</p>
+
+<div class="highlight highlight-HTML"><pre>
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>slide-deck your-class<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt; <span class="pl-c">&lt;!-- Example Target Div for the widget --&gt;</span>
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>results your-class<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>personality-types your-class<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>personality-traits your-class<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>The following javascript will initialize with the above html:</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s2">    Traitify.setPublicKey(<span class="pl-s1"><span class="pl-pds">"</span>8asdf8sda-f98as-df8ads-fadsf<span class="pl-pds">"</span></span>); <span class="pl-c">// Example Public Key</span></span>
+<span class="pl-s2">    Traitify.setHost(<span class="pl-s1"><span class="pl-pds">"</span>api-sandbox.traitify.com<span class="pl-pds">"</span></span>); <span class="pl-c">// Example host url (Defaults to api.traitify.com)</span></span>
+<span class="pl-s2">    Traitify.setVersion(<span class="pl-s1"><span class="pl-pds">"</span>v1<span class="pl-pds">"</span></span>); <span class="pl-c">// Example Version</span></span>
+<span class="pl-s2">    <span class="pl-s">var</span> assessmentId <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>34aeraw23-3a43a32-234a34as42<span class="pl-pds">"</span></span>; <span class="pl-c">// Example Assessment id</span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.slide-deck<span class="pl-pds">"</span></span>, {</span>
+<span class="pl-s2">        results<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.results<span class="pl-pds">"</span></span>},</span>
+<span class="pl-s2">        personalityTypes<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.personality-types<span class="pl-pds">"</span></span>},</span>
+<span class="pl-s2">        personalityTraits<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.personality-traits<span class="pl-pds">"</span></span>}</span>
+<span class="pl-s2">    }); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<p>The following javascript will initialize with the above html:</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s2">    Traitify.setPublicKey(<span class="pl-s1"><span class="pl-pds">"</span>8asdf8sda-f98as-df8ads-fadsf<span class="pl-pds">"</span></span>); <span class="pl-c">// Example Public Key</span></span>
+<span class="pl-s2">    Traitify.setHost(<span class="pl-s1"><span class="pl-pds">"</span>api-sandbox.traitify.com<span class="pl-pds">"</span></span>); <span class="pl-c">// Example host url (Defaults to api.traitify.com)</span></span>
+<span class="pl-s2">    Traitify.setVersion(<span class="pl-s1"><span class="pl-pds">"</span>v1<span class="pl-pds">"</span></span>); <span class="pl-c">// Example Version</span></span>
+<span class="pl-s2">    <span class="pl-s">var</span> assessmentId <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>34aeraw23-3a43a32-234a34as42<span class="pl-pds">"</span></span>; <span class="pl-c">// Example Assessment id</span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.slide-deck<span class="pl-pds">"</span></span>,{slideDeck<span class="pl-k">:</span> {showResults<span class="pl-k">:</span> <span class="pl-c1">false</span>}})</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<p>When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.traitify-widget<span class="pl-pds">"</span></span>, {</span>
+<span class="pl-s2">        results<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.results<span class="pl-pds">"</span></span>},</span>
+<span class="pl-s2">        personalityTypes<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.personality-types<span class="pl-pds">"</span></span>},</span>
+<span class="pl-s2">        personalityTraits<span class="pl-k">:</span> {target<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.personality-traits<span class="pl-pds">"</span></span>}</span>
+<span class="pl-s2">    }); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the widget has finished loading</span></span>
+<span class="pl-s2">    traitify.slideDeck.onInitialize(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>slides<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Initialized<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the user has finished playing the slide deck</span></span>
+<span class="pl-s2">    traitify.slideDeck.onFinished(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>slides<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Finished!<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<p>When you initialize the widget we return our widget builder to you (This is the same builder we use to construct the widget).</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the widget has finished loading</span></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(<span class="pl-s1"><span class="pl-pds">"</span>slideDeck<span class="pl-pds">"</span></span>, assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.traitify-widget<span class="pl-pds">"</span></span>); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2">    traitify.onInitialize(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>slideDeck<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Initialized<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the widget has finished loading</span></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(<span class="pl-s1"><span class="pl-pds">"</span>results<span class="pl-pds">"</span></span>, assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.traitify-widget<span class="pl-pds">"</span></span>); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2">    traitify.onInitialize(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>Results<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Initialized<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the user has finished playing the slide deck    </span></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(<span class="pl-s1"><span class="pl-pds">"</span>personalityTypes<span class="pl-pds">"</span></span>, assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.traitify-widget<span class="pl-pds">"</span></span>); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2">    traitify.onInitialize(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>PersonalityTypes<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Finished!<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2"></span>
+<span class="pl-s2">    <span class="pl-c">// This callback gives you the ability to trigger an event when</span></span>
+<span class="pl-s2">    <span class="pl-c">// the user has finished playing the slide deck</span></span>
+<span class="pl-s2">    traitify <span class="pl-k">=</span> Traitify.ui.<span class="pl-s3">load</span>(<span class="pl-s1"><span class="pl-pds">"</span>personalityTraits<span class="pl-pds">"</span></span>, assessmentId, <span class="pl-s1"><span class="pl-pds">"</span>.traitify-widget<span class="pl-pds">"</span></span>); <span class="pl-c">// Example selector for widget target</span></span>
+<span class="pl-s2">    traitify.onInitialize(<span class="pl-st">function</span>(){</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(traitify.<span class="pl-sc">data</span>.get(<span class="pl-s1"><span class="pl-pds">"</span>PersonalityTraits<span class="pl-pds">"</span></span>));</span>
+<span class="pl-s2">        <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Finished!<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s2">    })</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<p>Styling the Slide Deck</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s2">    <span class="pl-e">.tf-slide-deck-container.your-class</span> <span class="pl-e">.me</span>{</span>
+<span class="pl-s2">        <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#aaa</span>;</span>
+<span class="pl-s2">    }</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">style</span>&gt;</span></pre></div>
+
+<p>Styling the Results</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s2">    <span class="pl-e">.tf-results.your-class</span> <span class="pl-e">.personality-type</span> <span class="pl-e">.name</span>{</span>
+<span class="pl-s2">        <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#aaa</span>;</span>
+<span class="pl-s2">    }</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">style</span>&gt;</span></pre></div>
+
+<p>Styling the Personality Traits</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s2">    <span class="pl-e">.tf-personality-traits.your-class</span> <span class="pl-e">.personality-traits</span> <span class="pl-e">.trait</span> <span class="pl-e">.name</span>{</span>
+<span class="pl-s2">        <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#aaa</span>;</span>
+<span class="pl-s2">    }</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">style</span>&gt;</span></pre></div>
+
+<p>Styling the Personality Types</p>
+
+<div class="highlight highlight-HTML"><pre><span class="pl-s2">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s2">    <span class="pl-e">.tf-personality-types.your-class</span> <span class="pl-e">.personality-types-container</span> <span class="pl-e">.personality-types</span>{</span>
+<span class="pl-s2">        <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#aaa</span>;</span>
+<span class="pl-s2">    }</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">style</span>&gt;</span></pre></div>
+
+<h3>
+<a id="using-the-latest-and-greatestedge" class="anchor" href="#using-the-latest-and-greatestedge" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using The Latest and Greatest(Edge)!</h3>
+
+<p>Edge Version:</p>
+
+<div class="highlight highlight-xhtml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>https://cdn.traitify.com/lib/edge.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h3>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h3>
+
+<h4>
+<a id="building-testing-and-bundling" class="anchor" href="#building-testing-and-bundling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building, Testing and Bundling:</h4>
+
+<div class="highlight highlight-Shell"><pre>$ cake watch
+$ cake build
+$ cake bundle
+$ cake <span class="pl-s3">test</span></pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/traitify">traitify</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
