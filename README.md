@@ -174,7 +174,7 @@ If you choose to pass the widget you want to load at the beginning then the load
 #### Customization
 You will notice that we added a class to your widgets called "your-class", we are going to use this class to scope our css therefore overriding the default widget css.
 
-
+Every tag added to the widget is recorded with a class, to find the class name use your inspector, often the css that styles a tag is scoped all the way from .tf-slide-deck to .me with all of the containers in between. If you add your own class to the root container though you can use the same scope with the addition of ".your-class" and you should be able to override different anything.
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 
@@ -243,3 +243,13 @@ Styling the Personality Types
 	slideDeck.run()
 </script>
 ```
+
+##Contributing
+Please create a pull request for review if you wish to give back
+
+Building, Testing and Bundling:
+
+$ cake watch
+$ cake build
+$ cake bundle
+$ cake test
