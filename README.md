@@ -33,7 +33,7 @@ To generate an Assessment Id use a server side library, for more information ple
 </script>
 ```
 
-### documentation on each widget (slider, blend, types, traits), what it is, when you use it, what it does, events you can capture (onFinished, onInitialized, etc)
+### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
 ```HTML
 <script>
@@ -72,7 +72,7 @@ If you choose to pass the widget you want to load at the beginning then the load
  </script>
  ```
 
- ### Examples of different use cases at the bottom
+### Examples of different use cases at the bottom
 
 #### Standard Assessment and results
 ```HTML
