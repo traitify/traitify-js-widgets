@@ -215,6 +215,8 @@ Every tag added to the widget is recorded with a class, to find the class name u
 </script>
 ```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_grey.png "Widgets")
+
 Styling the me Button
 ```HTML
 <style>
@@ -223,6 +225,8 @@ Styling the me Button
     }
 </style>
 ```
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_font_size.png "Widgets")
 
 Styling the Results description
 ```HTML
@@ -233,6 +237,8 @@ Styling the Results description
 </style>
 ```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/traits_font_size.png "Widgets")
+
 Styling the Personality Traits name
 ```HTML
 <style>
@@ -242,14 +248,20 @@ Styling the Personality Traits name
 </style>
 ```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background.png "Widgets")
+
 Styling the Personality Types background color
 ```HTML
 <style>
+    .your-class.tf-personality-types .personality-types-container{
+    	background-color: #aaa;
+    } 
     .your-class.tf-personality-types .personality-types-container .personality-types{
     	background-color: #aaa;
     } 
     .your-class.tf-personality-types .personality-types-container .personality-types .arrow .icon{
         background-color: #aaa;
+        border-top: 20px solid #aaa;
     }
 </style>
 ```
