@@ -32,7 +32,7 @@ To generate an Assessment Id use a server side library, for more information ple
     }); // Example selector for widget target
 </script>
 ```
-
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
 ### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
 ```HTML
