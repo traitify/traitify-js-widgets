@@ -273,6 +273,7 @@ Styling the Personality Types background color
 
 ![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background.png "Widgets")
 
+
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
 This can be used for testing purposes, or so that you can make all your api requests on your own server instead of using the client.
 ```HTML
