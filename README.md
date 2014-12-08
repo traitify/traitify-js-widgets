@@ -208,8 +208,8 @@ Every tag added to the widget is recorded with a class, to find the class name u
 Styling the Results
 ```HTML
 <style>
-    .your-class.tf-results .personality-type .name{
-        background-color: #aaa;
+    .your-class.tf-results .personality-type .description{
+        font-size: 50px;
     }
 </style>
 ```
@@ -218,7 +218,7 @@ Styling the Personality Traits
 ```HTML
 <style>
     .your-class.tf-personality-traits .personality-traits .trait .name{
-        background-color: #aaa;
+        font-size: 50px;
     }
 </style>
 ```
@@ -227,6 +227,9 @@ Styling the Personality Types
 ```HTML
 <style>
     .your-class.tf-personality-types .personality-types-container .personality-types{
+    	background-color: #aaa;
+    } 
+    .your-class.tf-personality-types .personality-types-container .personality-types .arrow .icon{
         background-color: #aaa;
     }
 </style>
