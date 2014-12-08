@@ -40,6 +40,8 @@ To generate an Assessment Id use a server side library, for more information ple
 ### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
 
+We include three results widgets, and one slide deck widget. The slide deck allows the user to select me or not me to each image we present, giving us the information we need to generate a personality profile. The results widgets can then be used to render the personality profile, and include the user's traits, their personality type scores, and and their blend / highest personality type. They can each be rendered individually below (The slide deck will render all results at the end of the assessment unless you use the showResults: false argument read below for more details)
+
 
 ```HTML
 <script>
