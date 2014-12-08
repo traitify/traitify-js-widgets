@@ -197,6 +197,7 @@ Every tag added to the widget is recorded with a class, to find the class name u
 </script>
 ```
 
+Styling the me Button
 ```HTML
 <style>
     .your-class.tf-slide-deck-container .me{
@@ -205,7 +206,7 @@ Every tag added to the widget is recorded with a class, to find the class name u
 </style>
 ```
 
-Styling the Results
+Styling the Results description
 ```HTML
 <style>
     .your-class.tf-results .personality-type .description{
@@ -214,7 +215,7 @@ Styling the Results
 </style>
 ```
 
-Styling the Personality Traits
+Styling the Personality Traits name
 ```HTML
 <style>
     .your-class.tf-personality-traits .personality-traits .trait .name{
@@ -223,7 +224,7 @@ Styling the Personality Traits
 </style>
 ```
 
-Styling the Personality Types
+Styling the Personality Types background color
 ```HTML
 <style>
     .your-class.tf-personality-types .personality-types-container .personality-types{
