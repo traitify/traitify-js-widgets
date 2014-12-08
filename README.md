@@ -11,6 +11,9 @@ Stable Version:
 ### Basic setup for intilialization on page 
 #### Assessment Id Required.  
 To generate an Assessment Id use a server side library, for more information please visit [https://developer.traitify.com](https://developer.traitify.com)
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
+
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 
@@ -32,7 +35,7 @@ To generate an Assessment Id use a server side library, for more information ple
     }); // Example selector for widget target
 </script>
 ```
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
+
 ### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
 ```HTML
