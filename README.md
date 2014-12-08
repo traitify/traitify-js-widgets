@@ -271,7 +271,7 @@ Styling the Personality Types background color
 </style>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background_grey.png "Widgets")
 
 
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
