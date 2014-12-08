@@ -38,6 +38,9 @@ To generate an Assessment Id use a server side library, for more information ple
 
 ### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
+
+https://woofoundu.woofound.com/
+
 ```HTML
 <script>
      // This callback gives you the ability to trigger an event when
@@ -47,7 +50,11 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("Slides"));
         console.log("Initialized");
     })
+</script>
+```
 
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the widget has finished loading
     traitify = Traitify.ui.load("results", assessmentId, ".traitify-widget"); // Example selector for widget target
@@ -55,8 +62,11 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("PersonalityTypes"));
         console.log("Initialized");
     })
+</script>
+```
 
-
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck    
     traitify = Traitify.ui.load("personalityTypes", assessmentId, ".traitify-widget"); // Example selector for widget target
@@ -64,7 +74,11 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("PersonalityTypes"));
         console.log("Initialized!");
     })
+</script>
+```
 
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck
     traitify = Traitify.ui.load("personalityTraits", assessmentId, ".traitify-widget"); // Example selector for widget target
