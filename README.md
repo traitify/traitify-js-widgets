@@ -42,6 +42,8 @@ If you choose to pass the widget you want to load at the beginning then the load
 
 We include three results widgets, and one slide deck widget. The slide deck allows the user to select me or not me to each image we present, giving us the information we need to generate a personality profile. The results widgets can then be used to render the personality profile, and include the user's traits, their personality type scores, and and their blend / highest personality type. They can each be rendered individually below (The slide deck will render all results at the end of the assessment unless you use the showResults: false argument read below for more details)
 
+slideDeck
+The slideDeck widget is a widget that is used to collect personality information by recording the user's me and not me of every slide in the assessment. This personality information is composed of traits, personality types, and in most cases a blend.
 
 ```HTML
 <script>
@@ -55,6 +57,9 @@ We include three results widgets, and one slide deck widget. The slide deck allo
 </script>
 ```
 
+Results
+The results widget is the basic results widget, it displays your blend, a merge of your 2 top personality types, or if they are not capable of a merge, it shows your top personality type.
+
 ```HTML
 <script>
     // This callback gives you the ability to trigger an event when
@@ -66,6 +71,10 @@ We include three results widgets, and one slide deck widget. The slide deck allo
     })
 </script>
 ```
+
+
+Personality Types
+The personalityTypes widget displays personality type data, each personality type is a sumation of a particular set of personality traits recorded from the user's assessment.
 
 ![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/results.png "Widgets")
 
@@ -82,6 +91,11 @@ We include three results widgets, and one slide deck widget. The slide deck allo
 ```
 
 ![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types.png "Widgets")
+
+
+Personality Traits
+The personalityTraits widget displays personality trait data, each trait contains a value recorded from each slide played on the assessment, which allows for us to create personality type values and your blend, it also gives a more granular view of the user's personality.
+
 
 ```HTML
 <script>
