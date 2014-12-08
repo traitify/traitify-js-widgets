@@ -236,6 +236,7 @@ Styling the Personality Types
 ```
 
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
+This can be used for testing purposes, or so that you can make all your api requests on your own server instead of using the client.
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 <div class="slide-deck"></div>
@@ -251,8 +252,9 @@ Styling the Personality Types
 Please create a pull request for review if you wish to give back
 
 Building, Testing and Bundling:
-
+```Bash
 $ cake watch
 $ cake build
 $ cake bundle
 $ cake test
+```
