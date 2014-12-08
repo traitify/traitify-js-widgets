@@ -12,8 +12,6 @@ Stable Version:
 #### Assessment Id Required.  
 To generate an Assessment Id use a server side library, for more information please visit [https://developer.traitify.com](https://developer.traitify.com)
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
-
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 
@@ -36,6 +34,9 @@ To generate an Assessment Id use a server side library, for more information ple
 </script>
 ```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
+
+
 ### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
 
@@ -51,7 +52,7 @@ If you choose to pass the widget you want to load at the beginning then the load
     })
 </script>
 ```
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/results.png "Widgets")
+
 ```HTML
 <script>
     // This callback gives you the ability to trigger an event when
@@ -64,7 +65,8 @@ If you choose to pass the widget you want to load at the beginning then the load
 </script>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/results.png "Widgets")
+
 ```HTML
 <script>
     // This callback gives you the ability to trigger an event when
@@ -77,7 +79,8 @@ If you choose to pass the widget you want to load at the beginning then the load
 </script>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_traits.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types.png "Widgets")
+
 ```HTML
 <script>
     // This callback gives you the ability to trigger an event when
@@ -89,6 +92,8 @@ If you choose to pass the widget you want to load at the beginning then the load
     })
  </script>
  ```
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_traits.png "Widgets")
 
 ### Examples of different use cases at the bottom
 
@@ -215,8 +220,6 @@ Every tag added to the widget is recorded with a class, to find the class name u
 </script>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_grey.png "Widgets")
-
 Styling the me Button
 ```HTML
 <style>
@@ -226,7 +229,9 @@ Styling the me Button
 </style>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_font_size.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_grey.png "Widgets")
+
+
 
 Styling the Results description
 ```HTML
@@ -237,7 +242,7 @@ Styling the Results description
 </style>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/traits_font_size.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_font_size.png "Widgets")
 
 Styling the Personality Traits name
 ```HTML
@@ -248,7 +253,7 @@ Styling the Personality Traits name
 </style>
 ```
 
-![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background.png "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/traits_font_size.png "Widgets")
 
 Styling the Personality Types background color
 ```HTML
@@ -265,6 +270,8 @@ Styling the Personality Types background color
     }
 </style>
 ```
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background.png "Widgets")
 
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
 This can be used for testing purposes, or so that you can make all your api requests on your own server instead of using the client.
