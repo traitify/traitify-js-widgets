@@ -11,6 +11,7 @@ Stable Version:
 ### Basic setup for intilialization on page 
 #### Assessment Id Required.  
 To generate an Assessment Id use a server side library, for more information please visit [https://developer.traitify.com](https://developer.traitify.com)
+
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 
@@ -33,8 +34,17 @@ To generate an Assessment Id use a server side library, for more information ple
 </script>
 ```
 
-### documentation on each widget (slider, blend, types, traits), what it is, when you use it, what it does, events you can capture (onFinished, onInitialized, etc)
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_not_me.png "Widgets")
+
+
+### What Widgets are included
 If you choose to pass the widget you want to load at the beginning then the loader will return you that widget, otherwise it loads all widgets and passes you back all of them in an Object.
+
+We include three results widgets, and one slide deck widget. The slide deck allows the user to select me or not me to each image we present, giving us the information we need to generate a personality profile. The results widgets can then be used to render the personality profile, and include the user's traits, their personality type scores, and and their blend / highest personality type. They can each be rendered individually below (The slide deck will render all results at the end of the assessment unless you use the showResults: false argument read below for more details)
+
+slideDeck
+The slideDeck widget is a widget that is used to collect personality information by recording the user's me and not me of every slide in the assessment. This personality information is composed of traits, personality types, and in most cases a blend.
+
 ```HTML
 <script>
      // This callback gives you the ability to trigger an event when
@@ -44,7 +54,14 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("Slides"));
         console.log("Initialized");
     })
+</script>
+```
 
+Results
+The results widget is the basic results widget, it displays your blend, a merge of your 2 top personality types, or if they are not capable of a merge, it shows your top personality type.
+
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the widget has finished loading
     traitify = Traitify.ui.load("results", assessmentId, ".traitify-widget"); // Example selector for widget target
@@ -52,8 +69,17 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("PersonalityTypes"));
         console.log("Initialized");
     })
+</script>
+```
 
 
+Personality Types
+The personalityTypes widget displays personality type data, each personality type is a sumation of a particular set of personality traits recorded from the user's assessment.
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/results.png "Widgets")
+
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck    
     traitify = Traitify.ui.load("personalityTypes", assessmentId, ".traitify-widget"); // Example selector for widget target
@@ -61,7 +87,18 @@ If you choose to pass the widget you want to load at the beginning then the load
         console.log(traitify.data.get("PersonalityTypes"));
         console.log("Initialized!");
     })
+</script>
+```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types.png "Widgets")
+
+
+Personality Traits
+The personalityTraits widget displays personality trait data, each trait contains a value recorded from each slide played on the assessment, which allows for us to create personality type values and your blend, it also gives a more granular view of the user's personality.
+
+
+```HTML
+<script>
     // This callback gives you the ability to trigger an event when
     // the user has finished playing the slide deck
     traitify = Traitify.ui.load("personalityTraits", assessmentId, ".traitify-widget"); // Example selector for widget target
@@ -72,7 +109,9 @@ If you choose to pass the widget you want to load at the beginning then the load
  </script>
  ```
 
- ### Examples of different use cases at the bottom
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_traits.png "Widgets")
+
+### Examples of different use cases at the bottom
 
 #### Standard Assessment and results
 ```HTML
@@ -96,7 +135,7 @@ If you choose to pass the widget you want to load at the beginning then the load
     }); // Example selector for widget target
 </script>
 ```
-#### show an example of not rendering the results when the assessment is complete
+#### Turning Off Results
  ```HTML
 	<script>
 	    Traitify.setPublicKey("8asdf8sda-f98as-df8ads-fadsf"); // Example Public Key
@@ -160,7 +199,7 @@ If you choose to pass the widget you want to load at the beginning then the load
 		}
 		
 
-		/********************************************
+	    /********************************************
 	     * jQuery
 	     ********************************************/
 		$(".yay-me").click(function(){
@@ -174,7 +213,7 @@ If you choose to pass the widget you want to load at the beginning then the load
 #### Customization
 You will notice that we added a class to your widgets called "your-class", we are going to use this class to scope our css therefore overriding the default widget css.
 
-
+Every tag added to the widget is recorded with a class, to find the class name use your inspector, often the css that styles a tag is scoped all the way from .tf-slide-deck to .me with all of the containers in between. If you add your own class to the root container though you can use the same scope with the addition of ".your-class" and you should be able to override different anything.
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 
@@ -197,6 +236,7 @@ You will notice that we added a class to your widgets called "your-class", we ar
 </script>
 ```
 
+Styling the me Button
 ```HTML
 <style>
     .your-class.tf-slide-deck-container .me{
@@ -205,34 +245,53 @@ You will notice that we added a class to your widgets called "your-class", we ar
 </style>
 ```
 
-Styling the Results
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/me_grey.png "Widgets")
+
+
+
+Styling the Results description
 ```HTML
 <style>
-    .your-class.tf-results .personality-type .name{
-        background-color: #aaa;
+    .your-class.tf-results .personality-type .description{
+        font-size: 50px;
     }
 </style>
 ```
 
-Styling the Personality Traits
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_font_size.png "Widgets")
+
+Styling the Personality Traits name
 ```HTML
 <style>
     .your-class.tf-personality-traits .personality-traits .trait .name{
-        background-color: #aaa;
+        font-size: 50px;
     }
 </style>
 ```
 
-Styling the Personality Types
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/traits_font_size.png "Widgets")
+
+Styling the Personality Types background color
 ```HTML
 <style>
+    .your-class.tf-personality-types .personality-types-container{
+    	background-color: #aaa;
+    } 
     .your-class.tf-personality-types .personality-types-container .personality-types{
+    	background-color: #aaa;
+    } 
+    .your-class.tf-personality-types .personality-types-container .personality-types .arrow .icon{
         background-color: #aaa;
+        border-top: 20px solid #aaa;
     }
 </style>
 ```
 
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_types_background_grey.png "Widgets")
+
+
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
+This can be used for testing purposes, or so that you can make all your api requests on your own server instead of using the client.
 ```HTML
 <script src="https://cdn.traitify.com/lib/v1.js"></script>
 <div class="slide-deck"></div>
@@ -242,4 +301,15 @@ Styling the Personality Types
 	slideDeck.actions.add("processSlide", function(data){alert("You Clicked " + data.caption)})
 	slideDeck.run()
 </script>
+```
+
+##Contributing
+Please create a pull request for review if you wish to give back
+
+Building, Testing and Bundling:
+```Bash
+$ cake watch
+$ cake build
+$ cake bundle
+$ cake test
 ```
