@@ -180,9 +180,9 @@ build = (watch, callback) ->
 
 bundle = (callback) ->
   process.chdir('api-client')
-  launch("cake", ["build"], ->
+  build(->
+    process.chdir('../')
     build(->
-      process.chdir('../')
       afterFolderCheck = ()->
         bundles = YAML.parse(fs.readFileSync('bundles.yml').toString())
         for key in Object.keys(bundles)
