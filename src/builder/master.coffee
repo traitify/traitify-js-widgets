@@ -545,5 +545,3 @@ class Widget
         styleElement.innerHTML = Traitify.ui.styles[style]
       @nodes.get("main").appendChild(styleElement)
     @initialization.trigger()
-    
-  	

@@ -92,7 +92,7 @@ class Ui
 
             results.then((data)->
               dependency = @cleanName
-              dependentWidgetNames = Object.keys(widgets).filter((widgetName)-> 
+              dependentWidgetNames = Object.keys(widgets).filter((widgetName)->
                 widgets[widgetName]
                 widgets[widgetName].dataDependencies.indexOf(dependency) != -1
               )

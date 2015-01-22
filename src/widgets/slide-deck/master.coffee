@@ -17,25 +17,25 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.styleDependency("all")
   widget.styleDependency("slide-deck")
   widget.states.add("trying", true)
-  
+
   #######################
   # DATA DEPENDENCIES
   #######################
   widget.dataDependency("Slides")
-  
+
   #######################
   # DATA
   #######################
   if !widget.data.get("slideValues")
     widget.data.add("slideValues", Array())
-  
+
   widget.actions.add("processSlide", (options)->
     widget.data.set("lastSlideTime", widget.data.get("currentSlideTime"))
     widget.data.set("currentSlideTime", new Date().getTime())
     slideValues = widget.data.get("slideValues")
     slideValues.push({
-      id: options.id, 
-      response: options.value, 
+      id: options.id,
+      response: options.value,
       time_taken: widget.data.get("currentSlideTime") - widget.data.get("lastSlideTime")
     })
     widget.data.set("slideValues", slideValues)
@@ -77,7 +77,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
         widget.data.set("slideValues", widget.data.get("slideValues").concat(currentSlides))
       )
   )
-  
+
   widget.helpers.add("getProgressBarNumbers", (initialize)->
     slideLength = widget.data.get("Slides").length
     completed = widget.data.get("SlidesCompleted").length 
@@ -88,7 +88,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     Math.round((currentPosition / slideLength) * 100)
   )
-  
+
   widget.views.add("internetFailure", ->
     widget.views.render("wifiLoading")
     loadingInner = @tags.get("loading").innerHTML
@@ -99,7 +99,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       widget.actions.trigger("fetchNext")
     @tags.get("wifiLoading")
   )
-  
+
   widget.views.add("wifiLoading", ->
     unless @tags.get("wifiLoading")
       @tags.div("wifiLoading")
@@ -107,8 +107,8 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       @tags.div("loadingText", "Loading").appendTo("loading")
     @tags.get("wifiLoading")
   )
-  
-  #########################  
+
+  #########################
   # PARTIALS
   #########################
   widget.views.add("slideDeckContainer", ->
@@ -116,7 +116,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     cover = @tags.div("cover")
     @tags.tag("rotateBack", "object", {"data":"https://s3.amazonaws.com/traitify-cdn/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
     slidesContainer.appendChild(cover)
-    
+
     slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
 
     slidesContainer.appendChild(widget.views.render("progressBar", slidesLeft))
@@ -127,7 +127,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slidesContainer
   )
-  
+
   widget.views.add("meNotMe", ->
     @tags.div("meNotMeContainerAttachment")
     @tags.div("meNotMeContainer").appendTo("meNotMeContainerAttachment")
@@ -135,7 +135,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     @tags.div("notMe").appendTo("meNotMeContainer")
     widget.nodes.get("notMe").innerHTML = "NOT ME"
     widget.nodes.get("me").innerHTML = "ME"
-    
+
     @tags.get("meNotMeContainerAttachment")
   )
 
@@ -157,7 +157,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slides
   )
-  
+
   widget.views.add("slide", (slideData)->
     slide = @tags.div("slide")
 
@@ -176,7 +176,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     slide
   )
-  
+
   widget.views.add("progressBar", (percentFinished)->
     progressBar = @tags.div("progress-bar")
     progressBarInner = @tags.div("progress-bar-inner")
@@ -188,17 +188,17 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
     progressBar
   )
-  
+
   widget.views.add("loadingAnimation", ->
     @tags.div("loading")
     @tags.div("symbol").appendTo("loading")
     @tags.i("leftDot").appendTo("symbol")
     @tags.i("rightDot").appendTo("symbol")
-    
+
     @tags.get("loading")
   )
 
-  
+
   ##########################
   # HELPERS
   ##########################
@@ -209,7 +209,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       touchobj = event.changedTouches[0]
       touched.startx = parseInt(touchobj.clientX)
       touched.starty = parseInt(touchobj.clientY)
-    
+
     )
     touchNode.addEventListener('touchend', (event)->
       touchobj = event.changedTouches[0]
@@ -224,7 +224,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     if (window.addEventListener)
       window.addEventListener('load', callBack)
   )
-  
+
   ###########################
   # EVENTS
   ###########################
@@ -233,7 +233,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     afterNextSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
 
     if !widget.states.get("animating") && widget.nodes.get("nextSlide") && currentSlide && widget.actions.trigger("cacheCheck?")
-      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
+      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")]
         widget.actions.trigger("loadingAnimation")
       widget.states.set("animating", true)
       widget.actions.trigger("advanceSlide")

@@ -26,25 +26,27 @@
     <link href="./assets/stylesheets/widgets/results/careers/master.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="careers"></div>
     <div class="slide-deck"></div>
     <div class="personality-types"></div>
     <div class="personality-traits"></div>
+    <div class="careers"></div>
     <script>
       Traitify.ui.styles = []
       Traitify.setHost("api-sandbox.traitify.com");
       Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
       Traitify.setVersion("v1");
       var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
-      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
-        personalityTypes:{
-          target:".personality-types"
-        }, personalityTraits:{
-          target:".personality-traits"
-        }, careers:{
-          target:".careers"
-        }
-      })
+      // window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
+      //   personalityTypes:{
+      //     target: ".personality-types"
+      //   }, personalityTraits:{
+      //     target: ".personality-traits"
+      //   }, careers:{
+      //     target: ".careers",
+      //     number_of_matches: 12
+      //   }
+      // })
+      Traitify.ui.load("careers", assessmentId, ".careers", { number_of_matches: 12 })
     </script>
   </body>
 </html>
