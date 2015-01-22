@@ -14,12 +14,18 @@
   max-width: 800px;
   margin: 0px auto;
 }
+.tf-careers .column{
+  width: 180px;
+  margin: 0 5px;
+  display: inline-block;
+  vertical-align: top;
+}
 .tf-careers .career{
   border: 2px solid;
   border-color: #99aaff;
   display: inline-block;
-  width: 180px;
-  margin: 5px;
+  width: 100%;
+  margin: 5px 0;
   vertical-align: top;
   background-color: #fff;
   position: relative;
@@ -29,7 +35,7 @@
 }
 .tf-careers .career hr{
   border-color: #99aaff;
-  margin: 5px 0;
+  margin: 10px 0 5px 0;
 }
 @media (max-width: 768px) {
   .tf-careers .career{
