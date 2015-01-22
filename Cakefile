@@ -206,7 +206,7 @@ bundle = (callback) ->
                 minifiedFileData = minifiedFileData.replace(/'/g, '"')
 
                 minifiedFileData = "Traitify.ui.styles['#{cleanFileName}']='#{minifiedFileData}';"
-                
+
                 fs.appendFileSync(bundleFile, minifiedFileData);
                 if bundles[key].css.indexOf(fileName) == bundles[key].css.length - 1
                   gzipme(bundleFile); 
@@ -272,9 +272,9 @@ clean = (callback) ->
 # **then* print not found message with install helper in red
 # **and* return false if not found
 moduleExists = (name) ->
-  try 
-    require name 
-  catch err 
+  try
+    require name
+  catch err
     log "#{name} required: npm install #{name}", red
     false
 
@@ -292,7 +292,7 @@ mocha = (options, callback) ->
   # add coffee directive
   options.push '--compilers'
   options.push 'coffee:coffee-script'
-  
+
   launch 'mocha', options, callback
 
 # ## *docco*

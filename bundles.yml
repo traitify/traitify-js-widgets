@@ -1,6 +1,6 @@
-v1: 
+v1:
   js:
-    - "api-client/compiled/api/v1.js" 
+    - "api-client/compiled/api/v1.js"
     - "compiled/ui/v1.js"
     - "compiled/builder/v1.js"
     - "compiled/widgets/slide-deck/v1.js"
@@ -13,9 +13,9 @@ v1:
     - "widgets/results/default/v1.css"
     - "widgets/results/personality-types/v1.css"
     - "widgets/results/personality-traits/v1.css"
-edge: 
+edge:
   js:
-    - "api-client/compiled/api/master.js" 
+    - "api-client/compiled/api/master.js"
     - "compiled/ui/master.js"
     - "compiled/builder/master.js"
     - "compiled/widgets/slide-deck/master.js"

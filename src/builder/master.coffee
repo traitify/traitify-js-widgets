@@ -215,6 +215,16 @@ class Tags
     options ?= Object()
     options.src = src
     @tag(name, "img", options)
+  # Hr
+  #
+  # @example hr(name, options)
+  #   tags = new Tags()
+  #   tags.hr("someTag", {})
+  # @param [String] Name for the tag
+  # @param [Object] Options for the tag
+  #
+  hr: (name, options)->
+    @tag(name, "hr", options)
   # I
   #
   # @example i(name, options)
@@ -267,7 +277,7 @@ class Tags
       else
         for styleName in Object.keys(attributes["style"])
           element.style[styleName] = attributes[attributeName][styleName]
-    if tagIsList 
+    if tagIsList
       unless @library.get(fullName)
         @library.add(fullName, Array())
       @library.get(fullName).push(element)
