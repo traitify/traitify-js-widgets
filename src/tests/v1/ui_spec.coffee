@@ -4,6 +4,8 @@ QUnit.module( "Testing UI", {
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
+    Traitify.online = ->
+      true
 
     unless document.querySelector(".widget .slide-deck")
       widget = document.createElement("div")
@@ -35,4 +37,3 @@ QUnit.asyncTest("Results prints Styles", (assert)->
     QUnit.start()
   )
 )
-

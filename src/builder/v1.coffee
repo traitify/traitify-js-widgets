@@ -215,6 +215,16 @@ class Tags
     options ?= Object()
     options.src = src
     @tag(name, "img", options)
+  # Hr
+  #
+  # @example hr(name, options)
+  #   tags = new Tags()
+  #   tags.hr("someTag", {})
+  # @param [String] Name for the tag
+  # @param [Object] Options for the tag
+  #
+  hr: (name, options)->
+    @tag(name, "hr", options)
   # I
   #
   # @example i(name, options)
@@ -267,7 +277,7 @@ class Tags
       else
         for styleName in Object.keys(attributes["style"])
           element.style[styleName] = attributes[attributeName][styleName]
-    if tagIsList 
+    if tagIsList
       unless @library.get(fullName)
         @library.add(fullName, Array())
       @library.get(fullName).push(element)
@@ -522,9 +532,16 @@ class Widget
   #
   run: ->
     for style in @styles
-        styleElement = document.createElement("style")
+      styleElement = document.createElement("style")
+      styleElement.type = "text/css"
+      if Traitify.oldIE
+        if styleElement.styleSheet
+          styleElement.styleSheet.cssText = Traitify.ui.styles[style]
+        else
+          styleInnerHTML = document.createTextNode(Traitify.ui.styles[style])
+          alert("THROUGH")
+          styleElement.appendChild(styleInnerHTML)
+      else
         styleElement.innerHTML = Traitify.ui.styles[style]
-        @nodes.get("main").appendChild(styleElement)
+      @nodes.get("main").appendChild(styleElement)
     @initialization.trigger()
-    
-  	

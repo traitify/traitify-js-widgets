@@ -4,7 +4,7 @@ Traitify.ui.widget("results", (widget, options)->
   widget.dataDependency("PersonalityTypes")
   widget.styleDependency("all")
   widget.styleDependency("results/default")
-  
+
   ########################
   # INITIALIZE
   ########################
@@ -40,7 +40,7 @@ Traitify.ui.widget("results", (widget, options)->
       @render("Personality Type Badge").appendTo("personalityType")
       @tags.div("name", personalityTypeData.name).appendTo("personalityType")
       @tags.div("typeDescription", personalityTypeData.description).appendTo("personalityType")
-    
+
     @tags.library.get("personalityBlend") or @tags.library.get("personalityType")
   )
 
@@ -59,8 +59,7 @@ Traitify.ui.widget("results", (widget, options)->
         leftBadgeCSS = {}
     @tags.div("leftBadge", leftBadgeCSS).appendTo("badgesContainer")
     @tags.img("leftBadgeImage", typeOneData.badge.image_medium).appendTo("leftBadge")
-    
-    
+
     typeTwoData = personalityBlendData.personality_type_2
     hexColorTwo = widget.helpers.hexToRGB(typeTwoData.badge.color_1)
 

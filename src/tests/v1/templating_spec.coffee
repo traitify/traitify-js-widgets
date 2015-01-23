@@ -18,7 +18,7 @@ QUnit.module( "Testing API Version 1", { setup: ->
       <name></name>
   </template>'
 
-});
+})
 QUnit.asyncTest("Slide Deck Widget Initialize", (assert)->
   Traitify.templating.initialize()
   Traitify.templating.onInitialize(->

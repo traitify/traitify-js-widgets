@@ -4,7 +4,8 @@ QUnit.module( "Testing Slide Deck", {
     Traitify.setVersion("v1")
     Traitify.setHost("api-sandbox.traitify.com")
     Traitify.setPublicKey("gglvv58easpesg9ajbltavb3gr")
-
+    Traitify.online = ->
+      true
     unless document.querySelector(".widget .slide-deck")
       widget = document.createElement("div")
       widget.setAttribute("class", "widget")
@@ -29,6 +30,7 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
 QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
 
   Builder = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
+  
   assert.equal(!document.getElementsByClassName("slide active")[0], false, "on Initialize Event Succeeds!" )
 )
 

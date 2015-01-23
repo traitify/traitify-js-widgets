@@ -51,15 +51,22 @@ class Ui
           nonSlideWidgets[widgetName].widgets = allWidgets
       if Object.keys(slideWidgets).length != 0
         Traitify.getSlides(assessmentId).then((slides)->
-          playedSlides = slides.filter( (slide)-> 
-            slide.completed_at != null 
+          playedSlides = slides.filter( (slide)->
+            typeof slide.completed_at == "number"
           )
-          if playedSlides.length != slides.length
-            for slideWidgetName in Object.keys(slideWidgets)
-              slideWidget = slideWidgets[slideWidgetName]
-              slideWidget.data.add("Slides", slides)
+
+          showResults = Object.keys(options).filter((widgetName)->
+            options[widgetName].showResults == false 
+          ).length == 0
+
+          for slideWidgetName in Object.keys(slideWidgets)
+            slideWidget = slideWidgets[slideWidgetName]
+            slideWidget.data.add("Slides", slides)
+            if playedSlides.length == slides.length && !showResults
+              slideWidget.callbacks.trigger("Finished")
+            else
               slideWidget.run()
-          else
+          if showResults != false
             Traitify.ui.loadResults(nonSlideWidgets)
         )
 
@@ -68,36 +75,38 @@ class Ui
         for widgetName in Object.keys(slideWidgets)
           allWidgets[widgetName] = slideWidgets[widgetName]
         allWidgets
-      
+
   loadResults: (widgets)->
     dependencies = Object()
     for widgetName in Object.keys(widgets)
       widget = widgets[widgetName]
       widget.widgets = widgets
-      for dependency in widget.dataDependencies
-        if dependencies[dependency] != true
-          dependencies[dependency] = true
-          results = Traitify["get#{dependency}"](widget.assessmentId)
-          results.cleanName = dependency
+      if widget.dataDependencies.length == 0
+        widget.run()
+      else
+        for dependency in widget.dataDependencies
+          if dependencies[dependency] != true
+            dependencies[dependency] = true
+            results = Traitify["get#{dependency}"](widget.assessmentId)
+            results.cleanName = dependency
 
-          results.then((data)->
-            dependency = @cleanName
-            dependentWidgetNames = Object.keys(widgets).filter((widgetName)-> 
-              widgets[widgetName]
-              widgets[widgetName].dataDependencies.indexOf(dependency) != -1
+            results.then((data)->
+              dependency = @cleanName
+              dependentWidgetNames = Object.keys(widgets).filter((widgetName)->
+                widgets[widgetName]
+                widgets[widgetName].dataDependencies.indexOf(dependency) != -1
+              )
+              for widgetName in dependentWidgetNames
+                widget = widgets[widgetName]
+                widget.data.add(dependency, data)
+                dependencyCheck = true
+                for dependency in widget.dataDependencies
+                  if !widget.data.get(dependency)
+                    dependencyCheck == false
+
+                if dependencyCheck
+                  widget.run()
             )
-            for widgetName in dependentWidgetNames
-              widget = widgets[widgetName] 
-              widget.data.add(dependency, data)
-              dependencyCheck = true
-              for dependency in widget.dataDependencies
-                if !widget.data.get(dependency)
-                  dependencyCheck == false
-
-              if dependencyCheck
-                widget.run()
-          )
-
 
   # Build a New Widget.
   #

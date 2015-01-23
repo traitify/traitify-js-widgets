@@ -25,7 +25,7 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
     for trait in @data.get("PersonalityTraits").slice(0, 8)
       trait = trait.personality_trait
       personalityType = trait.personality_type
-      
+
       @tags.div(["personalityTraits.trait"], {style: {borderColor: "##{personalityType.badge.color_1}"}}).appendTo("personalityTraits")
       @tags.div(["personalityTraits.trait.name"], trait.name).appendTo(["personalityTraits.trait", _i])
 
@@ -36,7 +36,7 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
             backgroundImage: "url('#{personalityType.badge.image_medium}')"
           }}).appendTo(["personalityTraits.trait", _i])
       @tags.div(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", _i])
-      
+
     personalityTraitsWidgetContainer
   )
 )
