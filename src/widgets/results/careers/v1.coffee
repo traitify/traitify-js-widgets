@@ -28,7 +28,7 @@ Traitify.ui.widget("careers", (widget, options)->
       column.appendTo("careers")
 
     tags = @tags
-    if widget.options.careers
+    if widget.options && widget.options.careers
       options = { number_of_matches: widget.options.careers.number_of_matches }
     Traitify.getCareers(widget.assessmentId, options, (careers) ->
       for career, i in careers

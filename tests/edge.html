@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <title>Traitify JS Tests</title>
   <style>
-   .personality-types, .personality-traits, #test-case-container, .widget{
-       display:none
-   }
+    .personality-types, .personality-traits, .careers, #test-case-container, .widget{
+      display:none
+    }
   </style>
 </head>
 <body>
@@ -28,6 +28,7 @@
     require("../compiled/widgets/results/default/master", {cover: true})
     require("../compiled/widgets/results/personality-traits/master", {cover: true})
     require("../compiled/widgets/results/personality-types/master", {cover: true})
+    require("../compiled/widgets/results/careers/master", {cover: true})
     require("../assets/widgets/slide-deck/master", "css")
 
     /*****************************
@@ -39,6 +40,7 @@
     require("../compiled/tests/edge/results_spec")
     require("../compiled/tests/edge/results_traits_spec")
     require("../compiled/tests/edge/results_personality_types_spec")
+    require("../compiled/tests/edge/results_careers_spec")
 
     div({id: "test-case-container"})
   </script>
