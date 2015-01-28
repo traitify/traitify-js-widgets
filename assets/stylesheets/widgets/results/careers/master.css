@@ -22,7 +22,7 @@
 }
 .tf-careers .career{
   border: 2px solid;
-  border-color: #99aaff;
+  border-color: #e2e2e2;
   display: inline-block;
   width: 100%;
   margin: 5px 0;
@@ -34,7 +34,9 @@
   text-align: left;
 }
 .tf-careers .career hr{
-  border-color: #99aaff;
+  border: none;
+  border-top: 2px solid;
+  border-color: #e2e2e2;
   margin: 10px 0 5px 0;
 }
 @media (max-width: 768px) {
@@ -64,21 +66,25 @@
   padding: 0px 10px;
 }
 .tf-careers .career .experience-box{
-  background-color: gray;
+  background-color: #e2e2e2;
   width: 10px;
   height: 10px;
   margin-right: 2px;
   display: inline-block;
 }
 .tf-careers .career .experience-box.highlighted-box{
-  background-color: #99aaff;
+  background-color: #058fc4;
 }
 .tf-careers .career .education{
   margin-bottom: 10px;
 }
+.tf-careers .career .education-text{
+  font-family: "Adelle Sans Bold";
+  font-weight: 600;
+}
 .tf-careers .career .fade{
   position: relative;
-  height: 9.2em;
+  height: 3.6em;
   overflow: hidden;
 }
 .tf-careers .career .fade:after {
@@ -90,4 +96,8 @@
   width: 70%;
   height: 1.2em;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 70%);
+}
+
+.tf-careers .career.show-details:hover {
+  cursor: pointer;
 }

@@ -23,11 +23,11 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
 
     @tags.div("personalityTypesContainerScroller").appendTo("tfPersonalityTypes")
     @tags.div("personalityTypesContainer").appendTo("personalityTypesContainerScroller")
-    
+
     @render("Personality Types").appendTo("personalityTypesContainer")
     description = @tags.div("description").appendTo("tfPersonalityTypes")
     description.innerHTML = widget.data.get("PersonalityTypes").personality_types[0].personality_type.description
-    
+
     widget.callbacks.trigger("Initialize")
 
     personalityTypesWidgetContainer
@@ -38,20 +38,20 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
     pts = Array()
     @tags.div("arrow").appendTo("personalityTypes")
     @tags.div("icon").appendTo("arrow")
-    
+
     for pt in widget.data.get("PersonalityTypes").personality_types
       index = _i
       @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
       name = @tags.div("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"
-      
+
       @tags.img("badge", pt.personality_type.badge.image_medium).appendTo("personalityType")
-      
+
       score = @tags.div("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
-      
+
     personalityTypes
   )
-  
+
   widget.initialization.events.add("personalityTypes", ->
     personalityTypes = document.querySelectorAll(".tf-personality-types .personality-type")
     for personalityType in personalityTypes

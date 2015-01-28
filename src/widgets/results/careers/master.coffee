@@ -30,6 +30,9 @@ Traitify.ui.widget("careers", (widget, options)->
     tags = @tags
     if widget.options && widget.options.careers
       options = { number_of_matches: widget.options.careers.number_of_matches }
+      if widget.options.careers.details
+        showDetails = widget.options.careers.details.show
+        detailsTarget = widget.options.careers.details.target
     Traitify.getCareers(widget.assessmentId, options, (careers) ->
       for career, i in careers
         career = career.career
@@ -37,11 +40,12 @@ Traitify.ui.widget("careers", (widget, options)->
         index = Math.floor(i / columns)
         classBase = "column-" + column + ".career"
 
-        tags.div([classBase]).appendTo("column-" + column)
+        careerContainer = tags.div([classBase])
+        careerContainer.appendTo("column-" + column)
         tags.img([classBase + ".image"], career.picture).appendTo([classBase, index])
         tags.div([classBase + ".title"], career.title).appendTo([classBase, index])
-        description = tags.div([classBase + ".description"], career.description.substring(0, 220))
-        if career.description.length > 300
+        description = tags.div([classBase + ".description"], career.description.substring(0, 100))
+        if career.description.length > 100
           description.className += " fade"
         description.appendTo([classBase, index])
         tags.hr([classBase + ".hr"]).appendTo([classBase, index])
@@ -54,7 +58,24 @@ Traitify.ui.widget("careers", (widget, options)->
         for level in [1..(5-career.experience_level.id)]
           experienceBoxes.appendChild(tags.div("experience-box"))
         experienceBoxes.appendTo([classBase, index])
-        tags.div([classBase + ".education"], career.experience_level.education).appendTo([classBase, index])
+        education = tags.div([classBase + ".education"])
+        education.appendChild(tags.span("", "Education: "))
+        education.appendChild(tags.span("education-text", career.experience_level.education.substring(0, 10)))
+        education.appendTo([classBase, index])
+        if showDetails
+          careerContainer.className += " show-details"
+          do (career, detailsTarget) ->
+            careerContainer.onclick = (event)->
+              # Trigger before event (pass career)
+              unless detailsTarget
+                details = document.createElement("div")
+                details.className = "popout-career"
+                document.body.className += " tf-popout-open"
+                document.body.appendChild(details)
+                detailsTarget = ".popout-career"
+              careerDetailsWidget = Traitify.ui.widgets["careerDetails"](widget.assessmentId, detailsTarget, { careerDetails: { career: career }})
+              careerDetailsWidget.run()
+              # Trigger after event (pass career)
     )
 
     careersWidgetContainer
