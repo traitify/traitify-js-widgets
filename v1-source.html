@@ -17,6 +17,7 @@
     <script src="./compiled/widgets/results/personality-types/v1.js"></script>
     <script src="./compiled/widgets/results/personality-traits/v1.js"></script>
     <script src="./compiled/widgets/results/careers/v1.js"></script>
+    <script src="./compiled/widgets/results/career-details/v1.js"></script>
 
     <link href="./assets/stylesheets/widgets/all/v1.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/slide-deck/v1.css" rel="stylesheet" />
@@ -24,8 +25,10 @@
     <link href="./assets/stylesheets/widgets/results/personality-types/v1.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-traits/v1.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/careers/v1.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/careerDetails/v1.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="primary-career"></div>
     <div class="careers"></div>
     <div class="slide-deck"></div>
     <div class="personality-types"></div>
@@ -43,7 +46,11 @@
           target: ".personality-traits"
         }, careers:{
           target: ".careers",
-          number_of_matches: 20
+          number_of_matches: 20,
+          details: {
+            show: true,
+            target: ".primary-career",
+          }
         }
       })
     </script>

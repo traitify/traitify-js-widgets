@@ -56,7 +56,7 @@ class Ui
           )
 
           showResults = Object.keys(options).filter((widgetName)->
-            options[widgetName].showResults == false 
+            options[widgetName].showResults == false
           ).length == 0
 
           for slideWidgetName in Object.keys(slideWidgets)

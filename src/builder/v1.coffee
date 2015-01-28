@@ -100,7 +100,7 @@ class Library
   # @param [String] Name for the data
   # @param [String, Object, Function] Item to store
   # @return [Object, String, Number, Function] The stored item
-  #  
+  #
   set: (name, item)->
     @add(name, item)
 
@@ -120,6 +120,20 @@ class Library
     else
       @store
 
+  # Remove
+  #
+  # @example remove(name)
+  #   library = new Library()
+  #   library.remove("thisName")
+  #
+  # @param [String] Name for the data
+  # @return [Boolean] If item was removed
+  #
+  remove: (name)->
+    if @store[name]
+      delete @store[name]
+    else
+      false
 
 # Base Callbacks Logic for simple Callback addition, setting, and triggering.
 #
@@ -202,6 +216,20 @@ class Tags
       content = options
       options = Object()
     @tag(name, "div", options, content)
+  # Span
+  #
+  # @example span(name, options, content)
+  #   tags = new Tags()
+  #   tags.span("someTag", {style: {color: "blue"}}, "This is an awesome tag!")
+  # @param [String] Name for the tag
+  # @param [Object] Options for the tag
+  # @param [String] Content for the tag
+  #
+  span: (name, options, content)->
+    if typeof options is "string"
+      content = options
+      options = Object()
+    @tag(name, "span", options, content)
   # Img
   #
   # @example img(name, src, options)
@@ -236,6 +264,20 @@ class Tags
   #
   i: (name, options, content)->
     @tag(name, "i", options, content)
+  # A
+  #
+  # @example a(name, options)
+  #   tags = new Tags()
+  #   tags.a("someTag", "This is an awesome tag!")
+  # @param [String] Name for the tag
+  # @param [Object] Options for the tag
+  # @param [String] Content for the tag
+  #
+  a: (name, options, content)->
+    if typeof options is "string"
+      content = options
+      options = Object()
+    @tag(name, "a", options, content)
   # Get
   #
   # @example get(name, options)
@@ -392,6 +434,16 @@ class Views
     if @library.get(name)
       @library.get(name).call(@, options)
 
+  # Remove
+  #
+  # @example remove(name)
+  #   views = new Views()
+  #   views.remove("someView")
+  # @param [String] Name for view
+  #
+  remove: (name, view)->
+    @library.remove(name)
+
 # Stack Logic
 #
 # @example How use Stack
@@ -401,7 +453,7 @@ class Views
 #   )
 #   stack.trigger("startThings")
 #
-class Stack 
+class Stack
   constructor: ->
     @events = new Library()
   # Trigger

@@ -73,7 +73,7 @@ Traitify.ui.widget("careers", (widget, options)->
                 document.body.className += " tf-popout-open"
                 document.body.appendChild(details)
                 detailsTarget = ".popout-career"
-              careerDetailsWidget = Traitify.ui.widgets["careerDetails"](widget.assessmentId, detailsTarget, { careerDetails: { career: career }})
+              careerDetailsWidget = Traitify.ui.widgets["careerDetails"](null, detailsTarget, { careerDetails: { career: career }})
               careerDetailsWidget.run()
               # Trigger after event (pass career)
     )
