@@ -60,20 +60,22 @@ Traitify.ui.widget("careers", (widget, options)->
         experienceBoxes.appendTo([classBase, index])
         education = tags.div([classBase + ".education"])
         education.appendChild(tags.span("", "Education: "))
-        education.appendChild(tags.span("education-text", career.experience_level.education.substring(0, 10)))
+        education.appendChild(tags.span("education-text", career.experience_level.degree))
         education.appendTo([classBase, index])
         if showDetails
           careerContainer.className += " show-details"
           do (career, detailsTarget) ->
             careerContainer.onclick = (event)->
               # Trigger before event (pass career)
-              unless detailsTarget
+              if detailsTarget
+                target = detailsTarget
+              else
                 details = document.createElement("div")
                 details.className = "popout-career"
                 document.body.className += " tf-popout-open"
                 document.body.appendChild(details)
-                detailsTarget = ".popout-career"
-              careerDetailsWidget = Traitify.ui.widgets["careerDetails"](null, detailsTarget, { careerDetails: { career: career }})
+                target = ".popout-career"
+              careerDetailsWidget = Traitify.ui.widgets["careerDetails"](null, target, { careerDetails: { career: career }})
               careerDetailsWidget.run()
               # Trigger after event (pass career)
     )

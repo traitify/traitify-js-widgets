@@ -34,6 +34,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
         exitButton.onclick = (event)->
           target.parentNode.removeChild(target)
           widget.views.remove("Career Details Container")
+          document.body.className = document.body.className.replace(" tf-popout-open", "")
         innerHeader.appendChild(exitButton)
       header.appendChild(innerHeader)
       header.appendTo("careerDetails")
@@ -87,7 +88,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       growth.innerHTML = """
         <div class="stat-title">Job Growth:</div>
         <div class="stat-data">
-          """ + career.employment_projection.percent_growth_2022 + """
+          """ + career.employment_projection.percent_growth_2022 + """%
         </div>
       """
       stats.appendChild(growth)
@@ -109,7 +110,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       degree.innerHTML = """
         <div class="stat-title">Education:</div>
         <div class="stat-data">
-          """ + career.description.substring(0, 10) + """
+          """ + career.experience_level.degree + """
         </div>
       """
       stats.appendChild(degree)
