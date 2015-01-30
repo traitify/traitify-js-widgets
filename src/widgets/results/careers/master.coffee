@@ -20,12 +20,11 @@ Traitify.ui.widget("careers", (widget, options)->
     if Traitify.oldIE
       careersWidgetContainer.className += " ie"
 
-    @tags.div("careers").appendTo("tfCareers")
     columns = 4
     for column in [0..columns-1]
       column = @tags.div("column-" + column)
       column.className += " column"
-      column.appendTo("careers")
+      column.appendTo("tfCareers")
 
     tags = @tags
     if widget.options && widget.options.careers

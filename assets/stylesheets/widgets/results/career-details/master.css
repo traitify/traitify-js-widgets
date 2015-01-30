@@ -89,6 +89,16 @@
   display: inline-block;
   box-sizing: border-box;
 }
+.tf-career-details .stats .future .stat-title,
+.tf-career-details .stats .green .stat-title,
+.tf-career-details .stats .onet .stat-title {
+  width: 60%;
+}
+.tf-career-details .stats .future .stat-data,
+.tf-career-details .stats .green .stat-data,
+.tf-career-details .stats .onet .stat-data {
+  width: 40%;
+}
 .tf-career-details .stats .stat-data-header,
 .tf-career-details .stats .stat-data-body {
   width: 50%;
@@ -102,6 +112,9 @@
 .tf-career-details .stats .stat-data-median {
   width: 50%;
   display: inline-block;
+}
+.tf-career-details .stats img {
+  height: 23px;
 }
 .tf-career-details .stats,
 .tf-career-details .experience-header,
