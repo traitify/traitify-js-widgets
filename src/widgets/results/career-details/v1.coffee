@@ -2,7 +2,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
   widget.states.add("initialized")
   widget.callbacks.add("Initialize")
   widget.styleDependency("all")
-  widget.styleDependency("results/careerDetails")
+  widget.styleDependency("results/career-details")
 
   if widget.options.careerDetails
     ########################
