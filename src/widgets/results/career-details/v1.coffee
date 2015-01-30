@@ -69,7 +69,9 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       salary.appendChild(data)
       stats.appendChild(salary)
 
-      outlooks = career.bright_outlooks || ["None"]
+      block_img = """<img src="https://cdn.traitify.com/assets/images/career-details/block.png" alt="Block">"""
+      future_img = if career.bright_outlooks then """<img src="https://cdn.traitify.com/assets/images/career-details/sun.png" alt="Sun">""" else block_img
+      green_img = if career.bright_outlooks then """<img src="https://cdn.traitify.com/assets/images/career-details/green.png" alt="Green">""" else block_img
 
       # Bright Future
       future = @tags.div("future")
@@ -77,7 +79,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       future.innerHTML = """
         <div class="stat-title">Bright Future:</div>
         <div class="stat-data">
-          """ + outlooks[0] + """
+          """ + future_img + """
         </div>
       """
       stats.appendChild(future)
@@ -99,7 +101,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       green.innerHTML = """
         <div class="stat-title">Green Career:</div>
         <div class="stat-data">
-          """ + outlooks[0] + """
+          """ + green_img + """
         </div>
       """
       stats.appendChild(green)
@@ -120,7 +122,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       onet = @tags.div("onet")
       onet.className += " stat"
       onet.innerHTML = """
-        <div class="stat-title">O'Net Link</div>
+        <div class="stat-title">O'Net Link:</div>
         <div class="stat-data">
           <a href="http://www.onetonline.org/link/summary/""" + career.id + """">""" + career.id + """</a>
         </div>

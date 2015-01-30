@@ -1,6 +1,7 @@
 .tf-careers{
   font-family: "Source Sans Pro";
   font-size: 24px;
+  line-height: 1.5;
   margin: 20px;
   text-align: center;
 }
@@ -40,8 +41,8 @@
   margin: 10px 0 5px 0;
 }
 @media (max-width: 768px) {
-  .tf-careers .career{
-    width: 45%;
+  .tf-careers .column{
+    width: 100%;
   }
 }
 .tf-careers .career .image{
@@ -63,7 +64,7 @@
 .tf-careers .career .experience,
 .tf-careers .career .experience-boxes,
 .tf-careers .career .education{
-  padding: 0px 10px;
+  padding: 0px 10px 5px;
 }
 .tf-careers .career .experience-box{
   background-color: #e2e2e2;
@@ -84,7 +85,7 @@
 }
 .tf-careers .career .fade{
   position: relative;
-  height: 3.6em;
+  height: 4.2em;
   overflow: hidden;
 }
 .tf-careers .career .fade:after {

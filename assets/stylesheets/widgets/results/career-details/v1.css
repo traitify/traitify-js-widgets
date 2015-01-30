@@ -1,6 +1,7 @@
 .tf-career-details{
   font-family: "Source Sans Pro";
   font-size: 18px;
+  line-height: 1.5;
   margin: 20px;
 }
 .tf-career-details .invisible{
@@ -8,6 +9,10 @@
 }
 .tf-career-details.ie{
   font-family: arial;
+}
+.tf-career-details a{
+  color: black;
+  text-decoration: underline;
 }
 .tf-career-details div, .tf-career-details img{
   box-sizing: content-box;
@@ -57,6 +62,11 @@
   box-sizing: border-box;
   vertical-align: top;
 }
+@media (max-width: 768px) {
+  .tf-career-details .details{
+    margin-top: 10px;
+  }
+}
 .tf-career-details .details .title{
   font-family: "Adelle Sans Bold";
 }
@@ -75,10 +85,16 @@
   display: inline-block;
   box-sizing: border-box;
 }
+@media (max-width: 768px) {
+  .tf-career-details .stats .stat {
+    width: 100%;
+  }
+}
 .tf-career-details .stats .stat-title {
   width: 40%;
   float: left;
   text-align: right;
+  font-family: "Adelle Sans Bold";
   font-weight: bold;
   box-sizing: border-box;
 }
@@ -102,6 +118,9 @@
 .tf-career-details .stats .stat-data-median {
   width: 50%;
   display: inline-block;
+}
+.tf-career-details .stats img {
+  height: 23px;
 }
 .tf-career-details .stats,
 .tf-career-details .experience-header,

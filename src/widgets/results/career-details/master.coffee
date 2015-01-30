@@ -122,7 +122,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       onet = @tags.div("onet")
       onet.className += " stat"
       onet.innerHTML = """
-        <div class="stat-title">O'Net Link</div>
+        <div class="stat-title">O'Net Link:</div>
         <div class="stat-data">
           <a href="http://www.onetonline.org/link/summary/""" + career.id + """">""" + career.id + """</a>
         </div>
