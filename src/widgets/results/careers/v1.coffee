@@ -70,18 +70,20 @@ Traitify.ui.widget("careers", (widget, options)->
           careerContainer.className += " show-details"
           do (career, detailsTarget) ->
             careerContainer.onclick = (event)->
+              event.preventDefault()
               # Trigger before event (pass career)
               if detailsTarget
                 target = detailsTarget
               else
                 details = document.createElement("div")
                 details.className = "popout-career"
-                document.body.className += " tf-popout-open"
+                document.getElementsByTagName("html")[0].className += " tf-popout-open"
                 document.body.appendChild(details)
                 target = ".popout-career"
               careerDetailsWidget = Traitify.ui.widgets["careerDetails"](null, target, { careerDetails: { career: career, score: score }})
               careerDetailsWidget.run()
               # Trigger after event (pass career)
+              return false
     )
 
     careersWidgetContainer

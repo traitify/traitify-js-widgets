@@ -22,7 +22,9 @@
   margin: 0px auto;
 }
 .tf-popout-open {
-  position: fixed;
+  overflow: hidden;
+}
+.tf-popout-open body {
   overflow: hidden;
 }
 .popout-career {

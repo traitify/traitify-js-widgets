@@ -33,9 +33,11 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       if target
         exitButton = @tags.span("header-close", "X")
         exitButton.onclick = (event)->
+          event.preventDefault()
           target.parentNode.removeChild(target)
           widget.views.remove("Career Details Container")
-          document.body.className = document.body.className.replace(" tf-popout-open", "")
+          document.getElementsByTagName("html")[0].className -= " tf-popout-open"
+          return false
         innerHeader.appendChild(exitButton)
       header.appendChild(innerHeader)
       header.appendTo("careerDetails")
