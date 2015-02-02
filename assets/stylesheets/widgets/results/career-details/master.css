@@ -69,6 +69,22 @@
 }
 .tf-career-details .details .title{
   font-family: "Adelle Sans Bold";
+  display: inline-block;
+}
+.tf-career-details .details .score{
+  float: right;
+  text-align: center;
+  margin-top: -13px;
+  padding: 5px;
+  background-color: #e2e2e2;
+  line-height: 1;
+  font-size: 12px;
+}
+.tf-career-details .details .score .percent{
+  font-size: 18px;
+}
+.tf-career-details .details .score span{
+  display: block;
 }
 .tf-career-details .stats,
 .tf-career-details .experience,

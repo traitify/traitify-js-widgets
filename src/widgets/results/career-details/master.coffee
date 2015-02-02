@@ -17,6 +17,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
     # PARTIALS
     #########################
     widget.views.add("Career Details Container", ->
+      score = widget.options.careerDetails.score
       career = widget.options.careerDetails.career
       target = document.getElementsByClassName("popout-career")[0]
 
@@ -42,6 +43,11 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       @tags.img(["careerDetailsBody.image"], career.picture).appendTo("careerDetailsBody")
       details = @tags.div(["careerDetailsBody.details"])
       details.appendChild(@tags.div("title", career.title))
+      if score
+        scoreBox = @tags.div("score")
+        scoreBox.appendChild(@tags.span("percent", Math.round(score) + "%"))
+        scoreBox.appendChild(@tags.span("", "match"))
+        details.appendChild(scoreBox)
       details.appendChild(@tags.div("description", career.description))
       details.appendTo("careerDetailsBody")
 
