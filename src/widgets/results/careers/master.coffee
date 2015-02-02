@@ -34,6 +34,7 @@ Traitify.ui.widget("careers", (widget, options)->
         detailsTarget = widget.options.careers.details.target
     Traitify.getCareers(widget.assessmentId, options, (careers) ->
       for career, i in careers
+        score = career.score
         career = career.career
         column = i % columns
         index = Math.floor(i / columns)
@@ -49,6 +50,10 @@ Traitify.ui.widget("careers", (widget, options)->
         description.appendTo([classBase, index])
         tags.hr([classBase + ".hr"]).appendTo([classBase, index])
         tags.div([classBase + ".experience"], "Experience Level " + career.experience_level.id).appendTo([classBase, index])
+        scoreBox = tags.div([classBase + ".score"])
+        scoreBox.appendChild(tags.span("percent", Math.round(score) + "%"))
+        scoreBox.appendChild(tags.span("", "match"))
+        scoreBox.appendTo([classBase, index])
         experienceBoxes = tags.div([classBase + ".experience-boxes"])
         for level in [1..career.experience_level.id]
           experienceBox = tags.div("experience-box")

@@ -66,6 +66,23 @@
 .tf-careers .career .education{
   padding: 0px 10px 5px;
 }
+
+.tf-careers .career .experience{
+  display: inline-block;
+}
+.tf-careers .career .score{
+  float: right;
+  text-align: center;
+  margin-top: -5px;
+  padding: 5px;
+  background-color: #e2e2e2;
+}
+.tf-careers .career .score .percent{
+  font-size: 18px;
+}
+.tf-careers .career .score span{
+  display: block;
+}
 .tf-careers .career .experience-box{
   background-color: #e2e2e2;
   width: 10px;
