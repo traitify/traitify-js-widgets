@@ -53,7 +53,7 @@ Traitify.ui.widget("careers", (widget, options)->
             description.className += " fade"
           description.appendTo([classBase, index])
           tags.hr([classBase + ".hr"]).appendTo([classBase, index])
-          tags.div([classBase + ".experience"], "Experience Level " + career.experience_level.id).appendTo([classBase, index])
+          tags.div([classBase + ".experience"], "Experience Level").appendTo([classBase, index])
           scoreBox = tags.div([classBase + ".score"])
           scoreBox.appendChild(tags.span("percent", Math.round(score) + "%"))
           scoreBox.appendChild(tags.span("", "match"))
