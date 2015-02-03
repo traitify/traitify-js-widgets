@@ -58,6 +58,7 @@
   display: inline-block;
 }
 .tf-career-details .details{
+  position: relative;
   width: 75%;
   padding: 0 20px;
   display: inline-block;
@@ -72,15 +73,18 @@
 .tf-career-details .details .title{
   font-family: "Adelle Sans Bold";
   display: inline-block;
+  padding-right: 50px;
 }
 .tf-career-details .details .score{
-  float: right;
-  text-align: center;
-  margin-top: -13px;
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 5px;
-  background-color: #e2e2e2;
-  line-height: 1;
+  margin-top: -13px;
+  text-align: center;
   font-size: 12px;
+  line-height: 1;
+  background-color: #e2e2e2;
 }
 .tf-career-details .details .score .percent{
   font-size: 18px;

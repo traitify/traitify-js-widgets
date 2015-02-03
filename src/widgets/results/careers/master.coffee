@@ -45,6 +45,7 @@ Traitify.ui.widget("careers", (widget, options)->
 
           careerContainer = tags.div([classBase])
           careerContainer.appendTo("column-" + column)
+          career.picture ?= "https://cdn.traitify.com/assets/images/career-details/default-career.jpg"
           tags.img([classBase + ".image"], career.picture).appendTo([classBase, index])
           tags.div([classBase + ".title"], career.title).appendTo([classBase, index])
           description = tags.div([classBase + ".description"], career.description.substring(0, 100))

@@ -42,6 +42,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       header.appendChild(innerHeader)
       header.appendTo("careerDetails")
       @tags.div("careerDetailsBody").appendTo("careerDetails")
+      career.picture ?= "https://cdn.traitify.com/assets/images/career-details/default-career.jpg"
       @tags.img(["careerDetailsBody.image"], career.picture).appendTo("careerDetailsBody")
       details = @tags.div(["careerDetailsBody.details"])
       details.appendChild(@tags.div("title", career.title))
