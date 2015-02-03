@@ -62,7 +62,7 @@ class Ui
           for slideWidgetName in Object.keys(slideWidgets)
             slideWidget = slideWidgets[slideWidgetName]
             slideWidget.data.add("Slides", slides)
-            if playedSlides.length == slides.length
+            if playedSlides.length == slides.length && showResults
               slideWidget.callbacks.trigger("Finished")
             else
               slideWidget.run()

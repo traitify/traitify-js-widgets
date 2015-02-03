@@ -68,7 +68,7 @@ Traitify.ui.widget("careers", (widget, options)->
         education.appendTo([classBase, index])
         if showDetails
           careerContainer.className += " show-details"
-          do (career, detailsTarget) ->
+          do (career, score, detailsTarget) ->
             careerContainer.onclick = (event)->
               event.preventDefault()
               # Trigger before event (pass career)
