@@ -56,26 +56,16 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       # Stats
       stats = @tags.div(["careerDetailsBody.stats"])
 
-      # Salary
-      salary = @tags.div("stat")
-      salary.appendChild(@tags.div("stat-title invisible", "Blank"))
-      data = @tags.div("stat-data")
-      data.appendChild(@tags.div("stat-data-header", "Mean"))
-      data.appendChild(@tags.div("stat-data-header", "Median"))
-      salary.appendChild(data)
-      stats.appendChild(salary)
-
-      salary = @tags.div("stat")
-      stats.appendChild(salary)
-
-      salary = @tags.div("salary")
-      salary.className += " stat"
-      salary.appendChild(@tags.div("stat-title", "Salary:"))
-      data = @tags.div("stat-data")
-      data.appendChild(@tags.div("stat-data-body", "$" + career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")))
-      data.appendChild(@tags.div("stat-data-body", "$" + career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")))
-      salary.appendChild(data)
-      stats.appendChild(salary)
+      # Salary Mean
+      mean = @tags.div("mean")
+      mean.className += " stat"
+      mean.innerHTML = """
+        <div class="stat-title">Salary Mean:</div>
+        <div class="stat-data">
+          $""" + career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
+        </div>
+      """
+      stats.appendChild(mean)
 
       block_img = """<img src="https://cdn.traitify.com/assets/images/career-details/block.png" alt="Block">"""
       future_img = if career.bright_outlooks then """<img src="https://cdn.traitify.com/assets/images/career-details/sun.png" alt="Sun">""" else block_img
@@ -92,16 +82,16 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       """
       stats.appendChild(future)
 
-      # Job Growth
-      growth = @tags.div("growth")
-      growth.className += " stat"
-      growth.innerHTML = """
-        <div class="stat-title">Job Growth:</div>
+      # Salary Median
+      median = @tags.div("median")
+      median.className += " stat"
+      median.innerHTML = """
+        <div class="stat-title">Salary Median:</div>
         <div class="stat-data">
-          """ + career.employment_projection.percent_growth_2022 + """%
+          $""" + career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
         </div>
       """
-      stats.appendChild(growth)
+      stats.appendChild(median)
 
       # Green Career
       green = @tags.div("green")
@@ -114,17 +104,16 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       """
       stats.appendChild(green)
 
-      # Degree
-      degree = @tags.div("degree")
-      degree.className += " stat"
-      degree.innerHTML = """
-        <div class="stat-title">Education:</div>
+      # Job Growth
+      growth = @tags.div("growth")
+      growth.className += " stat"
+      growth.innerHTML = """
+        <div class="stat-title">Job Growth:</div>
         <div class="stat-data">
-          """ + career.experience_level.degree + """
+          """ + career.employment_projection.percent_growth_2022 + """%
         </div>
       """
-      stats.appendChild(degree)
-      stats.appendTo("careerDetailsBody")
+      stats.appendChild(growth)
 
       # ONet Link
       onet = @tags.div("onet")
@@ -132,10 +121,11 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       onet.innerHTML = """
         <div class="stat-title">O'Net Link:</div>
         <div class="stat-data">
-          <a href="http://www.onetonline.org/link/summary/""" + career.id + """">""" + career.id + """</a>
+          <a href="http://www.onetonline.org/link/summary/""" + career.id + """" target="_blank">""" + career.id + """</a>
         </div>
       """
       stats.appendChild(onet)
+      stats.appendTo("careerDetailsBody")
 
       # Experience
       experience = @tags.div(["careerDetailsBody.experience"])
@@ -149,7 +139,6 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       for level in [1..(5-career.experience_level.id)]
         experienceBoxes.appendChild(@tags.div("experience-box"))
       header.appendChild(experienceBoxes)
-      header.appendChild(@tags.span("experience-header-number", "" + career.experience_level.id))
       experience.appendChild(header)
       experience.appendChild(@tags.div("experience-body", career.experience_level.experience))
       experience.appendTo("careerDetailsBody")
@@ -159,7 +148,10 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       header = @tags.div("education-header")
       header.appendChild(@tags.span("education-header-text", "Education"))
       education.appendChild(header)
-      education.appendChild(@tags.div("education-body", career.experience_level.education))
+      body = @tags.div("education-body")
+      body.appendChild(@tags.div("education-title", career.experience_level.degree))
+      body.appendChild(@tags.div("education-description", career.experience_level.education))
+      education.appendChild(body)
       education.appendTo("careerDetailsBody")
 
       # Majors

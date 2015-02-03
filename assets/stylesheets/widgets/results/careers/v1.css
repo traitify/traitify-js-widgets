@@ -97,8 +97,10 @@
   margin-bottom: 10px;
 }
 .tf-careers .career .education-text{
+  margin-top: 5px;
   font-family: "Adelle Sans Bold";
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 12px;
 }
 .tf-careers .career .fade{
   position: relative;

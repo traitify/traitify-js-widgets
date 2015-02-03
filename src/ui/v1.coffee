@@ -27,9 +27,12 @@ class Ui
     nonSlideWidgets = Object()
     slideWidgets = Object()
     if widget = @widgets[assessmentId]
+      widgetName = assessmentId
       assessmentId = target
       target = options
       options = shiftedOptions
+      options ?= Object()
+      options[widgetName] ?= Object()
 
       widget = widget(assessmentId, target, options)
       Traitify.ui.loadResults({slideDeck: widget})
