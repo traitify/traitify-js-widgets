@@ -48,7 +48,7 @@ Traitify.ui.widget("careers", (widget, options)->
           career.picture ?= "https://cdn.traitify.com/assets/images/career-details/default-career.jpg"
           tags.img([classBase + ".image"], career.picture).appendTo([classBase, index])
           tags.div([classBase + ".title"], career.title).appendTo([classBase, index])
-          description = tags.div([classBase + ".description"], career.description.substring(0, 100))
+          description = tags.div([classBase + ".description"], career.description)
           if career.description.length > 100
             description.className += " fade"
           description.appendTo([classBase, index])
