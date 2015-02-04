@@ -31,7 +31,7 @@
   text-align:center;
 }
 .tf-personality-traits.ie .personality-traits .trait{
-    height:280px;
+  height:280px;
 }
 @media (max-width: 768px) {
   .tf-personality-traits .personality-traits .trait{

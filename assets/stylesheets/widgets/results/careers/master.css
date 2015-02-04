@@ -4,6 +4,8 @@
   line-height: 1.5;
   margin: 20px;
   text-align: center;
+  max-width: 800px;
+  margin: 0px auto;
 }
 .tf-careers.ie{
   font-family: arial;
@@ -11,16 +13,24 @@
 .tf-careers div, .tf-careers img{
   box-sizing: content-box;
 }
-.tf-careers .careers{
-  max-width: 800px;
-  margin: 0px auto;
-}
 .tf-careers .column{
-  width: 180px;
-  margin: 0 5px;
+  box-sizing: border-box;
+  padding: 0 5px;
   display: inline-block;
   vertical-align: top;
 }
+.tf-careers .columns-1{ width: 100%; }
+.tf-careers .columns-2{ width: 50%; }
+.tf-careers .columns-3{ width: 33%; }
+.tf-careers .columns-4{ width: 25%; }
+.tf-careers .columns-5{ width: 20%; }
+.tf-careers .columns-6{ width: 16%; }
+.tf-careers .columns-7{ width: 14%; }
+.tf-careers .columns-8{ width: 12.5%; }
+.tf-careers .columns-9{ width: 11%; }
+.tf-careers .columns-10{ width: 10%; }
+.tf-careers .columns-11{ width: 9%; }
+.tf-careers .columns-12{ width: 8%; }
 .tf-careers .career{
   border: 2px solid;
   border-color: #e2e2e2;
@@ -42,8 +52,9 @@
 }
 @media (max-width: 768px) {
   .tf-careers .column{
-    width: 100%;
+    width: 50%;
   }
+  .tf-careers .columns-1{ width: 100%; }
 }
 .tf-careers .career .image{
   width: 100%;

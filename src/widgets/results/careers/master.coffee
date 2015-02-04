@@ -17,24 +17,24 @@ Traitify.ui.widget("careers", (widget, options)->
     # PARTIALS
     #########################
     widget.views.add("Careers Container", ->
+      options = { number_of_matches: widget.options.careers.number_of_matches }
+      showDetails = true
+      columns = widget.options.careers.columns || 4
+      if widget.options.careers.details
+        detailsTarget = widget.options.careers.details.target
+        if widget.options.careers.details.show?
+          showDetails = widget.options.careers.details.show
+
       careersWidgetContainer = @tags.div("tfCareers")
       if Traitify.oldIE
         careersWidgetContainer.className += " ie"
 
-      columns = 4
       for column in [0..columns-1]
         column = @tags.div("column-" + column)
-        column.className += " column"
+        column.className += " column columns-" + columns
         column.appendTo("tfCareers")
 
       tags = @tags
-      if widget.options && widget.options.careers
-        options = { number_of_matches: widget.options.careers.number_of_matches }
-        showDetails = true
-        if widget.options.careers.details
-          detailsTarget = widget.options.careers.details.target
-          if widget.options.careers.details.show?
-            showDetails = widget.options.careers.details.show
       Traitify.getCareers(widget.assessmentId, options, (careers) ->
         for career, i in careers
           score = career.score
