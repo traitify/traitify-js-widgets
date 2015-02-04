@@ -16,17 +16,23 @@
     <script src="./compiled/widgets/results/default/master.js"></script>
     <script src="./compiled/widgets/results/personality-types/master.js"></script>
     <script src="./compiled/widgets/results/personality-traits/master.js"></script>
+    <script src="./compiled/widgets/results/careers/master.js"></script>
+    <script src="./compiled/widgets/results/career-details/master.js"></script>
 
     <link href="./assets/stylesheets/widgets/all/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/default/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/careers/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/career-details/master.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="primary-career"></div>
     <div class="slide-deck"></div>
     <div class="personality-types"></div>
     <div class="personality-traits"></div>
+    <div class="careers"></div>
     <script>
       Traitify.ui.styles = []
       Traitify.setHost("api-sandbox.traitify.com");
@@ -38,6 +44,9 @@
           target: ".personality-types"
         }, personalityTraits:{
           target: ".personality-traits"
+        }, careers:{
+          target: ".careers",
+          number_of_matches: 20,
         }
       })
     </script>

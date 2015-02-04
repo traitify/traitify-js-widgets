@@ -5,19 +5,30 @@ v1:
     - "compiled/builder/v1.js"
     - "compiled/widgets/slide-deck/v1.js"
     - "compiled/widgets/results/default/v1.js"
-    - "compiled/widgets/results/careers/v1.js"
-    - "compiled/widgets/results/career-details/v1.js"
     - "compiled/widgets/results/personality-types/v1.js"
     - "compiled/widgets/results/personality-traits/v1.js"
   css:
     - "widgets/all/v1.css"
     - "widgets/slide-deck/v1.css"
     - "widgets/results/default/v1.css"
-    - "widgets/results/careers/v1.css"
-    - "widgets/results/career-details/v1.css"
     - "widgets/results/personality-types/v1.css"
     - "widgets/results/personality-traits/v1.css"
 edge:
+  js:
+    - "api-client/compiled/api/master.js"
+    - "compiled/ui/master.js"
+    - "compiled/builder/master.js"
+    - "compiled/widgets/slide-deck/master.js"
+    - "compiled/widgets/results/default/master.js"
+    - "compiled/widgets/results/personality-types/master.js"
+    - "compiled/widgets/results/personality-traits/master.js"
+  css:
+    - "widgets/all/master.css"
+    - "widgets/slide-deck/master.css"
+    - "widgets/results/default/master.css"
+    - "widgets/results/personality-types/master.css"
+    - "widgets/results/personality-traits/master.css"
+careers:
   js:
     - "api-client/compiled/api/master.js"
     - "compiled/ui/master.js"
