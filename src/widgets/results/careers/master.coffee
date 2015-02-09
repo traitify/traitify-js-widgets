@@ -18,6 +18,8 @@ Traitify.ui.widget("careers", (widget, options)->
     #########################
     widget.views.add("Careers Container", ->
       options = { number_of_matches: widget.options.careers.number_of_matches }
+      if widget.options.careers.experience_levels
+        options["experience_levels"] = widget.options.careers.experience_levels
       showDetails = true
       columns = widget.options.careers.columns || 4
       if widget.options.careers.details
