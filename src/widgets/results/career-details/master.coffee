@@ -133,12 +133,13 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       header = @tags.div("experience-header")
       header.appendChild(@tags.span("experience-header-text", "Experience Level"))
       experienceBoxes = @tags.div("experience-boxes")
-      for level in [1..career.experience_level.id]
+      for level in [0..(career.experience_level.id-1)]
         experienceBox = @tags.div("experience-box")
         experienceBox.className += " highlighted-box"
         experienceBoxes.appendChild(experienceBox)
-      for level in [1..(5-career.experience_level.id)]
-        experienceBoxes.appendChild(@tags.div("experience-box"))
+      if level < 5
+        for level in [1..(5-career.experience_level.id)]
+          experienceBoxes.appendChild(@tags.div("experience-box"))
       header.appendChild(experienceBoxes)
       experience.appendChild(header)
       experience.appendChild(@tags.div("experience-body", career.experience_level.experience))

@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      html, body{
+        margin:0px;
+        overflow-x:hidden;
+        width:100%;
+      }
+    </style>
+
+    <script src="/compiled/bundles/careers.js"></script>
+
+  </head>
+  <body>
+    <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
+    <div class="results your-class"></div>
+    <div class="personality-types your-class"></div>
+    <div class="personality-traits your-class"></div>
+    <script>
+      Traitify.ui.styles = []
+      Traitify.setHost("api-sandbox.traitify.com");
+      Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+      Traitify.setVersion("v1");
+      var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
+      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
+        personalityTypes:{
+          target: ".personality-types"
+        }, personalityTraits:{
+          target: ".personality-traits"
+        }, careers:{
+          target: ".careers",
+          experience_levels: "1,2", // Comma deliminated list
+          number_of_matches: 20,
+          columns: 5 // Any number between 1 and 12, may want to adjust the max-width of tf-careers
+        }
+      })
+    </script>
+  </body>
+</html>

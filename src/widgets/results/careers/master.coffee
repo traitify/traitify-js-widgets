@@ -61,12 +61,13 @@ Traitify.ui.widget("careers", (widget, options)->
           scoreBox.appendChild(tags.span("", "match"))
           scoreBox.appendTo([classBase, index])
           experienceBoxes = tags.div([classBase + ".experience-boxes"])
-          for level in [1..career.experience_level.id]
+          for level in [0..(career.experience_level.id-1)]
             experienceBox = tags.div("experience-box")
             experienceBox.className += " highlighted-box"
             experienceBoxes.appendChild(experienceBox)
-          for level in [1..(5-career.experience_level.id)]
-            experienceBoxes.appendChild(tags.div("experience-box"))
+          if level < 5
+            for level in [1..(5-career.experience_level.id)]
+              experienceBoxes.appendChild(tags.div("experience-box"))
           experienceBoxes.appendTo([classBase, index])
           education = tags.div([classBase + ".education"])
           education.appendChild(tags.span("", "Education: "))
