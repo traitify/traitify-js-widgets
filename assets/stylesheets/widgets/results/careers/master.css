@@ -13,6 +13,27 @@
 .tf-careers div, .tf-careers img{
   box-sizing: content-box;
 }
+.tf-careers .experience-filters{
+  text-align: right;
+}
+.tf-careers .experience-filters div{
+  display: inline-block;
+  font-family: "Adelle Sans Bold";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+}
+.tf-careers .experience-filters .filter-header{
+  margin-right: 10px;
+}
+.tf-careers .experience-filters .experience-filter{
+  padding: 0 5px;
+  border: 1px solid #058fc4;
+  cursor: pointer;
+}
+.tf-careers .experience-filters .highlight-filter{
+  background-color: #058fc4;
+}
 .tf-careers .column{
   box-sizing: border-box;
   padding: 0 5px;

@@ -22,6 +22,7 @@ Traitify.ui.widget("careers", (widget, options)->
         options["experience_levels"] = widget.options.careers.experience_levels
       showDetails = true
       columns = widget.options.careers.columns || 4
+      filter = ("filter" of widget.options.careers) && widget.options.careers.filter
       if widget.options.careers.details
         detailsTarget = widget.options.careers.details.target
         if widget.options.careers.details.show?
@@ -30,6 +31,31 @@ Traitify.ui.widget("careers", (widget, options)->
       careersWidgetContainer = @tags.div("tfCareers")
       if Traitify.oldIE
         careersWidgetContainer.className += " ie"
+
+      if filter
+        filterBoxes = @tags.div("experienceFilters")
+        filterBoxes.appendChild(@tags.div("filterHeader", "Experience Level: "))
+        for level in [0..5]
+          if level == 0
+            level = "All"
+          filterBox = @tags.div("experienceFilter", "" + level)
+          previous = options["experience_levels"] || ""
+          if (("" + level) in previous.split(",")) || (previous == "" && level == "All")
+            filterBox.className += " highlight-filter"
+          do (level) ->
+            filterBox.onclick = (event) ->
+              event.preventDefault()
+              if level != "All"
+                widget.options.careers.experience_levels = "" + level
+              else
+                delete widget.options.careers.experience_levels
+              careersWidgetContainer.parentNode.removeChild(careersWidgetContainer)
+              widget.views.remove("Careers Container")
+              remakeWidget = Traitify.ui.widgets["careers"](widget.assessmentId, widget.target, widget.options)
+              remakeWidget.run()
+              return false
+          filterBoxes.appendChild(filterBox)
+        filterBoxes.appendTo("tfCareers")
 
       for column in [0..columns-1]
         column = @tags.div("column-" + column)
