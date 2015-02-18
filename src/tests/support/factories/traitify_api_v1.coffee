@@ -189,8 +189,8 @@ class ApiFactory extends FactoryBoy
             total_employees: 139930
           }
           title: "Computer-Controlled Machine Tool Operators, Metal and Plastic"
-          score: 97.58137007726197
-        }
+        },
+        score: 97.58137007726197
       }
     )
     @factory("careers", (factory, options)->

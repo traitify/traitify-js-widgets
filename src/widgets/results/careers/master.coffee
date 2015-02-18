@@ -63,7 +63,8 @@ Traitify.ui.widget("careers", (widget, options)->
         column.appendTo("tfCareers")
 
       tags = @tags
-      Traitify.getCareers(widget.assessmentId, options, (careers) ->
+
+      displayCareers = (careers) ->
         for career, i in careers
           score = career.score
           career = career.career
@@ -117,7 +118,11 @@ Traitify.ui.widget("careers", (widget, options)->
                 careerDetailsWidget.run()
                 # Trigger after event (pass career)
                 return false
-      )
+
+      if widget.options.careers.data
+        displayCareers(widget.options.careers.data)
+      else
+        Traitify.getCareers(widget.assessmentId, options, displayCareers)
 
       careersWidgetContainer
     )

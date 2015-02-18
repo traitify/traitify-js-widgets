@@ -40,16 +40,16 @@
       Traitify.setVersion("v1");
       var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
       window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
-        personalityTypes:{
+        personalityTypes: {
           target: ".personality-types"
-        }, personalityTraits:{
+        }, personalityTraits: {
           target: ".personality-traits"
-        }, careers:{
+        }, careers: {
           target: ".careers",
           filter: true,
           experience_levels: "1,5", // Comma deliminated list
           number_of_matches: 20,
-          columns: 5 // Any number between 1 and 12, may want to adjust the max-width of tf-careers
+          columns: 4 // Any number between 1 and 12, may want to adjust the max-width of tf-careers
         }
       })
     </script>
