@@ -33,15 +33,15 @@ Traitify.ui.widget("careers", (widget, options)->
         careersWidgetContainer.className += " ie"
 
       if filter
-        filterBoxes = @tags.div("experienceFilters")
-        filterBoxes.appendChild(@tags.div("filterHeader", "Experience Level: "))
+        filterBoxes = @tags.div("tfExperienceFilters")
+        filterBoxes.appendChild(@tags.div("tfFilterHeader", "Experience Level: "))
         for level in [0..5]
           if level == 0
             level = "All"
-          filterBox = @tags.div("experienceFilter", "" + level)
+          filterBox = @tags.div("tfExperienceFilter", "" + level)
           previous = options["experience_levels"] || ""
           if (("" + level) in previous.split(",")) || (previous == "" && level == "All")
-            filterBox.className += " highlight-filter"
+            filterBox.className += " tf-highlight-filter"
           do (level) ->
             filterBox.onclick = (event) ->
               event.preventDefault()
@@ -58,8 +58,8 @@ Traitify.ui.widget("careers", (widget, options)->
         filterBoxes.appendTo("tfCareers")
 
       for column in [0..columns-1]
-        column = @tags.div("column-" + column)
-        column.className += " column columns-" + columns
+        column = @tags.div("tf-column-" + column)
+        column.className += " tf-column tf-columns-" + columns
         column.appendTo("tfCareers")
 
       tags = @tags
@@ -70,38 +70,38 @@ Traitify.ui.widget("careers", (widget, options)->
           career = career.career
           column = i % columns
           index = Math.floor(i / columns)
-          classBase = "column-" + column + ".career"
+          classBase = "tf-column-" + column + ".tf-career"
 
           careerContainer = tags.div([classBase])
-          careerContainer.appendTo("column-" + column)
+          careerContainer.appendTo("tf-column-" + column)
           career.picture ?= "https://cdn.traitify.com/assets/images/career-details/default-career.jpg"
-          tags.img([classBase + ".image"], career.picture).appendTo([classBase, index])
-          tags.div([classBase + ".title"], career.title).appendTo([classBase, index])
-          description = tags.div([classBase + ".description"], career.description)
+          tags.img([classBase + ".tf-image"], career.picture).appendTo([classBase, index])
+          tags.div([classBase + ".tf-title"], career.title).appendTo([classBase, index])
+          description = tags.div([classBase + ".tf-description"], career.description)
           if career.description.length > 100
-            description.className += " fade"
+            description.className += " tf-fade"
           description.appendTo([classBase, index])
-          tags.hr([classBase + ".hr"]).appendTo([classBase, index])
-          tags.div([classBase + ".experience"], "Experience Level").appendTo([classBase, index])
-          scoreBox = tags.div([classBase + ".score"])
-          scoreBox.appendChild(tags.span("percent", Math.round(score) + "%"))
+          tags.hr([classBase + ".tf-hr"]).appendTo([classBase, index])
+          tags.div([classBase + ".tf-experience"], "Experience Level").appendTo([classBase, index])
+          scoreBox = tags.div([classBase + ".tf-score"])
+          scoreBox.appendChild(tags.span("tf-percent", Math.round(score) + "%"))
           scoreBox.appendChild(tags.span("", "match"))
           scoreBox.appendTo([classBase, index])
-          experienceBoxes = tags.div([classBase + ".experience-boxes"])
+          experienceBoxes = tags.div([classBase + ".tf-experience-boxes"])
           for level in [0..(career.experience_level.id-1)]
-            experienceBox = tags.div("experience-box")
-            experienceBox.className += " highlighted-box"
+            experienceBox = tags.div("tf-experience-box")
+            experienceBox.className += " tf-highlighted-box"
             experienceBoxes.appendChild(experienceBox)
           if level < 5
             for level in [1..(5-career.experience_level.id)]
-              experienceBoxes.appendChild(tags.div("experience-box"))
+              experienceBoxes.appendChild(tags.div("tf-experience-box"))
           experienceBoxes.appendTo([classBase, index])
-          education = tags.div([classBase + ".education"])
+          education = tags.div([classBase + ".tf-education"])
           education.appendChild(tags.span("", "Education: "))
-          education.appendChild(tags.div("education-text", career.experience_level.degree))
+          education.appendChild(tags.div("tf-education-text", career.experience_level.degree))
           education.appendTo([classBase, index])
           if showDetails
-            careerContainer.className += " show-details"
+            careerContainer.className += " tf-show-details"
             do (career, score, detailsTarget) ->
               careerContainer.onclick = (event)->
                 event.preventDefault()
@@ -110,12 +110,11 @@ Traitify.ui.widget("careers", (widget, options)->
                   target = detailsTarget
                 else
                   details = document.createElement("div")
-                  details.className = "popout-career"
+                  details.className = "tf-popout-career"
                   document.getElementsByTagName("html")[0].className += " tf-popout-open"
                   document.body.appendChild(details)
-                  target = ".popout-career"
-                careerDetailsWidget = Traitify.ui.widgets["careerDetails"](null, target, { careerDetails: { career: career, score: score }})
-                careerDetailsWidget.run()
+                  target = ".tf-popout-career"
+                Traitify.ui.load("careerDetails", null, target, { careerDetails: { career: career, score: score }})
                 # Trigger after event (pass career)
                 return false
 

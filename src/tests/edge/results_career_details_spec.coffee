@@ -36,9 +36,9 @@ QUnit.asyncTest("Results Career Details", (assert)->
     clickEvent = document.createEvent("MouseEvent")
     clickEvent.initMouseEvent("click", true, true, window,
       0, 0, 0, 0, 0, false, false, false, false, 0, null)
-    document.querySelector(".career").dispatchEvent(clickEvent)
+    document.querySelector(".tf-career").dispatchEvent(clickEvent)
 
-    assert.equal(!document.querySelector(".popout-career"), false, "Career Details container exists")
+    assert.equal(!document.querySelector(".tf-popout-career"), false, "Career Details container exists")
     QUnit.start()
   )
 )

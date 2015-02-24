@@ -13,46 +13,46 @@
 .tf-careers div, .tf-careers img{
   box-sizing: content-box;
 }
-.tf-careers .experience-filters{
+.tf-careers .tf-experience-filters{
   text-align: right;
 }
-.tf-careers .experience-filters div{
+.tf-careers .tf-experience-filters div{
   display: inline-block;
   font-family: "Adelle Sans Bold";
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
 }
-.tf-careers .experience-filters .filter-header{
+.tf-careers .tf-experience-filters .tf-filter-header{
   margin-right: 10px;
 }
-.tf-careers .experience-filters .experience-filter{
+.tf-careers .tf-experience-filters .tf-experience-filter{
   padding: 0 5px;
   border: 1px solid #058fc4;
   cursor: pointer;
 }
-.tf-careers .experience-filters .highlight-filter{
+.tf-careers .tf-experience-filters .tf-highlight-filter{
   background-color: #058fc4;
 }
-.tf-careers .column{
+.tf-careers .tf-column{
   box-sizing: border-box;
   padding: 0 5px;
   display: inline-block;
   vertical-align: top;
 }
-.tf-careers .columns-1{ width: 100%; }
-.tf-careers .columns-2{ width: 50%; }
-.tf-careers .columns-3{ width: 33%; }
-.tf-careers .columns-4{ width: 25%; }
-.tf-careers .columns-5{ width: 20%; }
-.tf-careers .columns-6{ width: 16%; }
-.tf-careers .columns-7{ width: 14%; }
-.tf-careers .columns-8{ width: 12.5%; }
-.tf-careers .columns-9{ width: 11%; }
-.tf-careers .columns-10{ width: 10%; }
-.tf-careers .columns-11{ width: 9%; }
-.tf-careers .columns-12{ width: 8%; }
-.tf-careers .career{
+.tf-careers .tf-columns-1{ width: 100%; }
+.tf-careers .tf-columns-2{ width: 50%; }
+.tf-careers .tf-columns-3{ width: 33%; }
+.tf-careers .tf-columns-4{ width: 25%; }
+.tf-careers .tf-columns-5{ width: 20%; }
+.tf-careers .tf-columns-6{ width: 16%; }
+.tf-careers .tf-columns-7{ width: 14%; }
+.tf-careers .tf-columns-8{ width: 12.5%; }
+.tf-careers .tf-columns-9{ width: 11%; }
+.tf-careers .tf-columns-10{ width: 10%; }
+.tf-careers .tf-columns-11{ width: 9%; }
+.tf-careers .tf-columns-12{ width: 8%; }
+.tf-careers .tf-career{
   border: 2px solid;
   border-color: #e2e2e2;
   display: inline-block;
@@ -65,81 +65,81 @@
   font-size: 14px;
   text-align: left;
 }
-.tf-careers .career hr{
+.tf-careers .tf-career hr{
   border: none;
   border-top: 2px solid;
   border-color: #e2e2e2;
   margin: 10px 0 5px 0;
 }
 @media (max-width: 768px) {
-  .tf-careers .column{
+  .tf-careers .tf-column{
     width: 50%;
   }
-  .tf-careers .columns-1{ width: 100%; }
+  .tf-careers .tf-columns-1{ width: 100%; }
 }
-.tf-careers .career .image{
+.tf-careers .tf-career .tf-image{
   width: 100%;
   top: 10px;
   margin: 0px auto;
 }
-.tf-careers .career .title{
+.tf-careers .tf-career .tf-title{
   font-family: "Adelle Sans Bold";
   margin: 10px;
   margin-bottom: 0px;
   font-weight: 600;
 }
-.tf-careers .career .description{
+.tf-careers .tf-career .tf-description{
   margin-top: 5px;
   font-weight: 400;
 }
-.tf-careers .career .description,
-.tf-careers .career .experience,
-.tf-careers .career .experience-boxes,
-.tf-careers .career .education{
+.tf-careers .tf-career .tf-description,
+.tf-careers .tf-career .tf-experience,
+.tf-careers .tf-career .tf-experience-boxes,
+.tf-careers .tf-career .tf-education{
   padding: 0px 10px 5px;
 }
 
-.tf-careers .career .experience{
+.tf-careers .tf-career .tf-experience{
   display: inline-block;
 }
-.tf-careers .career .score{
+.tf-careers .tf-career .tf-score{
   float: right;
   text-align: center;
   margin-top: -5px;
   padding: 5px;
   background-color: #e2e2e2;
 }
-.tf-careers .career .score .percent{
+.tf-careers .tf-career .tf-score .tf-percent{
   font-size: 18px;
 }
-.tf-careers .career .score span{
+.tf-careers .tf-career .tf-score span{
   display: block;
 }
-.tf-careers .career .experience-box{
+.tf-careers .tf-career .tf-experience-box{
   background-color: #e2e2e2;
   width: 10px;
   height: 10px;
   margin-right: 2px;
   display: inline-block;
 }
-.tf-careers .career .experience-box.highlighted-box{
+.tf-careers .tf-career .tf-experience-box.tf-highlighted-box{
   background-color: #058fc4;
 }
-.tf-careers .career .education{
+.tf-careers .tf-career .tf-education{
   margin-bottom: 10px;
 }
-.tf-careers .career .education-text{
+.tf-careers .tf-career .tf-education-text{
   margin-top: 5px;
   font-family: "Adelle Sans Bold";
   font-weight: bold;
   font-size: 12px;
 }
-.tf-careers .career .fade{
+.tf-careers .tf-career .tf-fade{
   position: relative;
   height: 4.2em;
   overflow: hidden;
 }
-.tf-careers .career .fade:after {
+.tf-careers .tf-career .tf-fade:after {
   content: "";
   text-align: right;
   position: absolute;
@@ -150,6 +150,6 @@
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 70%);
 }
 
-.tf-careers .career.show-details:hover {
+.tf-careers .tf-career.tf-show-details:hover {
   cursor: pointer;
 }
