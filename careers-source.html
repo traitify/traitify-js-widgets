@@ -16,17 +16,23 @@
     <script src="./compiled/widgets/results/default/master.js"></script>
     <script src="./compiled/widgets/results/personality-types/master.js"></script>
     <script src="./compiled/widgets/results/personality-traits/master.js"></script>
+    <script src="./compiled/widgets/results/careers/master.js"></script>
+    <script src="./compiled/widgets/results/career-details/master.js"></script>
 
     <link href="./assets/stylesheets/widgets/all/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/default/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet" />
     <link href="./assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/careers/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/career-details/master.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="primary-career"></div>
     <div class="slide-deck"></div>
     <div class="personality-types"></div>
     <div class="personality-traits"></div>
+    <div class="careers"></div>
     <script>
       Traitify.ui.styles = []
       Traitify.setHost("api-sandbox.traitify.com");
@@ -34,10 +40,16 @@
       Traitify.setVersion("v1");
       var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
       window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
-        personalityTypes:{
+        personalityTypes: {
           target: ".personality-types"
-        }, personalityTraits:{
+        }, personalityTraits: {
           target: ".personality-traits"
+        }, careers: {
+          target: ".careers",
+          filter: true,
+          experience_levels: "1,5", // Comma deliminated list
+          number_of_matches: 20,
+          columns: 4 // Any number between 1 and 12, may want to adjust the max-width of tf-careers
         }
       })
     </script>

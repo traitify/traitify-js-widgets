@@ -27,9 +27,12 @@ class Ui
     nonSlideWidgets = Object()
     slideWidgets = Object()
     if widget = @widgets[assessmentId]
+      widgetName = assessmentId
       assessmentId = target
       target = options
       options = shiftedOptions
+      options ?= Object()
+      options[widgetName] ?= Object()
 
       widget = widget(assessmentId, target, options)
       Traitify.ui.loadResults({slideDeck: widget})
@@ -62,7 +65,7 @@ class Ui
           for slideWidgetName in Object.keys(slideWidgets)
             slideWidget = slideWidgets[slideWidgetName]
             slideWidget.data.add("Slides", slides)
-            if playedSlides.length == slides.length && !showResults
+            if playedSlides.length == slides.length && showResults
               slideWidget.callbacks.trigger("Finished")
             else
               slideWidget.run()
