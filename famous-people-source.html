@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      html, body{
+        margin:0px;
+        overflow-x:hidden;
+        width:100%;
+      }
+    </style>
+    <script src="./api-client/compiled/api/master.js"></script>
+    <script src="./compiled/ui/master.js"></script>
+    <script src="./compiled/builder/master.js"></script>
+    <script src="./compiled/widgets/slide-deck/master.js"></script>
+    <script src="./compiled/widgets/results/default/master.js"></script>
+    <script src="./support/riot.js"></script>
+    <script src="./compiled/widgets/results/famous-people/main.js"></script>
+    <script src="./compiled/widgets/results/famous-people/master.js"></script>
+
+    <link href="./assets/stylesheets/widgets/all/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/slide-deck/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/default/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/personality-types/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/personality-traits/master.css" rel="stylesheet" />
+    <link href="./assets/stylesheets/widgets/results/famous-people/master.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="slide-deck"></div>
+    <div class="personality-types"></div>
+    <div class="personality-traits"></div>
+    <div class="famous-people"></div>
+    <script>
+      Traitify.ui.styles = []
+      Traitify.setHost("api-sandbox.traitify.com");
+      Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+      Traitify.setVersion("v1");
+      var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
+      Traitify.ui.load(assessmentId, ".slide-deck", {
+        famousPeople: {
+          target: ".famous-people"
+        }
+      })
+    </script>
+  </body>
+</html>

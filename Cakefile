@@ -13,8 +13,13 @@ files = [
 ]
 
 fs = require 'fs'
+path = require('path')
 minify = require('minify')
 gzipme = require('gzipme')
+riotLib = require('riot')
+wrench = require('wrench')
+util = require('util')
+coffee = require('coffee-script')
 {print} = require 'util'
 {spawn, exec} = require 'child_process'
 YAML = require 'yamljs'
@@ -68,6 +73,7 @@ task 'bundle', 'package source', -> bundle -> log ":)", green
 task 'build', 'compile source', -> build -> log ":)", green
 
 # ## *watch*
+# complcache_start_auto_complete);122;27M
 #
 # Builds your source whenever it changes
 #
@@ -98,8 +104,16 @@ task 'test', 'test source', -> test -> log ":)", green
 # ```
 # cake clean
 # ```
-task 'clean', 'clean generated files', -> clean -> log ";)", green
+task 'clean', 'clean generated files', -> clean -> log ":)", green
 
+# ## *riot*
+#
+# Riot generates js files
+#
+# ```
+# cake riot
+# ```
+task 'riot', 'riot generates files', -> riot -> log ":)", green
 
 # Internal Functions
 #
@@ -302,3 +316,17 @@ mocha = (options, callback) ->
 docco = (callback) ->
   #if moduleExists('docco')
   walk 'src', (err, files) -> launch 'docco', files, callback
+
+riot = (callback) ->
+  files = wrench.readdirSyncRecursive("./src")
+  for file in files
+    if file && file.match(/.tag/)
+
+      fileContents = fs.readFileSync("./src/#{file}").toString()
+
+      riotContents = riotLib.compile(fileContents)
+
+      minify(ext: ".js", data: riotContents, (error, minifiedRiotContents)->
+        fs.writeFileSync("./compiled/#{file.replace(".tag", ".js")}", minifiedRiotContents)
+        callback()
+      )
