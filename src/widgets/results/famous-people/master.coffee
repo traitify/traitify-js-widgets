@@ -5,9 +5,9 @@ Traitify.ui.widget("famousPeople", (widget, options)->
   widget.styleDependency("results/famous-people")
 
   widget.initialization.events.add("Setup Data", ->
-    personality_type = widget.data.get("PersonalityTypes").personality_types[0].personality_type
+    personality_blend = widget.data.get("PersonalityTypes").personality_blend
     peopleTag = riot.mountTo(widget.views.tags.get("main"), 'famouspeople')
-    people = personality_type.famous_people
+    people = personality_blend.famous_people
     peopleTag.famousPeople = people
     peopleTag.update()
 
