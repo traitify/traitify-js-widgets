@@ -47,7 +47,7 @@ careers:
     - "widgets/results/career-details/master.css"
     - "widgets/results/personality-types/master.css"
     - "widgets/results/personality-traits/master.css"
-famousPeople:
+famous-people:
   js:
     - "api-client/compiled/api/master.js"
     - "compiled/ui/master.js"
@@ -58,6 +58,7 @@ famousPeople:
     - "compiled/widgets/results/career-details/master.js"
     - "compiled/widgets/results/personality-types/master.js"
     - "compiled/widgets/results/personality-traits/master.js"
+    - "support/riot.js"
     - "compiled/widgets/results/famous-people/main.js"
     - "compiled/widgets/results/famous-people/master.js"
   css:
