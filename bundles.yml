@@ -59,6 +59,8 @@ famous-people:
     - "compiled/widgets/results/personality-types/master.js"
     - "compiled/widgets/results/personality-traits/master.js"
     - "support/riot.js"
+    - "support/html5shiv-printshiv.js"
+    - "support/html5shiv.js"
     - "compiled/widgets/results/famous-people/main.js"
     - "compiled/widgets/results/famous-people/master.js"
   css:
