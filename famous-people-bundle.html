@@ -10,7 +10,7 @@
       }
     </style>
 
-    <script src="/compiled/bundles/famous.js"></script>
+    <script src="/compiled/bundles/famous-people.js"></script>
   </head>
   <body>
     <div class="slide-deck"></div>
@@ -18,11 +18,10 @@
     <div class="personality-traits"></div>
     <div class="famous-people"></div>
     <script>
-      Traitify.ui.styles = []
       Traitify.setHost("api-sandbox.traitify.com");
       Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
       Traitify.setVersion("v1");
-      var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
+      var assessmentId = "a5c50fd8-2d21-481f-b13f-617c028fc45f";
       Traitify.ui.load(assessmentId, ".slide-deck", {
         famousPeople: {
           target: ".famous-people"

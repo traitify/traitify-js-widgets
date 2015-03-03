@@ -22,20 +22,21 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
         personalityTraitsWidgetContainer.className += " ie"
     @tags.div("personalityTraits").appendTo("tfPersonalityTraits")
 
-    for trait in @data.get("PersonalityTraits").slice(0, 8)
-      trait = trait.personality_trait
+    for index of traits = @data.get("PersonalityTraits").slice(0, 8)
+      trait = traits[index].personality_trait
+
       personalityType = trait.personality_type
 
       @tags.div(["personalityTraits.trait"], {style: {borderColor: "##{personalityType.badge.color_1}"}}).appendTo("personalityTraits")
-      @tags.div(["personalityTraits.trait.name"], trait.name).appendTo(["personalityTraits.trait", _i])
+      @tags.div(["personalityTraits.trait.name"], trait.name).appendTo(["personalityTraits.trait", index])
 
       if Traitify.oldIE
-          @tags.img(["personalityTraits.trait.background"], personalityType.badge.image_medium).appendTo(["personalityTraits.trait", _i])
+          @tags.img(["personalityTraits.trait.background"], personalityType.badge.image_medium).appendTo(["personalityTraits.trait", index])
       else
           @tags.div(["personalityTraits.trait.background"], {style: {
             backgroundImage: "url('#{personalityType.badge.image_medium}')"
-          }}).appendTo(["personalityTraits.trait", _i])
-      @tags.div(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", _i])
+          }}).appendTo(["personalityTraits.trait", index])
+      @tags.div(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", index])
 
     personalityTraitsWidgetContainer
   )

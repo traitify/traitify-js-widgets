@@ -71,3 +71,4 @@ famous-people:
     - "widgets/results/career-details/master.css"
     - "widgets/results/personality-types/master.css"
     - "widgets/results/personality-traits/master.css"
+    - "widgets/results/famous-people/master.css"
