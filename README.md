@@ -4,16 +4,17 @@ A widget is anything graphical element that is self contained, a widget builder 
 
 ### How to include the js on your page
 Stable Version:
+
 ```xhtml
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
 ```
 
-### Basic setup for intilialization on page 
-#### Assessment Id Required.  
+### Basic setup for intilialization on page
+#### Assessment Id Required.
 To generate an Assessment Id use a server side library, for more information please visit [https://developer.traitify.com](https://developer.traitify.com)
 
 ```HTML
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
 
 <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
 <div class="results your-class"></div>
@@ -81,7 +82,7 @@ The personalityTypes widget displays personality type data, each personality typ
 ```HTML
 <script>
     // This callback gives you the ability to trigger an event when
-    // the user has finished playing the slide deck    
+    // the user has finished playing the slide deck
     traitify = Traitify.ui.load("personalityTypes", assessmentId, ".traitify-widget"); // Example selector for widget target
     traitify.onInitialize(function(){
         console.log(traitify.data.get("PersonalityTypes"));
@@ -106,16 +107,35 @@ The personalityTraits widget displays personality trait data, each trait contain
         console.log(traitify.data.get("PersonalityTraits"));
         console.log("Initialized!");
     })
- </script>
- ```
+</script>
+```
 
 ![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/personality_traits.png "Widgets")
+
+
+### Extra Widgets Available
+
+Famous People
+The famousPeople widget displays famous people associated with an assessment's personality blend. You must include the widgets bundle that includes the famous people widget as outlined below.
+
+```HTML
+<script src="https://cdn.traitify.com/js/widgets/famous-people.js"></script>
+
+<div class="traitify-widget"></div>
+
+<script>
+    traitify = Traitify.ui.load("famousPeople", assessmentId, ".traitify-widget");
+</script>
+ ```
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/famous_people.jpg "Widgets")
+
 
 ### Examples of different use cases at the bottom
 
 #### Standard Assessment and results
 ```HTML
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
 
 <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
 <div class="results your-class"></div>
@@ -215,7 +235,7 @@ You will notice that we added a class to your widgets called "your-class", we ar
 
 Every tag added to the widget is recorded with a class, to find the class name use your inspector, often the css that styles a tag is scoped all the way from .tf-slide-deck to .me with all of the containers in between. If you add your own class to the root container though you can use the same scope with the addition of ".your-class" and you should be able to override different anything.
 ```HTML
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
 
 <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
 <div class="results your-class"></div>
@@ -293,7 +313,7 @@ Styling the Personality Types background color
 ##### Overriding the Slide Deck so that it doesn't even hit the Api!
 This can be used for testing purposes, or so that you can make all your api requests on your own server instead of using the client.
 ```HTML
-<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
 <div class="slide-deck"></div>
 <script>
 	slideDeck = Traitify.ui.widgets.slideDeck(assessmentId, currentTarget, options)
