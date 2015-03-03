@@ -1,15 +1,29 @@
 
-function parseNamedElements(root, tag, expressions) {
+
+function parseNamedElements(root, parent, child_tags) {
+
   walk(root, function(dom) {
     if (dom.nodeType == 1) {
+
+      // custom child tag
+      var child = getTag(dom)
+
+      if (child && !dom.getAttribute('each')) {
+        var tag = new Tag(child, { root: dom, parent: parent })
+        parent.tags[dom.getAttribute('name') || child.name] = tag
+        child_tags.push(tag)
+      }
+
       each(dom.attributes, function(attr) {
-        if (/^(name|id)$/.test(attr.name)) tag[attr.value] = dom
+        if (/^(name|id)$/.test(attr.name)) parent[attr.value] = dom
       })
     }
+
   })
+
 }
 
-function parseLayout(root, tag, expressions) {
+function parseExpressions(root, tag, expressions) {
 
   function addExpr(dom, val, extra) {
     if (val.indexOf(brackets(0)) >= 0) {
@@ -41,13 +55,9 @@ function parseLayout(root, tag, expressions) {
 
     })
 
-    // custom child tag
-    var impl = tag_impl[dom.tagName.toLowerCase()]
-
-    if (impl) {
-      impl = new Tag(impl, { root: dom, parent: tag })
-      return false
-    }
+    // skip custom tags
+    if (getTag(dom)) return false
 
   })
+
 }

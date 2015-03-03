@@ -41,8 +41,7 @@ function _each(dom, parent, expr) {
     tags.splice(pos, 0, tag)
   }
 
-
-  // clean template code after update (and let walk finish it's parse)
+  // clean template code
   parent.one('update', function() {
     root.removeChild(dom)
 
@@ -106,9 +105,10 @@ function _each(dom, parent, expr) {
           before: nodes[prev_index + 1 + pos],
           parent: parent,
           root: root,
-          loop: true,
           item: item
         })
+
+        tag.mount()
 
         return add(pos, item, tag)
       }
