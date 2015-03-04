@@ -1,8 +1,8 @@
 .tf-famous-people{
-  width:860px;
+  width: 860px;
 }
 .tf-famous-people-container-scroller{
-  height: 210px;
+  height: 230px;
   max-width: 860px;
   margin: 0px auto;
   overflow-y: hidden;
@@ -25,7 +25,7 @@
 }
 
 .tf-name{
-  margin-top: 8px;
+  margin-top: 20px;
   width: 142px;
   line-height:1em;
 }
