@@ -7,7 +7,7 @@ Traitify.ui.widget("famousPeople", (widget, options)->
   widget.initialization.events.add("Setup Data", ->
     personality_blend = widget.data.get("PersonalityTypes").personality_blend
     peopleTag = riot.mountTo(widget.views.tags.get("main"), 'famouspeople')
-    people = personality_blend.famous_people
+    people = personality_blend.famous_people.sort(-> 0.5 - Math.random())[0..4]
     peopleTag.famousPeople = people
     peopleTag.update()
 

@@ -1,9 +1,9 @@
 .tf-famous-people{
-  width:850px;
+  width:860px;
 }
 .tf-famous-people-container-scroller{
-  height:190px;
-  max-width: 850px;
+  height: 210px;
+  max-width: 860px;
   margin: 0px auto;
   overflow-y: hidden;
   overflow-x: auto;
@@ -12,20 +12,20 @@
 .tf-famous-person{
   font-family: "Source Sans Pro";
   display: inline-block;
-  padding: 10px;
+  padding: 10px 15px;
   text-align: center;
   color: #555;
   margin: 0px auto;
   vertical-align: top;
 }
 .tf-famous-person .tf-image{
-  width: 120px;
+  width: 142px;
   border-radius: 50%;
   overflow: hidden;
 }
 
 .tf-name{
   margin-top: 8px;
-  width: 120px;
+  width: 142px;
   line-height:1em;
 }
