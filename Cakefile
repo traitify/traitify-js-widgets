@@ -200,7 +200,7 @@ bundle = (callback) ->
       afterFolderCheck = ()->
         bundles = YAML.parse(fs.readFileSync('bundles.yml').toString())
         for key in Object.keys(bundles)
-          bundleFile = "compiled/bundles/#{key}.js"
+          bundleFile = "./compiled/bundles/#{key}.js"
           fs.writeFile(bundleFile, "")
 
           for file in bundles[key].js
