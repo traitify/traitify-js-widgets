@@ -67,10 +67,10 @@ class Ui
             slideWidget.data.add("Slides", slides)
             if playedSlides.length == slides.length && showResults
               slideWidget.callbacks.trigger("Finished")
+              Traitify.ui.loadResults(nonSlideWidgets)
             else
               slideWidget.run()
-          if showResults != false
-            Traitify.ui.loadResults(nonSlideWidgets)
+
         )
 
         for widgetName in Object.keys(nonSlideWidgets)

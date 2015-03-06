@@ -28,30 +28,21 @@
     <link href="./assets/stylesheets/widgets/results/career-details/master.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="primary-career"></div>
-    <div class="slide-deck"></div>
-    <div class="personality-types"></div>
-    <div class="personality-traits"></div>
-    <div class="careers"></div>
+  <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
+  <div class="results your-class"></div>
+  <div class="personality-types your-class"></div>
+  <div class="personality-traits your-class"></div>
     <script>
-      Traitify.ui.styles = []
-      Traitify.setHost("api-sandbox.traitify.com");
-      Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
+      Traitify.setHost("https://api-sandbox.traitify.com");
+      Traitify.setPublicKey('ee5f6nvigaa1v0865kvn09dcgu');
       Traitify.setVersion("v1");
-      var assessmentId = "c89ef4f3-7743-4767-a47d-124bfe261852";
-      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck", {
-        personalityTypes: {
-          target: ".personality-types"
-        }, personalityTraits: {
-          target: ".personality-traits"
-        }, careers: {
-          target: ".careers",
-          filter: true,
-          experience_levels: "1,5", // Comma deliminated list
-          number_of_matches: 20,
-          columns: 4 // Any number between 1 and 12, may want to adjust the max-width of tf-careers
-        }
-      })
+      assessmentId = "02e0cca5-7516-43a0-8de1-bec603aa8b26"
+
+        traitify = Traitify.ui.load(assessmentId, ".slide-deck")
+        traitify.slideDeck.onFinished(function(){
+          alert("HERE")
+        })
+    </script>
     </script>
   </body>
 </html>
