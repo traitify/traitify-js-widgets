@@ -20,8 +20,10 @@ tag = (type, attrs)->
   document.write(localTag.outerHTML)
 
 Number::times = (fn) ->
+  i = 0
   for [0..@valueOf()]
-    fn(_i)
+    fn(i)
+    i++
 
 UUID = ->
   s4 = ->

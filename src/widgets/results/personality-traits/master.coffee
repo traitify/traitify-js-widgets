@@ -22,7 +22,10 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
         personalityTraitsWidgetContainer.className += " ie"
     @tags.div("personalityTraits").appendTo("tfPersonalityTraits")
 
-    for index of traits = @data.get("PersonalityTraits").slice(0, 8)
+    traits = @data.get("PersonalityTraits").slice(0, 8)
+    index = 0
+    while index < traits.length
+
       trait = traits[index].personality_trait
 
       personalityType = trait.personality_type
@@ -37,7 +40,7 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
             backgroundImage: "url('#{personalityType.badge.image_medium}')"
           }}).appendTo(["personalityTraits.trait", index])
       @tags.div(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", index])
-
+      index++
     personalityTraitsWidgetContainer
   )
 )

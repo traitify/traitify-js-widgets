@@ -21,7 +21,7 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
     if Traitify.oldIE
         personalityTraitsWidgetContainer.className += " ie"
     @tags.div("personalityTraits").appendTo("tfPersonalityTraits")
-
+    _i = 0
     for trait in @data.get("PersonalityTraits").slice(0, 8)
       trait = trait.personality_trait
       personalityType = trait.personality_type
@@ -36,7 +36,7 @@ Traitify.ui.widget("personalityTraits", (widget, options)->
             backgroundImage: "url('#{personalityType.badge.image_medium}')"
           }}).appendTo(["personalityTraits.trait", _i])
       @tags.div(["personalityTraits.trait.definition"], trait.definition).appendTo(["personalityTraits.trait", _i])
-
+      _i++
     personalityTraitsWidgetContainer
   )
 )

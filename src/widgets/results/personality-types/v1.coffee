@@ -39,6 +39,7 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
     @tags.div("arrow").appendTo("personalityTypes")
     @tags.div("icon").appendTo("arrow")
 
+    _i = 0
     for pt in widget.data.get("PersonalityTypes").personality_types
       index = _i
       @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
@@ -48,7 +49,7 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
       @tags.img("badge", pt.personality_type.badge.image_medium).appendTo("personalityType")
 
       score = @tags.div("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
-
+      _i++
     personalityTypes
   )
 
