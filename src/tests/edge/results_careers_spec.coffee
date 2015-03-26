@@ -39,7 +39,7 @@ QUnit.asyncTest("Results Careers", (assert)->
 
   builder = Traitify.ui.load(playedAssessment, ".widget", options)
 
-  builder.results.onInitialize(->
+  builder.careers.onInitialize(->
     assert.equal(!document.querySelector(".tf-careers"), false, "Career container exists")
     QUnit.start()
   )

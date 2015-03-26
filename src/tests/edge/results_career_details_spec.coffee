@@ -31,8 +31,8 @@ QUnit.asyncTest("Results Career Details", (assert)->
   }
 
   builder = Traitify.ui.load(playedAssessment, ".widget", options)
-
-  builder.results.onInitialize(->
+  
+  builder.careers.onInitialize(->
     clickEvent = document.createEvent("MouseEvent")
     clickEvent.initMouseEvent("click", true, true, window,
       0, 0, 0, 0, 0, false, false, false, false, 0, null)

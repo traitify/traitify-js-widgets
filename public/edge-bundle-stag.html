@@ -24,9 +24,6 @@
     Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
     Traitify.setVersion("v1");
       options = {
-        slideDeck:{
-            showResults:false
-        },
         personalityTypes:{
             target:".personality-types"
         },
@@ -36,7 +33,7 @@
       }
       tfPersonalityTypes = Traitify.ui.load("c89ef4f3-7743-4767-a47d-124bfe261852", ".slide-deck", options)
       tfPersonalityTypes.slideDeck.onFinished(function(){
-        alert("ihere")
+          
       })
     </script>
   </body>

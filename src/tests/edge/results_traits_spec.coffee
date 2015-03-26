@@ -39,7 +39,7 @@ QUnit.asyncTest("Results Traits", (assert)->
 
   builder = Traitify.ui.load(playedAssessment, ".widget", options)
   
-  builder.results.onInitialize(->
+  builder.personalityTraits.onInitialize(->
     assert.equal(!document.querySelector(".trait"), false, "Personality types container exists")
     QUnit.start()
   )

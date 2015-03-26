@@ -27,11 +27,12 @@ QUnit.test("Slide Deck Hooks Exist", (assert)->
   assert.equal(!widgets.slideDeck.onAdvanceSlide, false, "on Advance Slide Event Succeeds!" )
 )
 
-QUnit.test("Slide Deck Widget Appears on Screen", (assert)->
-
+QUnit.asyncTest("Slide Deck Widget Appears on Screen", (assert)->
   Builder = Traitify.ui.load(unPlayedAssessment, ".widget", Object())
-  
-  assert.equal(!document.getElementsByClassName("slide active")[0], false, "on Initialize Event Succeeds!" )
+  Builder.slideDeck.onInitialize(->
+    assert.equal(!document.getElementsByClassName("slide active")[0], false, "on Initialize Event Succeeds!" )
+    QUnit.start()
+  )
 )
 
 QUnit.asyncTest("Slide Deck Widget Initializes with all expected nodes", (assert)->

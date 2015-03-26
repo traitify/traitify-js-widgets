@@ -94,3 +94,5 @@ class MockRequestWithError
   withCredentials: ->
     Object()
     this
+setTimeout = (func, notfunc)->
+  func()

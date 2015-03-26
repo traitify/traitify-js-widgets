@@ -52,6 +52,7 @@ Traitify.ui.widget("careers", (widget, options)->
               careersWidgetContainer.parentNode.removeChild(careersWidgetContainer)
               widget.views.remove("Careers Container")
               remakeWidget = Traitify.ui.widgets["careers"](widget.assessmentId, widget.target, widget.options)
+              widget.detailsWidget = remakeWidget
               remakeWidget.run()
               return false
           filterBoxes.appendChild(filterBox)
