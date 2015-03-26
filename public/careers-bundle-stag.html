@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -8,9 +9,12 @@
         width:100%;
       }
     </style>
-
+    <script>
+      Array.prototype.testing = function(){
+        console.log("SHOULD NOT BREAK!")
+      }
+    </script>
     <script src="https://cdn.traitify.com/js/widgets/careers.js"></script>
-
   </head>
   <body>
     <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
@@ -18,12 +22,12 @@
     <div class="personality-types your-class"></div>
     <div class="personality-traits your-class"></div>
     <script>
-      Traitify.setHost("https://api-sandbox.traitify.com");
-      Traitify.setPublicKey('ee5f6nvigaa1v0865kvn09dcgu');
+      Traitify.setHost("https://api.traitify.com");
+      Traitify.setPublicKey('625gflokgcvacu0ofjnv8kunf');
       Traitify.setVersion("v1");
-      assessmentId = "4700529c-9bed-4619-aeab-8dc3bc69120f"
+      assessmentId = "e4773461-b287-4fc1-b27d-426bcd115bbc";
 
-      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck")
+      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck");
     </script>
   </body>
 </html>
