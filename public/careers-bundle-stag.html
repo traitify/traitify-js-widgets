@@ -9,11 +9,7 @@
         width:100%;
       }
     </style>
-    <script>
-      Array.prototype.testing = function(){
-        console.log("SHOULD NOT BREAK!")
-      }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://cdn-stag.traitify.com/js/widgets/careers.js"></script>
   </head>
   <body>
@@ -22,12 +18,15 @@
     <div class="personality-types your-class"></div>
     <div class="personality-traits your-class"></div>
     <script>
-      Traitify.setHost("https://api.traitify.com");
-      Traitify.setPublicKey('625gflokgcvacu0ofjnv8kunf');
-      Traitify.setVersion("v1");
-      assessmentId = "e4773461-b287-4fc1-b27d-426bcd115bbc";
-
-      window.tfWidget = Traitify.ui.load(assessmentId, ".slide-deck");
+      $.post("/public_key").then(function(publicKey){
+        $.post("/assessments/?deck=career-deck").then(function(assessment){
+          Traitify.setHost("https://api-sandbox.traitify.com");
+          Traitify.setPublicKey(publicKey);
+          Traitify.setVersion("v1");
+          assessmentId = "e4773461-b287-4fc1-b27d-426bcd115bbc";
+          window.tfWidget = Traitify.ui.load(assessment.id, ".slide-deck");
+        })
+      })
     </script>
   </body>
 </html>
