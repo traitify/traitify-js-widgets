@@ -8,6 +8,8 @@ gulp.task("server", ->
   express = require('express')
   app = express()
   app.use(cors())
+
+  #CREATE ASSESSMENT
   app.post("/assessments", (req, res)->
     traitify.setHost(process.env.TF_HOST)
     traitify.setVersion("v1")
