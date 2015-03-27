@@ -22,6 +22,7 @@ gulp.task("server", ->
     res.send(process.env.TF_PUBLIC_KEY)
   )
 
+  # RENDER INDEX PAGE
   app.get("/", (req, res)->
     fileContents = fs.readFileSync("./public/index.html", "utf8")
     res.send(fileContents)
