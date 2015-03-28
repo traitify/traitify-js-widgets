@@ -34,6 +34,13 @@ gulp.task("server", ->
     res.send(fileContents)
   )
 
+  app.get("/assets/*", (req, res)->
+    res.setHeader('Content-Type', "text/css" )
+    a = req.originalUrl
+    fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
+    res.send(fileContents)
+  )
+
   app.get("/public/*", (req, res)->
     a = req.originalUrl
     fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")

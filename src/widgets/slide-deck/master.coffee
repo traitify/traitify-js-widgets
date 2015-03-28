@@ -70,6 +70,10 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
               callbacks = widgets.results.callbacks
               widgets.results = Traitify.ui.load("results", widget.assessmentId, widgets.results.target || widget.target, widgets.results.options)
               widgets.results.callbacks = callbacks
+            if widgets.famousPeople
+              callbacks = widgets.famousPeople.callbacks
+              widgets.famousPeople = Traitify.ui.load("famousPeople", widget.assessmentId, widgets.results.target || widget.target, widgets.results.options)
+              widgets.famousPeople.callbacks = callbacks
 
           widget.callbacks.trigger("Finished")
       ).catch(->
