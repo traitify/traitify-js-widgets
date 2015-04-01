@@ -41,6 +41,7 @@
             Traitify.setPublicKey($.cookie("publicKey"));
             Traitify.setVersion("v1");
             window.tfWidget = Traitify.ui.load($.cookie("assessmentId"), ".slide-deck", {
+              slideDeck: {showResults: false},
               results: {target: ".results-container > .results"},
               personalityTypes: {target: ".personality-types"},
               personalityTraits: {target: ".personality-traits"},

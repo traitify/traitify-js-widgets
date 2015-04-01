@@ -54,7 +54,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
         widget.callbacks.trigger("addSlide")
         if sentSlides == widget.data.get("slidesToPlayLength")
           widget.nodes.get("main").innerHTML = ""
-          if widget.options && widget.options.showResults != false
+          if widget.options && widgets.options.slideDeck && widget.options.slideDeck.showResults != false
             widgets = widget.widgets
 
             if widgets.personalityTypes
