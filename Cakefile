@@ -1,5 +1,5 @@
 # ** Cakefile Template ** is a Template for a common Cakefile that you may use in a coffeescript nodejs project.
-# 
+#
 # It comes baked in with 5 tasks:
 #
 # * build - compiles your src directory to your lib directory
@@ -117,7 +117,7 @@ task 'riot', 'riot generates files', -> riot -> log ":)", green
 
 # Internal Functions
 #
-# ## *walk* 
+# ## *walk*
 #
 # **given** string as dir which represents a directory in relation to local directory
 # **and** callback as done in the form of (err, results)
@@ -148,13 +148,13 @@ walk = (dir, done) ->
         results.push file
         done(null, results) unless --pending
 
-# ## *log* 
-# 
+# ## *log*
+#
 # **given** string as a message
 # **and** string as a color
 # **and** optional string as an explanation
 # **then** builds a statement and logs to console.
-# 
+#
 log = (message, color, explanation) -> console.log color + message + reset + ' ' + (explanation or '')
 
 # ## *launch*
@@ -223,7 +223,7 @@ bundle = (callback) ->
 
                 fs.appendFileSync(bundleFile, minifiedFileData);
                 if bundles[key].css.indexOf(fileName) == bundles[key].css.length - 1
-                  gzipme(bundleFile); 
+                  gzipme(bundleFile);
               )
 
 
@@ -245,9 +245,9 @@ bundle = (callback) ->
 # **and** pipe to process stdout and stderr respectively
 # **and** on child process exit emit callback if set and status is 0
 test = (watch, callback) ->
-  options = ['tests/support/runner/runner.js', "#{__dirname}/tests/v1.html" ]
+  options = ['tests/support/runner/runner.js', "#{__dirname}/tests/v1.html", 15]
   launch 'phantomjs', options, ->
-  options = ['tests/support/runner/runner.js', "#{__dirname}/tests/edge.html" ]
+  options = ['tests/support/runner/runner.js', "#{__dirname}/tests/edge.html", 15]
   launch 'phantomjs', options, ->
 
 # ## *unlinkIfCoffeeFile*
