@@ -4,7 +4,7 @@ Traitify.ui.widget("famousPeople", (widget, options)->
   widget.styleDependency("all")
   widget.styleDependency("results/famous-people")
 
-  
+
   ########################
   # INITIALIZE
   ########################
@@ -14,12 +14,23 @@ Traitify.ui.widget("famousPeople", (widget, options)->
     widget.callbacks.trigger("Initialize")
   )
 
+  collectFamousPeopleFromTypes = (personality_types) ->
+    famous_people = []
+    for personality_type in personality_types
+      for famous_person in personality_type.personality_type.famous_people
+        famous_people.push(famous_person)
+    famous_people[0..4].sort(-> 0.5 - Math.random())
+
   #########################
   # PARTIALS
   #########################
   widget.views.add("Famous People", ->
     personality_blend = widget.data.get("PersonalityTypes").personality_blend
-    people = personality_blend.famous_people.sort(-> 0.5 - Math.random())[0..4]
+    personality_types = widget.data.get("PersonalityTypes").personality_types
+    if personality_blend && personality_blend.famous_people
+      people = personality_blend.famous_people.sort(-> 0.5 - Math.random())[0..4]
+    else if personality_types[0].personality_type.famous_people
+      people = collectFamousPeopleFromTypes(personality_types)
 
     @tags.div("tfFamousPeopleContainerScroller")
 

@@ -41,7 +41,6 @@
             Traitify.setPublicKey($.cookie("publicKey"));
             Traitify.setVersion("v1");
             window.tfWidget = Traitify.ui.load($.cookie("assessmentId"), ".slide-deck", {
-              slideDeck: {showResults: false},
               results: {target: ".results-container > .results"},
               personalityTypes: {target: ".personality-types"},
               personalityTraits: {target: ".personality-traits"},
@@ -54,7 +53,7 @@
         }else{
           $.post("/public_key").then(function(publicKey){
             $.cookie("publicKey", publicKey)
-            $.post("/assessments/?deck=livingsocial").then(function(assessment){
+            $.post("/assessments/?deck=marriott-innovation").then(function(assessment){
               $.cookie("assessmentId", assessment.id)
               processAssessment()
             })
