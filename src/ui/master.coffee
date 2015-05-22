@@ -3,7 +3,7 @@
 # @example How to create A widget
 #   ui = new Ui
 #     ui.widget("name", ->
-#       console.log(@) 
+#       console.log(@)
 #     )
 #
 class Ui
@@ -70,7 +70,7 @@ class Ui
 
               if showResults
                 Traitify.ui.loadResults(nonSlideWidgets)
-            else 
+            else
               slideWidget.run()
 
         )

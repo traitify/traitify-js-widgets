@@ -3,7 +3,7 @@
 # @example How to create A widget
 #   ui = new Ui
 #     ui.widget("name", ->
-#       console.log(@) 
+#       console.log(@)
 #     )
 #
 class Ui
@@ -65,12 +65,14 @@ class Ui
           for slideWidgetName in Object.keys(slideWidgets)
             slideWidget = slideWidgets[slideWidgetName]
             slideWidget.data.add("Slides", slides)
-            if playedSlides.length == slides.length && showResults
+            if playedSlides.length == slides.length
               slideWidget.callbacks.trigger("Finished")
+
+              if showResults
+                Traitify.ui.loadResults(nonSlideWidgets)
             else
               slideWidget.run()
-          if showResults != false
-            Traitify.ui.loadResults(nonSlideWidgets)
+
         )
 
         for widgetName in Object.keys(nonSlideWidgets)

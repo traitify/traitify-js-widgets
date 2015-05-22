@@ -5,7 +5,7 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
   widget.styleDependency("results/personality-types")
 
   widget.callbacks.add("Initialize")
-  
+
   ########################
   # INITIALIZE
   ########################
@@ -39,9 +39,11 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
     @tags.div("arrow").appendTo("personalityTypes")
     @tags.div("icon").appendTo("arrow")
 
-    _i = 0
-    for pt in widget.data.get("PersonalityTypes").personality_types
-      index = _i
+    pts = widget.data.get("PersonalityTypes").personality_types
+
+    index = 0
+    while index < pts.length
+      pt = pts[index]
       @tags.div("personalityType", {"data-index": index}).appendTo("personalityTypes")
       name = @tags.div("name", Object(), pt.personality_type.name).appendTo("personalityType")
       name.style.color = "##{pt.personality_type.badge.color_1}"
@@ -49,7 +51,7 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
       @tags.img("badge", pt.personality_type.badge.image_medium).appendTo("personalityType")
 
       score = @tags.div("score", Object(), "#{Math.round(pt.score)} / 100").appendTo("personalityType")
-      _i++
+      index++
     personalityTypes
   )
 
@@ -65,5 +67,5 @@ Traitify.ui.widget("personalityTypes", (widget, options)->
         descriptionData = widget.data.get("PersonalityTypes").personality_types[index].personality_type.description
         description.innerHTML = descriptionData
   )
-  
+
 )

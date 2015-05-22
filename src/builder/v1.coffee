@@ -35,7 +35,7 @@ class Helpers
   # @example add(name, helper)
   #   helpers = new Helpers()
   #   helpers.add("noNegative", (negative)->
-  #     if negative < 0 
+  #     if negative < 0
   #        negative * -1
   #   )
   #
@@ -145,7 +145,7 @@ class Library
 #     #Do some sitting down
 #     callbacks.trigger("SitDown")
 #   main.onSitDown(->
-#     console.log("Triggered Sit Down Callback")  
+#     console.log("Triggered Sit Down Callback")
 #   )
 #
 class Callbacks
@@ -295,7 +295,7 @@ class Tags
   #   tags.tag("someTag", "div", {class: "blue"}, This is an awesome tag!")
   # @param [String] fullName for the tag
   # @param [String] type for the tag
-  # @param [Object] Options for the tag 
+  # @param [Object] Options for the tag
   # @param [String] Content for the tag
   #
   tag: (fullName, tag, attributes, content)->
@@ -376,7 +376,7 @@ class Data extends Library
     up: (number)->
       store[name] += number || 1
     down: (number)->
-      store[name] -= number || 1 
+      store[name] -= number || 1
   # Persist
   #
   # @example persist(name)
@@ -398,7 +398,7 @@ class Data extends Library
 #     @div("room.chairs", "data-number":6, "This Room Has 6 Chairs").appendTo("room") # <div class="chairs" ..></div>
 #     for [0..6]
 #       @div(["room.chairs.chair"], "This is a Chair").appendTo("room.chairs") # <div class="chair" ..></div>
-#     @div("table", "This Room Has 1 table").appendTo("room") 
+#     @div("table", "This Room Has 1 table").appendTo("room")
 #     @tags.get("room") # return the room with table and chairs
 #   )
 #
@@ -591,7 +591,6 @@ class Widget
           styleElement.styleSheet.cssText = Traitify.ui.styles[style]
         else
           styleInnerHTML = document.createTextNode(Traitify.ui.styles[style])
-          alert("THROUGH")
           styleElement.appendChild(styleInnerHTML)
       else
         styleElement.innerHTML = Traitify.ui.styles[style]
