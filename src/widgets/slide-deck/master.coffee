@@ -405,7 +405,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.initialization.events.add("Setup Data", ->
     slides = widget.data.get("Slides")
-    console.log(widget.data.store)
     playedSlideIds = widget.data.get("slideValues").map((slide)-> slide.id)
 
     widget.data.add("currentSlide", 1)
