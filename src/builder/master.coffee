@@ -51,8 +51,6 @@ TFWidget = (->
     constructor: ->
       @scope = "default"
     set: (name, item, @time = 2)->
-      time = new Date()
-      time.setTime(time.getTime() + (@time * 60000))
       expires = "expires="+time.toUTCString();
       item = JSON.stringify(item)
       document.cookie = "tf-cookie-#{@scope}-#{name}=#{item}; " + expires;
@@ -387,8 +385,8 @@ TFWidget = (->
     #   data.persist("someData")
     # @param [String] name for data
     #
-    persist: (name, time = 2)->
-      @persists[name] = time
+    persist: (name, time)->
+      @persists[name] = (new Date()).setFullYear((new Date()).getFullYear() + 1)
       undefined
 
 
