@@ -2,7 +2,11 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <style>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+	  <style>
       html, body{
         margin:0px;
         overflow-x:hidden;
@@ -10,7 +14,7 @@
       }
     </style>
 
-    <script src="/compiled/bundles/famous-people.js"></script>
+    <script src="/compiled/bundles/edge.js"></script>
 
 	</head>
 	<body>
@@ -18,16 +22,43 @@
 	<div class="results your-class"></div>
 	<div class="personality-types your-class"></div>
 	<div class="personality-traits your-class"></div>
-		<script>
-			Traitify.setHost("https://api-sandbox.traitify.com");
-			Traitify.setPublicKey("pdi8n7obh12cvv22vummkeoc69");
-			Traitify.setVersion("v1");
-			assessmentId = "5499829e-b1c9-4cde-802b-2646afd9740a"
+	<div class="famous-people"></div>
 
-		    traitify = Traitify.ui.load(assessmentId, ".slide-deck",{slideDeck: {showResults: false}})
-		    traitify.slideDeck.onFinished(function(){
-		    	alert("HERE")
-		    })
+	<script>
+		function processAssessment(){
+			Traitify.setHost("https://api-sandbox.traitify.com");
+			Traitify.setPublicKey($.cookie("publicKey"));
+			Traitify.setVersion("v1");
+			assessmentId = $.cookie("assessmentId")
+		  traitify = Traitify.ui.load(assessmentId, ".slide-deck",{
+				personalityTypes:{
+					target: ".personality-types"
+				},
+				results: {
+					target: ".results"
+				},
+				personalityTraits:{
+					target: ".personality-traits"
+				},
+				famousPeople:{
+					target: ".famous-people"
+				}
+			})
+		  traitify.slideDeck.onFinished(function(){
+		  })
+		}
+		if($.cookie("assessmentId")){
+				processAssessment()
+		}else{
+			$.post("/public_key").then(function(publicKey){
+				$.cookie("publicKey", publicKey)
+				$.post("/assessments/?deck=core").then(function(assessment){
+					$.cookie("assessmentId", assessment.id)
+					processAssessment()
+				})
+			})
+		}
+
 		</script>
 	</body>
 </html>

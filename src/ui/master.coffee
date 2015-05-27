@@ -6,7 +6,7 @@
 #       console.log(@)
 #     )
 #
-class Ui
+class TFUi
   constructor: ->
     @widgets = Object()
     @userAgent = navigator.userAgent
@@ -125,7 +125,7 @@ class Ui
   widget: (widgetName, callback)->
     styles = @styles
     Traitify.ui.widgets[widgetName] = (assessmentId, target, options)->
-      localWidget = new Widget(target)
+      localWidget = new TFWidget(target)
       localWidget.data.cookies.scope = assessmentId
       localWidget.build = callback
       localWidget.assessmentId = assessmentId
@@ -133,5 +133,5 @@ class Ui
       localWidget.build(localWidget)
       localWidget
 
-Traitify.ui = new Ui
+Traitify.ui = new TFUi
 Traitify.ui.styles = Object()

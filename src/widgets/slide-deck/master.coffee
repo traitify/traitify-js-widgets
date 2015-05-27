@@ -40,7 +40,6 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     })
     widget.data.set("slideValues", slideValues)
 
-
     widgets = widget.widgets
     widget.data.counter("sentSlides").up()
     sentSlides = widget.data.get("sentSlides")
@@ -86,8 +85,8 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.helpers.add("getProgressBarNumbers", (initialize)->
     slideLength = widget.data.get("Slides").length
-    completed = widget.data.get("SlidesCompleted").length 
-    notCompleted = widget.data.get("SlidesNotCompleted").length 
+    completed = widget.data.get("SlidesCompleted").length
+    notCompleted = widget.data.get("SlidesNotCompleted").length
     currentPosition = completed + widget.data.get("sentSlides")
     if !initialize
       currentPosition += 1
@@ -221,7 +220,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       touchobj = event.changedTouches[0]
       touchDifferenceX = Math.abs(touched.startx - parseInt(touchobj.clientX))
       touchDifferenceY = Math.abs(touched.starty - parseInt(touchobj.clientY))
-      if (touchDifferenceX < 60 && touchDifferenceX < 60)   
+      if (touchDifferenceX < 60 && touchDifferenceX < 60)
         callBack()
     )
   )
@@ -259,7 +258,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     afterNextSlide = widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide") + 1]
 
     if !widget.states.get("animating") && widget.nodes.get("nextSlide") && currentSlide && widget.actions.trigger("cacheCheck?")
-      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")] 
+      if !widget.data.get("SlidesNotCompleted")[widget.data.get("currentSlide")]
         widget.actions.trigger("loadingAnimation")
 
       widget.states.set("animating", true)
@@ -377,7 +376,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
       wifiLoading = widget.views.render("wifiLoading")
       wifiLoading.className += " fade-in"
       wifiLoading.appendTo("meNotMeContainer")
-      
+
     else if widget.views.tags.get("wifiLoading")
       widget.views.tags.get("wifiLoading").parentNode.removeChild(widget.views.tags.get("wifiLoading"))
       widget.views.tags.library.set("wifiLoading", null)
@@ -402,20 +401,19 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     window.addEventListener(orientationEvent, (event)->
       rotateEvent(event)
     , false)
-  )  
+  )
 
   widget.initialization.events.add("Setup Data", ->
     slides = widget.data.get("Slides")
-
-
+    console.log(widget.data.store)
     playedSlideIds = widget.data.get("slideValues").map((slide)-> slide.id)
-    
+
     widget.data.add("currentSlide", 1)
 
-    completed = widget.data.get("Slides").filter((slide)-> 
+    completed = widget.data.get("Slides").filter((slide)->
       slide.response || playedSlideIds.indexOf(slide.id) != -1
     )
-    uncompleted = widget.data.get("Slides").filter((slide)-> 
+    uncompleted = widget.data.get("Slides").filter((slide)->
       !slide.response && playedSlideIds.indexOf(slide.id) == -1
     )
 
@@ -426,7 +424,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
     widget.data.add("slidesToPlayLength", widget.data.get("SlidesNotCompleted").length)
 
   )
-      
+
   widget.initialization.events.add("Handle device type", ->
     widget.nodes.set("container", widget.views.render("slideDeckContainer"))
     if widget.device
@@ -444,7 +442,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   )
 
   widget.initialization.events.add("Actions", ->
-    if widget.device == "iphone"  ||  widget.device == "ipad" 
+    if widget.device == "iphone"  ||  widget.device == "ipad"
       widget.helpers.touch(widget.nodes.get("notMe"), ->
         widget.actions.trigger("notMe")
       )
@@ -467,7 +465,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
 
   widget.initialization.events.add("Setup Screen", ->
     widget.actions.trigger("setContainerSize")
-  
+
     window.onresize = ->
       if !widget.device
         widget.actions.trigger("setContainerSize")
