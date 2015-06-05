@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+<!doctype html >
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <style>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+	  <style>
       html, body{
         margin:0px;
         overflow-x:hidden;
@@ -10,45 +14,51 @@
       }
     </style>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="/compiled/bundles/famous-people.debug.js"></script>
 
-    <script src="http://cdn-stag.traitify.com/js/widgets/famous-people.js"></script>
-  </head>
-  <body>
-        <div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
-        <div class="results-container">
-          <div class="results"></div>
-        </div>
-        <div class="personality-types"></div>
-        <div class="personality-traits"></div>
-        <div class="celebrity-matches"></div>
+	</head>
+	<body>
+	<div class="slide-deck your-class"></div> <!-- Example Target Div for the widget -->
+	<div class="results your-class"></div>
+	<div class="personality-types your-class"></div>
+	<div class="personality-traits your-class"></div>
+	<div class="famous-people"></div>
 
-        <script>
-        function processAssessment(){
-          Traitify.setHost("https://api-sandbox.traitify.com");
-            Traitify.setPublicKey($.cookie("publicKey"));
-            Traitify.setVersion("v1");
-            window.tfWidget = Traitify.ui.load($.cookie("assessmentId"), ".slide-deck", {
-              results: {target: ".results-container > .results"},
-              personalityTypes: {target: ".personality-types"},
-              personalityTraits: {target: ".personality-traits"},
-              famousPeople: {target: ".celebrity-matches"}
-            });
+	<script>
+		function processAssessment(){
+			Traitify.setHost("https://api-sandbox.traitify.com");
+			Traitify.setPublicKey($.cookie("publicKey"));
+			Traitify.setVersion("v1");
+			assessmentId = $.cookie("assessmentId")
+		  traitify = Traitify.ui.load(assessmentId, ".slide-deck",{
+				personalityTypes:{
+					target: ".personality-types"
+				},
+				results: {
+					target: ".results"
+				},
+				personalityTraits:{
+					target: ".personality-traits"
+				},
+				famousPeople:{
+					target: ".famous-people"
+				}
+			})
+		  traitify.slideDeck.onFinished(function(){
+		  })
+		}
+		if($.cookie("assessmentId")){
+				processAssessment()
+		}else{
+			$.post("/public_key").then(function(publicKey){
+				$.cookie("publicKey", publicKey)
+				$.post("/assessments/?deck=core").then(function(assessment){
+					$.cookie("assessmentId", assessment.id)
+					processAssessment()
+				})
+			})
+		}
 
-        }
-        if($.cookie("assessmentId")){
-            processAssessment()
-        }else{
-          $.post("/public_key").then(function(publicKey){
-            $.cookie("publicKey", publicKey)
-            $.post("/assessments/?deck=core").then(function(assessment){
-              $.cookie("assessmentId", assessment.id)
-              processAssessment()
-            })
-          })
-        }
-
-        </script>
-  </body>
+		</script>
+	</body>
 </html>

@@ -598,6 +598,7 @@ TraitifyWidget = (->
     #
     styleDependency: (styleName)->
       @styles.push(styleName)
+    
     # Run
     #
     # @example run()

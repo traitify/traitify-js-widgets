@@ -15,12 +15,13 @@ qunit = require('gulp-qunit')
 clean = require('gulp-clean')
 watch = require('gulp-watch')
 runSequence = require('run-sequence')
+gitsha = require('gitsha')
 
 gulp.task("server", ->
   express = require('express')
   app = express()
   app.use(cors())
-
+  app.use(express.static('public'))
   #CREATE ASSESSMENT
   app.post("/assessments", (req, res)->
     traitify.setHost(process.env.TF_HOST)
@@ -34,26 +35,7 @@ gulp.task("server", ->
     res.send(process.env.TF_PUBLIC_KEY)
   )
 
-  # RENDER INDEX PAGE
-  app.get("/", (req, res)->
-    fileContents = fs.readFileSync("./public/index.html", "utf8")
-    res.send(fileContents)
-  )
-
   app.get("/tests/*", (req, res)->
-    a = req.originalUrl
-    fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
-    res.send(fileContents)
-  )
-
-  app.get("/assets/*", (req, res)->
-    res.setHeader('Content-Type', "text/css" )
-    a = req.originalUrl
-    fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
-    res.send(fileContents)
-  )
-
-  app.get("/public/*", (req, res)->
     a = req.originalUrl
     fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
     res.send(fileContents)
@@ -68,6 +50,18 @@ gulp.task("server", ->
 
   app.get("/compiled/*", (req, res)->
     res.setHeader('Content-Type', "text/javascript" )
+    a = req.originalUrl
+    fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
+    res.send(fileContents)
+  )
+
+  app.get("/", (req, res)->
+    a = req.originalUrl
+    fileContents = fs.readFileSync("./public/index.html", "utf8")
+    res.send(fileContents)
+  )
+
+  app.get("*", (req, res)->
     a = req.originalUrl
     fileContents = fs.readFileSync(req.originalUrl.slice(1, req.originalUrl.length), "utf8")
     res.send(fileContents)

@@ -125,6 +125,10 @@ class TFUi
   widget: (widgetName, callback)->
     styles = @styles
     Traitify.ui.widgets[widgetName] = (assessmentId, target, options)->
+      if typeof target != "string"
+        options = target
+        target = ".tf-"
+        target += widgetName.replace(/([A-Z])/g, "-$1").toLowerCase()
       localWidget = new TraitifyWidget(target)
       localWidget.data.cookies.scope = assessmentId
       localWidget.build = callback
