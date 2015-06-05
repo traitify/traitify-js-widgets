@@ -1,26 +1,40 @@
 {
   "name": "traitify-js-widgets",
   "version": "1.0.0",
-  "description": "Boilerplate for projects with SCSS, JS, images",
+  "description": "Traitify JS Widget Library",
   "main": "index.js",
   "scripts": {
     "start": "gulp"
   },
-  "author": "Katie Harron",
+  "author": "Carson Wright",
   "license": "BSD-2-Clause",
-  "devDependencies": {
+  "dependencies": {
     "cake": ">= 0.1.1",
     "coffee": ">= 1.0.0",
     "coffee-script": ">= 1.9.1",
+    "cors": "latest",
+    "express": "latest",
+    "gulp": "latest",
+    "gulp-clean": "^0.3.1",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-file": "^0.2.0",
+    "gulp-inject-string": "0.0.2",
+    "gulp-minify-css": "^1.1.5",
+    "gulp-qunit": "^1.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.5",
+    "gulp-watch": "^4.2.4",
+    "gulp-webserver": ">= 0.9.0",
+    "gulp-yaml": "^0.2.4",
     "gzipme": ">= 0.0.9",
     "minify": ">= 1.0.4",
     "riot": ">= 2.0.11",
-    "wrench": ">= 1.5.8",
-    "yamljs": ">= 0.2.0",
-    "cors": "latest",
-    "gulp-webserver": ">= 0.9.0",
+    "run-sequence": "^1.1.0",
     "traitify": "latest",
-    "express":"latest",
-    "gulp":"latest"
+    "wrench": ">= 1.5.8",
+    "yaml": "^0.2.3",
+    "yamljs": ">= 0.2.0"
   }
 }

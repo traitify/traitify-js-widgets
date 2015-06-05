@@ -3,6 +3,18 @@ webserver = require("gulp-webserver")
 cors = require("cors")
 traitify = require("traitify")
 fs = require("fs")
+coffee = require('gulp-coffee')
+concat = require('gulp-concat')
+yaml = require('yamljs')
+minify = require('minify')
+uglify = require('gulp-uglify')
+gutil = require('gulp-util')
+rename = require("gulp-rename")
+gzip = require('gulp-gzip')
+qunit = require('gulp-qunit')
+clean = require('gulp-clean')
+watch = require('gulp-watch')
+runSequence = require('run-sequence')
 
 gulp.task("server", ->
   express = require('express')
@@ -61,8 +73,139 @@ gulp.task("server", ->
     res.send(fileContents)
   )
 
-
   app.listen(9292)
 )
 
-gulp.task("default", ["server"])
+gulp.task('coffee', ->
+  return gulp.src('./src/**/*.coffee')
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('./compiled/'))
+)
+
+gulp.task("bundle:scripts", (done)->
+  bundles = fs.readFileSync("./bundles.yml", "utf8")
+  bundles = yaml.parse(bundles)
+
+  bundleNames = Object.keys(bundles)
+  for bundleName in bundleNames
+    jsContent = String()
+    for bundleJS in bundles[bundleName].js
+      jsContent += fs.readFileSync(bundleJS, "utf8")
+
+    fs.writeFileSync("./compiled/bundles-src/#{bundleName}.js", jsContent)
+    if bundleNames.indexOf(bundleName) + 1 == bundleNames.length
+      done()
+)
+
+gulp.task("bundle:styles", (done)->
+  bundles = fs.readFileSync("./bundles.yml", "utf8")
+  bundles = yaml.parse(bundles)
+  bundleNames = Object.keys(bundles)
+  for bundleName in bundleNames
+    styles = bundles[bundleName].css.map((css)->
+      "assets/stylesheets/#{css}"
+    )
+    for style in styles
+      cleanFileName = style.split("/").slice(0, style.split("/").length - 1).join("/")
+      cleanFileName = cleanFileName.replace("assets/stylesheets/widgets/", "")
+      u = "Traitify.ui.styles['#{cleanFileName}'] = '"
+      styleFile = fs.readFileSync(style)
+      minify(ext: ".css", data: styleFile, (error, minifiedFileData)->
+        minifiedFileData = u + minifiedFileData + "'"
+
+        fs.writeFileSync("./compiled/bundles-src/#{bundleName}_styles.js", minifiedFileData)
+        lastBundle = bundleNames.indexOf(bundleName) + 1 == bundleNames.length
+        lastStyle = styles.indexOf(style) + 1 == styles.length
+        if lastBundle && lastStyle
+          done()
+      )
+)
+
+gulp.task("bundle:merge", (done)->
+  bundles = fs.readFileSync("./bundles.yml", "utf8")
+  bundles = yaml.parse(bundles)
+
+  bundleNames = Object.keys(bundles)
+  for bundleName in bundleNames
+    js = fs.readFileSync("./compiled/bundles-src/#{bundleName}.js", "utf8")
+    style = fs.readFileSync("./compiled/bundles-src/#{bundleName}_styles.js", "utf8")
+    fs.writeFileSync("compiled/bundles/src/#{bundleName}.js", js + style)
+
+    if bundleNames.indexOf(bundleName) + 1 == bundleNames.length
+      done()
+)
+
+gulp.task("bundle:production", ->
+  return gulp.src("./compiled/bundles/src/*.js")
+  .pipe(uglify())
+  .pipe(rename((path)->
+    path.extname = ".min.js"
+  ))
+  .pipe(gulp.dest("./compiled/bundles"))
+)
+
+gulp.task("bundle:debug", ->
+  return gulp.src("./compiled/bundles/src/*.js")
+  .pipe(rename((path)->
+    path.extname = ".debug.js"
+  ))
+  .pipe(gulp.dest("./compiled/bundles"))
+)
+
+gulp.task('bundle:compress', ->
+    return gulp.src('./compiled/bundles/*.min.js')
+    .pipe(gzip())
+    .pipe(gulp.dest('./compiled/bundles'))
+)
+
+gulp.task('bundle:test', (done)->
+  runSequence("bundle", "test:bundles", done)
+)
+
+gulp.task('test:bundles', ->
+    return gulp.src('./tests/*.html')
+        .pipe(qunit())
+)
+
+gulp.task('clean', ->
+    return gulp.src([
+      './compiled/builder/*.js',
+      "./compiled/loader/*.js",
+      "./compiled/ui/*.js",
+      "./compiled/widgets/results/career-details/*.js",
+      "./compiled/widgets/results/careers/*.js",
+      "./compiled/widgets/results/default/*.js",
+      "./compiled/widgets/results/famous-people/*.js",
+      "./compiled/widgets/results/personality-traits/*.js",
+      "./compiled/widgets/results/personality-types/*.js",
+      "./compiled/widgets/slide-deck/*.js"
+    ], {read: false}).pipe(clean())
+)
+
+gulp.task('bundle:clean', ->
+    return gulp.src(['./compiled/bundles/*.js',
+      "./compiled/bundles/src/*.js",
+      "./compiled/bundles-src/*.js"
+    ], {read: false}).pipe(clean())
+)
+gulp.task("watch", ->
+  watch(['assets/**/*.css', 'src/**/*.coffee'],->
+      gulp.start("bundle:test")
+  )
+)
+
+gulp.task("bundle", (done)->
+  return runSequence(
+    "clean",
+    "coffee",
+    "bundle:clean",
+    "bundle:scripts",
+    "bundle:styles",
+    "bundle:merge",
+    "bundle:debug",
+    "bundle:production",
+    "bundle:compress",
+  done)
+)
+
+gulp.task("default", ["server", "bundle:test", "watch"])

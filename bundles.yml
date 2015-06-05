@@ -13,21 +13,6 @@ v1:
     - "widgets/results/default/master.css"
     - "widgets/results/personality-types/master.css"
     - "widgets/results/personality-traits/master.css"
-edge:
-  js:
-    - "api-client/compiled/api/master.js"
-    - "compiled/ui/master.js"
-    - "compiled/builder/master.js"
-    - "compiled/widgets/slide-deck/master.js"
-    - "compiled/widgets/results/default/master.js"
-    - "compiled/widgets/results/personality-types/master.js"
-    - "compiled/widgets/results/personality-traits/master.js"
-  css:
-    - "widgets/all/master.css"
-    - "widgets/slide-deck/master.css"
-    - "widgets/results/default/master.css"
-    - "widgets/results/personality-types/master.css"
-    - "widgets/results/personality-traits/master.css"
 careers:
   js:
     - "api-client/compiled/api/master.js"

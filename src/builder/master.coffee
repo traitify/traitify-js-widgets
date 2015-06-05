@@ -1,4 +1,5 @@
 TFWidget = (->
+  classes = Object()
   # Base Helpers with the ability to add More helpers.
   #
   # @example How use Helpers
@@ -46,12 +47,13 @@ TFWidget = (->
     #
     add: (name, helper)->
       @[name] = helper
+  classes.Helpers = Helpers
 
   class Cookie
     constructor: ->
       @scope = "default"
     set: (name, item, @time = 2)->
-      expires = "expires="+time.toUTCString();
+      expires = "expires="+@time;
       item = JSON.stringify(item)
       document.cookie = "tf-cookie-#{@scope}-#{name}=#{item}; " + expires;
 
@@ -66,6 +68,8 @@ TFWidget = (->
         i++
       if tfCookie
         return JSON.parse(tfCookie)
+  classes.Cookie = Cookie
+
 
   # Base Library for consistent storage and retrieval.
   #
@@ -133,6 +137,7 @@ TFWidget = (->
         delete @store[name]
       else
         false
+  classes.Library = Library
 
   # Base Callbacks Logic for simple Callback addition, setting, and triggering.
   #
@@ -188,6 +193,8 @@ TFWidget = (->
           callback()
         else
           library.add(name, callback)
+  classes.Callbacks = Callbacks
+
 
   # Tags Logic for Building tags with additional helpers
   #
@@ -336,6 +343,8 @@ TFWidget = (->
       if content
         element.innerHTML = content
       element
+  classes.Tags = Tags
+
 
   # Data Logic for storing data including a counter helper
   #
@@ -388,6 +397,7 @@ TFWidget = (->
     persist: (name, time)->
       @persists[name] = (new Date()).setFullYear((new Date()).getFullYear() + 1)
       undefined
+  classes.Data = Data
 
 
   # View Logic for building, and storing Views
@@ -444,6 +454,8 @@ TFWidget = (->
     #
     remove: (name, view)->
       @library.remove(name)
+  classes.Views = Views
+
 
   # Stack Logic
   #
@@ -475,6 +487,8 @@ TFWidget = (->
         for eventName in Object.keys(events)
           event = events[eventName]
           event()
+  classes.Stack = Stack
+
 
   # Actions Logic
   #
@@ -499,6 +513,8 @@ TFWidget = (->
     trigger: (name, options)->
       if @get(name)
         @get(name)(options)
+  classes.Actions = Actions
+
 
   # States Logic
   #
@@ -521,6 +537,7 @@ TFWidget = (->
       super(name, value)
     set: (name, value)->
       @add(name, value)
+  classes.States = States
 
   # Base to building a Widget
   #
@@ -545,6 +562,7 @@ TFWidget = (->
       @initialization = new Stack()
       @views.data = @data
       @assessmentId = ""
+      @cookies = new Cookie()
       @userAgent = Traitify.ui.userAgent
       @views.tags.library.add("main", document.querySelector(@target))
       @views.tags.library.get("main").innerHTML = ""
@@ -559,6 +577,7 @@ TFWidget = (->
       if @userAgent.match(/webOS/i)
         @device = "webos"
       @nodes = @views.tags.library
+      @classes = classes
       @
     # dataDependency
     #

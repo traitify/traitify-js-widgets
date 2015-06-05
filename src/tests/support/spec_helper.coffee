@@ -17,10 +17,3 @@ document.write("
 ")
 
 body = document.getElementsByTagName("body")[0]
-
-link("./support/qunit-1.14.0.css")
-div(id: "qunit")
-div(id: "qunit-fixture")
-
-require("../compiled/tests/support/mocker")
-

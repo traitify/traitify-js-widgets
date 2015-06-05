@@ -1,24 +1,3 @@
-require = (file, options, type)->
-  options ?= Object()
-  if [type, options].indexOf("css") != -1
-    document.write("<style href='#{options}.css'  rel='stylesheet' ></style>")
-  else
-    document.write("<script src='#{file}.js' #{if options.cover then "data-cover"}></script>")
-
-div = (attrs)->
-  tag("div", attrs)
-link = (href, attrs)->
-  attrs ?= Object()
-  attrs.href = href
-  attrs.rel = "stylesheet" 
-  tag("link", attrs)
-tag = (type, attrs)->
-  attrs ?= Object()
-  localTag = document.createElement(type)
-  for key in Object.keys(attrs)
-    localTag.setAttribute(key, attrs[key])
-  document.write(localTag.outerHTML)
-
 Number::times = (fn) ->
   i = 0
   for [0..@valueOf()]
@@ -79,20 +58,3 @@ class FactoryBoy
       @factoryStore[key](@, options, @buildIndex[key])
     else
       console.log("Your Factory #{key} Doesn't Exist")
-
-################################
-# Global
-################################
-require("./support/qunit-1.14.0")
-require("./support/blanket.min")
-require("./support/jquery.min")
-require("./support/qunit-composite/qunit-composite")
-require("./support/qunit-composite/qunit-composite", "css")
-
-require("../compiled/tests/support/spec_helper")
-
-params = Object()
-location.search.replace("?", "").split("&").forEach((value)->
-  value = value.split("=")
-  params[value[0]]=value[1]
-)

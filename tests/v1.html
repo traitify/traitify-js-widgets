@@ -10,41 +10,34 @@
 </head>
 <body>
   <script src="../compiled/tests/support/bootstrap.js"></script>
-  <script>
-    console.log("v1")
-   /*******************************
-    * External Libraries
-    *******************************/
-    require("../compiled/tests/support/factories/traitify_api_v1")
-    require("../compiled/tests/support/mocks/traitify_mocks_v1")
+  <script src="./support/qunit-1.14.0.js"></script>
+  <script src="./support/blanket.min.js"></script>
+  <script src="./support/jquery.min.js"></script>
 
-   /*****************************
-    * Libraries
-    *****************************/
-    require("../api-client/compiled/api/v1", {cover: true})
-    require("../compiled/ui/v1", {cover: true})
-    require("../compiled/builder/v1", {cover: true})
-    require("../compiled/widgets/slide-deck/v1", {cover: true})
-    require("../compiled/widgets/results/default/v1", {cover: true})
-    require("../compiled/widgets/results/personality-traits/v1", {cover: true})
-    require("../compiled/widgets/results/personality-types/v1", {cover: true})
-    require("../compiled/widgets/results/careers/v1", {cover: true})
-    require("../compiled/widgets/results/career-details/v1", {cover: true})
-    require("../assets/widgets/slide-deck/v1", "css")
+  <script src="./support/qunit-composite/qunit-composite.js"></script>
+  <link rel="stylesheet" href="./support/qunit-composite/qunit-composite.css" />
+  <script src="../compiled/tests/support/mocker.js"></script>
+  <script src="../compiled/tests/support/spec_helper.js"></script>
+  <link rel="stylesheet" href="./support/qunit-1.14.0.css" />
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
 
-   /*****************************
-    * Tests
-    *****************************/
-    require("../compiled/tests/v1/builder_spec")
-    require("../compiled/tests/v1/ui_spec")
-    require("../compiled/tests/v1/slide_deck_spec")
-    require("../compiled/tests/v1/results_spec")
-    require("../compiled/tests/v1/results_traits_spec")
-    require("../compiled/tests/v1/results_personality_types_spec")
-    require("../compiled/tests/v1/results_careers_spec")
-    require("../compiled/tests/v1/results_career_details_spec")
+  <script src="../compiled/tests/support/mocker.js"></script>
+  <!-- External Libraries -->
+  <script src="../compiled/tests/support/factories/traitify_api_v1.js"></script>
+  <script src="../compiled/tests/support/mocks/traitify_mocks_v1.js"></script>
 
-    div({id: "test-case-container"})
-  </script>
+  <!-- Libraries -->
+  <script src="../compiled/bundles/v1.debug.js"></script>
+
+  <!-- Tests -->
+  <script src="../compiled/tests/v1/builder_spec.js"></script>
+  <script src="../compiled/tests/v1/ui_spec.js"></script>
+  <script src="../compiled/tests/v1/slide_deck_spec.js"></script>
+  <script src="../compiled/tests/v1/results_spec.js"></script>
+  <script src="../compiled/tests/v1/results_traits_spec.js"></script>
+  <script src="../compiled/tests/v1/results_personality_types_spec.js"></script>
+
+  <div id="test-case-container"></div>
 </body>
 </html>
