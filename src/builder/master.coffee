@@ -1,4 +1,4 @@
-TFWidget = (->
+TraitifyWidget = (->
   classes = Object()
   # Base Helpers with the ability to add More helpers.
   #
@@ -549,6 +549,8 @@ TFWidget = (->
   #
   class Widget
     version: "3.0.0 HNA"
+    for className in Object.keys(classes)
+      @[className] = classes[className]
     constructor: (@target)->
       @views = new Views()
       @library = new Library()
@@ -577,7 +579,6 @@ TFWidget = (->
       if @userAgent.match(/webOS/i)
         @device = "webos"
       @nodes = @views.tags.library
-      @classes = classes
       @
     # dataDependency
     #

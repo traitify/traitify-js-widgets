@@ -125,7 +125,7 @@ class TFUi
   widget: (widgetName, callback)->
     styles = @styles
     Traitify.ui.widgets[widgetName] = (assessmentId, target, options)->
-      localWidget = new TFWidget(target)
+      localWidget = new TraitifyWidget(target)
       localWidget.data.cookies.scope = assessmentId
       localWidget.build = callback
       localWidget.assessmentId = assessmentId

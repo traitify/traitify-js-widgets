@@ -1,0 +1,78 @@
+.tf-personality-traits{
+  font-family: "Source Sans Pro";
+}
+.tf-personality-traits.ie{
+  font-family: arial;
+}
+.tf-personality-traits div, .tf-personality-traits img{
+	box-sizing: content-box;
+} 
+.tf-personality-traits .your-top-traits{
+  font-size: 24px;
+  margin: 20px;
+  text-align: center;
+}
+.tf-personality-traits .personality-traits{
+  max-width:800px;
+  margin:0px auto;
+  text-align: center;
+}
+.tf-personality-traits .personality-traits .trait{
+  border-top: 6px solid;
+  border-color: #99aaff;
+  display: inline-block;
+  width: 180px;
+  margin: 5px;
+  vertical-align:top;
+  background-color:#fff;
+  height: 180px;
+  position:relative;
+  line-height: 1.2em;
+  text-align:center;
+}
+.tf-personality-traits.ie .personality-traits .trait{
+  height:280px;
+}
+@media (max-width: 768px) {
+  .tf-personality-traits .personality-traits .trait{
+    width:45%;
+  }
+}
+.tf-personality-traits .personality-traits .trait .name{
+  font-family: "Adelle Sans Bold";
+  margin: 20px 20px;
+  margin-bottom: 0px;
+  display: inline-block;
+  font-weight: 600;
+  text-align: left;
+}
+.tf-personality-traits.ie .personality-traits .trait .name{
+    display:block;
+    text-align:center;
+}
+.tf-personality-traits .personality-traits .trait .definition{
+  padding: 0px 20px;
+  margin-top: 10px;
+  font-size:14px;
+  font-weight: 400;
+  text-align: left;
+}
+.tf-personality-traits.ie .personality-traits .trait .definition{
+}
+.tf-personality-traits .personality-traits .trait .background{
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  top: 10px;
+  position:absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: .15
+}
+.tf-personality-traits.ie .personality-traits .trait .background{
+  margin: 0px auto;
+  width: 50px;
+  height: 50px;
+  position:relative;
+}

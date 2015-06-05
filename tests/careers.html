@@ -1,0 +1,44 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Traitify JS Tests</title>
+  <style>
+    .personality-types, .personality-traits, .careers, #test-case-container, .widget{
+      display:none
+    }
+  </style>
+</head>
+<body>
+  <script src="../compiled/tests/support/bootstrap.js"></script>
+  <script src="./support/qunit-1.14.0.js"></script>
+  <script src="./support/blanket.min.js"></script>
+  <script src="./support/jquery.min.js"></script>
+
+  <script src="./support/qunit-composite/qunit-composite.js"></script>
+  <link rel="stylesheet" href="./support/qunit-composite/qunit-composite.css" />
+  <script src="../compiled/tests/support/mocker.js"></script>
+  <script src="../compiled/tests/support/spec_helper.js"></script>
+  <link rel="stylesheet" href="./support/qunit-1.14.0.css" />
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+
+  <script src="../compiled/tests/support/mocker.js"></script>
+  <!-- External Libraries -->
+  <script src="../compiled/tests/support/factories/traitify_api_v1.js"></script>
+  <script src="../compiled/tests/support/mocks/traitify_mocks_v1.js"></script>
+
+  <!-- Libraries -->
+  <script src="../compiled/bundles/careers.debug.js"></script>
+
+  <!-- Tests -->
+  <script src="../compiled/tests/v1/builder_spec.js"></script>
+  <script src="../compiled/tests/v1/ui_spec.js"></script>
+  <script src="../compiled/tests/v1/slide_deck_spec.js"></script>
+  <script src="../compiled/tests/v1/results_spec.js"></script>
+  <script src="../compiled/tests/v1/results_traits_spec.js"></script>
+  <script src="../compiled/tests/v1/results_personality_types_spec.js"></script>
+  <script src="../compiled/tests/v1/results_career_details_spec.js"></script>
+  <script src="../compiled/tests/v1/results_careers_spec.js"></script>
+  <div id="test-case-container"></div>
+</body>
+</html>

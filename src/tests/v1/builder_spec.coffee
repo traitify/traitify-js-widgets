@@ -11,8 +11,8 @@ QUnit.module( "Testing Builder", {
     testCaseContainer.innerHTML = ""
 
     testCaseContainer.appendChild(@testDiv)
-    @widget = new TFWidget(".builder-test-initialization")
-    @cs = @widget.classes
+    @widget = new TraitifyWidget(".builder-test-initialization")
+    @cs = TraitifyWidget
   , teardown: ->
     Traitify.XHR = XMLHttpRequest
 })
@@ -67,7 +67,7 @@ QUnit.test("Has Tags addTag works", (assert)->
 )
 
 QUnit.test("callbacks work", (assert)->
-  parent = new TFWidget(".builder-test-initialization")
+  parent = new TraitifyWidget(".builder-test-initialization")
   callbacks = new @cs.Callbacks(parent)
   callbacks.states.add("bandOfBrothers", false)
   callbacks.add("Awesome")
@@ -175,7 +175,7 @@ QUnit.test("Promises catch works whether the Promise errors first or not", (asse
 )
 
 QUnit.test("Check that the widget can render", (assert)->
-  widget = new TFWidget(".builder-test-initialization")
+  widget = new TraitifyWidget(".builder-test-initialization")
   contentToRender = "Here it is!"
   widget.views.add("awesome", (plusExtraData)->
     contentToRender + plusExtraData

@@ -105,15 +105,18 @@ gulp.task("bundle:styles", (done)->
     styles = bundles[bundleName].css.map((css)->
       "assets/stylesheets/#{css}"
     )
+
+    fs.writeFileSync("./compiled/bundles-src/#{bundleName}_styles.js", "")
+
     for style in styles
       cleanFileName = style.split("/").slice(0, style.split("/").length - 1).join("/")
       cleanFileName = cleanFileName.replace("assets/stylesheets/widgets/", "")
-      u = "Traitify.ui.styles['#{cleanFileName}'] = '"
       styleFile = fs.readFileSync(style)
       minify(ext: ".css", data: styleFile, (error, minifiedFileData)->
-        minifiedFileData = u + minifiedFileData + "'"
+        u = "Traitify.ui.styles['#{cleanFileName}'] = '"
+        minifiedFileData = u + minifiedFileData + "';\n"
 
-        fs.writeFileSync("./compiled/bundles-src/#{bundleName}_styles.js", minifiedFileData)
+        fs.appendFileSync("./compiled/bundles-src/#{bundleName}_styles.js", minifiedFileData)
         lastBundle = bundleNames.indexOf(bundleName) + 1 == bundleNames.length
         lastStyle = styles.indexOf(style) + 1 == styles.length
         if lastBundle && lastStyle
@@ -129,7 +132,7 @@ gulp.task("bundle:merge", (done)->
   for bundleName in bundleNames
     js = fs.readFileSync("./compiled/bundles-src/#{bundleName}.js", "utf8")
     style = fs.readFileSync("./compiled/bundles-src/#{bundleName}_styles.js", "utf8")
-    fs.writeFileSync("compiled/bundles/src/#{bundleName}.js", js + style)
+    fs.writeFileSync("compiled/bundles/src/#{bundleName}.js", js + "\n" + style)
 
     if bundleNames.indexOf(bundleName) + 1 == bundleNames.length
       done()
