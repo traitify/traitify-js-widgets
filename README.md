@@ -131,6 +131,29 @@ The famousPeople widget displays famous people associated with an assessment's p
 ![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/famous_people.jpg "Widgets")
 
 
+#### Careers and Career Details
+The `careers` widget displays careers matched to an assessment's personality traits. The careers widget includes career matches and a career details modal when a career is clicked. You must include the widgets bundle that includes the `careers` widget as outlined below.
+
+```HTML
+<script src="https://cdn.traitify.com/js/widgets/careers.js"></script>
+
+<div class="traitify-widget"></div>
+
+<script>
+    var traitify = Traitify.ui.load("careers", assessmentId, ".careers", {
+      careers: {
+        experience_levels: "1,2", // Comma deliminated list
+        number_of_matches: 5, // max 100
+        columns: 5
+      }
+    });
+</script>
+ ```
+
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/careers.jpg "Widgets")
+![Widgets](https://s3.amazonaws.com/traitify-js-widgets-docs/images/career_details.jpg "Widgets")
+
+
 ### Examples of different use cases at the bottom
 
 #### Standard Assessment and results
