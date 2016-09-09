@@ -137,7 +137,7 @@ The `careers` widget displays careers matched to an assessment's personality tra
 ```HTML
 <script src="https://cdn.traitify.com/js/widgets/careers.js"></script>
 
-<div class="traitify-widget"></div>
+<div class="careers"></div>
 
 <script>
     var traitify = Traitify.ui.load("careers", assessmentId, ".careers", {
