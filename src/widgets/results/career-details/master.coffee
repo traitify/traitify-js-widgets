@@ -63,7 +63,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       mean.innerHTML = """
         <div class="tf-stat-title">Salary Mean:</div>
         <div class="tf-stat-data">
-          $""" + career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
+          """ + (career.salary_projection ? "$"+career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : "not available") + """
         </div>
       """
       stats.appendChild(mean)
@@ -89,7 +89,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       median.innerHTML = """
         <div class="tf-stat-title">Salary Median:</div>
         <div class="tf-stat-data">
-          $""" + career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
+          """ + (career.salary_projection ? "$"+career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : "not available") + """
         </div>
       """
       stats.appendChild(median)
@@ -111,7 +111,7 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       growth.innerHTML = """
         <div class="tf-stat-title">Job Growth:</div>
         <div class="tf-stat-data">
-          """ + career.employment_projection.percent_growth_2022 + """%
+          """ + (career.employment_projection ? career.employment_projection.percent_growth_2022+"%" : "not available") + """
         </div>
       """
       stats.appendChild(growth)
