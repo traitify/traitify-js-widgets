@@ -54,7 +54,9 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
         widget.callbacks.trigger("addSlide")
         if sentSlides == widget.data.get("slidesToPlayLength")
           widget.nodes.get("main").innerHTML = ""
-          if widget.options && widget.options.showResults != false
+          widget.options ?= Object()
+          widget.options.slideDeck ?= Object()
+          if widget.options && widget.options.slideDeck.showResults != false
             widgets = widget.widgets
 
             if widgets.personalityTypes
@@ -70,6 +72,10 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
               callbacks = widgets.results.callbacks
               widgets.results = Traitify.ui.load("results", widget.assessmentId, widgets.results.target || widget.target, widgets.results.options)
               widgets.results.callbacks = callbacks
+            if widgets.famousPeople
+              callbacks = widgets.famousPeople.callbacks
+              widgets.famousPeople = Traitify.ui.load("famousPeople", widget.assessmentId, widgets.famousPeople.target || widget.target, widgets.famousPeople.options)
+              widgets.famousPeople.callbacks = callbacks
 
           widget.callbacks.trigger("Finished")
       ).catch(->
@@ -114,7 +120,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.views.add("slideDeckContainer", ->
     slidesContainer = @tags.div("tfSlideDeckContainer")
     cover = @tags.div("cover")
-    @tags.tag("rotateBack", "object", {"data":"https://s3.amazonaws.com/traitify-cdn/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
+    @tags.tag("rotateBack", "object", {"data":"https://cdn.traitify.com/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
     slidesContainer.appendChild(cover)
 
     slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
