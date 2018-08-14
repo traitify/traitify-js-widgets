@@ -187,7 +187,7 @@
 }
 .tf-slide-deck-container .caption{
   background-color:rgba(0,0,0, .5);
-  background-image:url("https://s3.amazonaws.com/traitify-cdn/images/black_transparent/50.png");
+  background-image:url("http://cdn.traitify.com/images/black_transparent/50.png");
   padding:15px 0px 10px 0px;
   text-align:center;
   font-size:28px;
@@ -199,7 +199,7 @@
   height:10px;
   display:block;
   background-color:rgba(255, 255, 255, .5);
-  background-image:url("https://s3.amazonaws.com/traitify-cdn/images/white_transparent/50.png");
+  background-image:url("http://cdn.traitify.com/images/white_transparent/50.png");
   position:absolute;
   z-index:1;
   width: 100%;

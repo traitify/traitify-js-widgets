@@ -2,18 +2,18 @@
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
-  src: local('Source Sans Pro'), local('Source Sans Pro'), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/source-sans-pro.woff") format('woff');
+  src: local('Source Sans Pro'), local('Source Sans Pro'), url("http://cdn.traitify.com/assets/fonts/source-sans-pro.woff") format('woff');
 }
 @font-face{
-  font-family: "Adelle Sans Bold"; 
+  font-family: "Adelle Sans Bold";
   font-style: bold;
   font-weight: 800;
-	src: local("Adelle Sans Bold"), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/adelle-sans-bold.woff") format("woff");
+  src: local("Adelle Sans Bold"), url("http://cdn.traitify.com/assets/fonts/adelle-sans-bold.woff") format("woff");
 }
 
 @font-face{
-  font-family: "Adelle Sans"; 
+  font-family: "Adelle Sans";
   font-style: normal;
   font-weight: 400;
-	src: local("Adelle Sans"), url("https://s3.amazonaws.com/traitify-cdn/assets/fonts/adelle-sans.woff") format("woff");
+  src: local("Adelle Sans"), url("http://cdn.traitify.com/assets/fonts/adelle-sans.woff") format("woff");
 }
