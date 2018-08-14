@@ -166,7 +166,7 @@ log = (message, color, explanation) -> console.log color + message + reset + ' '
 # **and** pipe to process stdout and stderr respectively
 # **and** on child process exit emit callback if set and status is 0
 launch = (cmd, options=[], callback) ->
-  cmd = which(cmd) if which
+  cmd = which(cmd) if which && cmd.split("/").length == 1
   app = spawn cmd, options
   app.stdout.pipe(process.stdout)
   app.stderr.pipe(process.stderr)
@@ -190,7 +190,7 @@ build = (watch, callback) ->
   options = ['-c', '-b', '-o' ]
   options = options.concat files
   options.unshift '-w' if watch
-  launch 'coffee', options, callback
+  launch 'node_modules/coffee-script/bin/coffee', options, callback
 
 bundle = (callback) ->
   process.chdir('api-client')
