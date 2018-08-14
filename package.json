@@ -10,17 +10,18 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "cake": ">= 0.1.1",
+    "codo": "^2.1.2",
     "coffee": ">= 1.0.0",
     "coffee-script": ">= 1.9.1",
+    "cors": "latest",
+    "express": "latest",
+    "gulp": "latest",
+    "gulp-webserver": ">= 0.9.0",
     "gzipme": ">= 0.0.9",
     "minify": ">= 1.0.4",
     "riot": ">= 2.0.11",
-    "wrench": ">= 1.5.8",
-    "yamljs": ">= 0.2.0",
-    "cors": "latest",
-    "gulp-webserver": ">= 0.9.0",
     "traitify": "latest",
-    "express":"latest",
-    "gulp":"latest"
+    "wrench": ">= 1.5.8",
+    "yamljs": ">= 0.2.0"
   }
 }
