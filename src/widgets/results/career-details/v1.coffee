@@ -58,12 +58,14 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       stats = @tags.div(["tfCareerDetailsBody.tfStats"])
 
       # Salary Mean
+      meanContent = "Unavailable" unless career.salary_projection
+      meanContent ?= "$" + career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
       mean = @tags.div("tf-mean")
       mean.className += " tf-stat"
       mean.innerHTML = """
         <div class="tf-stat-title">Salary Mean:</div>
         <div class="tf-stat-data">
-          $""" + career.salary_projection.annual_salary_mean.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
+          """ + meanContent + """
         </div>
       """
       stats.appendChild(mean)
@@ -84,12 +86,14 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       stats.appendChild(future)
 
       # Salary Median
+      medianContent = "Unavailable" unless career.salary_projection
+      medianContent ?= "$" + career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
       median = @tags.div("tf-median")
       median.className += " tf-stat"
       median.innerHTML = """
         <div class="tf-stat-title">Salary Median:</div>
         <div class="tf-stat-data">
-          $""" + career.salary_projection.annual_salary_median.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + """
+          """ + medianContent + """
         </div>
       """
       stats.appendChild(median)
@@ -106,12 +110,14 @@ Traitify.ui.widget("careerDetails", (widget, options)->
       stats.appendChild(green)
 
       # Job Growth
+      growthContent = "Unavailable" unless career.employment_projection
+      growthContent ?= career.employment_projection.percent_growth_2022 + "%"
       growth = @tags.div("tf-growth")
       growth.className += " tf-stat"
       growth.innerHTML = """
         <div class="tf-stat-title">Job Growth:</div>
         <div class="tf-stat-data">
-          """ + career.employment_projection.percent_growth_2022 + """%
+          """ + growthContent + """
         </div>
       """
       stats.appendChild(growth)
