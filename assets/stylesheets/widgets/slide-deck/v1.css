@@ -44,7 +44,7 @@
   top:40%;
 }
 .tf-slide-deck-container .slides .loading .left-dot{
-  background-color:rgb(5, 143, 196); 
+  background-color:rgb(5, 143, 196);
   width:20px;
   height:20px;
 }
@@ -139,7 +139,7 @@
 .tf-slide-deck-container .wifi-loading .loading .refresh-button{
   cursor: pointer;
 }
-@-webkit-keyframes pulse-animation { 
+@-webkit-keyframes pulse-animation {
     0% { opacity: 0.3; }
     10% { opacity: 0.2; }
     50% { opacity: .9;}
@@ -179,15 +179,15 @@
   background-color:rgb(203, 78, 78);
 }
 .tf-slide-deck-container .me-not-me-container .not-me:active{
-  background-color:rgb(180, 70, 70); 
+  background-color:rgb(180, 70, 70);
 }
 
 .tf-slide-deck-container .me-not-me-container .me:active{
-  background-color:rgb(0, 122, 156); 
+  background-color:rgb(0, 122, 156);
 }
 .tf-slide-deck-container .caption{
   background-color:rgba(0,0,0, .5);
-  background-image:url("http://cdn.traitify.com/images/black_transparent/50.png");
+  background-image:url("https://cdn.traitify.com/images/black_transparent/50.png");
   padding:15px 0px 10px 0px;
   text-align:center;
   font-size:28px;
@@ -199,7 +199,7 @@
   height:10px;
   display:block;
   background-color:rgba(255, 255, 255, .5);
-  background-image:url("http://cdn.traitify.com/images/white_transparent/50.png");
+  background-image:url("https://cdn.traitify.com/images/white_transparent/50.png");
   position:absolute;
   z-index:1;
   width: 100%;
@@ -296,7 +296,7 @@
   font-size:17px;
 }
 .small.tf-slide-deck-container .me-not-me-container{
-    font-size:15px;  
+    font-size:15px;
 }
 .small.tf-slide-deck-container .slide .caption{
   font-size:18px;

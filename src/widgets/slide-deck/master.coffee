@@ -120,7 +120,7 @@ Traitify.ui.widget("slideDeck", (widget, options = Object())->
   widget.views.add("slideDeckContainer", ->
     slidesContainer = @tags.div("tfSlideDeckContainer")
     cover = @tags.div("cover")
-    @tags.tag("rotateBack", "object", {"data":"http://cdn.traitify.com/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
+    @tags.tag("rotateBack", "object", {"data":"https://cdn.traitify.com/assets/images/js/landscape-phone.svg",type:"image/svg+xml" }).appendTo("cover")
     slidesContainer.appendChild(cover)
 
     slidesLeft = widget.helpers.getProgressBarNumbers("initializing")
