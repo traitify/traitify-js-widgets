@@ -1,3 +1,5 @@
+# THIS LIBRARY IS BEING DEPRECATED, THERE IS A NEWER, FASTER, BETTER VERSION AVAILABLE AT [https://github.com/traitify/traitify-widgets](https://github.com/traitify/traitify-widgets).
+
 ### Definition of Terms
 A widget is anything graphical element that is self contained, a widget builder is a library for that supports the self contained library (widget), and a slider is a deck of slides that is displayed in the user interface to gather personality information. By clicking me or not me per slide (Image with caption), the user is able to give the api feedback on particular elements of personality that traitify's psychology team has deamed valuable.
 
